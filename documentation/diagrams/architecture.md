@@ -7,11 +7,13 @@ classDiagram
     class MtskGame{
     }
     class GameEngine{
+    <<interface>>
         +processInput()
         +updateGame(elapsed)
         +render()
     }
     class View{
+    <<interface>>
     +render()
     }
     

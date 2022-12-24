@@ -12,3 +12,11 @@ build/
 *.class
 *.DS_Store
 deleteme/
+
+# temporary latex files
+*.toc
+*.gz
+*.log
+*.fls
+*.aux
+*.fdb_latexmk
