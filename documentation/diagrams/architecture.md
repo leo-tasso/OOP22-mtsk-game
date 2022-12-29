@@ -1,30 +1,27 @@
 ::: mermaid
 classDiagram
-    MtskGame o-- GameEngine
     GameEngine "1:N" o-- Minigame
-    Minigame o-- MinigameModel
+    Minigame <|.. MinigameImpl
     GameEngine <.. View
-    class MtskGame{
-    }
     class GameEngine{
     <<interface>>
-        +processInput()
-        +updateGame(elapsed)
-        +render()
+        processInput()
+        updateGame(elapsed)
+        render()
     }
     class View{
     <<interface>>
     +render()
+    +renderGameOver()
     }
     
     class Minigame {
     <<interface>>
     +processInput()
     +updateGame(elapsed)
-    +render()
     }
-    class MinigameModel {
-    <<interface>>
-    List~GameObjects~ Objects
+    class MinigameImpl {
+    -List~GameObjects~ Objects
+    +List~GameObjects getObjects()
     }
 :::
