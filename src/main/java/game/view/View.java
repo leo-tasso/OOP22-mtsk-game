@@ -1,4 +1,4 @@
-package game;
+package game.view;
 
 /**
  * Main view interface, shows the game.
