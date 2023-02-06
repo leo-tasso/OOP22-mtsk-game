@@ -2,10 +2,11 @@ package game.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -24,8 +25,8 @@ public class SwingView implements View {
     private static final int SIZE = 700;
     private final Engine controller;
     private List<Minigame> l;
-    private List<JPanel> panel;
-    final JFrame frame;
+    private final List<JPanel> panel;
+    private final JFrame frame;
 
     /**
      * A constructor for the window view of the game.
@@ -35,9 +36,10 @@ public class SwingView implements View {
     public SwingView(final Engine controller) {
         this.controller = controller;
         this.l = this.controller.getMinigameList();
+        panel = new ArrayList<>();
         panel.add(new MinigamePanel());
         frame = new JFrame("MTSK-Game");
-        frame.setLayout(new FlowLayout());
+        frame.setLayout(new GridLayout(1, 2));
         frame.getContentPane().add(panel.get(0));
         frame.setSize(SIZE, SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,10 +51,17 @@ public class SwingView implements View {
      */
     @Override
     public void render() {
-        if(!l.equals(controller.getMinigameList())){
-            frame.getContentPane().add(new MinigamePanel());
+
+        l = controller.getMinigameList();
+        if (controller.getMinigameList().size() > panel.size()) {
+            final JPanel newPanel = new MinigamePanel();
+            frame.getContentPane().add(newPanel);
+            panel.add(newPanel);
+            frame.setVisible(true);
         }
-        panel.forEach(p->p.repaint());
+
+        panel.forEach(p -> p.repaint());
+
     }
 
     @Override
@@ -66,7 +75,9 @@ public class SwingView implements View {
 
         @Override
         public void paint(final Graphics g) {
-            l.stream().flatMap(m -> m.getGameObjects().stream()).forEach(o -> this.paintObj(o, g));
+            // l.stream().flatMap(m -> m.getGameObjects().stream()).forEach(o ->
+            // this.paintObj(o, g));
+            l.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> this.paintObj(o, g));
         }
 
         private void paintObj(final GameObject o, final Graphics g) {

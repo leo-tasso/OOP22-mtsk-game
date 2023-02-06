@@ -8,9 +8,9 @@ import api.Vector2D;
  */
 public class Circle extends GameObject {
 
-    private static final int HIGH_BOUND = 600;
-    private static final int LOW_BOUND = 300;
-    private static final double SPEED = 0.1;
+    private static final int HIGH_BOUND = 700;
+    private static final int LOW_BOUND = 0;
+    private static final double SPEED = 0.9;
 /**
  * Constructor for the gameobject circle.
  * @param coor the initial coordinate.

@@ -12,6 +12,7 @@ import game.view.View;
  * Main game engine responsible of controlling the game.
  */
 public class Engine {
+    private static final long TIME_TO_NEXT_MINIGAME = 4000L;
     private static final long PERIOD = 10;
     private final List<Minigame> minigameList = new LinkedList<>();
 
@@ -30,14 +31,16 @@ public class Engine {
      * The loop performing each frame update according to the game loop pattern.
      */
     public void mainLoop() {
+        final Long startTime = System.currentTimeMillis();
         minigameList.add(new TestMinigame());
         long previousFrame = System.currentTimeMillis();
         while (!minigameList.stream().anyMatch(Minigame::isGameOver)) {
             final long currentFrame = System.currentTimeMillis();
             long elapsed = currentFrame - previousFrame; // NOPMD
-            if (System.currentTimeMillis() > 1000 && minigameList.size() < 2) {
+            if (System.currentTimeMillis() - startTime > TIME_TO_NEXT_MINIGAME && minigameList.size() < 2) {
                 minigameList.add(new TestMinigame());
             }
+
             // processInput();
             updateGame(elapsed);
             render();

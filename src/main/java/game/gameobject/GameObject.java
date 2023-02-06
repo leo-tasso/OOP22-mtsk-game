@@ -11,11 +11,21 @@ public abstract class GameObject {
     private Vector2D vel;
     private int rotation;
 
+    /**
+     * Getter for the rotation.
+     * 
+     * @return the gameobject rotation.
+     */
     public int getRotation() {
         return rotation;
     }
 
-    public void setRotation(int rotation) {
+    /**
+     * A setter for the rotation of the object.
+     * 
+     * @param rotation the new rotation for the object.
+     */
+    public void setRotation(final int rotation) {
         this.rotation = rotation;
     }
 
@@ -57,8 +67,9 @@ public abstract class GameObject {
 
     /**
      * A constructor for the object.
+     * 
      * @param coor the starting coordinates.
-     * @param vel the starting speed.
+     * @param vel  the starting speed.
      */
     public GameObject(final Point2D coor, final Vector2D vel) {
         this.coor = coor;
