@@ -35,6 +35,9 @@ public class Engine {
         while (!minigameList.stream().anyMatch(Minigame::isGameOver)) {
             final long currentFrame = System.currentTimeMillis();
             long elapsed = currentFrame - previousFrame; // NOPMD
+            if (System.currentTimeMillis() > 1000 && minigameList.size() < 2) {
+                minigameList.add(new TestMinigame());
+            }
             // processInput();
             updateGame(elapsed);
             render();

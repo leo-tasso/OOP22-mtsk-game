@@ -1,27 +1,33 @@
 ::: mermaid
 classDiagram
-    GameEngine "1:N" o-- Minigame
-    Minigame <|.. MinigameImpl
-    GameEngine <.. View
-    class GameEngine{
-    <<interface>>
-        processInput()
-        updateGame(elapsed)
-        render()
+    Engine --* ModelInterface 
+    Engine --* ViewInterface 
+    Engine ..|> ViewObserver
+    View --> ViewObserver
+    View ..|> ViewInterface
+    Model ..|> ModelInterface
+
+    class Engine{
+    processInput()
+    update()
+    render()
     }
-    class View{
+
+    class ViewInterface{
     <<interface>>
-    +render()
-    +renderGameOver()
+    render()
+    renderGameOver()
     }
-    
-    class Minigame {
+
+    class ModelInterface{
     <<interface>>
-    +processInput()
-    +updateGame(elapsed)
     }
-    class MinigameImpl {
-    -List~GameObjects~ Objects
-    +List~GameObjects getObjects()
+
+    class ViewInterface{
+    <<interface>>
+    }
+
+    class ViewObserver{
+    <<interface>>
     }
 :::

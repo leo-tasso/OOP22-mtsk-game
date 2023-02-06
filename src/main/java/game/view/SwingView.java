@@ -2,6 +2,7 @@ package game.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -15,6 +16,7 @@ import game.Engine;
 import game.gameobject.Circle;
 import game.gameobject.GameObject;
 import game.minigame.Minigame;
+
 /**
  * A class for the view using the swing library.
  */
@@ -22,19 +24,21 @@ public class SwingView implements View {
     private static final int SIZE = 700;
     private final Engine controller;
     private List<Minigame> l;
-    private final JPanel panel;
+    private List<JPanel> panel;
+    final JFrame frame;
 
     /**
-     *  A constructor for the window view of the game.
-     *  @param controller the controller
+     * A constructor for the window view of the game.
+     * 
+     * @param controller the controller
      */
     public SwingView(final Engine controller) {
-        final JFrame frame;
         this.controller = controller;
         this.l = this.controller.getMinigameList();
-        panel = new MinigamePanel();
+        panel.add(new MinigamePanel());
         frame = new JFrame("MTSK-Game");
-        frame.getContentPane().add(panel);
+        frame.setLayout(new FlowLayout());
+        frame.getContentPane().add(panel.get(0));
         frame.setSize(SIZE, SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -45,8 +49,10 @@ public class SwingView implements View {
      */
     @Override
     public void render() {
-        l = controller.getMinigameList();
-        panel.repaint();
+        if(!l.equals(controller.getMinigameList())){
+            frame.getContentPane().add(new MinigamePanel());
+        }
+        panel.forEach(p->p.repaint());
     }
 
     @Override

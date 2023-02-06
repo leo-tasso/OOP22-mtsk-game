@@ -9,6 +9,15 @@ import api.Vector2D;
 public abstract class GameObject {
     private Point2D coor;
     private Vector2D vel;
+    private int rotation;
+
+    public int getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
+    }
 
     /**
      * Getter for the coordinates.
