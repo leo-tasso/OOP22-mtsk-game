@@ -2,6 +2,7 @@ package game.gameobject;
 
 import api.Point2D;
 import api.Vector2D;
+import game.controlling.DirectionalInput;
 
 /**
  * Game Object rapresenting a circle.
@@ -18,6 +19,7 @@ public class Circle extends GameObject {
  */
     public Circle(final Point2D coor, final Vector2D vel) {
         super(coor, vel);
+        setInputModel(new DirectionalInput());
     }
 
     /**

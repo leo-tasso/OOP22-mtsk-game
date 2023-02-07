@@ -3,6 +3,8 @@ package game;
 import java.util.LinkedList;
 import java.util.List;
 
+import api.Input;
+import game.controlling.KeyboardInput;
 import game.minigame.Minigame;
 import game.minigame.TestMinigame;
 import game.view.SwingView;
@@ -15,8 +17,9 @@ public class Engine {
     private static final long TIME_TO_NEXT_MINIGAME = 4000L;
     private static final long PERIOD = 10;
     private final List<Minigame> minigameList = new LinkedList<>();
+    private final Input input = new KeyboardInput();
 
-    private final View view = new SwingView(this);
+    private final View view = new SwingView(this, input);
 
     /**
      * Start point of the game, initializes the loop.
@@ -41,12 +44,16 @@ public class Engine {
                 minigameList.add(new TestMinigame());
             }
 
-            // processInput();
+            processInput();
             updateGame(elapsed);
             render();
             waitForNextFrame(currentFrame);
             previousFrame = currentFrame;
         }
+    }
+
+    private void processInput() {
+        minigameList.stream().flatMap(m -> m.getGameObjects().stream()).forEach(o -> o.updateinput(input));
     }
 
     /**
