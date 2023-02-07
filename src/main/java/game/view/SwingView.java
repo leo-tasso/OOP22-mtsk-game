@@ -37,7 +37,7 @@ public class SwingView implements View {
      * A constructor for the window view of the game.
      * 
      * @param controller the main engine
-     * @param input the input list to update
+     * @param input      the input list to update
      */
     @SuppressFBWarnings
     public SwingView(final Engine controller, final Input input) {
@@ -47,6 +47,7 @@ public class SwingView implements View {
         panel = new ArrayList<>();
         final MinigamePanel newMinigame = new MinigamePanel();
         newMinigame.addKeyListener(newMinigame);
+        newMinigame.setBackground(Color.ORANGE);
         panel.add(newMinigame);
         frame = new JFrame("MTSK-Game");
         frame.setLayout(new GridLayout(1, 2));
@@ -91,7 +92,8 @@ public class SwingView implements View {
         }
 
         @Override
-        public void paint(final Graphics g) {
+        public void paintComponent(final Graphics g) {
+            super.paintComponent(g);
             // l.stream().flatMap(m -> m.getGameObjects().stream()).forEach(o ->
             // this.paintObj(o, g));
             l.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> this.paintObj(o, g)); // gets and paints
@@ -101,18 +103,19 @@ public class SwingView implements View {
                                                                                                     // the panel
         }
 
+
         private void paintObj(final GameObject o, final Graphics g) {
             final Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                     RenderingHints.VALUE_RENDER_QUALITY);
-            g2.clearRect(0, 0, this.getWidth(), this.getHeight());
+            //g2.clearRect(0, 0, this.getWidth(), this.getHeight());
             if (o instanceof Circle) {
                 final Point2D pos = o.getCoor();
                 final int y = (int) pos.getY();
                 final int x = (int) pos.getX();
-                g2.setColor(Color.BLUE);
+                g2.setColor(Color.RED);
                 g2.setStroke(new BasicStroke(2f));
                 final int rad = 15;
                 g2.drawOval(x - rad, y - rad, rad * 2, rad * 2);

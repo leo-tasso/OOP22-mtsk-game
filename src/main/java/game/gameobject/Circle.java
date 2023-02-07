@@ -11,7 +11,6 @@ public class Circle extends GameObject {
 
     private static final int HIGH_BOUND = 700;
     private static final int LOW_BOUND = 0;
-    private static final double SPEED = 0.9;
 /**
  * Constructor for the gameobject circle.
  * @param coor the initial coordinate.
@@ -28,10 +27,10 @@ public class Circle extends GameObject {
     @Override
     public void update(final long time) {
         if (this.getCoor().getY() > HIGH_BOUND) {
-            this.setVel(new Vector2D(0, -SPEED));
+            this.setVel(new Vector2D(0, -Math.abs(this.getVel().getY())));
         }
         if (this.getCoor().getY() < LOW_BOUND) {
-            this.setVel(new Vector2D(0, SPEED));
+            this.setVel(new Vector2D(0, Math.abs(this.getVel().getY())));
         }
         this.setCoor(this.getCoor().sum(this.getVel().mul(time)));
     }
