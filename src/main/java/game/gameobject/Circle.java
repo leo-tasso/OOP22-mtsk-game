@@ -9,29 +9,16 @@ import game.controlling.DirectionalInput;
  */
 public class Circle extends GameObject {
 
-    private static final int HIGH_BOUND = 700;
-    private static final int LOW_BOUND = 0;
-/**
- * Constructor for the gameobject circle.
- * @param coor the initial coordinate.
- * @param vel initial velocity vector.
- */
+    /**
+     * Constructor for the gameobject circle.
+     * 
+     * @param coor the initial coordinate.
+     * @param vel  initial velocity vector.
+     */
     public Circle(final Point2D coor, final Vector2D vel) {
         super(coor, vel);
         setInputModel(new DirectionalInput());
+        setPhysicsModel(new SimplePhysics());
     }
 
-    /**
-     *  Updates the Circle position and speed.
-     */
-    @Override
-    public void update(final long time) {
-        if (this.getCoor().getY() > HIGH_BOUND) {
-            this.setVel(new Vector2D(0, -Math.abs(this.getVel().getY())));
-        }
-        if (this.getCoor().getY() < LOW_BOUND) {
-            this.setVel(new Vector2D(0, Math.abs(this.getVel().getY())));
-        }
-        this.setCoor(this.getCoor().sum(this.getVel().mul(time)));
-    }
 }

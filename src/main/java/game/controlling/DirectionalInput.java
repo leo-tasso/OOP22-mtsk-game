@@ -10,7 +10,7 @@ import game.gameobject.GameObject;
  */
 public class DirectionalInput implements InputModel {
 
-    private static final double CHANGE_COEFFICENT = 0.01;
+    private static final double CHANGE_COEFFICENT = 0.1;
 
     /**
      * Method to update the object velocity according to the inputs.
