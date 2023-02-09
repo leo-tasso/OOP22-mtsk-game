@@ -1,11 +1,9 @@
 package game.view;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -15,11 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import api.Input;
-import api.Point2D;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.Engine;
-import game.gameobject.Circle;
-import game.gameobject.GameObject;
 import game.minigame.Minigame;
 
 /**
@@ -91,35 +86,17 @@ public class SwingView implements View {
             setFocusTraversalKeysEnabled(false);
         }
 
+        @SuppressFBWarnings
         @Override
         public void paintComponent(final Graphics g) {
             super.paintComponent(g);
-            // l.stream().flatMap(m -> m.getGameObjects().stream()).forEach(o ->
-            // this.paintObj(o, g));
-            l.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> this.paintObj(o, g)); // gets and paints
-                                                                                                    // only gameobjects
-                                                                                                    // of the same
-                                                                                                    // minigame index as
-                                                                                                    // the panel
-        }
-
-
-        private void paintObj(final GameObject o, final Graphics g) {
-            final Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-                    RenderingHints.VALUE_RENDER_QUALITY);
-            //g2.clearRect(0, 0, this.getWidth(), this.getHeight());
-            if (o instanceof Circle) {
-                final Point2D pos = o.getCoor();
-                final int y = (int) pos.getY();
-                final int x = (int) pos.getX();
-                g2.setColor(Color.RED);
-                g2.setStroke(new BasicStroke(2f));
-                final int rad = 15;
-                g2.drawOval(x - rad, y - rad, rad * 2, rad * 2);
-            }
+            final Drawings d = new DrawingsImpl((Graphics2D) g);
+            // gets and paints
+            // only gameobjects
+            // of the same
+            // minigame index as
+            // the panel
+            l.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
         }
 
         @Override

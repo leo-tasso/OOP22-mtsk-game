@@ -5,6 +5,7 @@ import api.InputModel;
 import api.Point2D;
 import api.Vector2D;
 import game.minigame.Minigame;
+import game.view.Drawings;
 
 /**
  * Abstract class to represent a gameobject.
@@ -15,23 +16,26 @@ public class GameObject {
     private int rotation;
     private InputModel inputModel;
     private PhysicsModel physicsModel;
+    private AspectModel aspectModel;
 
     /**
      * Constructor for general GameObject.
      * 
-     * @param coor       the initial coordinates
-     * @param vel        the initial velocity.
-     * @param rotation   the initial rotation.
-     * @param inputModel the initial inputModel.
+     * @param coor         the initial coordinates
+     * @param vel          the initial velocity.
+     * @param rotation     the initial rotation.
+     * @param inputModel   the initial inputModel.
      * @param physicsModel the initial physicsModel.
+     * @param aspectModel  the initial aspectModel.
      */
     public GameObject(final Point2D coor, final Vector2D vel, final int rotation, final InputModel inputModel,
-            final PhysicsModel physicsModel) {
+            final PhysicsModel physicsModel, final AspectModel aspectModel) {
         this.coor = coor;
         this.vel = vel;
         this.rotation = rotation;
         this.inputModel = inputModel;
         this.physicsModel = physicsModel;
+        this.aspectModel = aspectModel;
     }
 
     /**
@@ -137,7 +141,7 @@ public class GameObject {
     }
 
     /**
-     * Getter method for the PhysicsModel.
+     * Getter method for the physicsModel.
      * 
      * @return the physics model of the object
      */
@@ -152,5 +156,32 @@ public class GameObject {
      */
     public void setPhysicsModel(final PhysicsModel physicsModel) {
         this.physicsModel = physicsModel;
+    }
+
+    /**
+     * Getter method for the aspectModel.
+     * 
+     * @return the aspect model of the object
+     */
+    public AspectModel getAspectModel() {
+        return aspectModel;
+    }
+
+    /**
+     * Setter method for the aspectModel.
+     * 
+     * @param aspectModel the new aspectModel
+     */
+    public void setAspectModel(final AspectModel aspectModel) {
+        this.aspectModel = aspectModel;
+    }
+
+    /**
+     * The method to update the object drawing.
+     * 
+     * @param d the instructions on how to draw the object
+     */
+    public void updateAspect(final Drawings d) {
+        aspectModel.update(this, d);
     }
 }
