@@ -8,15 +8,17 @@ classDiagram
     Engine <|.. Score
 
     class Engine{
-    + addMinigame(Minigame)
+    -minigameList : List~Minigame~
     }
     class Score {
     <<interface>>
-    + getScore()
+    +getScore() Score
     }
     class Minigame{
     <<interface>>
-    + isOver()
+    +isGameOver() boolean
+    +compute(long) void
+    +getGameObjects() List~GameObject~
     }
     class WhacAMole{
     <<interface>>

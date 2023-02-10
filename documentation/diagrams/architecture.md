@@ -1,33 +1,51 @@
 ::: mermaid
 classDiagram
-    Engine --* ModelInterface 
-    Engine --* ViewInterface 
-    Engine ..|> ViewObserver
-    View --> ViewObserver
-    View ..|> ViewInterface
-    Model ..|> ModelInterface
+    Engine *-- "1..*" Minigame 
+    Engine *-- "1" View
+    SwingView ..|> View
+    Minigame *-- "1..*" GameObject
+    GameObject *-- "1" InputModel
+    GameObject *-- "1" PhysicsModel
+    GameObject *-- "1" AspectModel
+    AspectModel -- View
 
     class Engine{
-    processInput()
-    update()
-    render()
+    -processInput() void
+    -updateGame(long) void
+    -render() void
     }
 
-    class ViewInterface{
+    class View{
     <<interface>>
-    render()
-    renderGameOver()
+    +render() void
+    +renderGameOver() void
     }
 
-    class ModelInterface{
+    class Minigame{
     <<interface>>
+    +isGameOver() boolean
+    +compute(long) void
+    +getGameObjects() List~GameObject~
     }
 
-    class ViewInterface{
-    <<interface>>
+    class GameObject{
+    -inputModel : InputModel 
+    -physicsModel : PhysicsModel
+    -aspectModel : AspectModel
     }
 
-    class ViewObserver{
+    class InputModel{
     <<interface>>
+    +update(GameObject obj, Input c) void
+    }
+
+    class PhysicsModel{
+    <<interface>>
+    +update(long, GameObject, Minigame) void
+    }
+
+    class AspectModel{
+    <<interface>>
+    +update(GameObject, Drawings) void
     }
 :::
