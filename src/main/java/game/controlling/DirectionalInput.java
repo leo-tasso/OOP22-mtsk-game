@@ -13,7 +13,9 @@ public class DirectionalInput implements InputModel {
     private static final double CHANGE_COEFFICENT = 0.1;
 
     /**
-     * Method to update the object velocity according to the inputs.
+     * Depending on the input received, considering that the Cartesian 
+     * coordinates are equal to (0,0) in the upper left corner, we 
+     * modify the vector representing the speed of the GameObject.
      */
     @Override
     public void update(final GameObject obj, final Input c) {

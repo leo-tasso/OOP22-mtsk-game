@@ -13,8 +13,8 @@ import game.gameobject.GameObject;
  */
 public class TestMinigame implements Minigame {
 
-    private static final int CIRCLE_Y = 300;
-    private static final int CIRCLE_X = 300;
+    private static final int CIRCLE_Y = 0;
+    private static final int CIRCLE_X = 0;
     private final List<GameObject> l;
 
     /**

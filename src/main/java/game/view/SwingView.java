@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.BasicStroke;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import api.Input;
+import api.Point2D;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.Engine;
 import game.minigame.Minigame;
@@ -53,7 +56,7 @@ public class SwingView implements View {
     }
 
     /**
-     * A method to render the view.
+     * The method to render the view.
      */
     @Override
     public void render() {
@@ -75,6 +78,9 @@ public class SwingView implements View {
 
     private class MinigamePanel extends JPanel implements KeyListener {
 
+        private static final int ASPECT_WIDTH = 16;
+        private static final int ASPECT_HEIGHT = 9;
+        private static final double ASPECT_RATIO = ASPECT_WIDTH / ASPECT_HEIGHT;
         private static final int LEFT_BUTTON = 65;
         private static final int RIGHT_BUTTON = 68;
         private static final int DOWN_BUTTON = 83;
@@ -89,14 +95,58 @@ public class SwingView implements View {
         @SuppressFBWarnings
         @Override
         public void paintComponent(final Graphics g) {
+            final Graphics2D g2 = (Graphics2D) g;
+            Point2D startingPoint;
             super.paintComponent(g);
-            final Drawings d = new DrawingsImpl((Graphics2D) g);
-            // gets and paints
-            // only gameobjects
-            // of the same
-            // minigame index as
-            // the panel
+
+            g2.setColor(Color.BLACK);
+            g2.setStroke(new BasicStroke(2f));
+            startingPoint = getStartingPoint();
+            g2.drawRect((int) startingPoint.getX(), (int) startingPoint.getY(), boxWidth(), boxHeight());
+
+            final Drawings d = new DrawingsImpl(g2, startingPoint, boxHeight());
             l.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
+            // gets and paints only gameobjects of the same minigame index as the panel
+        }
+
+        private Point2D getStartingPoint() {
+            if (isLarger()) {
+                return new Point2D((panel.get(0).getWidth() - panel.get(0).getHeight() * ASPECT_RATIO) / 2, 0);
+            }
+            return new Point2D(0, (panel.get(0).getHeight() - panel.get(0).getWidth() / ASPECT_RATIO) / 2);
+        }
+
+        /**
+         * Method to get the width of the canvas.
+         *
+         * @return the width of the canvas
+         */
+        private int boxWidth() {
+            if (isLarger()) {
+                return (int) (panel.get(0).getHeight() * ASPECT_RATIO);
+            }
+            return panel.get(0).getWidth();
+        }
+
+        /**
+         * Method to get the height of the canvas.
+         *
+         * @return the height of the canvas
+         */
+        private int boxHeight() {
+            if (isLarger()) {
+                return panel.get(0).getHeight();
+            }
+            return (int) (panel.get(0).getWidth() / ASPECT_RATIO);
+        }
+
+        /**
+         * Method to determine if the frame is larger than taller.
+         *
+         * @return whether the frame is larger
+         */
+        private boolean isLarger() {
+            return panel.get(0).getHeight() / ASPECT_HEIGHT < panel.get(0).getWidth() / ASPECT_WIDTH;
         }
 
         @Override

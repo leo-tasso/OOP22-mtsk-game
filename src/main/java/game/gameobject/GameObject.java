@@ -39,12 +39,23 @@ public class GameObject {
     }
 
     /**
+     * A constructor for the object.
+     * 
+     * @param coor the starting coordinates.
+     * @param vel  the starting speed.
+     */
+    public GameObject(final Point2D coor, final Vector2D vel) {
+        this.coor = coor;
+        this.vel = vel;
+    }
+
+    /**
      * Method to get the inputModel.
      * 
      * @return the input model
      */
     public InputModel getInputModel() {
-        return inputModel;
+        return this.inputModel;
     }
 
     /**
@@ -62,7 +73,7 @@ public class GameObject {
      * @return the gameobject rotation.
      */
     public int getRotation() {
-        return rotation;
+        return this.rotation;
     }
 
     /**
@@ -80,7 +91,7 @@ public class GameObject {
      * @return the gameobject coordinate.
      */
     public Point2D getCoor() {
-        return coor;
+        return this.coor;
     }
 
     /**
@@ -98,7 +109,7 @@ public class GameObject {
      * @return the speed vector.
      */
     public Vector2D getVel() {
-        return vel;
+        return this.vel;
     }
 
     /**
@@ -107,17 +118,6 @@ public class GameObject {
      * @param vel the new speed vector for the object.
      */
     public void setVel(final Vector2D vel) {
-        this.vel = vel;
-    }
-
-    /**
-     * A constructor for the object.
-     * 
-     * @param coor the starting coordinates.
-     * @param vel  the starting speed.
-     */
-    public GameObject(final Point2D coor, final Vector2D vel) {
-        this.coor = coor;
         this.vel = vel;
     }
 
@@ -146,7 +146,7 @@ public class GameObject {
      * @return the physics model of the object
      */
     public PhysicsModel getPhysicsModel() {
-        return physicsModel;
+        return this.physicsModel;
     }
 
     /**
@@ -164,7 +164,7 @@ public class GameObject {
      * @return the aspect model of the object
      */
     public AspectModel getAspectModel() {
-        return aspectModel;
+        return this.aspectModel;
     }
 
     /**

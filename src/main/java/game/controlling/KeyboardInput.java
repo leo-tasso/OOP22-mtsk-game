@@ -3,7 +3,9 @@ package game.controlling;
 import api.Input;
 
 /**
- * 
+ * Class that encodes the input of the user, that indicates 
+ * the direction in which the GameObject should be moved, 
+ * setting one of the 4 boolean values ​​to true.
  */
 public class KeyboardInput implements Input {
     private boolean moveUp;
@@ -22,9 +24,9 @@ public class KeyboardInput implements Input {
     }
 
     /**
-     * Method to set if moveUp input is active.
+     * Method to set moveUp.
      * 
-     * @param moveUp if the moveUp command is active
+     * @param moveUp if the moveUp command is active.
      */
     @Override
     public void setMoveUp(final boolean moveUp) {
@@ -42,7 +44,7 @@ public class KeyboardInput implements Input {
     }
 
     /**
-     * Method to set moveDown input.
+     * Method to set moveDown.
      * 
      * @param moveDown if the moveDown command is active
      */
@@ -62,7 +64,7 @@ public class KeyboardInput implements Input {
     }
 
     /**
-     * Method to set moveLeft input.
+     * Method to set moveLeft.
      * 
      * @param moveLeft new value for moveLeft
      */
@@ -82,7 +84,7 @@ public class KeyboardInput implements Input {
     }
 
     /**
-     * Method to set if moveRight input is active.
+     * Method to set moveRight.
      * 
      * @param moveRight if the moveRight command is active
      */

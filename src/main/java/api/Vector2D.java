@@ -1,11 +1,15 @@
 package api;
 
 /**
- * Class to implement a 2D vector.
+ * Class to implement a 2D vector. 
+ * The length of the arrow indicates the velocity and 
+ * the way the arrow points indicates the direction.
  */
 public class Vector2D {
+
     private final double x;
     private final double y;
+
     /**
      * Constructor for 2D vector 0->(x,y).
      * 

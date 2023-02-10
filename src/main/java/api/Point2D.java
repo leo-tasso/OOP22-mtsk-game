@@ -4,6 +4,7 @@ package api;
  * Class to implement 2d points.
  */
 public class Point2D {
+
     private final double x;
     private final double y;
 
@@ -74,6 +75,7 @@ public class Point2D {
     public Point2D invert() {
         return new Point2D(-this.x, -this.y);
     }
+
     /**
      * Hash code generator for Point2D.
      */
@@ -88,6 +90,7 @@ public class Point2D {
         result = prime * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
+
     /**
      * Equals method for Point2D.
      */
@@ -105,6 +108,7 @@ public class Point2D {
         final Point2D other = (Point2D) obj;
         return this.x == other.x && this.y == other.y;
     }
+
     /**
      * To string method for Point2D.
      */
@@ -112,5 +116,4 @@ public class Point2D {
     public String toString() {
         return "Point2D (" + this.x + ", " + this.y + ")";
     }
-
 }

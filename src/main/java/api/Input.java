@@ -1,8 +1,10 @@
 package api;
+
 /**
  * Interface to model the inputs.
  */
 public interface Input {
+
     /**
      * Method to check if moveUp input is active.
      * 
