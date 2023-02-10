@@ -5,7 +5,8 @@ import game.minigame.Minigame;
 /**
  * Interface that deals with the state of a GameObject,
  * considering the environment in which it is placed,
- * and the other objects with which it interacts.
+ * and the other objects with which it interacts (It is 
+ * not in charge of drawing but only to update the objects).
  */
 public interface PhysicsModel {
 

@@ -27,7 +27,7 @@ public class SwingView implements View {
     private static final int SIZE = 700;
     private final Engine controller;
     private final Input input;
-    private List<Minigame> l;
+    private List<Minigame> minigameList;
     private final List<JPanel> panel;
     private final JFrame frame;
 
@@ -41,7 +41,7 @@ public class SwingView implements View {
     public SwingView(final Engine controller, final Input input) {
         this.input = input;
         this.controller = controller;
-        this.l = this.controller.getMinigameList();
+        this.minigameList = this.controller.getMinigameList();
         panel = new ArrayList<>();
         final MinigamePanel newMinigame = new MinigamePanel();
         newMinigame.addKeyListener(newMinigame);
@@ -60,7 +60,7 @@ public class SwingView implements View {
      */
     @Override
     public void render() {
-        l = controller.getMinigameList();
+        minigameList = controller.getMinigameList();
         if (controller.getMinigameList().size() > panel.size()) {
             final MinigamePanel newMinigame = new MinigamePanel();
             newMinigame.addKeyListener(newMinigame);
@@ -105,7 +105,7 @@ public class SwingView implements View {
             g2.drawRect((int) startingPoint.getX(), (int) startingPoint.getY(), boxWidth(), boxHeight());
 
             final Drawings d = new DrawingsImpl(g2, startingPoint, boxHeight());
-            l.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
+            minigameList.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
             // gets and paints only gameobjects of the same minigame index as the panel
         }
 

@@ -57,4 +57,15 @@ For the game to end, and the \textit{score} to appear, it'll be sufficient losin
 
 \chapter{Design}
 
+\section{Architure}
+We decided to use the "model-view-controller" architecture: the \textbf{Engine} class rapresents the controller and the entry point of the program.
+From there we create an instance of the view, \textbf{SwingView} in our case, and the different minigames where each contains the relative model.
+%
+\section{Detailed design}
+Each minigame is composed of \textbf{GameObject}s, those items use a component pattern:
+\begin{itemize}
+	\item PhysicsModel: the model that dictates how the object fields evolve over time.
+	\item AspectModel: specifise aspect parameter of the object.
+	\item InputModel: updates the fields according the inputs.
+\end{itemize}
 \end{document}
