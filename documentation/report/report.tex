@@ -41,10 +41,10 @@ The term \textit{Multitasking} refers to the ability of a person or a product to
 
 MTSK-Game must exhibit some \textit{minigames}, the ones supplied by us are:
 \begin{itemize} 
-	\item \textit{WhacAMole} where the goal is to crush all the moles that emerge from the dug holes, before they re-enter them.
-	\item \textit{DodgeATriangle} in which the player has to slide a \textit{rectangle} up and down switching lanes, aiming to avoid hitting moving \textit{triangles}.
-	\item \textit{CatchTheSquare} where the user should collect \textit{squares} running over them with a \textit{circle} before they disappear.
-	\item \textit{FlappyBirdAlike} where the user needs to control a \textit{cursor} leading it to fit between \textit{obstacles} that will come towards it.
+	\item \textit{WhacAMole}: where the goal is to crush all the moles that emerge from the dug holes, before they re-enter them.
+	\item \textit{DodgeATriangle}: in which the player has to slide a \textit{rectangle} up and down switching lanes, aiming to avoid hitting moving \textit{triangles}.
+	\item \textit{CatchTheSquare}: where the user should collect \textit{squares} running over them with a \textit{circle} before they disappear.
+	\item \textit{FlappyBirdAlike}: where the user needs to control a \textit{cursor} leading it to fit between \textit{obstacles} that will come towards it.
 \end{itemize}
 For the game to end, and the \textit{score} to appear, it'll be sufficient losing in only one of the currently displayed mingames.
 
@@ -57,15 +57,24 @@ For the game to end, and the \textit{score} to appear, it'll be sufficient losin
 
 \chapter{Design}
 
-\section{Architure}
-We decided to use the "model-view-controller" architecture: the \textbf{Engine} class rapresents the controller and the entry point of the program.
-From there we create an instance of the view, \textbf{SwingView} in our case, and the different minigames where each contains the relative model.
+\section{Architecture}
+The project is built on the "model-view-controller" architecture: the \textbf{Engine} class represents the controller, hence the entry point of the program.
+Inside the controller we create an instance of the \textbf{View}, SwingView in our case, which takes care of intercepting the user's input, then forwarded to the Engine,
+and deals with the graphical representation of each minigame. The engine also contains a list of minigames, each of which provides its own implementation of the \textbf{Minigame} interface, that forms the logic.
+Once the input has been received, the Engine is responsible for communicating it to each minigame: these in turn will update the state of all the GameObjects they contain, i.e. every single entity in the various playing fields.
+The Model part and the View part have an indirect link: the Drawings class. In fact, each GameObject is characterized by a series of specifications (Drawings), contained in the AspectModel, which the View is able to interpret 
+to draw the object in the GUI.
+
+
+
 %
 \section{Detailed design}
 Each minigame is composed of \textbf{GameObject}s, those items use a component pattern:
 \begin{itemize}
-	\item PhysicsModel: the model that dictates how the object fields evolve over time.
-	\item AspectModel: specifise aspect parameter of the object.
-	\item InputModel: updates the fields according the inputs.
+	\item \textit{PhysicsModel}: Interface that deals with the physical state of a GameObject, 
+	considering the environment in which it is located (edges of the field) and the 
+	other objects it interacts with (collision with obstacles).
+	\item \textit{AspectModel}: specifise aspect parameter of the object.
+	\item \textit{InputModel}: updates the fields according the inputs.
 \end{itemize}
 \end{document}

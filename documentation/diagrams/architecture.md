@@ -4,17 +4,22 @@ classDiagram
     Engine *-- "1" View
     SwingView ..|> View
     Minigame *-- "1..*" GameObject
+    GameObject *-- "1" AspectModel
     GameObject *-- "1" InputModel
     GameObject *-- "1" PhysicsModel
-    GameObject *-- "1" AspectModel
-    AspectModel -- View
+    AspectModel -- Drawings
+    View -- Drawings
 
     class Engine{
     -processInput() void
     -updateGame(long) void
     -render() void
     }
-
+    
+    class Drawings{
+        <<interface>>
+    }
+    
     class View{
     <<interface>>
     +render() void
