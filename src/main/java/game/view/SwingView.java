@@ -7,11 +7,13 @@ import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.BasicStroke;
+import java.awt.FlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import api.Input;
@@ -71,8 +73,19 @@ public class SwingView implements View {
         panel.forEach(p -> p.repaint());
     }
 
+    /**
+     * Method to display the game over screen.
+     * 
+     * @param points the score to display.
+     */
     @Override
-    public void renderGameOver() {
+    public void renderGameOver(final Long points) {
+        final JPanel endScreen = new JPanel(new FlowLayout());
+        final JLabel pointsLabel = new JLabel(Long.toString(points));
+        endScreen.add(pointsLabel);
+        frame.setContentPane(endScreen);
+        frame.repaint();
+        frame.setVisible(true);
 
     }
 
@@ -80,7 +93,7 @@ public class SwingView implements View {
 
         private static final int ASPECT_WIDTH = 16;
         private static final int ASPECT_HEIGHT = 9;
-        private static final double ASPECT_RATIO = ASPECT_WIDTH / ASPECT_HEIGHT;
+        private static final double ASPECT_RATIO = ASPECT_WIDTH / (double) ASPECT_HEIGHT;
         private static final int LEFT_BUTTON = 65;
         private static final int RIGHT_BUTTON = 68;
         private static final int DOWN_BUTTON = 83;
@@ -104,8 +117,10 @@ public class SwingView implements View {
             startingPoint = getStartingPoint();
             g2.drawRect((int) startingPoint.getX(), (int) startingPoint.getY(), boxWidth(), boxHeight());
 
-            final Drawings d = new DrawingsImpl(g2, startingPoint, boxHeight());
-            minigameList.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
+            final Drawings d = new SwingDrawings(g2, startingPoint, boxHeight());
+            if (!minigameList.isEmpty()) {
+                minigameList.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
+            }
             // gets and paints only gameobjects of the same minigame index as the panel
         }
 

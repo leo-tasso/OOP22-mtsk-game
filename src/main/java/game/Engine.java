@@ -17,9 +17,9 @@ public class Engine {
     private static final long TIME_TO_NEXT_MINIGAME = 4000L;
     private static final long PERIOD = 10;
     private final List<Minigame> minigameList = new LinkedList<>();
-    private final Input input = new KeyboardInput();
-
+    private final Input input = new KeyboardInput();        /* user input set by the View */
     private final View view = new SwingView(this, input);
+    private boolean paused;
 
     /**
      * Start point of the game, initializes the loop.
@@ -39,17 +39,21 @@ public class Engine {
         long previousFrame = System.currentTimeMillis();
         while (!minigameList.stream().anyMatch(Minigame::isGameOver)) {
             final long currentFrame = System.currentTimeMillis();
-            long elapsed = currentFrame - previousFrame; // NOPMD
+            final long elapsed = currentFrame - previousFrame;
             if (System.currentTimeMillis() - startTime > TIME_TO_NEXT_MINIGAME && minigameList.size() < 2) {
                 minigameList.add(new TestMinigame());
             }
 
             processInput();
-            updateGame(elapsed);
+            if (!isPaused()) {
+                updateGame(elapsed);
+            }
             render();
             waitForNextFrame(currentFrame);
             previousFrame = currentFrame;
         }
+        final Long points = System.currentTimeMillis() - startTime;
+        view.renderGameOver(points);
     }
 
     private void processInput() {
@@ -96,4 +100,23 @@ public class Engine {
     private void updateGame(final long elapsed) {
         minigameList.forEach(m -> m.compute(elapsed));
     }
+
+    /**
+     * Method to set if the mainLoop is paused.
+     * 
+     * @param paused to set if is paused
+     */
+    public void setPaused(final boolean paused) {
+        this.paused = paused;
+    }
+
+    /**
+     * Method to get if the mainLoop is paused.
+     * 
+     * @return true if the mainLoop is paused
+     */
+    private boolean isPaused() {
+        return this.paused;
+    }
+
 }

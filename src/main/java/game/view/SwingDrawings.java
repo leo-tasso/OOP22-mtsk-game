@@ -11,7 +11,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * A class used to draw a circle.
  */
-public class DrawingsImpl implements Drawings {
+public class SwingDrawings implements Drawings {
     private static final int CIRCLE_RADIUS = 100;
     private static final int COEFFICIENT = 1000;
     private final Graphics2D g2;
@@ -26,7 +26,7 @@ public class DrawingsImpl implements Drawings {
      * @param dimention     the current height of the canvas
      */
     @SuppressFBWarnings
-    public DrawingsImpl(final Graphics2D g2, final Point2D startingPoint, final float dimention) {
+    public SwingDrawings(final Graphics2D g2, final Point2D startingPoint, final float dimention) {
         this.g2 = g2;
         this.startingPoint = startingPoint;
         this.dimention = dimention;

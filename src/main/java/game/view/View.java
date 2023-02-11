@@ -11,6 +11,8 @@ public interface View {
 
     /**
      * Displays final score.
+     * 
+     * @param points the scored points to display.
      */
-    void renderGameOver();
+    void renderGameOver(Long points);
 }

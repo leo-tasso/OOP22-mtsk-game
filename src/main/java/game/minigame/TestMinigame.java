@@ -15,6 +15,7 @@ public class TestMinigame implements Minigame {
 
     private static final int CIRCLE_Y = 0;
     private static final int CIRCLE_X = 0;
+    private static final int FLOOR_GAME_OVER = 2000;
     private final List<GameObject> l;
 
     /**
@@ -31,7 +32,7 @@ public class TestMinigame implements Minigame {
      */
     @Override
     public boolean isGameOver() {
-        return false;
+        return l.get(0).getCoor().getY() > FLOOR_GAME_OVER;
     }
 
     /**
