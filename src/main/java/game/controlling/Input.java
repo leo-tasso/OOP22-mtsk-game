@@ -1,4 +1,4 @@
-package api;
+package game.controlling;
 
 /**
  * Interface to model the inputs.

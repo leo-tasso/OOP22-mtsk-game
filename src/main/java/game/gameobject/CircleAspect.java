@@ -1,5 +1,6 @@
 package game.gameobject;
 
+import api.ColorRGB;
 import game.view.Drawings;
 
 /**
@@ -12,7 +13,7 @@ public class CircleAspect implements AspectModel {
      */
     @Override
     public void update(final GameObject object, final Drawings d) {
-        d.drawCircle(object);
+        d.drawCircle(object, ColorRGB.green());
     }
 
 }

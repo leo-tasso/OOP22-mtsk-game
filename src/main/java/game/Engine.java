@@ -3,7 +3,7 @@ package game;
 import java.util.LinkedList;
 import java.util.List;
 
-import api.Input;
+import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.minigame.Minigame;
 import game.minigame.TestMinigame;

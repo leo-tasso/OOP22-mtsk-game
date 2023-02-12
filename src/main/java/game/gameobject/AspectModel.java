@@ -11,7 +11,7 @@ public interface AspectModel {
      * The method that performs the re-drawing of an object 
      * (every "frame"), which happens regardless of the 
      * inputs received, since objects move by themselves,
-     * following the strategy contained in d.
+     * following the strategy contained in the Drawings parameter.
      * 
      * @param object The object to draw.
      * @param d      The drawing instructions.

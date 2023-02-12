@@ -1,7 +1,7 @@
 package game.gameobject;
 
-import api.Input;
-import api.InputModel;
+import game.controlling.Input;
+import game.controlling.InputModel;
 import api.Point2D;
 import api.Vector2D;
 import game.minigame.Minigame;

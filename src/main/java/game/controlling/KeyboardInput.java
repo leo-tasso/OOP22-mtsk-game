@@ -1,6 +1,5 @@
 package game.controlling;
 
-import api.Input;
 
 /**
  * Class that encodes the input of the user, that indicates 

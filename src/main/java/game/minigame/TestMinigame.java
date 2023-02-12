@@ -5,16 +5,22 @@ import java.util.List;
 
 import api.Point2D;
 import api.Vector2D;
+import game.controlling.NullInput;
 import game.gameobject.Circle;
 import game.gameobject.GameObject;
+import game.gameobject.RectangleAspect;
+import game.gameobject.SimplePhysics;
 
 /**
  * A simple test minigame.
  */
 public class TestMinigame implements Minigame {
 
-    private static final int CIRCLE_Y = 0;
-    private static final int CIRCLE_X = 0;
+    private static final int START_CIRCLE_Y = 0;
+    private static final int START_CIRCLE_X = 0;
+    private static final int RECTANGLE_WIDTH = 100;
+    private static final int RECTANGLE_HEIGHT = 200;
+    private static final int RECTANGLE_STARTING_COORDINATE = 300;
     private static final int FLOOR_GAME_OVER = 2000;
     private final List<GameObject> l;
 
@@ -22,7 +28,10 @@ public class TestMinigame implements Minigame {
      * Constructor for the test minigame.
      */
     public TestMinigame() {
-        this.l = new ArrayList<>(List.of(new Circle(new Point2D(CIRCLE_X, CIRCLE_Y), new Vector2D(0, 1))));
+        this.l = new ArrayList<>(List.of(new Circle(new Point2D(START_CIRCLE_X, START_CIRCLE_Y), new Vector2D(0, 1))));
+        l.add(new GameObject(new Point2D(RECTANGLE_STARTING_COORDINATE, RECTANGLE_STARTING_COORDINATE),
+                new Vector2D(0, 0), 0, new NullInput(), new SimplePhysics(),
+                new RectangleAspect(RECTANGLE_WIDTH, RECTANGLE_HEIGHT)));
     }
 
     /**

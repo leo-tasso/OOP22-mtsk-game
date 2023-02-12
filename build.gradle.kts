@@ -12,6 +12,9 @@ repositories {
 
 dependencies {
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3")
+    val jUnitVersion = "5.9.1"
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
 }
 
 val mainClass: String by project

@@ -1,7 +1,5 @@
 package game.controlling;
 
-import api.Input;
-import api.InputModel;
 import api.Vector2D;
 import game.gameobject.GameObject;
 
@@ -10,7 +8,7 @@ import game.gameobject.GameObject;
  */
 public class DirectionalInput implements InputModel {
 
-    private static final double CHANGE_COEFFICENT = 0.1;
+    private static final double CHANGE_COEFFICENT = 2;
 
     /**
      * Depending on the input received, considering that the Cartesian 

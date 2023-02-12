@@ -1,14 +1,13 @@
 package game.view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.BasicStroke;
-import java.awt.FlowLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import api.Input;
 import api.Point2D;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.Engine;
+import game.controlling.Input;
 import game.minigame.Minigame;
 
 /**

@@ -1,4 +1,4 @@
-package api;
+package game.controlling;
 
 import game.gameobject.GameObject;
 
