@@ -66,12 +66,13 @@ The Model part and the View part have an indirect link: the Drawings class. In f
 to draw the object in the GUI.
 
 \section{Detailed design}
-Each minigame is composed of \textbf{GameObject}s, those items use a component pattern:
+Each minigame is composed of \textbf{GameObject}s: those items use a component pattern, thanks to which we get 
+a full separation of concerns based on domains (allow a single entity to span multiple domains each other \footnote{From GPP, CH 14}).
+\pagebreak
 \begin{itemize}
 	\item \textit{PhysicsModel}: Interface that deals with the physical state of a Game Object,
 	moving it according to its speed, considering the environment in which it is located (edges of the field) 
 	and the other objects it interacts with (collision with obstacles).
-	\pagebreak
 	\item \textit{AspectModel}: It is the interface that orders the updating of the graphics of the single 
 	object to the View, specifying which of the instructions already contained in SwingView need to be used.
 	\item \textit{InputModel}: Interface related to a single GameObject that reads the input stored in the 
