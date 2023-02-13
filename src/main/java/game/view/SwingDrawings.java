@@ -17,8 +17,7 @@ public class SwingDrawings implements Drawings {
     private static final int CIRCLE_RADIUS = 100;
     private static final int COEFFICIENT = 1000;
     private final Graphics2D g2;
-    // coordinates (related to the Jframe) of the upper left corner of the play
-    // field
+    // coordinates (related to the Jframe) of the upper left corner of the play field
     private final Point2D startingPoint;
     // heigh of the play field (to scale the size of the objects inside of it)
     private final float dimention;

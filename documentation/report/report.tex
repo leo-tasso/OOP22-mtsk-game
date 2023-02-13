@@ -65,16 +65,23 @@ Once the input has been received, the Engine is responsible for communicating it
 The Model part and the View part have an indirect link: the Drawings class. In fact, each GameObject is characterized by a series of specifications (Drawings), contained in the AspectModel, which the View is able to interpret 
 to draw the object in the GUI.
 
-
-
-%
 \section{Detailed design}
 Each minigame is composed of \textbf{GameObject}s, those items use a component pattern:
 \begin{itemize}
-	\item \textit{PhysicsModel}: Interface that deals with the physical state of a GameObject, 
-	considering the environment in which it is located (edges of the field) and the 
-	other objects it interacts with (collision with obstacles).
-	\item \textit{AspectModel}: specifise aspect parameter of the object.
-	\item \textit{InputModel}: updates the fields according the inputs.
+	\item \textit{PhysicsModel}: Interface that deals with the physical state of a Game Object,
+	moving it according to its speed, considering the environment in which it is located (edges of the field) 
+	and the other objects it interacts with (collision with obstacles).
+	\pagebreak
+	\item \textit{AspectModel}: It is the interface that orders the updating of the graphics of the single 
+	object to the View, specifying which of the instructions already contained in SwingView need to be used.
+	\item \textit{InputModel}: Interface related to a single GameObject that reads the input stored in the 
+	engine and applies it, if the object recognizes it as its own command, changing its specifications (e.g. coordinates, speed).
 \end{itemize}
+
+\begin{figure}[ht]
+	\centering{}
+	\includegraphics[width=\textwidth]{architecture.png}
+	\caption{UML diagram of the architecture}
+\end{figure}
+
 \end{document}
