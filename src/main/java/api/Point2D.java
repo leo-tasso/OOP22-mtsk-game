@@ -116,4 +116,13 @@ public class Point2D {
     public String toString() {
         return "Point2D (" + this.x + ", " + this.y + ")";
     }
+
+    /**
+     * Retunrs a Point2D with coordinates (0,0).
+     * 
+     * @return a Point2D with coordinates (0,0)
+     */
+    public static Point2D origin() {
+        return new Point2D(0, 0);
+    }
 }

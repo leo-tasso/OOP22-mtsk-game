@@ -14,8 +14,8 @@ public interface AspectModel {
      * following the strategy contained in the Drawings parameter.
      * 
      * @param object The object to draw.
-     * @param d      The drawing instructions.
+     * @param drawing      The drawing instructions.
      */
-    void update(GameObject object, Drawings d);
+    void update(GameObject object, Drawings drawing);
 
 }

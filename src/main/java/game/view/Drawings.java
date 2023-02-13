@@ -5,7 +5,6 @@ import game.gameobject.GameObject;
 
 /**
  * The interface to update the way an object is drawn.
- * 
  */
 public interface Drawings {
 
@@ -14,8 +13,9 @@ public interface Drawings {
      * 
      * @param object the gameObject of the circle to draw.
      * @param color  the color of the circle to draw.
+     * @param radius the radius of the circle.
      */
-    void drawCircle(GameObject object, ColorRGB color);
+    void drawCircle(GameObject object, ColorRGB color, double radius);
 
     /**
      * The instructions on how to draw a sqare.
@@ -41,8 +41,9 @@ public interface Drawings {
      * 
      * @param object the gameObject of the triangle to draw.
      * @param color  the color of the triangle to draw.
+     * @param side   the side lenght of the triangle.
      */
-    void drawTriangle(GameObject object, ColorRGB color);
+    void drawTriangle(GameObject object, ColorRGB color, double side);
 
     /**
      * The instructions on how to draw a mole.

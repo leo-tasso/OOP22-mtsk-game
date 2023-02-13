@@ -1,8 +1,8 @@
 package api;
 
 /**
- * Class to implement a 2D vector. 
- * The length of the arrow indicates the velocity and 
+ * Class to implement a 2D vector.
+ * The length of the arrow indicates the velocity and
  * the way the arrow points indicates the direction.
  */
 public class Vector2D {
@@ -22,8 +22,9 @@ public class Vector2D {
     }
 
     /**
-     *  Getter for the first component).
-     *  @return the first component.
+     * Getter for the first component).
+     * 
+     * @return the first component.
      */
     public double getX() {
         return x;
@@ -31,6 +32,7 @@ public class Vector2D {
 
     /**
      * Getter for the second component.
+     * 
      * @return the second component.
      */
     public double getY() {
@@ -39,6 +41,7 @@ public class Vector2D {
 
     /**
      * Method to sum vectors.
+     * 
      * @param v2 vector to sum.
      * @return the result vector.
      */
@@ -48,8 +51,9 @@ public class Vector2D {
 
     /**
      * Method to multiply the vector by a coefficient.
+     * 
      * @param alpha the coefficent.
-     * @return  the result vector.
+     * @return the result vector.
      */
     public Vector2D mul(final double alpha) {
         return new Vector2D(alpha * this.x, alpha * this.y);
@@ -57,6 +61,7 @@ public class Vector2D {
 
     /**
      * Method to calculate the module of the vector.
+     * 
      * @return the module of the vector.
      */
     public double module() {
@@ -64,18 +69,28 @@ public class Vector2D {
     }
 
     /**
-     *  Method to calculate the opposite vector.
-        @return the opposite of the vector.
+     * Method to calculate the opposite vector.
+     * 
+     * @return the opposite of the vector.
      */
     public Vector2D invert() {
         return new Vector2D(-this.x, -this.y);
     }
 
     /**
-     *  String representation of Vector2D.
+     * String representation of Vector2D.
      */
     @Override
     public String toString() {
         return "Vector2D (" + this.x + ", " + this.y + ")";
+    }
+
+    /**
+     * Returns a null Vector2D (0,0).
+     * 
+     * @return a null Vector2D (0,0).
+     */
+    public static Vector2D nullVector() {
+        return new Vector2D(0, 0);
     }
 }

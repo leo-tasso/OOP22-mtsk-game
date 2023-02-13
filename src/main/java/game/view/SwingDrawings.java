@@ -14,10 +14,10 @@ import game.gameobject.GameObject;
  * A class used to draw a circle.
  */
 public class SwingDrawings implements Drawings {
-    private static final int CIRCLE_RADIUS = 100;
     private static final int COEFFICIENT = 1000;
     private final Graphics2D g2;
-    // coordinates (related to the Jframe) of the upper left corner of the play field
+    // coordinates (related to the Jframe) of the upper left corner of the play
+    // field
     private final Point2D startingPoint;
     // heigh of the play field (to scale the size of the objects inside of it)
     private final float dimention;
@@ -46,13 +46,13 @@ public class SwingDrawings implements Drawings {
      * @param object the object to draw
      */
     @Override
-    public void drawCircle(final GameObject object, final ColorRGB color) {
+    public void drawCircle(final GameObject object, final ColorRGB color, final double radius) {
         final Point2D pos = object.getCoor();
         final int x = (int) pos.getX(); // x of the centre
         final int y = (int) pos.getY(); // y of the centre
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         g2.setStroke(new BasicStroke(2f)); // the pen width
-        final int rad = Math.round(dimention / COEFFICIENT * CIRCLE_RADIUS);
+        final int rad = (int) Math.round(dimention / COEFFICIENT * radius);
         g2.drawOval(
                 // coordinates of the upper left corner of the square circumscribing the circle
                 (int) ((x - rad) * dimention / COEFFICIENT + startingPoint.getX()),
@@ -67,7 +67,7 @@ public class SwingDrawings implements Drawings {
      * @param object the object to draw
      */
     @Override
-    public void drawTriangle(final GameObject object, final ColorRGB color) {
+    public void drawTriangle(final GameObject object, final ColorRGB color, final double side) {
     }
 
     /**

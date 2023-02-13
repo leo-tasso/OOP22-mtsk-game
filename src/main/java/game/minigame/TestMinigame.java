@@ -22,13 +22,17 @@ public class TestMinigame implements Minigame {
     private static final int RECTANGLE_HEIGHT = 200;
     private static final int RECTANGLE_STARTING_COORDINATE = 300;
     private static final int FLOOR_GAME_OVER = 2000;
+    private static final double CIRCLE_RADIUS = 100;
     private final List<GameObject> l;
 
     /**
      * Constructor for the test minigame.
      */
     public TestMinigame() {
-        this.l = new ArrayList<>(List.of(new Circle(new Point2D(START_CIRCLE_X, START_CIRCLE_Y), new Vector2D(0, 1))));
+        this.l = new ArrayList<>(List.of(
+                new Circle(new Point2D(START_CIRCLE_X, START_CIRCLE_Y),
+                        new Vector2D(0, 1),
+                        CIRCLE_RADIUS)));
         l.add(new GameObject(new Point2D(RECTANGLE_STARTING_COORDINATE, RECTANGLE_STARTING_COORDINATE),
                 new Vector2D(0, 0), 0, new NullInput(), new SimplePhysics(),
                 new RectangleAspect(RECTANGLE_WIDTH, RECTANGLE_HEIGHT)));
@@ -53,8 +57,7 @@ public class TestMinigame implements Minigame {
     @Override
     public void compute(final long elapsed) {
         l.forEach(b -> b.updatePhysics(elapsed, this));
-        // System.out.println("Coordinates: " + l.get(0).getCoor() + "" +
-        // l.get(0).getVel());
+        // TODO dubug only System.out.println("Coordinates: " + l.get(0).getCoor() + "" + l.get(0).getVel());
     }
 
     /**

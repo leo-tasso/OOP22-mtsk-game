@@ -8,12 +8,23 @@ import game.view.Drawings;
  */
 public class CircleAspect implements AspectModel {
 
+    private final double radius;
+
+    /**
+     * The constructor for the circle.
+     * 
+     * @param radius the radius of the circle
+     */
+    public CircleAspect(final double radius) {
+        this.radius = radius;
+    }
+
     /**
      * The method to draw the circle according the Drawing class.
      */
     @Override
-    public void update(final GameObject object, final Drawings d) {
-        d.drawCircle(object, ColorRGB.green());
+    public void update(final GameObject object, final Drawings drawing) {
+        drawing.drawCircle(object, ColorRGB.green(), radius);
     }
 
 }

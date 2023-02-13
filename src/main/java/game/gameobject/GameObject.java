@@ -179,9 +179,9 @@ public class GameObject {
     /**
      * The method to update the object drawing.
      * 
-     * @param d the instructions on how to draw the object
+     * @param drawing the instructions on how to draw the object
      */
-    public void updateAspect(final Drawings d) {
-        aspectModel.update(this, d);
+    public void updateAspect(final Drawings drawing) {
+        aspectModel.update(this, drawing);
     }
 }
