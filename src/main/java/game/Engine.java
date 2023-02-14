@@ -5,6 +5,7 @@ import java.util.List;
 
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
+import game.minigame.CatchTheSquare;
 import game.minigame.Minigame;
 import game.minigame.TestMinigame;
 import game.view.SwingView;
@@ -35,7 +36,7 @@ public class Engine {
      */
     public void mainLoop() {
         final Long startTime = System.currentTimeMillis();
-        minigameList.add(new TestMinigame());
+        minigameList.add(new CatchTheSquare());
         long previousFrame = System.currentTimeMillis();
         while (!minigameList.stream().anyMatch(Minigame::isGameOver)) {
             final long currentFrame = System.currentTimeMillis();

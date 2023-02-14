@@ -9,16 +9,19 @@ import game.view.Drawings;
 public class RectangleAspect implements AspectModel {
     private int width;
     private int height;
+    private ColorRGB color;
 
     /**
      * Constructor with the dimentions of the rectangle.
      * 
      * @param width  the width of the rectangle.
      * @param height the height of the rectangle.
+     * @param color  the color of the rectangle.
      */
-    public RectangleAspect(final int width, final int height) {
+    public RectangleAspect(final int width, final int height, final ColorRGB color) {
         this.width = width;
         this.height = height;
+        this.color = color;
     }
 
     /**
@@ -28,7 +31,7 @@ public class RectangleAspect implements AspectModel {
      */
     @Override
     public void update(final GameObject object, final Drawings d) {
-        d.drawRectangle(object, ColorRGB.white(), width, height);
+        d.drawRectangle(object, color, width, height);
     }
 
     /**
@@ -67,4 +70,21 @@ public class RectangleAspect implements AspectModel {
         this.height = height;
     }
 
+    /**
+     * Method to get the color of the rectangle.
+     * 
+     * @return the color of the rectangle.
+     */
+    public ColorRGB getColor() {
+        return color;
+    }
+
+    /**
+     * Method to set the color of the rectangle.
+     * 
+     * @param color the color of the rectangle.
+     */
+    public void setColor(final ColorRGB color) {
+        this.color = color;
+    }
 }

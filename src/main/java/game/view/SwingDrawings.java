@@ -7,16 +7,18 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
+import java.awt.FontMetrics;
 
 import api.ColorRGB;
 import api.Point2D;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.gameobject.GameObject;
+
 /**
  * A class used to draw a circle.
  */
 public class SwingDrawings implements Drawings {
-    private static final int COEFFICIENT = 1000;
+    private static final int COEFFICIENT = 900;
     private final Graphics2D g2;
     // coordinates (related to the Jframe) of the upper left corner of the play
     // field
@@ -123,8 +125,10 @@ public class SwingDrawings implements Drawings {
         final Font font = new Font("Courier", Font.BOLD, (int) (size * dimention / COEFFICIENT));
         final TextLayout tl = new TextLayout(string, font, frc);
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
-        tl.draw(g2,
-                (int) ((object.getCoor().getX()) * dimention / COEFFICIENT + startingPoint.getX()),
-                (int) ((object.getCoor().getY()) * dimention / COEFFICIENT + startingPoint.getY()));
+        final FontMetrics fm = g2.getFontMetrics(font);
+        final double x = object.getCoor().getX() * dimention / COEFFICIENT - (float) fm.stringWidth(string) / 2;
+        final double y = object.getCoor().getY() * dimention / COEFFICIENT
+                + (float) (fm.getHeight() - fm.getAscent()) / 2;
+        tl.draw(g2, (float) (x + startingPoint.getX()), (float) (y + startingPoint.getY()));
     }
 }

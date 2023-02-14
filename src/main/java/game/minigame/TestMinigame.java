@@ -3,6 +3,7 @@ package game.minigame;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.NullInput;
@@ -35,7 +36,7 @@ public class TestMinigame implements Minigame {
                         CIRCLE_RADIUS)));
         l.add(new GameObject(new Point2D(RECTANGLE_STARTING_COORDINATE, RECTANGLE_STARTING_COORDINATE),
                 new Vector2D(0, 0), 0, new NullInput(), new SimplePhysics(),
-                new RectangleAspect(RECTANGLE_WIDTH, RECTANGLE_HEIGHT)));
+                new RectangleAspect(RECTANGLE_WIDTH, RECTANGLE_HEIGHT, ColorRGB.white())));
     }
 
     /**
