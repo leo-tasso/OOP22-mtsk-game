@@ -2,14 +2,16 @@ package game.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
 
 import api.ColorRGB;
 import api.Point2D;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.gameobject.GameObject;
-
 /**
  * A class used to draw a circle.
  */
@@ -107,4 +109,22 @@ public class SwingDrawings implements Drawings {
 
     }
 
+    /**
+     * Method to draw a label.
+     * 
+     * @param object the label gameObject.
+     * @param color  the color of the label.
+     * @param size   the size of the label.
+     * @param string the string to draw.
+     */
+    @Override
+    public void drawLabel(final GameObject object, final ColorRGB color, final int size, final String string) {
+        final FontRenderContext frc = g2.getFontRenderContext();
+        final Font font = new Font("Courier", Font.BOLD, (int) (size * dimention / COEFFICIENT));
+        final TextLayout tl = new TextLayout(string, font, frc);
+        g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
+        tl.draw(g2,
+                (int) ((object.getCoor().getX()) * dimention / COEFFICIENT + startingPoint.getX()),
+                (int) ((object.getCoor().getY()) * dimention / COEFFICIENT + startingPoint.getY()));
+    }
 }
