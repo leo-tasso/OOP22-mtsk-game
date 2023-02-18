@@ -21,5 +21,5 @@ public interface Level {
      * 
      * @return the total time spent outside the hole (in milliseconds)
      */
-    long getMoleExitPeriod();
+    long getObjExitPeriod();
 }

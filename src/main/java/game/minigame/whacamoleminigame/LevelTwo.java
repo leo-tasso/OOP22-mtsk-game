@@ -14,7 +14,7 @@ public class LevelTwo implements Level {
     }
 
     @Override
-    public long getMoleExitPeriod() {
+    public long getObjExitPeriod() {
         return LevelTwo.EXIT_TIME;
     }
 }
