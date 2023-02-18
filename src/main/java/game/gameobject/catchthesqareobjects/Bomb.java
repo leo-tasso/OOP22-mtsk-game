@@ -7,9 +7,9 @@ import game.controlling.NullInput;
 import game.gameobject.GameObject;
 
 /**
- * BombSquare gameObject, describes a bomb with a timer.
+ * Bomb gameObject, describes a bomb with a timer.
  */
-public class BombSquare extends GameObject {
+public class Bomb extends GameObject {
     private long timer;
     private static final int STARTING_TIMER = 10_000;
 
@@ -21,8 +21,8 @@ public class BombSquare extends GameObject {
      *              implementation.
      * @param color the color of the bomb.
      */
-    public BombSquare(final Point2D coor, final int side, final ColorRGB color) {
-        super(coor, Vector2D.nullVector(), 0, new NullInput(), new TimerPhysics(), new BombSquareAspect(side, color));
+    public Bomb(final Point2D coor, final int side, final ColorRGB color) {
+        super(coor, Vector2D.nullVector(), 0, new NullInput(), new BombTimerPhysics(), new BombAspect(side, color));
         timer = STARTING_TIMER;
     }
 

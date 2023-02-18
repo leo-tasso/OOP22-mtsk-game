@@ -6,15 +6,15 @@ import game.gameobject.RectangleAspect;
 import game.view.Drawings;
 
 /**
- * Aspect for for BombSquare objects displays a square with its timer inside.
+ * Aspect for for a Bomb object, displayed with its timer inside.
  */
-public class BombSquareAspect extends RectangleAspect {
+public class BombAspect extends RectangleAspect {
 /**
  * Constructor for the component.
- * @param side the side of the square.
- * @param color the color of the square.
+ * @param side the side of the object.
+ * @param color the color of the object.
  */
-    public BombSquareAspect(final int side, final ColorRGB color) {
+    public BombAspect(final int side, final ColorRGB color) {
         super(side, side, color);
     }
 /**
@@ -22,11 +22,11 @@ public class BombSquareAspect extends RectangleAspect {
  */
     @Override
     public void update(final GameObject object, final Drawings d) {
-        if (!(object instanceof BombSquare)) {
-            throw new IllegalCallerException("TimerPhysics can be used only on BombSquare or his subclasses");
+        if (!(object instanceof Bomb)) {
+            throw new IllegalCallerException("TimerPhysics can be used only on Bomb or his subclasses");
         }
         super.update(object, d);
-        final BombSquare bObj = (BombSquare) object;
+        final Bomb bObj = (Bomb) object;
         d.drawLabel(object, super.getColor(), getHeight() / 4, Long.toString(bObj.getTimer() / 1000));
     }
 

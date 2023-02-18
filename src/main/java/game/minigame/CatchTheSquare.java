@@ -6,10 +6,9 @@ import java.util.Random;
 
 import api.ColorRGB;
 import api.Point2D;
-import api.Vector2D;
-import game.gameobject.Circle;
 import game.gameobject.GameObject;
-import game.gameobject.catchthesqareobjects.BombSquare;
+import game.gameobject.catchthesqareobjects.Bomb;
+import game.gameobject.catchthesqareobjects.Defuser;
 
 /**
  * Minigame where the player has to catch sqares before the time runs out.
@@ -17,12 +16,13 @@ import game.gameobject.catchthesqareobjects.BombSquare;
 public class CatchTheSquare implements Minigame {
     private static final int RIGHT_BOUND = 1600;
     private static final int BOTTOM_BOUND = 900;
-    private static final int CIRCLE_RADIUS = 100;
-    private static final int BOMB_SIDE = (int) (CIRCLE_RADIUS * 1.5);
+    private static final int DEFUSER_RADIUS = 100;
+    private static final int BOMB_SIDE = (int) (DEFUSER_RADIUS * 1.5);
     private static final int BOMB_SPAWN_FREQ = 4;
+    private static final Point2D SPAWN_POINT_DEFUSER = new Point2D(RIGHT_BOUND / 2, BOTTOM_BOUND / 2);
 
     private long totalElapsed;
-    private int totalSquaresSpawned;
+    private int totalBombsSpawned;
     private final List<GameObject> gObjects;
     private final Random r;
 
@@ -32,9 +32,9 @@ public class CatchTheSquare implements Minigame {
     public CatchTheSquare() {
         this.gObjects = new ArrayList<>();
         this.totalElapsed = 0;
-        this.totalSquaresSpawned = 0;
+        this.totalBombsSpawned = 0;
         this.r = new Random();
-        gObjects.add(new Circle(Point2D.origin(), Vector2D.nullVector(), CIRCLE_RADIUS));
+        gObjects.add(new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS));
     }
 
     /**
@@ -45,8 +45,8 @@ public class CatchTheSquare implements Minigame {
     @Override
     public boolean isGameOver() {
         return !gObjects.stream()
-                .filter(o -> o instanceof BombSquare)
-                .map(obj -> (BombSquare) obj)
+                .filter(o -> o instanceof Bomb)
+                .map(obj -> (Bomb) obj)
                 .allMatch(b -> b.getTimer() >= 0);
     }
 
@@ -59,9 +59,9 @@ public class CatchTheSquare implements Minigame {
     public void compute(final long elapsed) {
         totalElapsed += elapsed;
         if ((int) (totalElapsed / 1000) % BOMB_SPAWN_FREQ == 0
-                && totalSquaresSpawned < totalElapsed / (BOMB_SPAWN_FREQ * 1000)) {
-            gObjects.add(new BombSquare(randSpawnPoint(), BOMB_SIDE, ColorRGB.black()));
-            totalSquaresSpawned++;
+                && totalBombsSpawned < totalElapsed / (BOMB_SPAWN_FREQ * 1000)) {
+            gObjects.add(new Bomb(randSpawnPoint(), BOMB_SIDE, ColorRGB.black()));
+            totalBombsSpawned++;
         }
         gObjects.forEach(b -> b.updatePhysics(elapsed, this));
 

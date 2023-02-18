@@ -59,8 +59,8 @@ public class SwingDrawings implements Drawings {
         final int rad = (int) Math.round(dimention / COEFFICIENT * radius);
         g2.drawOval(
                 // coordinates of the upper left corner of the square circumscribing the circle
-                (int) ((x - rad) * dimention / COEFFICIENT + startingPoint.getX()),
-                (int) ((y - rad) * dimention / COEFFICIENT + startingPoint.getY()),
+                (int) (x * dimention / COEFFICIENT - rad  + startingPoint.getX()),
+                (int) (y * dimention / COEFFICIENT - rad  + startingPoint.getY()),
                 rad * 2, // side of the square
                 rad * 2);
     }
