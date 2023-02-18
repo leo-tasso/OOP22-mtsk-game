@@ -44,8 +44,10 @@ public class CatchTheSquare implements Minigame {
      */
     @Override
     public boolean isGameOver() {
-        // TODO Auto-generated method stub
-        return false;
+        return !gObjects.stream()
+                .filter(o -> o instanceof BombSquare)
+                .map(obj -> (BombSquare) obj)
+                .allMatch(b -> b.getTimer() >= 0);
     }
 
     /**
@@ -58,12 +60,29 @@ public class CatchTheSquare implements Minigame {
         totalElapsed += elapsed;
         if ((int) (totalElapsed / 1000) % BOMB_SPAWN_FREQ == 0
                 && totalSquaresSpawned < totalElapsed / (BOMB_SPAWN_FREQ * 1000)) {
-            gObjects.add(new BombSquare(new Point2D(r.nextInt(BOMB_SIDE / 2, RIGHT_BOUND - BOMB_SIDE / 2),
-                    r.nextInt(BOMB_SIDE / 2, BOTTOM_BOUND - BOMB_SIDE / 2)), BOMB_SIDE, ColorRGB.black()));
+            gObjects.add(new BombSquare(randSpawnPoint(), BOMB_SIDE, ColorRGB.black()));
             totalSquaresSpawned++;
         }
         gObjects.forEach(b -> b.updatePhysics(elapsed, this));
 
+    }
+
+    /**
+     * A method to get a random spawn point that is at least {@value #BOMB_SIDE}*2
+     * distant from other objects.
+     * 
+     * @return the new spawn point.
+     */
+    private Point2D randSpawnPoint() {
+        final Point2D p = new Point2D(r.nextInt(BOMB_SIDE / 2, RIGHT_BOUND - BOMB_SIDE / 2),
+                r.nextInt(BOMB_SIDE / 2, BOTTOM_BOUND - BOMB_SIDE / 2));
+        for (final GameObject gameObject : gObjects) {
+            if (p.distance(gameObject.getCoor()) < BOMB_SIDE * 2) {
+                return randSpawnPoint(); // Throws exeption if there's no space for new object, adjust sizes and spawn
+                                         // frequency
+            }
+        }
+        return p;
     }
 
     /**
