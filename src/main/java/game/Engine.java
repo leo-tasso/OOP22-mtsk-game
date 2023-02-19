@@ -16,7 +16,7 @@ import game.view.View;
  */
 public class Engine {
     private static final long TIME_TO_NEXT_MINIGAME = 4000L;
-    private static final long PERIOD = 10;
+    private static final long PERIOD = 5;
     private final List<Minigame> minigameList = new LinkedList<>();
     private final Input input = new KeyboardInput();        /* user input set by the View */
     private final View view = new SwingView(this, input);
@@ -52,6 +52,7 @@ public class Engine {
             render();
             waitForNextFrame(currentFrame);
             previousFrame = currentFrame;
+        //TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
         }
         final Long points = System.currentTimeMillis() - startTime;
         view.renderGameOver(points);
