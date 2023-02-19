@@ -2,6 +2,7 @@ package game.minigame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import api.ColorRGB;
@@ -18,11 +19,12 @@ public class CatchTheSquare implements Minigame {
     private static final int BOTTOM_BOUND = 900;
     private static final int DEFUSER_RADIUS = 100;
     private static final int BOMB_SIDE = (int) (DEFUSER_RADIUS * 1.5);
-    private static final int BOMB_SPAWN_FREQ = 4;
+    private static final int BOMB_SPAWN_FREQ = 5;
     private static final Point2D SPAWN_POINT_DEFUSER = new Point2D(RIGHT_BOUND / 2, BOTTOM_BOUND / 2);
 
     private long totalElapsed;
     private int totalBombsSpawned;
+    private final Defuser defuser;
     private final List<GameObject> gObjects;
     private final Random r;
 
@@ -34,7 +36,8 @@ public class CatchTheSquare implements Minigame {
         this.totalElapsed = 0;
         this.totalBombsSpawned = 0;
         this.r = new Random();
-        gObjects.add(new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS));
+        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS);
+        gObjects.add(defuser);
     }
 
     /**
@@ -58,13 +61,49 @@ public class CatchTheSquare implements Minigame {
     @Override
     public void compute(final long elapsed) {
         totalElapsed += elapsed;
+        final Optional<GameObject> collider = checkCollision(defuser);
+        if (collider.isPresent()) {
+            gObjects.remove(collider.get());
+        }
         if ((int) (totalElapsed / 1000) % BOMB_SPAWN_FREQ == 0
                 && totalBombsSpawned < totalElapsed / (BOMB_SPAWN_FREQ * 1000)) {
-            gObjects.add(new Bomb(randSpawnPoint(), BOMB_SIDE, ColorRGB.black()));
+            gObjects.add(new Bomb(randSpawnPoint(), BOMB_SIDE, ColorRGB.black())); // if changing bomb shape, also
+                                                                                   // change
+                                                                                   // checkCollision method
             totalBombsSpawned++;
         }
         gObjects.forEach(b -> b.updatePhysics(elapsed, this));
 
+    }
+
+    private Optional<GameObject> checkCollision(final Defuser defuser) {
+        final List<GameObject> bombs = gObjects.stream().filter(o -> o instanceof Bomb).toList();
+        for (final GameObject bomb : bombs) {
+            final double circleDistancex = Math.abs(defuser.getCoor().getX() - bomb.getCoor().getX());
+            final double circleDistancey = Math.abs(defuser.getCoor().getY() - bomb.getCoor().getY());
+
+            if (circleDistancex > (BOMB_SIDE / 2 + DEFUSER_RADIUS)) {
+                continue;
+            }
+            if (circleDistancey > (BOMB_SIDE / 2 + DEFUSER_RADIUS)) {
+                continue;
+            }
+
+            if (circleDistancex <= (BOMB_SIDE / 2)) {
+                return Optional.of(bomb);
+            }
+            if (circleDistancey <= (BOMB_SIDE / 2)) {
+                return Optional.of(bomb);
+            }
+
+            final double cornerDistanceSq = Math.pow(circleDistancex - BOMB_SIDE / 2, 2)
+                    + Math.pow(circleDistancey - BOMB_SIDE / 2, 2);
+
+            if (cornerDistanceSq <= Math.pow(DEFUSER_RADIUS, 2)) {
+                return Optional.of(bomb);
+            }
+        }
+        return Optional.empty();
     }
 
     /**

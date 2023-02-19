@@ -4,6 +4,7 @@ import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.DirectionalInput;
+import game.gameobject.BoundaryPhysics;
 import game.gameobject.CircleAspect;
 import game.gameobject.GameObject;
 
@@ -21,7 +22,7 @@ public class Defuser extends GameObject {
      * @param radius the radius of the defuser.
      */
     public Defuser(final Point2D coor, final int radius) {
-        super(coor, Vector2D.nullVector(), 0, new DirectionalInput(), new DefuserPhysics(radius),
+        super(coor, Vector2D.nullVector(), 0, new DirectionalInput(), new BoundaryPhysics(radius),
                 new CircleAspect(radius, CIRCLE_COLOR));
     }
 
