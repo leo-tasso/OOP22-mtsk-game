@@ -17,8 +17,8 @@ import game.gameobject.SimplePhysics;
  */
 public class TestMinigame implements Minigame {
 
-    private static final int START_CIRCLE_Y = 0;
-    private static final int START_CIRCLE_X = 0;
+    private static final int START_CIRCLE_Y = 450;
+    private static final int START_CIRCLE_X = 800;
     private static final int RECTANGLE_WIDTH = 100;
     private static final int RECTANGLE_HEIGHT = 200;
     private static final int RECTANGLE_STARTING_COORDINATE = 300;
