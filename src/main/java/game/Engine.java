@@ -45,7 +45,7 @@ public class Engine {
                 minigameList.add(new TestMinigame());
             }
 
-            processInput();
+            processInput(elapsed);
             if (!isPaused()) {
                 updateGame(elapsed);
             }
@@ -58,8 +58,8 @@ public class Engine {
         view.renderGameOver(points);
     }
 
-    private void processInput() {
-        minigameList.stream().flatMap(m -> m.getGameObjects().stream()).forEach(o -> o.updateinput(input));
+    private void processInput(final long elapsedTime) {
+        minigameList.stream().flatMap(m -> m.getGameObjects().stream()).forEach(o -> o.updateinput(input, elapsedTime));
     }
 
     /**

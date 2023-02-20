@@ -8,7 +8,7 @@ import game.gameobject.GameObject;
 public class NullInput implements InputModel {
 
     @Override
-    public void update(final GameObject obj, final Input c) {
+    public void update(final GameObject obj, final Input c, final long elapsedTime) {
     }
 
 }
