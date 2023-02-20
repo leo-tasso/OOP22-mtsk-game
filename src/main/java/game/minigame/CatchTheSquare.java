@@ -7,8 +7,10 @@ import java.util.Random;
 
 import api.ColorRGB;
 import api.Point2D;
+import game.gameobject.CircleAspect;
 import game.gameobject.GameObject;
 import game.gameobject.catchthesqareobjects.Bomb;
+import game.gameobject.catchthesqareobjects.BombAspect;
 import game.gameobject.catchthesqareobjects.Defuser;
 import game.minigame.catchthesquare.IncrSpawnStrat;
 import game.minigame.catchthesquare.SpawnFreqStrat;
@@ -80,30 +82,35 @@ public class CatchTheSquare implements Minigame {
     }
 
     private Optional<GameObject> checkCollision(final Defuser defuser) {
-        final List<GameObject> bombs = gObjects.stream().filter(o -> o instanceof Bomb).toList();
-        for (final GameObject bomb : bombs) {
-            final double circleDistancex = Math.abs(defuser.getCoor().getX() - bomb.getCoor().getX());
-            final double circleDistancey = Math.abs(defuser.getCoor().getY() - bomb.getCoor().getY());
+        if (defuser.getAspectModel() instanceof CircleAspect) { //check if the bounding box is a circle
+            final List<GameObject> bombs = gObjects.stream()
+                    .filter(o -> o instanceof Bomb)
+                    .filter(b -> b.getAspectModel() instanceof BombAspect)
+                    .toList();
+            for (final GameObject bomb : bombs) {
+                final double circleDistancex = Math.abs(defuser.getCoor().getX() - bomb.getCoor().getX());
+                final double circleDistancey = Math.abs(defuser.getCoor().getY() - bomb.getCoor().getY());
 
-            if (circleDistancex > (BOMB_SIDE / 2 + DEFUSER_RADIUS)) {
-                continue;
-            }
-            if (circleDistancey > (BOMB_SIDE / 2 + DEFUSER_RADIUS)) {
-                continue;
-            }
+                if (circleDistancex > (BOMB_SIDE / 2 + DEFUSER_RADIUS)) {
+                    continue;
+                }
+                if (circleDistancey > (BOMB_SIDE / 2 + DEFUSER_RADIUS)) {
+                    continue;
+                }
 
-            if (circleDistancex <= (BOMB_SIDE / 2)) {
-                return Optional.of(bomb);
-            }
-            if (circleDistancey <= (BOMB_SIDE / 2)) {
-                return Optional.of(bomb);
-            }
+                if (circleDistancex <= (BOMB_SIDE / 2)) {
+                    return Optional.of(bomb);
+                }
+                if (circleDistancey <= (BOMB_SIDE / 2)) {
+                    return Optional.of(bomb);
+                }
 
-            final double cornerDistanceSq = Math.pow(circleDistancex - BOMB_SIDE / 2, 2)
-                    + Math.pow(circleDistancey - BOMB_SIDE / 2, 2);
+                final double cornerDistanceSq = Math.pow(circleDistancex - BOMB_SIDE / 2, 2)
+                        + Math.pow(circleDistancey - BOMB_SIDE / 2, 2);
 
-            if (cornerDistanceSq <= Math.pow(DEFUSER_RADIUS, 2)) {
-                return Optional.of(bomb);
+                if (cornerDistanceSq <= Math.pow(DEFUSER_RADIUS, 2)) {
+                    return Optional.of(bomb);
+                }
             }
         }
         return Optional.empty();
