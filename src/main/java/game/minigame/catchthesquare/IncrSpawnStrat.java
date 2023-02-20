@@ -7,7 +7,7 @@ package game.minigame.catchthesquare;
 public class IncrSpawnStrat implements SpawnFreqStrat {
 
     private final double difficulty;
-    private static final double FLATTEN_SPAWN_RATE = 0.5; // the maximum steepness of the curve.
+    private static final double FLATTEN_SPAWN_RATE = 0.7; // the maximum steepness of the curve.
 
     /**
      * Constructor allows to set the rate of increase of the spawn.

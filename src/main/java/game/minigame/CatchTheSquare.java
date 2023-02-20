@@ -25,6 +25,7 @@ public class CatchTheSquare implements Minigame {
     private static final int BOMB_SIDE = (int) (DEFUSER_RADIUS * 1.5);
     private static final double BOMB_SPAWN_DIFF = 1.05;
     private static final Point2D SPAWN_POINT_DEFUSER = new Point2D(RIGHT_BOUND / 2, BOTTOM_BOUND / 2);
+    private static final int MAX_OBJECT = 6;
 
     private long totalElapsed;
     private int totalBombsSpawned;
@@ -71,7 +72,7 @@ public class CatchTheSquare implements Minigame {
         if (collider.isPresent()) {
             gObjects.remove(collider.get());
         }
-        if (totalBombsSpawned < spawnFreqStrat.bombNumber(totalElapsed)) {
+        if (totalBombsSpawned < spawnFreqStrat.bombNumber(totalElapsed) && gObjects.size() < MAX_OBJECT) {
             gObjects.add(new Bomb(randSpawnPoint(), BOMB_SIDE, ColorRGB.black())); // if changing bomb shape, also
                                                                                    // change
                                                                                    // checkCollision method
@@ -82,7 +83,7 @@ public class CatchTheSquare implements Minigame {
     }
 
     private Optional<GameObject> checkCollision(final Defuser defuser) {
-        if (defuser.getAspectModel() instanceof CircleAspect) { //check if the bounding box is a circle
+        if (defuser.getAspectModel() instanceof CircleAspect) { // check if the bounding box is a circle
             final List<GameObject> bombs = gObjects.stream()
                     .filter(o -> o instanceof Bomb)
                     .filter(b -> b.getAspectModel() instanceof BombAspect)
