@@ -51,6 +51,37 @@ public class WhacAMole implements Minigame {
     public boolean isGameOver() { 
         return this.moles.stream().map(Mole::getStatus).anyMatch(s -> s.equals(Status.MISSED))
             || this.bombs.stream().map(Bomb::getStatus).anyMatch(s -> s.equals(Status.HIT));
-    } 
+    }
+
+    /**
+     * At this point the logical state of the GameObjects will have already 
+     * been updated by user's input, so I update their physics accordingly, 
+     * and check if it's time to level up and/or create new Objs to appear.
+     * 
+     * @param elapsed time elapsed since the last frame
+     */
+    @Override
+    public void compute(final long elapsed) {
+        this.getGameObjects().stream().forEach(o -> o.updatePhysics(elapsed, this));
+        this.deleteOldObjs();
+        this.calculateLevel(System.currentTimeMillis());
+
+        final Long timeNextDraw = this.timeLastDraw.orElse(0L) + TIME_BETWEEN_DRAWS;
+        if (timeLastDraw.isEmpty() || timeNextDraw <= System.currentTimeMillis()) {
+            final long upperBond = timeNextDraw + TIME_BETWEEN_DRAWS - currentLevel.getObjExitPeriod();
+            /* Having to assign a random appearance time to     */
+            /* the objects, I need to know what is the maximum  */
+            /* instant in which to start its exit from the hole */
+            this.draw.draw(this.currentLevel, upperBond, NUM_HOLES).stream()
+                .filter(o -> o instanceof Mole)
+                .forEach(o -> {
+                    if (o instanceof Mole) {
+                        moles.add((Mole) o);
+                    } else {
+                        bombs.add((Bomb) o);
+                    } 
+                });
+        }
+    }
 
 }
