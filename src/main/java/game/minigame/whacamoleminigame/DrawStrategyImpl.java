@@ -13,7 +13,7 @@ import game.gameobject.whacamoleobjects.Mole;
  * Class that implements a simple draw of GameObjects.
  */
 public class DrawStrategyImpl implements DrawStrategy {
-    
+
     @Override
     public Set<GameObject> draw(Level currLevel, long upperBond, int numHoles) {
         final Set<GameObject> newGameObjs = new HashSet<>();
@@ -36,5 +36,27 @@ public class DrawStrategyImpl implements DrawStrategy {
             newGameObjs.add(new Bomb(currLevel.getObjExitPeriod(), appearanceTime, assignHole(isHoleBusy)));
         }
         return newGameObjs; 
+    }
+
+    /**
+     * Method that randomly assigns a Hole from 
+     * which to make the bomb or mole emerge.
+     * 
+     * @param isHoleBusy
+     * @return the integer representing the hole
+     */
+    private Integer assignHole(Map<Integer, Boolean> isHoleBusy) {
+        final Random rand = new Random();
+        Boolean holeFound = false;
+        Integer holeAssigned = rand.nextInt(isHoleBusy.size()) + 1;
+        while (!holeFound) {
+            if (!isHoleBusy.get(holeAssigned)) {
+                isHoleBusy.replace(holeAssigned, true);
+                holeFound = true;
+                return holeAssigned;
+            } 
+            holeAssigned = rand.nextInt(isHoleBusy.size()) + 1;
+        }
+        return holeAssigned;
     }
 }
