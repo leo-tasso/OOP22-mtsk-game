@@ -84,4 +84,16 @@ public class WhacAMole implements Minigame {
         }
     }
 
+    /**
+     * Returns all the GameObjects currently in use in the game.
+     * 
+     * @return the list of GameObjects
+     */
+    @Override
+    public List<GameObject> getGameObjects() {
+        final List<GameObject> retList = new ArrayList<>(moles);
+        retList.addAll(bombs);
+        return retList;
+    }
+
 }
