@@ -96,4 +96,20 @@ public class WhacAMole implements Minigame {
         return retList;
     }
 
+    /**
+     * Method for calculating the difficulty level based on how 
+     * long the user is in the game. If there are no more levels 
+     * available to advance, then the user will stay on the last one.
+     * 
+     * @param currentTimeMillis
+     */
+    private void calculateLevel(final long currentTime) {
+        final int levelIndex = (int) (currentTime - this.startTime) / (int) TIME_TO_NEXT_LEVEL;
+        if (levelIndex > this.levels.size() - 1) {
+            this.currentLevel = this.levels.get(this.levels.size() - 1);
+        } else {
+            this.currentLevel = this.levels.get(levelIndex);
+        }
+    }
+
 }
