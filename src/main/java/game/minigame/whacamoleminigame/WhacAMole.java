@@ -39,4 +39,18 @@ public class WhacAMole implements Minigame {
         this.draw = new DrawStrategyImpl();
         this.timeLastDraw = Optional.empty();
     }
+
+    /**
+     * Checks if one of the bombs in the game was hit by the user 
+     * or if a mole managed to re-enter its hole without being 
+     * crushed (both sufficient conditions for the game to end).
+     * 
+     * @return whether the game is over or not
+     */
+    @Override
+    public boolean isGameOver() { 
+        return this.moles.stream().map(Mole::getStatus).anyMatch(s -> s.equals(Status.MISSED))
+            || this.bombs.stream().map(Bomb::getStatus).anyMatch(s -> s.equals(Status.HIT));
+    } 
+
 }
