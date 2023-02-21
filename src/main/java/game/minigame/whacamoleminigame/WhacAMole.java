@@ -112,4 +112,18 @@ public class WhacAMole implements Minigame {
         }
     }
 
+    /**
+     * Method to clean the lists from GameObjects no longer in use.
+     */
+    private void deleteOldObjs() {
+        this.moles.stream()
+            .filter(m -> m.getDisappearanceTime() < System.currentTimeMillis())
+            .filter(m -> m.getStatus().equals(Status.HIT))
+            .forEach(m -> this.moles.remove(m));
+        
+        this.bombs.stream()
+            .filter(b -> b.getDisappearanceTime() < System.currentTimeMillis())
+            .filter(b -> b.getStatus().equals(Status.MISSED))
+            .forEach(b -> this.bombs.remove(b));
+    }
 }
