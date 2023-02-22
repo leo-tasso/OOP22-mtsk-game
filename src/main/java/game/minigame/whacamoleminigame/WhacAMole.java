@@ -62,7 +62,11 @@ public class WhacAMole implements Minigame {
      */
     @Override
     public void compute(final long elapsed) {
-        this.getGameObjects().stream().forEach(o -> o.updatePhysics(elapsed, this));
+        /* I have to use two streams because if I generalize the type  */
+        /* to GameObject I could not do the check on the state of      */
+        /* the objects so I would have to create 2 classes for physics */
+        this.moles.stream().filter(m -> m.getStatus().equals(Status.IN_MOTION)).forEach(m -> m.updatePhysics(elapsed, this));
+        this.bombs.stream().filter(b -> b.getStatus().equals(Status.IN_MOTION)).forEach(b -> b.updatePhysics(elapsed, this));
         this.deleteOldObjs();
         this.calculateLevel(System.currentTimeMillis());
 
