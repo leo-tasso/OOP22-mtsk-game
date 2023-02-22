@@ -11,7 +11,6 @@ import java.awt.FontMetrics;
 
 import api.ColorRGB;
 import api.Point2D;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.gameobject.GameObject;
 
 /**
@@ -33,14 +32,13 @@ public class SwingDrawings implements Drawings {
      * @param startingPoint the up-left corner coordinates of the canvas
      * @param dimention     the current height of the canvas
      */
-    @SuppressFBWarnings
     public SwingDrawings(final Graphics2D g2, final Point2D startingPoint, final float dimention) {
-        this.g2 = g2;
+        this.g2 = (Graphics2D) g2.create();
         this.startingPoint = startingPoint;
         this.dimention = dimention;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+        this.g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+        this.g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
     }
 
@@ -59,8 +57,8 @@ public class SwingDrawings implements Drawings {
         final int rad = (int) Math.round(dimention / COEFFICIENT * radius);
         g2.drawOval(
                 // coordinates of the upper left corner of the square circumscribing the circle
-                (int) (x * dimention / COEFFICIENT - rad  + startingPoint.getX()),
-                (int) (y * dimention / COEFFICIENT - rad  + startingPoint.getY()),
+                (int) (x * dimention / COEFFICIENT - rad + startingPoint.getX()),
+                (int) (y * dimention / COEFFICIENT - rad + startingPoint.getY()),
                 rad * 2, // side of the square
                 rad * 2);
     }

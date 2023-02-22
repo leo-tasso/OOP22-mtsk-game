@@ -104,23 +104,28 @@ public class SwingView implements View {
             setFocusTraversalKeysEnabled(false);
         }
 
-        @SuppressFBWarnings
         @Override
         public void paintComponent(final Graphics g) {
-            final Graphics2D g2 = (Graphics2D) g;
-            Point2D startingPoint;
-            super.paintComponent(g);
+            try {
+                final Graphics2D g2 = (Graphics2D) g;
 
-            g2.setColor(Color.BLACK);
-            g2.setStroke(new BasicStroke(2f));
-            startingPoint = getStartingPoint();
-            g2.drawRect((int) startingPoint.getX(), (int) startingPoint.getY(), boxWidth(), boxHeight());
+                Point2D startingPoint;
+                super.paintComponent(g);
 
-            final Drawings d = new SwingDrawings(g2, startingPoint, boxHeight());
-            if (!minigameList.isEmpty()) {
-                minigameList.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
+                g2.setColor(Color.BLACK);
+                g2.setStroke(new BasicStroke(2f));
+                startingPoint = getStartingPoint();
+                g2.drawRect((int) startingPoint.getX(), (int) startingPoint.getY(), boxWidth(), boxHeight());
+
+                final Drawings d = new SwingDrawings(g2, startingPoint, boxHeight());
+                if (!minigameList.isEmpty()) {
+                    minigameList.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
+                }
+                // gets and paints only gameobjects of the same minigame index as the panel
+            } catch (ClassCastException e) {
+                frame.setVisible(false); // TODO add quit method to engine
+                frame.dispose();
             }
-            // gets and paints only gameobjects of the same minigame index as the panel
         }
 
         private Point2D getStartingPoint() {
