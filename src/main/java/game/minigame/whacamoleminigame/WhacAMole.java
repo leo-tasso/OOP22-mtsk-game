@@ -73,7 +73,6 @@ public class WhacAMole implements Minigame {
             /* the objects, I need to know what is the maximum  */
             /* instant in which to start its exit from the hole */
             this.draw.draw(this.currentLevel, upperBond, NUM_HOLES).stream()
-                .filter(o -> o instanceof Mole)
                 .forEach(o -> {
                     if (o instanceof Mole) {
                         moles.add((Mole) o);
