@@ -27,6 +27,7 @@ public class FlappyBirdAlike implements Minigame {
     private static final int FIELD_HEIGHT = 1000;
     private static final int MAX_HEIGHT = FIELD_HEIGHT - (int) CURSOR_SIZE;
     private final List<GameObject> l = new ArrayList<>();
+    private final Random rand = new Random();
     private int enemyHeight;
 
     /**
@@ -71,9 +72,8 @@ public class FlappyBirdAlike implements Minigame {
     @Override
     public void compute(final long elapsed) {
         if (l.size() == 1) {
-            final Random r = new Random();
-            enemyHeight = r.nextInt(MAX_HEIGHT);
-            final double y = r.nextInt(2) == 1 ? enemyHeight / 2 : FIELD_HEIGHT - enemyHeight / 2;
+            enemyHeight = rand.nextInt(MAX_HEIGHT);
+            final double y = rand.nextInt(2) == 1 ? enemyHeight / 2.0 : FIELD_HEIGHT - enemyHeight / 2.0;
             l.add(new GameObject(new Point2D(ENEMY_SPAWN, y),
                     new Vector2D(ENEMY_SPEED, 0),
                     0, new NullInput(),
