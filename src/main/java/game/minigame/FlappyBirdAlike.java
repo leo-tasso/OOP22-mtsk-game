@@ -40,7 +40,23 @@ public class FlappyBirdAlike implements Minigame {
     */
     @Override
     public boolean isGameOver() {
-        return false;
+        return l.size() > 1
+                && obstacleInRange()
+                && obstacleHit(l.get(1).getCoor().getY());
+    }
+
+    private boolean obstacleInRange() {
+        return l.get(1).getCoor().getX() - ENEMY_WIDTH / 2 < l.get(0).getCoor().getX() + CURSOR_SIZE / 2
+                && l.get(1).getCoor().getX() + ENEMY_WIDTH / 2 > l.get(0).getCoor().getX() - CURSOR_SIZE / 2;
+    }
+
+    private boolean obstacleHit(final double y) {
+        return ( y < 500 && l.get(0).getCoor().getY() - boundingOffset() < enemyHeight )
+                || ( y > 500 && l.get(0).getCoor().getY() + boundingOffset() > 1000 - enemyHeight );
+    }
+
+    private double boundingOffset() {
+        return ( l.get(0).getCoor().getX() - l.get(1).getCoor().getX() + CURSOR_SIZE / 2 ) / 2 ;
     }
 
     /**
