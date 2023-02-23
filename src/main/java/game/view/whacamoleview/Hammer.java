@@ -1,4 +1,4 @@
-package game.gameobject.whacamoleobjects;
+package game.view.whacamoleview;
 
 import api.Point2D;
 import api.Vector2D;
