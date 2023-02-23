@@ -44,7 +44,7 @@ public class SwingView implements View {
         this.controller = controller;
         this.minigameList = this.controller.getMinigameList();
         panel = new ArrayList<>();
-        final MinigamePanel newMinigame = new MinigamePanel();
+        final MinigamePanel newMinigame = new FlappyPanel();
         newMinigame.addKeyListener(newMinigame);
         newMinigame.setBackground(Color.ORANGE);
         panel.add(newMinigame);
@@ -63,7 +63,7 @@ public class SwingView implements View {
     public void render() {
         minigameList = controller.getMinigameList();
         if (controller.getMinigameList().size() > panel.size()) {
-            final MinigamePanel newMinigame = new MinigamePanel();
+            final MinigamePanel newMinigame = new FlappyPanel();
             newMinigame.addKeyListener(newMinigame);
             frame.getContentPane().add(newMinigame);
             panel.add(newMinigame);
@@ -190,6 +190,30 @@ public class SwingView implements View {
                 input.setMoveRight(false);
             } else if (e.getKeyCode() == LEFT_BUTTON) {
                 input.setMoveLeft(false);
+            }
+        }
+    }
+
+    public class FlappyPanel extends MinigamePanel {
+        private static final int SPACEBAR = 32;
+
+        @Override
+        public void keyPressed(final KeyEvent e) {
+            if (e.getKeyCode() == SPACEBAR) {
+                input.setMoveUp(true);
+                input.setMoveDown(false);
+            }
+        }
+
+        @Override
+        public void keyTyped(final KeyEvent e) {
+        }
+
+        @Override
+        public void keyReleased(final KeyEvent e) {
+            if (e.getKeyCode() == SPACEBAR) {
+                input.setMoveUp(false);
+                input.setMoveDown(true);
             }
         }
     }
