@@ -4,6 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
+import java.util.List;
 
 import api.ColorRGB;
 import api.Point2D;
@@ -68,6 +70,20 @@ public class SwingDrawings implements Drawings {
      */
     @Override
     public void drawTriangle(final GameObject object, final ColorRGB color, final double side) {
+        List<Double> xs = new ArrayList<>();
+        xs.add(object.getCoor().getX() - side * Math.sqrt(3) / 6);
+        xs.add(object.getCoor().getX() - side * Math.sqrt(3) / 6);
+        xs.add(object.getCoor().getX() + side / Math.sqrt(3));
+
+        List<Double> ys = new ArrayList<>();
+        ys.add(object.getCoor().getY() + side / 2);
+        ys.add(object.getCoor().getY() - side / 2);
+        ys.add(object.getCoor().getY());
+
+        g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
+        g2.setStroke(new BasicStroke(2f));
+        g2.drawPolygon(xs.stream().mapToInt( x -> (int) Math.round(x * dimention / COEFFICIENT + startingPoint.getX())).toArray(),
+                ys.stream().mapToInt( y -> (int) Math.round(y * dimention / COEFFICIENT + startingPoint.getY())).toArray(), 3);
     }
 
     /**
