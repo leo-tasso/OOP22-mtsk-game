@@ -5,6 +5,7 @@ import java.util.List;
 
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
+import game.minigame.FlappyBirdAlike;
 import game.minigame.Minigame;
 import game.minigame.TestMinigame;
 import game.view.SwingView;
@@ -41,7 +42,7 @@ public class Engine {
             final long currentFrame = System.currentTimeMillis();
             final long elapsed = currentFrame - previousFrame;
             if (System.currentTimeMillis() - startTime > TIME_TO_NEXT_MINIGAME && minigameList.size() < 2) {
-                minigameList.add(new TestMinigame());
+                minigameList.add(new FlappyBirdAlike());
             }
 
             processInput();

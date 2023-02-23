@@ -28,7 +28,7 @@ public class RectangleAspect implements AspectModel {
      */
     @Override
     public void update(final GameObject object, final Drawings d) {
-        d.drawRectangle(object, ColorRGB.white(), width, height);
+        d.drawRectangle(object, ColorRGB.black(), width, height);
     }
 
     /**
