@@ -21,7 +21,11 @@ public class FlappyBirdAlike implements Minigame {
 
     private static final double CURSOR_SIZE = 200;
     private static final int ENEMY_WIDTH = 100;
-    private static final int MAX_HEIGHT = 1000 - (int) CURSOR_SIZE;
+    private static final int ENEMY_SPAWN = 2000;
+    private static final int ENEMY_SPEED = -50;
+    private static final int FIELD_MIDDLE = 500;
+    private static final int FIELD_HEIGHT = 1000;
+    private static final int MAX_HEIGHT = FIELD_HEIGHT - (int) CURSOR_SIZE;
     private final List<GameObject> l = new ArrayList<>();
     private int enemyHeight;
 
@@ -30,7 +34,7 @@ public class FlappyBirdAlike implements Minigame {
     *
     */
     public FlappyBirdAlike() {
-        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2, 1000), Vector2D.nullVector(), CURSOR_SIZE));
+        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2, FIELD_HEIGHT), Vector2D.nullVector(), CURSOR_SIZE));
     }
 
     /**
@@ -51,12 +55,12 @@ public class FlappyBirdAlike implements Minigame {
     }
 
     private boolean obstacleHit(final double y) {
-        return ( y < 500 && l.get(0).getCoor().getY() - boundingOffset() < enemyHeight )
-                || ( y > 500 && l.get(0).getCoor().getY() + boundingOffset() > 1000 - enemyHeight );
+        return (y < FIELD_MIDDLE && l.get(0).getCoor().getY() - boundingOffset() < enemyHeight)
+                || (y > FIELD_MIDDLE && l.get(0).getCoor().getY() + boundingOffset() > FIELD_HEIGHT - enemyHeight);
     }
 
     private double boundingOffset() {
-        return ( l.get(0).getCoor().getX() - l.get(1).getCoor().getX() + CURSOR_SIZE / 2 ) / 2 ;
+        return (l.get(0).getCoor().getX() - l.get(1).getCoor().getX() + CURSOR_SIZE / 2) / 2;
     }
 
     /**
@@ -69,15 +73,15 @@ public class FlappyBirdAlike implements Minigame {
         if (l.size() == 1) {
             Random r = new Random();
             enemyHeight = r.nextInt(MAX_HEIGHT);
-            double y = r.nextInt(2) == 1 ? enemyHeight / 2 : 1000 - enemyHeight / 2;
-            l.add(new GameObject(new Point2D(2000, y),
-                    new Vector2D(-50, 0),
+            double y = r.nextInt(2) == 1 ? enemyHeight / 2 : FIELD_HEIGHT - enemyHeight / 2;
+            l.add(new GameObject(new Point2D(ENEMY_SPAWN, y),
+                    new Vector2D(ENEMY_SPEED, 0),
                     0, new NullInput(),
                     new SimplePhysics(),
                     new RectangleAspect(ENEMY_WIDTH, enemyHeight)));
         }
 
-        l.removeIf(e -> e.getCoor().getX() < - ENEMY_WIDTH);
+        l.removeIf(e -> e.getCoor().getX() < -ENEMY_WIDTH);
         l.forEach(e -> e.updatePhysics(elapsed, this));
     }
 

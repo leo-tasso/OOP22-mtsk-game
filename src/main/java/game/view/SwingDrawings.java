@@ -70,10 +70,12 @@ public class SwingDrawings implements Drawings {
      */
     @Override
     public void drawTriangle(final GameObject object, final ColorRGB color, final double side) {
+        final double shortOffset = Math.sqrt(3) / 6;
+        final double longOffset = Math.sqrt(3);
         List<Double> xs = new ArrayList<>();
-        xs.add(object.getCoor().getX() - side * Math.sqrt(3) / 6);
-        xs.add(object.getCoor().getX() - side * Math.sqrt(3) / 6);
-        xs.add(object.getCoor().getX() + side / Math.sqrt(3));
+        xs.add(object.getCoor().getX() - side * longOffset);
+        xs.add(object.getCoor().getX() - side * longOffset);
+        xs.add(object.getCoor().getX() + side / shortOffset);
 
         List<Double> ys = new ArrayList<>();
         ys.add(object.getCoor().getY() + side / 2);
@@ -82,8 +84,8 @@ public class SwingDrawings implements Drawings {
 
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         g2.setStroke(new BasicStroke(2f));
-        g2.drawPolygon(xs.stream().mapToInt( x -> (int) Math.round(x * dimention / COEFFICIENT + startingPoint.getX())).toArray(),
-                ys.stream().mapToInt( y -> (int) Math.round(y * dimention / COEFFICIENT + startingPoint.getY())).toArray(), 3);
+        g2.drawPolygon(xs.stream().mapToInt(x -> (int) Math.round(x * dimention / COEFFICIENT + startingPoint.getX())).toArray(),
+                ys.stream().mapToInt(y -> (int) Math.round(y * dimention / COEFFICIENT + startingPoint.getY())).toArray(), 3);
     }
 
     /**

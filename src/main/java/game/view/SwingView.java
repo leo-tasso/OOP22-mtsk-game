@@ -194,7 +194,7 @@ public class SwingView implements View {
         }
     }
 
-    public class FlappyPanel extends MinigamePanel {
+    private class FlappyPanel extends MinigamePanel {
         private static final int SPACEBAR = 32;
 
         @Override
