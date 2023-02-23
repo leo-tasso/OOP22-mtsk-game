@@ -150,7 +150,7 @@ public class CatchTheSquare implements Minigame {
      */
     @Override
     public String getTutorial() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTutorial'");
+        return "Use \"WASD\" to control the the circle and "
+                + "destroy all the squares before the time runs out"; // TODO Implement key fetching and multilanguage
     }
 }
