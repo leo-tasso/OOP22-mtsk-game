@@ -2,8 +2,6 @@ package api;
 
 /**
  * Class to implement a 2D vector.
- * The length of the arrow indicates the velocity and
- * the way the arrow points indicates the direction.
  */
 public class Vector2D {
 
@@ -86,6 +84,39 @@ public class Vector2D {
     }
 
     /**
+     * Hash code generator for Vector2D.
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 79;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(y);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(x);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    /**
+     * Equals method for Vector2D.
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Vector2D other = (Vector2D) obj;
+        return this.x == other.x && this.y == other.y;
+    }
+
+    /**
      * Returns a null Vector2D (0,0).
      * 
      * @return a null Vector2D (0,0).
@@ -93,4 +124,5 @@ public class Vector2D {
     public static Vector2D nullVector() {
         return new Vector2D(0, 0);
     }
+
 }
