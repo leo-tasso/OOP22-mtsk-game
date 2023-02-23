@@ -55,8 +55,8 @@ public class FlappyBirdAlike implements Minigame {
     }
 
     private boolean obstacleHit(final double y) {
-        return (y < FIELD_MIDDLE && l.get(0).getCoor().getY() - boundingOffset() < enemyHeight)
-                || (y > FIELD_MIDDLE && l.get(0).getCoor().getY() + boundingOffset() > FIELD_HEIGHT - enemyHeight);
+        return y < FIELD_MIDDLE && l.get(0).getCoor().getY() - boundingOffset() < enemyHeight
+                || y > FIELD_MIDDLE && l.get(0).getCoor().getY() + boundingOffset() > FIELD_HEIGHT - enemyHeight;
     }
 
     private double boundingOffset() {
@@ -71,9 +71,9 @@ public class FlappyBirdAlike implements Minigame {
     @Override
     public void compute(final long elapsed) {
         if (l.size() == 1) {
-            Random r = new Random();
+            final Random r = new Random();
             enemyHeight = r.nextInt(MAX_HEIGHT);
-            double y = r.nextInt(2) == 1 ? enemyHeight / 2 : FIELD_HEIGHT - enemyHeight / 2;
+            final double y = r.nextInt(2) == 1 ? enemyHeight / 2 : FIELD_HEIGHT - enemyHeight / 2;
             l.add(new GameObject(new Point2D(ENEMY_SPAWN, y),
                     new Vector2D(ENEMY_SPEED, 0),
                     0, new NullInput(),

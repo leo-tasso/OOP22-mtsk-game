@@ -196,6 +196,7 @@ public class SwingView implements View {
 
     private class FlappyPanel extends MinigamePanel {
         private static final int SPACEBAR = 32;
+        private static final long serialVersionUID = 2L;
 
         @Override
         public void keyPressed(final KeyEvent e) {
