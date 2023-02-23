@@ -30,4 +30,11 @@ public interface Minigame {
      */
     List<GameObject> getGameObjects();
 
+    /**
+     * Method to get a help string on how to play the minigame.
+     * 
+     * @return the string with the instructions.
+     */
+    String getTutorial();
+
 }

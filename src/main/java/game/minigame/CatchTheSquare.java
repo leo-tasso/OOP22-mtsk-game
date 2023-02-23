@@ -144,4 +144,13 @@ public class CatchTheSquare implements Minigame {
     public List<GameObject> getGameObjects() {
         return new ArrayList<>(gObjects);
     }
+
+    /**
+     * Method to get the tutorial string.
+     */
+    @Override
+    public String getTutorial() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTutorial'");
+    }
 }

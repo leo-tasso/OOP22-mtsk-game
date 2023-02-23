@@ -41,4 +41,13 @@ public class DodgeATriangle implements Minigame {
         // TODO Auto-generated method stub
         return List.of();
     }
+
+    /**
+     * Method to get the tutorial string.
+     */
+    @Override
+    public String getTutorial() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTutorial'");
+    }
 }

@@ -58,7 +58,8 @@ public class TestMinigame implements Minigame {
     @Override
     public void compute(final long elapsed) {
         l.forEach(b -> b.updatePhysics(elapsed, this));
-        // TODO dubug only System.out.println("Coordinates: " + l.get(0).getCoor() + "" + l.get(0).getVel());
+        // TODO dubug only System.out.println("Coordinates: " + l.get(0).getCoor() + ""
+        // + l.get(0).getVel());
     }
 
     /**
@@ -69,5 +70,14 @@ public class TestMinigame implements Minigame {
     @Override
     public List<GameObject> getGameObjects() {
         return new ArrayList<>(l);
+    }
+
+    /**
+     * Method to get the tutorial string.
+     */
+    @Override
+    public String getTutorial() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTutorial'");
     }
 }
