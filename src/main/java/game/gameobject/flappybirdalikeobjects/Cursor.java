@@ -6,7 +6,6 @@ import game.controlling.DirectionalInput;
 import game.controlling.Input;
 import game.controlling.InputModel;
 import game.gameobject.GameObject;
-import game.gameobject.SimplePhysics;
 
 /**
  * A cursor you can move up and down.
@@ -35,7 +34,7 @@ public class Cursor extends GameObject {
             }
 
         });
-        this.setPhysicsModel(new SimplePhysics());
+        this.setPhysicsModel(new FlappyPhysics(size));
         this.setAspectModel(new CursorAspect(size));
     }
 }

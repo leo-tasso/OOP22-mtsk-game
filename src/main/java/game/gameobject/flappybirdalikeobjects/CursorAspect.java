@@ -30,6 +30,6 @@ public class CursorAspect implements AspectModel {
     */
     @Override
     public void update(final GameObject object, final Drawings drawing) {
-        drawing.drawTriangle(object, ColorRGB.green(), size);
+        drawing.drawTriangle(object, ColorRGB.blue(), size);
     }
 }
