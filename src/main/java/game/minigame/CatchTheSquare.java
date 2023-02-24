@@ -150,7 +150,6 @@ public class CatchTheSquare implements Minigame {
      */
     @Override
     public String getTutorial() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTutorial'");
+        return "placeholder";
     }
 }

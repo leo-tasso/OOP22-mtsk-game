@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import api.ColorRGB;
 import api.Point2D;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.Engine;
@@ -26,11 +27,13 @@ import game.minigame.Minigame;
  * A class for the view using the swing library.
  */
 public class SwingView implements View {
-    private static final int SIZE = 700;
+    private static final int SIZE = 1000;
+    private static final List<ColorRGB> BACKGROUND_COLORS = List.of(ColorRGB.orange(), ColorRGB.aqua(), ColorRGB.blue(),
+            ColorRGB.green());
     private final Engine controller;
     private final Input input;
     private List<Minigame> minigameList;
-    private final List<JPanel> panel;
+    private final List<JPanel> panelList;
     private final JFrame frame;
 
     /**
@@ -44,17 +47,28 @@ public class SwingView implements View {
         this.input = input;
         this.controller = controller;
         this.minigameList = this.controller.getMinigameList();
-        panel = new ArrayList<>();
+        panelList = new ArrayList<>();
         final MinigamePanel newMinigame = new MinigamePanel();
         newMinigame.addKeyListener(newMinigame);
-        newMinigame.setBackground(Color.ORANGE);
-        panel.add(newMinigame);
+        newMinigame.setBackground(swingColor(BACKGROUND_COLORS.get(0)));
+        panelList.add(newMinigame);
         frame = new JFrame("MTSK-Game");
         frame.setLayout(new GridLayout(1, 2));
-        frame.getContentPane().add(panel.get(0));
+        frame.getContentPane().setBackground(swingColor(BACKGROUND_COLORS.get(0)));
+        frame.getContentPane().add(panelList.get(0));
         frame.setSize(SIZE, SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    /**
+     * Translates a ColorRGB into a Swing Color.
+     * 
+     * @param colorRGB the input color
+     * @return the output Swing.Color
+     */
+    private Color swingColor(final ColorRGB colorRGB) {
+        return new Color(colorRGB.getRed(), colorRGB.getGreen(), colorRGB.getBlue());
     }
 
     /**
@@ -63,14 +77,19 @@ public class SwingView implements View {
     @Override
     public void render() {
         minigameList = controller.getMinigameList();
-        if (controller.getMinigameList().size() > panel.size()) {
+        if (controller.getMinigameList().size() > panelList.size()) {
             final MinigamePanel newMinigame = new MinigamePanel();
-            newMinigame.addKeyListener(newMinigame);
+            newMinigame.setBackground(
+                    swingColor(BACKGROUND_COLORS.size() > panelList.size() ? BACKGROUND_COLORS.get(panelList.size())
+                            : BACKGROUND_COLORS.get(BACKGROUND_COLORS.size() - 1)));
             frame.getContentPane().add(newMinigame);
-            panel.add(newMinigame);
+            panelList.add(newMinigame);
+            if (panelList.size() > 2) {
+                frame.setLayout(new GridLayout(2, 2));
+            }
             frame.setVisible(true);
         }
-        panel.forEach(p -> p.repaint());
+        panelList.forEach(p -> p.repaint());
     }
 
     /**
@@ -120,7 +139,7 @@ public class SwingView implements View {
 
                 final Drawings d = new SwingDrawings(g2, startingPoint, boxHeight());
                 if (!minigameList.isEmpty()) {
-                    minigameList.get(panel.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
+                    minigameList.get(panelList.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
                 }
                 // gets and paints only gameobjects of the same minigame index as the panel
             } catch (ClassCastException e) {
@@ -131,9 +150,9 @@ public class SwingView implements View {
 
         private Point2D getStartingPoint() {
             if (isLarger()) {
-                return new Point2D((panel.get(0).getWidth() - panel.get(0).getHeight() * ASPECT_RATIO) / 2, 0);
+                return new Point2D((panelList.get(0).getWidth() - panelList.get(0).getHeight() * ASPECT_RATIO) / 2, 0);
             }
-            return new Point2D(0, (panel.get(0).getHeight() - panel.get(0).getWidth() / ASPECT_RATIO) / 2);
+            return new Point2D(0, (panelList.get(0).getHeight() - panelList.get(0).getWidth() / ASPECT_RATIO) / 2);
         }
 
         /**
@@ -143,9 +162,9 @@ public class SwingView implements View {
          */
         private int boxWidth() {
             if (isLarger()) {
-                return (int) (panel.get(0).getHeight() * ASPECT_RATIO);
+                return (int) (panelList.get(0).getHeight() * ASPECT_RATIO);
             }
-            return panel.get(0).getWidth();
+            return panelList.get(0).getWidth();
         }
 
         /**
@@ -155,9 +174,9 @@ public class SwingView implements View {
          */
         private int boxHeight() {
             if (isLarger()) {
-                return panel.get(0).getHeight();
+                return panelList.get(0).getHeight();
             }
-            return (int) (panel.get(0).getWidth() / ASPECT_RATIO);
+            return (int) (panelList.get(0).getWidth() / ASPECT_RATIO);
         }
 
         /**
@@ -166,7 +185,7 @@ public class SwingView implements View {
          * @return whether the frame is larger
          */
         private boolean isLarger() {
-            return panel.get(0).getHeight() / ASPECT_HEIGHT < panel.get(0).getWidth() / ASPECT_WIDTH;
+            return panelList.get(0).getHeight() / ASPECT_HEIGHT < panelList.get(0).getWidth() / ASPECT_WIDTH;
         }
 
         @Override
@@ -209,7 +228,7 @@ public class SwingView implements View {
             @Override
             public void run() {
                 JOptionPane.showMessageDialog(frame, tutorial, "Instructions", JOptionPane.INFORMATION_MESSAGE);
-                panel.get(0).requestFocusInWindow();
+                panelList.get(0).requestFocusInWindow();
                 controller.setPaused(false);
             }
         });
