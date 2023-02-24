@@ -9,8 +9,8 @@ import api.ColorRGB;
 import api.Point2D;
 import game.gameobject.CircleAspect;
 import game.gameobject.GameObject;
+import game.gameobject.RectangleAspect;
 import game.gameobject.catchthesqareobjects.Bomb;
-import game.gameobject.catchthesqareobjects.BombAspect;
 import game.gameobject.catchthesqareobjects.Defuser;
 import game.minigame.catchthesquare.IncrSpawnStrat;
 import game.minigame.catchthesquare.SpawnFreqStrat;
@@ -86,7 +86,7 @@ public class CatchTheSquare implements Minigame {
         if (defuser.getAspectModel() instanceof CircleAspect) { // check if the bounding box is a circle
             final List<GameObject> bombs = gObjects.stream()
                     .filter(o -> o instanceof Bomb)
-                    .filter(b -> b.getAspectModel() instanceof BombAspect)
+                    .filter(b -> b.getAspectModel() instanceof RectangleAspect) // check if bounding box is a square
                     .toList();
             for (final GameObject bomb : bombs) {
                 final double circleDistancex = Math.abs(defuser.getCoor().getX() - bomb.getCoor().getX());
@@ -150,6 +150,8 @@ public class CatchTheSquare implements Minigame {
      */
     @Override
     public String getTutorial() {
-        return "placeholder";
+        return "Use \"WASD\" to control the the circle and "
+                + "defuse all the squares by touching them before the time runs out"; // TODO Implement key fetching and
+                                                                                      // multilanguage
     }
 }
