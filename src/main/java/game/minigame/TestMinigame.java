@@ -77,7 +77,6 @@ public class TestMinigame implements Minigame {
      */
     @Override
     public String getTutorial() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTutorial'");
+        return "Test minigame, nothing to see here";
     }
 }

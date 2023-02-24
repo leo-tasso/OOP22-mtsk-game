@@ -18,7 +18,7 @@ public class Engine {
     private static final long TIME_TO_NEXT_MINIGAME = 4000L;
     private static final long PERIOD = 5;
     private final List<Minigame> minigameList = new LinkedList<>();
-    private final Input input = new KeyboardInput();        /* user input set by the View */
+    private final Input input = new KeyboardInput(); /* user input set by the View */
     private final View view = new SwingView(this, input);
     private boolean paused;
 
@@ -38,24 +38,32 @@ public class Engine {
         final Long startTime = System.currentTimeMillis();
         minigameList.add(new CatchTheSquare());
         long previousFrame = System.currentTimeMillis();
+        Long points = 0L;
         while (!minigameList.stream().anyMatch(Minigame::isGameOver)) {
             final long currentFrame = System.currentTimeMillis();
             final long elapsed = currentFrame - previousFrame;
             if (System.currentTimeMillis() - startTime > TIME_TO_NEXT_MINIGAME && minigameList.size() < 2) {
-                minigameList.add(new TestMinigame());
+                addMinigame(new TestMinigame());
             }
 
-            processInput(elapsed);
             if (!isPaused()) {
+                points += elapsed;
+                processInput(elapsed);
                 updateGame(elapsed);
             }
             render();
             waitForNextFrame(currentFrame);
             previousFrame = currentFrame;
-        //TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
+            // TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
         }
-        final Long points = System.currentTimeMillis() - startTime;
         view.renderGameOver(points);
+    }
+
+    private void addMinigame(final Minigame minigame) {
+        setPaused(true);
+        view.showMessage(minigame.getTutorial());
+        minigameList.add(minigame);
+        input.reset();
     }
 
     private void processInput(final long elapsedTime) {
@@ -117,7 +125,7 @@ public class Engine {
      * 
      * @return true if the mainLoop is paused
      */
-    private boolean isPaused() {
+    public boolean isPaused() {
         return this.paused;
     }
 

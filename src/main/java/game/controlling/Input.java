@@ -61,4 +61,9 @@ public interface Input {
      */
     void setMoveLeft(boolean moveLeft);
 
+    /**
+     * Method to reset all inputs to false.
+     */
+    void reset();
+
 }

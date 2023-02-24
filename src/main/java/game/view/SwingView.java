@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import api.Point2D;
@@ -197,5 +198,20 @@ public class SwingView implements View {
                 input.setMoveLeft(false);
             }
         }
+    }
+
+    /**
+     * Method to show a message in a popup window.
+     */
+    @Override
+    public void showMessage(final String tutorial) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JOptionPane.showMessageDialog(frame, tutorial, "Instructions", JOptionPane.INFORMATION_MESSAGE);
+                panel.get(0).requestFocusInWindow();
+                controller.setPaused(false);
+            }
+        });
     }
 }
