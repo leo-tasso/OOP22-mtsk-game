@@ -16,7 +16,7 @@ import game.view.View;
  * Main game engine responsible of controlling the game.
  */
 public class Engine {
-    private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(TestMinigame.class,
+    private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(CatchTheSquare.class,
             CatchTheSquare.class, TestMinigame.class, TestMinigame.class);
     private static final long TIME_TO_NEXT_MINIGAME = 5_000L;
     private static final long PERIOD = 5;

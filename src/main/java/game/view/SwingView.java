@@ -30,6 +30,7 @@ public class SwingView implements View {
     private static final int SIZE = 1000;
     private static final List<ColorRGB> BACKGROUND_COLORS = List.of(ColorRGB.orange(), ColorRGB.aqua(), ColorRGB.blue(),
             ColorRGB.green());
+    private static final boolean FULL_SCREEN = true;
     private final Engine controller;
     private final Input input;
     private List<Minigame> minigameList;
@@ -58,6 +59,10 @@ public class SwingView implements View {
         frame.getContentPane().add(panelList.get(0));
         frame.setSize(SIZE, SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if (FULL_SCREEN) {
+            frame.setUndecorated(true);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
         frame.setVisible(true);
     }
 
