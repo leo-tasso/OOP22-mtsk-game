@@ -1,7 +1,5 @@
 package game.minigame.whacamoleminigame;
 
-import java.util.Vector;
-
 import api.Vector2D;
 
 /**
