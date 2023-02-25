@@ -1,12 +1,15 @@
 package game.minigame.whacamoleminigame;
 
+import java.util.Vector;
+
+import api.Vector2D;
+
 /**
  * Class that contains values related to 
  * the third level of the whac-a-mole game.
  */
 public class LevelThree implements Level {
     private static final int MAX_OBJS_OUT_AT_ONCE = 3;
-    private static final long EXIT_TIME = 3000L;
     
     @Override
     public int getMaxObjsSimultaneouslyOut() {
@@ -14,7 +17,7 @@ public class LevelThree implements Level {
     }
 
     @Override
-    public long getObjExitPeriod() {
-        return LevelThree.EXIT_TIME;
+    public Vector2D getObjSpeed() {
+        return new Vector2D(0, 100);
     }
 }
