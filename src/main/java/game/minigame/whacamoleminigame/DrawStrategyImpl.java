@@ -13,11 +13,23 @@ import game.gameobject.whacamoleobjects.Mole;
  * Class that implements a simple draw of GameObjects.
  */
 public class DrawStrategyImpl implements DrawStrategy {
+    private static final long SAFETY_TIME_MARGIN = 10L;
+    private final int numHoles;
+
+    /**
+     * Constructor that takes the number of holes in the game, 
+     * so as to correctly assign them to the extracted objects.
+     * 
+     * @param numHoles the number of holes in the playing field
+     */
+    public DrawStrategyImpl(final int numHoles) {
+        this.numHoles = numHoles;
+    }
 
     @Override
-    public Set<GameObject> draw(Level currLevel, long upperBond, int numHoles) {
+    public Set<GameObject> draw(Level currentLevel, long currentTime) {
         final Set<GameObject> newGameObjs = new HashSet<>();
-        final int maxObjs = currLevel.getMaxObjsSimultaneouslyOut();
+        final int maxObjs = currentLevel.getMaxObjsSimultaneouslyOut();
         final Map<Integer, Boolean> isHoleBusy = new HashMap<>();
         for (int i = 1; i <= numHoles; i++) {
             isHoleBusy.put(i, false);
@@ -25,15 +37,16 @@ public class DrawStrategyImpl implements DrawStrategy {
         final Random rand = new Random();
         final int nMoles = rand.nextInt(maxObjs + 1);
         final int nBombs = rand.nextInt(maxObjs - nMoles + 1); 
-        for (int i = 0; i < nMoles; i++) {           
-            final long lowerBond = System.currentTimeMillis();
-            final long appearanceTime = (int) Math.random() * (upperBond - lowerBond) + lowerBond;
-            newGameObjs.add(new Mole(currLevel.getObjExitPeriod(), appearanceTime, assignHole(isHoleBusy)));
+        /* To avoid assigning an appearance time so close that */
+        /* the program is still executing the underlying loops */
+        final long lowerBound = currentTime + SAFETY_TIME_MARGIN;
+        for (int i = 0; i < nMoles; i++) {
+            final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
+            newGameObjs.add(new Mole(, , assignHole(isHoleBusy)));
         }
         for (int i = 0; i < nBombs; i++) {
-            final long lowerBond = System.currentTimeMillis();
-            final long appearanceTime = (int) Math.random() * (upperBond - lowerBond) + lowerBond;
-            newGameObjs.add(new Bomb(currLevel.getObjExitPeriod(), appearanceTime, assignHole(isHoleBusy)));
+            final long appearanceTime = lowerBond + currentLevel.getSpawnWaitingTime().drawInBetween();
+            newGameObjs.add(new Bomb(, , assignHole(isHoleBusy)));
         }
         return newGameObjs; 
     }
