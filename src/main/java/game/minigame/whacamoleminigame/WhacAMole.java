@@ -129,4 +129,11 @@ public class WhacAMole implements Minigame {
             .filter(b -> b.getStatus().equals(Status.MISSED))
             .forEach(b -> this.bombs.remove(b));
     }
+
+    @Override
+    public String getTutorial() {
+        return "Smash the moles before they can get back to their hole by "
+             + "clicking the number from 1 to 9 on your keyboard corresponding to "
+             + "the hole the mole came out of, but be careful not to hit the bombs!";
+    }
 }
