@@ -1,5 +1,6 @@
 package game.minigame.whacamoleminigame;
 
+import api.TimeInterval;
 import api.Vector2D;
 
 /**
@@ -24,4 +25,15 @@ public interface Level {
      * @return the speed of the GameObjects
      */
     Vector2D getObjSpeed();
+
+    /**
+     * Being that I extract GameObjects only when the list of them 
+     * becomes empty, the longer GameObjects wait to be spawned
+     * ==> the slower the list will empty
+     * ==> moles will come out less frequently
+     * ==> the easier the level will be
+     * 
+     * @return minimum and maximum waiting time
+     */
+    TimeInterval getSpawnWaitingTime();
 }
