@@ -1,5 +1,6 @@
 package game.gameobject;
 
+import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.DirectionalInput;
@@ -20,7 +21,7 @@ public class Circle extends GameObject {
         super(coor, vel);
         this.setInputModel(new DirectionalInput());
         this.setPhysicsModel(new SimplePhysics());
-        this.setAspectModel(new CircleAspect(radius));
+        this.setAspectModel(new CircleAspect(radius, ColorRGB.black()));
     }
 
 }

@@ -113,4 +113,21 @@ public class ColorRGB {
     public static ColorRGB black() {
         return new ColorRGB(COLOR_RANGE_BOTTOM, COLOR_RANGE_BOTTOM, COLOR_RANGE_BOTTOM);
     }
+
+    /**
+     * Method to get a Orange ColorRgb Object.
+     * 
+     * @return a Orange ColorRgb Object.
+     */
+    public static ColorRGB orange() {
+        return new ColorRGB(COLOR_RANGE_TOP, COLOR_RANGE_TOP / 2, COLOR_RANGE_BOTTOM);
+    }
+        /**
+     * Method to get a lightBlue ColorRgb Object.
+     * 
+     * @return a lightBlue ColorRgb Object.
+     */
+    public static ColorRGB aqua() {
+        return new ColorRGB(COLOR_RANGE_BOTTOM, COLOR_RANGE_TOP / 2, COLOR_RANGE_TOP / 2);
+    }
 }

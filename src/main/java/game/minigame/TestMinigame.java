@@ -3,6 +3,7 @@ package game.minigame;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.NullInput;
@@ -16,8 +17,8 @@ import game.gameobject.SimplePhysics;
  */
 public class TestMinigame implements Minigame {
 
-    private static final int START_CIRCLE_Y = 0;
-    private static final int START_CIRCLE_X = 0;
+    private static final int START_CIRCLE_Y = 450;
+    private static final int START_CIRCLE_X = 800;
     private static final int RECTANGLE_WIDTH = 100;
     private static final int RECTANGLE_HEIGHT = 200;
     private static final int RECTANGLE_STARTING_COORDINATE = 300;
@@ -35,7 +36,7 @@ public class TestMinigame implements Minigame {
                         CIRCLE_RADIUS)));
         l.add(new GameObject(new Point2D(RECTANGLE_STARTING_COORDINATE, RECTANGLE_STARTING_COORDINATE),
                 new Vector2D(0, 0), 0, new NullInput(), new SimplePhysics(),
-                new RectangleAspect(RECTANGLE_WIDTH, RECTANGLE_HEIGHT)));
+                new RectangleAspect(RECTANGLE_WIDTH, RECTANGLE_HEIGHT, ColorRGB.white())));
     }
 
     /**
@@ -57,7 +58,8 @@ public class TestMinigame implements Minigame {
     @Override
     public void compute(final long elapsed) {
         l.forEach(b -> b.updatePhysics(elapsed, this));
-        // TODO dubug only System.out.println("Coordinates: " + l.get(0).getCoor() + "" + l.get(0).getVel());
+        // TODO dubug only System.out.println("Coordinates: " + l.get(0).getCoor() + ""
+        // + l.get(0).getVel());
     }
 
     /**
@@ -68,5 +70,13 @@ public class TestMinigame implements Minigame {
     @Override
     public List<GameObject> getGameObjects() {
         return new ArrayList<>(l);
+    }
+
+    /**
+     * Method to get the tutorial string.
+     */
+    @Override
+    public String getTutorial() {
+        return "Test minigame, nothing to see here";
     }
 }

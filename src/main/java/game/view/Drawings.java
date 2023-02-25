@@ -53,4 +53,14 @@ public interface Drawings {
      */
     void drawMole(GameObject object, ColorRGB color);
 
+    /**
+     * Method to draw a label.
+     * 
+     * @param object the label gameObject.
+     * @param color  the color of the label.
+     * @param size   the size of the label.
+     * @param string the string to draw.
+     */
+    void drawLabel(GameObject object, ColorRGB color, int size, String string);
+
 }

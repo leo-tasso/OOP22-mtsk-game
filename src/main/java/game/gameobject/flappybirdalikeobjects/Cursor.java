@@ -18,7 +18,7 @@ public class Cursor extends GameObject {
      * The constructor for the cursor.
      *
      * @param coor the initial coordinates of the cursor.
-     * @param vel the initial speed of the cursor.
+     * @param vel  the initial speed of the cursor.
      * @param size the size of the cursor.
      */
     public Cursor(final Point2D coor, final Vector2D vel, final double size) {
@@ -28,9 +28,9 @@ public class Cursor extends GameObject {
             private final InputModel standard = new DirectionalInput();
 
             @Override
-            public void update(final GameObject obj, final Input c) {
+            public void update(final GameObject obj, final Input c, final long elapsedTime) {
                 if (c.isMoveDown() || c.isMoveUp()) {
-                    standard.update(obj, c);
+                    standard.update(obj, c, elapsedTime);
                 }
             }
 

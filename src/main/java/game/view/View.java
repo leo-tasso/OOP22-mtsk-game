@@ -15,4 +15,11 @@ public interface View {
      * @param points the scored points to display.
      */
     void renderGameOver(Long points);
+
+    /**
+     * Method to show a String message on a popup window.
+     * 
+     * @param tutorial the string to show.
+     */
+    void showMessage(String tutorial);
 }

@@ -9,14 +9,17 @@ import game.view.Drawings;
 public class CircleAspect implements AspectModel {
 
     private final double radius;
+    private final ColorRGB color;
 
     /**
      * The constructor for the circle.
      * 
      * @param radius the radius of the circle
+     * @param color the color of the circle.
      */
-    public CircleAspect(final double radius) {
+    public CircleAspect(final double radius, final ColorRGB color) {
         this.radius = radius;
+        this.color = color;
     }
 
     /**
@@ -24,7 +27,7 @@ public class CircleAspect implements AspectModel {
      */
     @Override
     public void update(final GameObject object, final Drawings drawing) {
-        drawing.drawCircle(object, ColorRGB.green(), radius);
+        drawing.drawCircle(object, color, radius);
     }
 
 }

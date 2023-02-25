@@ -2,19 +2,22 @@ package game.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.FontMetrics;
 
 import api.ColorRGB;
 import api.Point2D;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.gameobject.GameObject;
 
 /**
  * A class used to draw a circle.
  */
 public class SwingDrawings implements Drawings {
-    private static final int COEFFICIENT = 1000;
+    private static final int COEFFICIENT = 900;
     private final Graphics2D g2;
     // coordinates (related to the Jframe) of the upper left corner of the play
     // field
@@ -29,14 +32,13 @@ public class SwingDrawings implements Drawings {
      * @param startingPoint the up-left corner coordinates of the canvas
      * @param dimention     the current height of the canvas
      */
-    @SuppressFBWarnings
     public SwingDrawings(final Graphics2D g2, final Point2D startingPoint, final float dimention) {
-        this.g2 = g2;
+        this.g2 = (Graphics2D) g2.create();
         this.startingPoint = startingPoint;
         this.dimention = dimention;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+        this.g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+        this.g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
     }
 
@@ -55,8 +57,8 @@ public class SwingDrawings implements Drawings {
         final int rad = (int) Math.round(dimention / COEFFICIENT * radius);
         g2.drawOval(
                 // coordinates of the upper left corner of the square circumscribing the circle
-                (int) ((x - rad) * dimention / COEFFICIENT + startingPoint.getX()),
-                (int) ((y - rad) * dimention / COEFFICIENT + startingPoint.getY()),
+                (int) (x * dimention / COEFFICIENT - rad + startingPoint.getX()),
+                (int) (y * dimention / COEFFICIENT - rad + startingPoint.getY()),
                 rad * 2, // side of the square
                 rad * 2);
     }
@@ -107,4 +109,24 @@ public class SwingDrawings implements Drawings {
 
     }
 
+    /**
+     * Method to draw a label.
+     * 
+     * @param object the label gameObject.
+     * @param color  the color of the label.
+     * @param size   the size of the label.
+     * @param string the string to draw.
+     */
+    @Override
+    public void drawLabel(final GameObject object, final ColorRGB color, final int size, final String string) {
+        final FontRenderContext frc = g2.getFontRenderContext();
+        final Font font = new Font("Courier", Font.BOLD, (int) (size * dimention / COEFFICIENT));
+        final TextLayout tl = new TextLayout(string, font, frc);
+        g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
+        final FontMetrics fm = g2.getFontMetrics(font);
+        final double x = object.getCoor().getX() * dimention / COEFFICIENT - (float) fm.stringWidth(string) / 2;
+        final double y = object.getCoor().getY() * dimention / COEFFICIENT
+                + (float) (fm.getHeight() - fm.getAscent()) / 2;
+        tl.draw(g2, (float) (x + startingPoint.getX()), (float) (y + startingPoint.getY()));
+    }
 }

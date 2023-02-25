@@ -125,9 +125,10 @@ public class GameObject {
      * The method to update the input of the object.
      *
      * @param input
+     * @param elapsedTime the time elapsed from the last frame
      */
-    public void updateinput(final Input input) {
-        inputModel.update(this, input);
+    public void updateinput(final Input input, final long elapsedTime) {
+        inputModel.update(this, input, elapsedTime);
     }
 
     /**

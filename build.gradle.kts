@@ -17,10 +17,18 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
 }
 
-val mainClass: String by project
+//val mainClass: String by project
 
 application {
     // The following allows to run with: ./gradlew -PmainClass=it.unibo.oop.MyMainClass run
     //mainClass.set(project.properties["mainClass"].toString())
-    mainClass.set("game.Game")
+    mainClass.set("game.Engine")
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
+        showStandardStreams = true
+    }
 }
