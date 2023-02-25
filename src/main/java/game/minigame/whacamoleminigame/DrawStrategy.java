@@ -14,12 +14,12 @@ public interface DrawStrategy {
     /**
      * Method for randomly drawing moles and/or bombs.
      * 
-     * @param currentLevel from which we obtain the exit time (speed) of the 
-     * GameObjects and the maximum number of them with overlapping exit times
-     * @param upperBond The maximum instant in which to start the appearance 
-     * of the GameObject
-     * @param numHoles number of holes in the playing field
+     * @param currentLevel from which we obtain the speed of the 
+     * GameObjects, the maximum number of them that can exit simultaneously
+     * and the amount of time an item should wait before spawning.
+     * @param currentTime "local" time of the game, needed to assign meaningful 
+     * values to the objects (such as the time of appearance)
      * @return a Set containing the new GameObjects to add to the game
      */
-    Set<GameObject> draw(Level currLevel, long upperBond, int numHoles);
+    Set<GameObject> draw(Level currentLevel, long currentTime);
 }
