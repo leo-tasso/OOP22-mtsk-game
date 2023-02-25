@@ -16,28 +16,23 @@ import game.minigame.Minigame;
 public class WhacAMole implements Minigame {
     private static final int NUM_HOLES = 9;
     private static final long TIME_TO_NEXT_LEVEL = 24000L;
-    private static final long TIME_BETWEEN_DRAWS = 8000L;
 
     private List<Mole> moles; 
     private List<Bomb> bombs;
     private final List<Level> levels; 
-    private final long startTime;
+    private final long currentTime;
     private DrawStrategy draw;
-    private Optional<Long> timeLastDraw; 
     private Level currentLevel;
 
     /**
      * General initialization of the fields, the start time is 
      * requested in order to calculate when to advance in level.
-     * 
-     * @param startTime The instant in which the user starts playing (in ms)
      */
-    public WhacAMole(final long startTime) {
-        this.startTime = startTime;
+    public WhacAMole() {
+        this.currentTime = 0L;
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
         this.currentLevel = this.levels.get(0);
-        this.draw = new DrawStrategyImpl();
-        this.timeLastDraw = Optional.empty();
+        this.draw = new DrawStrategyImpl(NUM_HOLES);
     }
 
     /**
@@ -62,21 +57,17 @@ public class WhacAMole implements Minigame {
      */
     @Override
     public void compute(final long elapsed) {
+        this.currentTime += elapsed;
         /* I have to use two streams because if I generalize the type  */
         /* to GameObject I could not do the check on the state of      */
         /* the objects so I would have to create 2 classes for physics */
         this.moles.stream().filter(m -> m.getStatus().equals(Status.IN_MOTION)).forEach(m -> m.updatePhysics(elapsed, this));
         this.bombs.stream().filter(b -> b.getStatus().equals(Status.IN_MOTION)).forEach(b -> b.updatePhysics(elapsed, this));
         this.deleteOldObjs();
-        this.calculateLevel(System.currentTimeMillis());
+        this.calculateLevel();
 
-        final Long timeNextDraw = this.timeLastDraw.orElse(0L) + TIME_BETWEEN_DRAWS;
-        if (timeLastDraw.isEmpty() || timeNextDraw <= System.currentTimeMillis()) {
-            final long upperBond = timeNextDraw + TIME_BETWEEN_DRAWS - currentLevel.getObjExitPeriod();
-            /* Having to assign a random appearance time to     */
-            /* the objects, I need to know what is the maximum  */
-            /* instant in which to start its exit from the hole */
-            this.draw.draw(this.currentLevel, upperBond, NUM_HOLES).stream()
+        if (this.moles.isEmpty() && this.bombs.isEmpty()) {
+            this.draw.draw(this.currentLevel, this.currentTime).stream()
                 .forEach(o -> {
                     if (o instanceof Mole) {
                         moles.add((Mole) o);
@@ -106,8 +97,8 @@ public class WhacAMole implements Minigame {
      * 
      * @param currentTimeMillis
      */
-    private void calculateLevel(final long currentTime) {
-        final int levelIndex = (int) (currentTime - this.startTime) / (int) TIME_TO_NEXT_LEVEL;
+    private void calculateLevel() {
+        final int levelIndex = (int) this.currentTime / (int) TIME_TO_NEXT_LEVEL;
         if (levelIndex > this.levels.size() - 1) {
             this.currentLevel = this.levels.get(this.levels.size() - 1);
         } else {
@@ -120,12 +111,12 @@ public class WhacAMole implements Minigame {
      */
     private void deleteOldObjs() {
         this.moles.stream()
-            .filter(m -> m.getDisappearanceTime() < System.currentTimeMillis())
+            .filter(m -> m.getDisappearanceTime() < this.currentTime)
             .filter(m -> m.getStatus().equals(Status.HIT))
             .forEach(m -> this.moles.remove(m));
         
         this.bombs.stream()
-            .filter(b -> b.getDisappearanceTime() < System.currentTimeMillis())
+            .filter(b -> b.getDisappearanceTime() < this.currentTime)
             .filter(b -> b.getStatus().equals(Status.MISSED))
             .forEach(b -> this.bombs.remove(b));
     }
