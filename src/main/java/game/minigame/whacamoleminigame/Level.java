@@ -1,5 +1,7 @@
 package game.minigame.whacamoleminigame;
 
+import api.Vector2D;
+
 /**
  * Interface that models a whac-a-mole game level
  */
@@ -19,7 +21,7 @@ public interface Level {
      * is the speed with which moles and bombs go up and down the 
      * holes: the faster they go, the more difficult it will be.
      * 
-     * @return the total time spent outside the hole (in milliseconds)
+     * @return the speed of the GameObjects
      */
-    long getObjExitPeriod();
+    Vector2D getObjSpeed();
 }
