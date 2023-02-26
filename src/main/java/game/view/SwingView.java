@@ -30,7 +30,8 @@ public class SwingView implements View {
     private static final int SIZE = 1000;
     private static final List<ColorRGB> BACKGROUND_COLORS = List.of(ColorRGB.orange(), ColorRGB.aqua(), ColorRGB.blue(),
             ColorRGB.green());
-    private static final boolean FULL_SCREEN = true;
+    private boolean fullScreen = true;
+
     private final Engine controller;
     private final Input input;
     private List<Minigame> minigameList;
@@ -59,7 +60,7 @@ public class SwingView implements View {
         frame.getContentPane().add(panelList.get(0));
         frame.setSize(SIZE, SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        if (FULL_SCREEN) {
+        if (fullScreen) {
             frame.setUndecorated(true);
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
@@ -113,15 +114,35 @@ public class SwingView implements View {
 
     }
 
+    /**
+     * Getter to check if view is set to full screen.
+     * 
+     * @return if view is set to full screen.
+     */
+    public boolean isFullScreen() {
+        return fullScreen;
+    }
+
+    /**
+     * Method to toggle between full screen and windowed.
+     */
+    public void toggleFullScreen() {
+        this.fullScreen = !this.fullScreen;
+        frame.dispose();
+        frame.setUndecorated(this.fullScreen);
+        frame.setVisible(true);
+    }
+
     private class MinigamePanel extends JPanel implements KeyListener {
 
         private static final int ASPECT_WIDTH = 16;
         private static final int ASPECT_HEIGHT = 9;
         private static final double ASPECT_RATIO = ASPECT_WIDTH / (double) ASPECT_HEIGHT;
-        private static final int LEFT_BUTTON = 65;
-        private static final int RIGHT_BUTTON = 68;
-        private static final int DOWN_BUTTON = 83;
-        private static final int UP_BUTTON = 87;
+        private static final int A_BUTTON = 65;
+        private static final int D_BUTTON = 68;
+        private static final int S_BUTTON = 83;
+        private static final int W_BUTTON = 87;
+        private static final int F_BUTTON = 70;
         private static final long serialVersionUID = 1L;
 
         MinigamePanel() {
@@ -195,31 +216,35 @@ public class SwingView implements View {
 
         @Override
         public void keyPressed(final KeyEvent e) {
-            if (e.getKeyCode() == UP_BUTTON) {
+            if (e.getKeyCode() == W_BUTTON) {
                 input.setMoveUp(true);
-            } else if (e.getKeyCode() == DOWN_BUTTON) {
+            } else if (e.getKeyCode() == S_BUTTON) {
                 input.setMoveDown(true);
-            } else if (e.getKeyCode() == RIGHT_BUTTON) {
+            } else if (e.getKeyCode() == D_BUTTON) {
                 input.setMoveRight(true);
-            } else if (e.getKeyCode() == LEFT_BUTTON) {
+            } else if (e.getKeyCode() == A_BUTTON) {
                 input.setMoveLeft(true);
             }
+
         }
 
         @Override
         public void keyTyped(final KeyEvent e) {
+
         }
 
         @Override
         public void keyReleased(final KeyEvent e) {
-            if (e.getKeyCode() == UP_BUTTON) {
+            if (e.getKeyCode() == W_BUTTON) {
                 input.setMoveUp(false);
-            } else if (e.getKeyCode() == DOWN_BUTTON) {
+            } else if (e.getKeyCode() == S_BUTTON) {
                 input.setMoveDown(false);
-            } else if (e.getKeyCode() == RIGHT_BUTTON) {
+            } else if (e.getKeyCode() == D_BUTTON) {
                 input.setMoveRight(false);
-            } else if (e.getKeyCode() == LEFT_BUTTON) {
+            } else if (e.getKeyCode() == A_BUTTON) {
                 input.setMoveLeft(false);
+            } else if (e.getKeyCode() == F_BUTTON) {
+                toggleFullScreen();
             }
         }
     }
