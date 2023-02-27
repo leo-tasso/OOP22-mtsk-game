@@ -1,13 +1,20 @@
 package game.view;
 
+import java.util.List;
+
+import game.Engine;
+import game.gameobject.GameObject;
+
 /**
  * Main view interface, shows the game.
  */
 public interface View {
     /**
-     * Renders.
+     * The method to render the view.
+     * 
+     * @param objectsList a list of list of gameObjects for each minigame.
      */
-    void render();
+    void render(List<List<GameObject>> objectsList);
 
     /**
      * Displays final score.
@@ -19,7 +26,8 @@ public interface View {
     /**
      * Method to show a String message on a popup window.
      * 
-     * @param tutorial the string to show.
+     * @param tutorial the string to display.
+     * @param controller the controller to resume.
      */
-    void showMessage(String tutorial);
+    void showMessage(String tutorial, Engine controller);
 }

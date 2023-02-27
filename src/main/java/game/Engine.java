@@ -22,7 +22,7 @@ public class Engine {
     private static final long PERIOD = 5;
     private final List<Minigame> minigameList = new LinkedList<>();
     private final Input input = new KeyboardInput(); /* user input set by the View */
-    private final View view = new SwingView(this, input);
+    private final View view = new SwingView(input);
     private boolean paused;
     private int addedMinigame;
 
@@ -70,7 +70,7 @@ public class Engine {
         Minigame newMinigame;
         try {
             newMinigame = MINIGAME_SEQUENCE.get(addedMinigame++).getDeclaredConstructor().newInstance();
-            view.showMessage(newMinigame.getTutorial());
+            view.showMessage(newMinigame.getTutorial(), this);
             minigameList.add(newMinigame);
             input.reset();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
@@ -97,7 +97,7 @@ public class Engine {
      * Renders.
      */
     private void render() {
-        view.render();
+        view.render(this.getMinigameList().stream().map(g -> g.getGameObjects()).toList());
     }
 
     /**

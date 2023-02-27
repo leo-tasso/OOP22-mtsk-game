@@ -22,7 +22,7 @@ import api.Point2D;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.Engine;
 import game.controlling.Input;
-import game.minigame.Minigame;
+import game.gameobject.GameObject;
 
 /**
  * A class for the view using the swing library.
@@ -32,24 +32,18 @@ public class SwingView implements View {
     private static final List<ColorRGB> BACKGROUND_COLORS = List.of(ColorRGB.orange(), ColorRGB.aqua(), ColorRGB.blue(),
             ColorRGB.green());
     private boolean fullScreen = true;
-
-    private final Engine controller;
     private final Input input;
-    private List<Minigame> minigameList;
-    private final List<JPanel> panelList;
+    private final List<MinigamePanel> panelList;
     private final JFrame frame;
 
     /**
      * A constructor for the window view of the game.
      * 
-     * @param controller the main engine
-     * @param input      the input list to update
+     * @param input the input list to update
      */
     @SuppressFBWarnings
-    public SwingView(final Engine controller, final Input input) {
+    public SwingView(final Input input) {
         this.input = input;
-        this.controller = controller;
-        this.minigameList = this.controller.getMinigameList();
         panelList = new ArrayList<>();
         final MinigamePanel newMinigame = new MinigamePanel();
         newMinigame.addKeyListener(newMinigame);
@@ -80,11 +74,12 @@ public class SwingView implements View {
 
     /**
      * The method to render the view.
+     * 
+     * @param objectsList a list of list of gameObjects for each minigame.
      */
     @Override
-    public void render() {
-        minigameList = controller.getMinigameList();
-        if (controller.getMinigameList().size() > panelList.size()) {
+    public void render(final List<List<GameObject>> objectsList) {
+        if (objectsList.size() > panelList.size()) {
             final MinigamePanel newMinigame = new MinigamePanel();
             newMinigame.setBackground(
                     swingColor(BACKGROUND_COLORS.size() > panelList.size() ? BACKGROUND_COLORS.get(panelList.size())
@@ -96,7 +91,12 @@ public class SwingView implements View {
             }
             frame.setVisible(true);
         }
-        panelList.forEach(p -> p.repaint());
+
+        panelList.forEach(p -> {
+            p.setObjectsList(objectsList.get(panelList.indexOf(p))); // Passes to the panel the list of object relative
+                                                                     // to its index
+            p.repaint();
+        });
     }
 
     /**
@@ -154,6 +154,11 @@ public class SwingView implements View {
         private static final int W_BUTTON = 87;
         private static final int F_BUTTON = 70;
         private static final long serialVersionUID = 1L;
+        private List<GameObject> objectsList = new ArrayList<>();
+
+        private void setObjectsList(final List<GameObject> objectsList) {
+            this.objectsList = new ArrayList<>(objectsList);
+        }
 
         MinigamePanel() {
             setFocusable(true);
@@ -174,8 +179,8 @@ public class SwingView implements View {
                 g2.drawRect((int) startingPoint.getX(), (int) startingPoint.getY(), boxWidth(), boxHeight());
 
                 final Drawings d = new SwingDrawings(g2, startingPoint, boxHeight());
-                if (!minigameList.isEmpty()) {
-                    minigameList.get(panelList.indexOf(this)).getGameObjects().stream().forEach(o -> o.updateAspect(d));
+                if (!objectsList.isEmpty()) {
+                    objectsList.forEach(o -> o.updateAspect(d));
                 }
                 // gets and paints only gameobjects of the same minigame index as the panel
             } catch (ClassCastException e) {
@@ -261,9 +266,13 @@ public class SwingView implements View {
 
     /**
      * Method to show a message in a popup window.
+     * 
+     * @param tutorial the string to display.
+     * @param controller the controller to resume.
+     * 
      */
     @Override
-    public void showMessage(final String tutorial) {
+    public void showMessage(final String tutorial, final Engine controller) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

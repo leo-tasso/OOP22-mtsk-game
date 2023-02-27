@@ -39,7 +39,7 @@ public class SwingDrawings implements Drawings {
         this.g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         this.g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-                RenderingHints.VALUE_RENDER_QUALITY);
+                RenderingHints.VALUE_RENDER_SPEED);
     }
 
     /**
