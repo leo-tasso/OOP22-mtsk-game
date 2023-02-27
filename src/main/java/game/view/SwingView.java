@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -106,8 +107,17 @@ public class SwingView implements View {
     @Override
     public void renderGameOver(final Long points) {
         final JPanel endScreen = new JPanel(new FlowLayout());
-        final JLabel pointsLabel = new JLabel(Long.toString(points));
+        final JLabel pointsLabel = new JLabel("You scored:" + Long.toString(points));
+        final JButton again = new JButton("Play Again");
+        again.addActionListener(a -> {
+            new Thread(() -> new Engine().mainLoop()).start();
+            frame.dispose();
+        });
+        final JButton exit = new JButton("Exit");
+        exit.addActionListener(a -> frame.dispose());
         endScreen.add(pointsLabel);
+        endScreen.add(again);
+        endScreen.add(exit);
         frame.setContentPane(endScreen);
         frame.repaint();
         frame.setVisible(true);
