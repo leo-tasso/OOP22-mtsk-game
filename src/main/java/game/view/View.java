@@ -26,8 +26,20 @@ public interface View {
     /**
      * Method to show a String message on a popup window.
      * 
-     * @param tutorial the string to display.
+     * @param tutorial   the string to display.
      * @param controller the controller to resume.
      */
     void showMessage(String tutorial, Engine controller);
+
+    /**
+     * Getter to check if view is set to full screen.
+     * 
+     * @return if view is set to full screen.
+     */
+    boolean isFullScreen();
+
+    /**
+     * Method to toggle between full screen and windowed.
+     */
+    void toggleFullScreen();
 }

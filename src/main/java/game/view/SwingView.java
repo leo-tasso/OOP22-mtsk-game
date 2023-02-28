@@ -57,8 +57,8 @@ public class SwingView implements View {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         if (fullScreen) {
             frame.setUndecorated(true);
-            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
 
@@ -129,6 +129,7 @@ public class SwingView implements View {
      * 
      * @return if view is set to full screen.
      */
+    @Override
     public boolean isFullScreen() {
         return fullScreen;
     }
@@ -136,10 +137,12 @@ public class SwingView implements View {
     /**
      * Method to toggle between full screen and windowed.
      */
+    @Override
     public void toggleFullScreen() {
         this.fullScreen = !this.fullScreen;
         frame.dispose();
         frame.setUndecorated(this.fullScreen);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
 
