@@ -10,7 +10,25 @@ repositories {
     mavenCentral()
 }
 
+val javaFXModules = listOf(
+    "base",
+    "controls",
+    "fxml",
+    "swing",
+    "graphics"
+)
+
+val supportedPlatforms = listOf("linux", "mac", "win") // All required for OOP
+
 dependencies {
+
+    val javaFxVersion = 15
+    for (platform in supportedPlatforms) {
+        for (module in javaFXModules) {
+            implementation("org.openjfx:javafx-$module:$javaFxVersion:$platform")
+        }
+    }
+
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3")
     val jUnitVersion = "5.9.1"
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")

@@ -1,4 +1,4 @@
-package game.view;
+package game.view.swing;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -23,6 +23,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.Engine;
 import game.controlling.Input;
 import game.gameobject.GameObject;
+import game.view.Drawings;
+import game.view.View;
 
 /**
  * A class for the view using the swing library.
@@ -129,7 +131,6 @@ public class SwingView implements View {
      * 
      * @return if view is set to full screen.
      */
-    @Override
     public boolean isFullScreen() {
         return fullScreen;
     }
@@ -137,7 +138,6 @@ public class SwingView implements View {
     /**
      * Method to toggle between full screen and windowed.
      */
-    @Override
     public void toggleFullScreen() {
         this.fullScreen = !this.fullScreen;
         frame.dispose();
@@ -270,7 +270,7 @@ public class SwingView implements View {
     /**
      * Method to show a message in a popup window.
      * 
-     * @param tutorial the string to display.
+     * @param tutorial   the string to display.
      * @param controller the controller to resume.
      * 
      */

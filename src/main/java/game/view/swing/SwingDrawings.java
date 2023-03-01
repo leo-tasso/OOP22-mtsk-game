@@ -1,4 +1,4 @@
-package game.view;
+package game.view.swing;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -12,6 +12,7 @@ import java.awt.FontMetrics;
 import api.ColorRGB;
 import api.Point2D;
 import game.gameobject.GameObject;
+import game.view.Drawings;
 
 /**
  * A class used to draw a circle.

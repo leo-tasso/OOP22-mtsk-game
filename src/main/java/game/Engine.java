@@ -4,27 +4,50 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.minigame.CatchTheSquare;
 import game.minigame.Minigame;
 import game.minigame.TestMinigame;
-import game.view.SwingView;
 import game.view.View;
+import game.view.javafx.JavaFxView;
+import game.view.swing.SwingView;
+import javafx.application.Application;
 
 /**
  * Main game engine responsible of controlling the game.
  */
 public class Engine {
     private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(CatchTheSquare.class,
-            CatchTheSquare.class, TestMinigame.class, TestMinigame.class);
+            CatchTheSquare.class, TestMinigame.class);
     private static final long TIME_TO_NEXT_MINIGAME = 5_000L;
     private static final long PERIOD = 5;
     private final List<Minigame> minigameList = new LinkedList<>();
-    private final Input input = new KeyboardInput(); /* user input set by the View */
-    private final View view = new SwingView(input);
+    private final Input input;
     private boolean paused;
     private int addedMinigame;
+    private final View view;
+
+    /**
+     * Constructor to launch the engine from the view.
+     * 
+     * @param view  the view that launches.
+     * @param input the Input class.
+     */
+    @SuppressFBWarnings
+    public Engine(final View view, final Input input) {
+        this.view = view;
+        this.input = input;
+    }
+
+    /**
+     * Constructor to launch the engine from itself.
+     */
+    public Engine() {
+        this.input = new KeyboardInput();
+        this.view = new SwingView(input);
+    }
 
     /**
      * Start point of the game, initializes the loop.
@@ -32,7 +55,8 @@ public class Engine {
      * @param args not used.
      */
     public static void main(final String[] args) {
-        new Engine().mainLoop();
+        Application.launch(JavaFxView.class, args);
+        // new Engine().mainLoop();
     }
 
     /**
