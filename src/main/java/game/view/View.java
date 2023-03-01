@@ -30,4 +30,11 @@ public interface View {
      * @param controller the controller to resume.
      */
     void showMessage(String tutorial, Engine controller);
+
+    /**
+     * Checks if the view is still active.
+     * 
+     * @return if the view is still active.
+     */
+    boolean isViewActive();
 }

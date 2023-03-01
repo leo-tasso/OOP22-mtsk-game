@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -31,7 +32,7 @@ import javafx.stage.Window;
 /**
  * Implementation of {@link View} using JavaFx.
  */
-public class JavaFxView extends Application implements View {
+public final class JavaFxView extends Application implements View {
 
     private static final int BUTTON_SPACING = 10;
     private static final int ASPECT_WIDTH = 16;
@@ -46,7 +47,7 @@ public class JavaFxView extends Application implements View {
     private Stage stage;
     private Scene gameScene;
     private GridPane gp;
-    private boolean initDone;
+    private boolean windowOpen;
     private final Input input = new KeyboardInput();
 
     /**
@@ -60,6 +61,11 @@ public class JavaFxView extends Application implements View {
         minigameCanvases.add(canvas);
         gp.add(canvas, 0, 0);
         gameScene = new Scene(gp, START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/LayerIcon.png")));
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+        });
+
         stage.setTitle("MTSK-Game");
         stage.setScene(gameScene);
         final Window w = gameScene.getWindow();
@@ -106,7 +112,7 @@ public class JavaFxView extends Application implements View {
             }
         });
         new Thread(() -> new Engine(this, input).mainLoop()).start();
-        initDone = true;
+        windowOpen = true;
     }
 
     /**
@@ -169,7 +175,7 @@ public class JavaFxView extends Application implements View {
 
             // Create a button to play again
             final Button playAgainButton = new Button("Play Again");
-            //TODO implement
+            // TODO implement
             /*
              * playAgainButton.setOnAction(e -> {
              * stage.close();
@@ -243,7 +249,7 @@ public class JavaFxView extends Application implements View {
      * @return the starting point of the game area.
      */
     private Point2D getStartingPoint() {
-        if (!initDone) {
+        if (!windowOpen) {
             return Point2D.origin();
         }
         if (isLarger()) {
@@ -260,7 +266,7 @@ public class JavaFxView extends Application implements View {
      * @return the width of the canvas
      */
     private double boxWidth() {
-        if (!initDone) {
+        if (!windowOpen) {
             return 0;
         }
         if (isLarger()) {
@@ -275,7 +281,7 @@ public class JavaFxView extends Application implements View {
      * @return the height of the canvas
      */
     private double boxHeight() {
-        if (!initDone) {
+        if (!windowOpen) {
             return 0;
         }
         if (isLarger()) {
@@ -290,9 +296,25 @@ public class JavaFxView extends Application implements View {
      * @return whether the frame is larger
      */
     private boolean isLarger() {
-        if (!initDone) {
+        if (!windowOpen) {
             return true;
         }
         return minigameCanvases.get(0).getHeight() / ASPECT_HEIGHT < minigameCanvases.get(0).getWidth() / ASPECT_WIDTH;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isViewActive() {
+        return windowOpen;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void stop() throws Exception {
+        windowOpen = false;
     }
 }

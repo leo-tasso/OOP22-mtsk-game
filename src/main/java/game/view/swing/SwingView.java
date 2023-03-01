@@ -285,4 +285,12 @@ public class SwingView implements View {
             }
         });
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isViewActive() {
+        return frame.isShowing();
+    }
 }
