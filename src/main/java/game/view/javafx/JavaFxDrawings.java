@@ -86,8 +86,19 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawTriangle(final GameObject object, final ColorRGB color, final double side) {
-        // TODO
+    public void drawTriangle(final GameObject object, final ColorRGB color, final double radius) {
+        gc.setFill(jfxColor(color));
+        gc.fillPolygon(new double[] {
+                (object.getCoor().getX() - radius / 2) * dimention / COEFFICIENT + startingPoint.getX(),
+                (object.getCoor().getX() - radius / 2) * dimention / COEFFICIENT + startingPoint.getX(),
+                (object.getCoor().getX() + radius) * dimention / COEFFICIENT + startingPoint.getX() },
+                new double[] {
+                        (object.getCoor().getY() - radius * Math.sqrt(3) / 2) * dimention / COEFFICIENT
+                                + startingPoint.getY(),
+                        (object.getCoor().getY() + radius * Math.sqrt(3) / 2) * dimention / COEFFICIENT
+                                + startingPoint.getY(),
+                        object.getCoor().getY() * dimention / COEFFICIENT + startingPoint.getY(),
+                }, 3);
     }
 
     /**
