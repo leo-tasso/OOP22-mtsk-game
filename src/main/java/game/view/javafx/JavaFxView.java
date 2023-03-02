@@ -23,6 +23,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,7 +46,7 @@ public final class JavaFxView extends Application implements View {
     private static final double ASPECT_RATIO = ASPECT_WIDTH / (double) ASPECT_HEIGHT;
 
     private static final int START_WINDOW_WIDTH = 800;
-    private static final int START_WINDOW_HEIGHT = 450;
+    private static final int START_WINDOW_HEIGHT = 480;
     private static final List<Color> BACKGROUND_COLORS = List.of(Color.AQUAMARINE, Color.DARKSEAGREEN, Color.RED);
     private final List<Canvas> minigameCanvases = new ArrayList<>();
 
@@ -78,6 +83,11 @@ public final class JavaFxView extends Application implements View {
         root.setBackground(null);
         final Scene menuScene = new Scene(root, stage.getWidth(), stage.getHeight());
         menuScene.setFill(Color.WHITE);
+        final BackgroundImage backgroundImage = new BackgroundImage(
+                new Image(this.getClass().getResourceAsStream("/Pattern.png")), BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        final Background background = new Background(backgroundImage);
+        root.setBackground(background);
         stage.setScene(menuScene);
 
     }
