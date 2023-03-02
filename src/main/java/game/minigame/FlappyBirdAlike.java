@@ -20,6 +20,7 @@ import api.Vector2D;
 public class FlappyBirdAlike implements Minigame {
 
     private static final double CURSOR_SIZE = 200;
+    private static final double CURSOR_X = 50;
     private static final int ENEMY_WIDTH = 100;
     private static final int ENEMY_SPAWN = 2000;
     private static final int ENEMY_SPEED = -50;
@@ -35,7 +36,7 @@ public class FlappyBirdAlike implements Minigame {
     *
     */
     public FlappyBirdAlike() {
-        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2, FIELD_HEIGHT), Vector2D.nullVector(), CURSOR_SIZE));
+        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT), Vector2D.nullVector(), CURSOR_SIZE));
     }
 
     /**

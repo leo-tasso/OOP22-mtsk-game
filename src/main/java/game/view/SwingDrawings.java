@@ -73,9 +73,9 @@ public class SwingDrawings implements Drawings {
         final double shortOffset = Math.sqrt(3) / 6;
         final double longOffset = Math.sqrt(3);
         final List<Double> xs = new ArrayList<>();
-        xs.add(object.getCoor().getX() - side * longOffset);
-        xs.add(object.getCoor().getX() - side * longOffset);
-        xs.add(object.getCoor().getX() + side / shortOffset);
+        xs.add(object.getCoor().getX() - side * shortOffset);
+        xs.add(object.getCoor().getX() - side * shortOffset);
+        xs.add(object.getCoor().getX() + side / longOffset);
 
         final List<Double> ys = new ArrayList<>();
         ys.add(object.getCoor().getY() + side / 2);
