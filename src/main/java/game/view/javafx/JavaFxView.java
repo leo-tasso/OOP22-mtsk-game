@@ -21,6 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -55,25 +56,44 @@ public final class JavaFxView extends Application implements View {
      */
     @Override
     public void start(final Stage stage) throws Exception {
-        final Canvas canvas = new Canvas(START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
+        initStage(stage);
+        viewMenu(stage);
+    }
 
+    private void viewMenu(Stage stage) {
+        final ImageView logo = new ImageView(new Image(this.getClass().getResourceAsStream("/Title.png")));
+        logo.setPreserveRatio(true);
+        logo.fitWidthProperty().bind(stage.widthProperty().divide(2));
+        logo.fitHeightProperty().bind(stage.heightProperty().divide(2));
+        final Button playButton = new Button("Play");
+        playButton.prefWidthProperty().bind(stage.widthProperty().divide(2));
+        playButton.prefHeightProperty().bind(stage.heightProperty().divide(5));
+        playButton.setOnAction(e -> Platform.runLater(() -> viewGame(stage)));
+        final Button exitButton = new Button("Exit");
+        exitButton.prefWidthProperty().bind(stage.widthProperty().divide(2));
+        exitButton.prefHeightProperty().bind(stage.heightProperty().divide(5));
+        exitButton.setOnAction(e -> Platform.runLater(() -> Platform.exit()));
+        final VBox root = new VBox(BUTTON_SPACING, logo, playButton, exitButton);
+        root.setAlignment(Pos.CENTER);
+        root.setBackground(null);
+        final Scene menuScene = new Scene(root, stage.getWidth(), stage.getHeight());
+        menuScene.setFill(Color.WHITE);
+        stage.setScene(menuScene);
+
+    }
+
+    private void viewGame(Stage stage) {
+        final Canvas canvas = new Canvas(START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
         gp = new GridPane();
         minigameCanvases.add(canvas);
         gp.add(canvas, 0, 0);
         gameScene = new Scene(gp, START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
-        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/LayerIcon.png")));
-        stage.setOnCloseRequest(event -> {
-            Platform.exit();
-        });
 
-        stage.setTitle("MTSK-Game");
         stage.setScene(gameScene);
         final Window w = gameScene.getWindow();
         if (w instanceof Stage) {
             this.stage = (Stage) w;
         }
-        stage.setFullScreen(false);
-        stage.show();
 
         gameScene.widthProperty().addListener((observable, oldValue, newValue) -> {
             final double width = newValue.doubleValue();
@@ -112,7 +132,21 @@ public final class JavaFxView extends Application implements View {
             }
         });
         new Thread(() -> new Engine(this, input).mainLoop()).start();
+        stage.setScene(gameScene);
+    }
+
+    private void initStage(Stage stage) {
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/LayerIcon.png")));
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+        });
+
+        stage.setTitle("MTSK-Game");
+        stage.setFullScreen(false);
         windowOpen = true;
+        stage.setHeight(START_WINDOW_HEIGHT);
+        stage.setWidth(START_WINDOW_WIDTH);
+        stage.show();
     }
 
     /**
@@ -166,14 +200,9 @@ public final class JavaFxView extends Application implements View {
     @Override
     public void renderGameOver(final Long points) {
         Platform.runLater(() -> {
-            // Create a label to display the score
             final Label scoreLabel = new Label("Score: " + points);
-
-            // Create a button to exit the application
             final Button exitButton = new Button("Exit");
             exitButton.setOnAction(e -> Platform.exit());
-
-            // Create a button to play again
             final Button playAgainButton = new Button("Play Again");
             // TODO implement
             /*
