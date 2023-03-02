@@ -57,21 +57,21 @@ public final class JavaFxView extends Application implements View {
     @Override
     public void start(final Stage stage) throws Exception {
         initStage(stage);
-        viewMenu(stage);
+        renderMenu(stage);
     }
 
-    private void viewMenu(Stage stage) {
+    private void renderMenu(final Stage stage) {
         final ImageView logo = new ImageView(new Image(this.getClass().getResourceAsStream("/Title.png")));
         logo.setPreserveRatio(true);
         logo.fitWidthProperty().bind(stage.widthProperty().divide(2));
         logo.fitHeightProperty().bind(stage.heightProperty().divide(2));
         final Button playButton = new Button("Play");
-        playButton.prefWidthProperty().bind(stage.widthProperty().divide(2));
-        playButton.prefHeightProperty().bind(stage.heightProperty().divide(5));
-        playButton.setOnAction(e -> Platform.runLater(() -> viewGame(stage)));
+        playButton.prefWidthProperty().bind(stage.widthProperty().divide(ASPECT_HEIGHT));
+        playButton.prefHeightProperty().bind(stage.heightProperty().divide(ASPECT_WIDTH));
+        playButton.setOnAction(e -> Platform.runLater(() -> renderGame(stage)));
         final Button exitButton = new Button("Exit");
-        exitButton.prefWidthProperty().bind(stage.widthProperty().divide(2));
-        exitButton.prefHeightProperty().bind(stage.heightProperty().divide(5));
+        exitButton.prefWidthProperty().bind(stage.widthProperty().divide(ASPECT_HEIGHT));
+        exitButton.prefHeightProperty().bind(stage.heightProperty().divide(ASPECT_WIDTH));
         exitButton.setOnAction(e -> Platform.runLater(() -> Platform.exit()));
         final VBox root = new VBox(BUTTON_SPACING, logo, playButton, exitButton);
         root.setAlignment(Pos.CENTER);
@@ -82,9 +82,10 @@ public final class JavaFxView extends Application implements View {
 
     }
 
-    private void viewGame(Stage stage) {
+    private void renderGame(final Stage stage) {
         final Canvas canvas = new Canvas(START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
         gp = new GridPane();
+        minigameCanvases.clear();
         minigameCanvases.add(canvas);
         gp.add(canvas, 0, 0);
         gameScene = new Scene(gp, START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
@@ -132,15 +133,16 @@ public final class JavaFxView extends Application implements View {
             }
         });
         new Thread(() -> new Engine(this, input).mainLoop()).start();
-        stage.setScene(gameScene);
+        this.stage.setScene(gameScene);
     }
 
-    private void initStage(Stage stage) {
+    private void initStage(final Stage stage) {
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/LayerIcon.png")));
         stage.setOnCloseRequest(event -> {
             Platform.exit();
         });
-
+        stage.setMinWidth(START_WINDOW_WIDTH);
+        stage.setMinHeight(START_WINDOW_HEIGHT);
         stage.setTitle("MTSK-Game");
         stage.setFullScreen(false);
         windowOpen = true;
@@ -155,7 +157,7 @@ public final class JavaFxView extends Application implements View {
     @Override
     public void render(final List<List<GameObject>> objectsList) {
         Platform.runLater(() -> {
-            if (objectsList.size() > minigameCanvases.size()) {
+            while (objectsList.size() > minigameCanvases.size()) {
                 final Canvas c = new Canvas();
                 minigameCanvases.add(c);
                 gp.add(c,
@@ -164,33 +166,35 @@ public final class JavaFxView extends Application implements View {
             if (objectsList.size() < minigameCanvases.size()) {
                 minigameCanvases.remove(minigameCanvases.size() - 1);
             }
-            minigameCanvases.forEach(c -> {
-                final GraphicsContext gc = c.getGraphicsContext2D();
-                c.setHeight(gameScene.getHeight() / gp.getRowCount());
-                c.setWidth(gameScene.getWidth() / gp.getColumnCount());
+            if (!minigameCanvases.isEmpty()) {
+                minigameCanvases.forEach(c -> {
+                    final GraphicsContext gc = c.getGraphicsContext2D();
+                    c.setHeight(gameScene.getHeight() / gp.getRowCount());
+                    c.setWidth(gameScene.getWidth() / gp.getColumnCount());
 
-                gc.clearRect(0, 0, c.getWidth(), c.getHeight());
-                gc.setStroke(Color.BLACK);
-                gc.strokeRect(
-                        /*
-                         * coordinates of the upper left corner of rectangle: the
-                         * last addendum is necessary to enter the right play field
-                         */
-                        getStartingPoint().getX(), // TODO is it better to draw also outside the area?
-                        getStartingPoint().getY(),
-                        boxWidth(),
-                        boxHeight());
-                gc.setFill(BACKGROUND_COLORS.size() > minigameCanvases.indexOf(c)
-                        ? BACKGROUND_COLORS.get(minigameCanvases.indexOf(c))
-                        : BACKGROUND_COLORS.get(BACKGROUND_COLORS.size() - 1));
-                gc.fillRect(
-                        getStartingPoint().getX(),
-                        getStartingPoint().getY(),
-                        boxWidth(),
-                        boxHeight());
-                final Drawings d = new JavaFxDrawings(c, this.getStartingPoint(), this.boxHeight());
-                objectsList.get(minigameCanvases.indexOf(c)).forEach(o -> o.updateAspect(d));
-            });
+                    gc.clearRect(0, 0, c.getWidth(), c.getHeight());
+                    gc.setStroke(Color.BLACK);
+                    gc.strokeRect(
+                            /*
+                             * coordinates of the upper left corner of rectangle: the
+                             * last addendum is necessary to enter the right play field
+                             */
+                            getStartingPoint().getX(), // TODO is it better to draw also outside the area?
+                            getStartingPoint().getY(),
+                            boxWidth(),
+                            boxHeight());
+                    gc.setFill(BACKGROUND_COLORS.size() > minigameCanvases.indexOf(c)
+                            ? BACKGROUND_COLORS.get(minigameCanvases.indexOf(c))
+                            : BACKGROUND_COLORS.get(BACKGROUND_COLORS.size() - 1));
+                    gc.fillRect(
+                            getStartingPoint().getX(),
+                            getStartingPoint().getY(),
+                            boxWidth(),
+                            boxHeight());
+                    final Drawings d = new JavaFxDrawings(c, this.getStartingPoint(), this.boxHeight());
+                    objectsList.get(minigameCanvases.indexOf(c)).forEach(o -> o.updateAspect(d));
+                });
+            }
         });
     }
 
@@ -204,17 +208,11 @@ public final class JavaFxView extends Application implements View {
             final Button exitButton = new Button("Exit");
             exitButton.setOnAction(e -> Platform.exit());
             final Button playAgainButton = new Button("Play Again");
-            // TODO implement
-            /*
-             * playAgainButton.setOnAction(e -> {
-             * stage.close();
-             * 
-             * Platform.runLater(() -> {
-             * new Engine(this,input).mainLoop();
-             * });
-             * 
-             * });
-             */
+            playAgainButton.setOnAction(e -> {
+                Platform.runLater(() -> {
+                    renderGame(stage);
+                });
+            });
 
             // Create a horizontal box to hold the buttons
             final HBox buttonBox = new HBox(BUTTON_SPACING, exitButton, playAgainButton);
