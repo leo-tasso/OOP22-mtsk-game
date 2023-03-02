@@ -32,6 +32,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -40,6 +41,7 @@ import javafx.stage.Window;
  */
 public final class JavaFxView extends Application implements View {
 
+    private static final int FONT_SIZE = 24;
     private static final int BUTTON_SPACING = 10;
     private static final int ASPECT_WIDTH = 16;
     private static final int ASPECT_HEIGHT = 9;
@@ -70,15 +72,29 @@ public final class JavaFxView extends Application implements View {
         logo.setPreserveRatio(true);
         logo.fitWidthProperty().bind(stage.widthProperty().divide(2));
         logo.fitHeightProperty().bind(stage.heightProperty().divide(2));
+        final List<Button> buttons = new ArrayList<>();
         final Button playButton = new Button("Play");
-        playButton.prefWidthProperty().bind(stage.widthProperty().divide(ASPECT_HEIGHT));
-        playButton.prefHeightProperty().bind(stage.heightProperty().divide(ASPECT_WIDTH));
         playButton.setOnAction(e -> Platform.runLater(() -> renderGame(stage)));
+        buttons.add(playButton);
+
         final Button exitButton = new Button("Exit");
-        exitButton.prefWidthProperty().bind(stage.widthProperty().divide(ASPECT_HEIGHT));
-        exitButton.prefHeightProperty().bind(stage.heightProperty().divide(ASPECT_WIDTH));
         exitButton.setOnAction(e -> Platform.runLater(() -> Platform.exit()));
-        final VBox root = new VBox(BUTTON_SPACING, logo, playButton, exitButton);
+        buttons.add(exitButton);
+
+        buttons.forEach(b -> {
+            b.prefWidthProperty().bind(stage.widthProperty().divide(ASPECT_HEIGHT));
+            b.prefHeightProperty().bind(stage.heightProperty().divide(ASPECT_WIDTH));
+            b.setFont(Font.font("futura", FONT_SIZE));
+            b.setStyle("-fx-background-color: black; -fx-background-radius: 20px; -fx-text-fill: white;");
+            b.setOnMouseEntered(e -> b.setStyle("-fx-background-color: black;-fx-text-fill: white;"));
+            b.setOnMouseExited(e -> b
+                    .setStyle("-fx-background-color: black; -fx-background-radius: 20px; -fx-text-fill: white;"));
+            b.setOnMousePressed(e -> b.setStyle("-fx-background-color: #3D3D3D; -fx-text-fill: white;"));
+            b.setOnMouseReleased(e -> b.setStyle("-fx-background-color: black; -fx-text-fill: white;"));
+        });
+
+        final VBox root = new VBox(BUTTON_SPACING, logo);
+        root.getChildren().addAll(buttons);
         root.setAlignment(Pos.CENTER);
         root.setBackground(null);
         final Scene menuScene = new Scene(root, stage.getWidth(), stage.getHeight());
