@@ -2,9 +2,9 @@ package minigamestests;
 
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
-import game.gameobject.GameObject;
-import game.minigame.CatchTheSquare;
-import game.minigame.Minigame;
+import game.engine.gameobject.GameObject;
+import game.engine.minigame.CatchTheSquare;
+import game.engine.minigame.Minigame;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

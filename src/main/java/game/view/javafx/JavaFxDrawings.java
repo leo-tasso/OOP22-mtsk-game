@@ -2,7 +2,7 @@ package game.view.javafx;
 
 import api.ColorRGB;
 import api.Point2D;
-import game.gameobject.GameObject;
+import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;

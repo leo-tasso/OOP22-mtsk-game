@@ -2,8 +2,9 @@ package game.view;
 
 import java.util.List;
 
-import game.Engine;
-import game.gameobject.GameObject;
+import game.controlling.Input;
+import game.engine.Engine;
+import game.engine.gameobject.GameObject;
 
 /**
  * Main view interface, shows the game.
@@ -26,10 +27,10 @@ public interface View {
     /**
      * Method to show a String message on a popup window.
      * 
-     * @param tutorial   the string to display.
-     * @param controller the controller to resume.
+     * @param tutorial the string to display.
+     * @param engine   the engine to resume.
      */
-    void showMessage(String tutorial, Engine controller);
+    void showMessage(String tutorial, Engine engine);
 
     /**
      * Checks if the view is still active.
@@ -37,4 +38,11 @@ public interface View {
      * @return if the view is still active.
      */
     boolean isViewActive();
+
+    /**
+     * Method to get the input.
+     * 
+     * @return the input obtained.
+     */
+    Input getInput();
 }

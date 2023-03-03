@@ -1,4 +1,4 @@
-package game.minigame;
+package game.engine.minigame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +7,13 @@ import java.util.Random;
 
 import api.ColorRGB;
 import api.Point2D;
-import game.gameobject.CircleAspect;
-import game.gameobject.GameObject;
-import game.gameobject.RectangleAspect;
-import game.gameobject.catchthesqareobjects.Bomb;
-import game.gameobject.catchthesqareobjects.Defuser;
-import game.minigame.catchthesquare.IncrSpawnStrat;
-import game.minigame.catchthesquare.SpawnFreqStrat;
+import game.engine.gameobject.CircleAspect;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.RectangleAspect;
+import game.engine.gameobject.catchthesqareobjects.Bomb;
+import game.engine.gameobject.catchthesqareobjects.Defuser;
+import game.engine.minigame.catchthesquare.IncrSpawnStrat;
+import game.engine.minigame.catchthesquare.SpawnFreqStrat;
 
 /**
  * Minigame where the player has to catch sqares before the time runs out.

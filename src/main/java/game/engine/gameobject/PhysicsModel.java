@@ -1,6 +1,6 @@
-package game.gameobject;
+package game.engine.gameobject;
 
-import game.minigame.Minigame;
+import game.engine.minigame.Minigame;
 
 /**
  * Interface that deals with the state of a GameObject,

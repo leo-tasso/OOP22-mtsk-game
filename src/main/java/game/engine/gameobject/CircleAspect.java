@@ -1,4 +1,4 @@
-package game.gameobject;
+package game.engine.gameobject;
 
 import api.ColorRGB;
 import game.view.Drawings;

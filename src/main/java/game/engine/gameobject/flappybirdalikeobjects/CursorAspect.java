@@ -1,8 +1,8 @@
-package game.gameobject.flappybirdalikeobjects;
+package game.engine.gameobject.flappybirdalikeobjects;
 
 import api.ColorRGB;
-import game.gameobject.AspectModel;
-import game.gameobject.GameObject;
+import game.engine.gameobject.AspectModel;
+import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 
 /**

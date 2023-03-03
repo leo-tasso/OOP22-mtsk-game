@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import api.Point2D;
-import game.Engine;
+import game.ControllerImpl;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
-import game.gameobject.GameObject;
+import game.engine.Engine;
+import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 import game.view.View;
 import javafx.application.Application;
@@ -158,7 +159,7 @@ public final class JavaFxView extends Application implements View {
                 input.setMoveRight(false);
             }
         });
-        new Thread(() -> new Engine(this, input).mainLoop()).start();
+        new Thread(() -> new ControllerImpl(this).startGame()).start();
         this.stage.setScene(gameScene);
     }
 
@@ -369,5 +370,10 @@ public final class JavaFxView extends Application implements View {
     @Override
     public void stop() throws Exception {
         windowOpen = false;
+    }
+
+    @Override
+    public Input getInput() {
+        return input.clone();
     }
 }

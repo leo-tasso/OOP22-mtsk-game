@@ -1,8 +1,8 @@
-package game.gameobject;
+package game.engine.gameobject;
 
 import api.Point2D;
 import api.Vector2D;
-import game.minigame.Minigame;
+import game.engine.minigame.Minigame;
 
 /**
  * Simple PhysicsModel that updates the position according the speed.

@@ -20,9 +20,10 @@ import javax.swing.JPanel;
 import api.ColorRGB;
 import api.Point2D;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import game.Engine;
+import game.ControllerImpl;
 import game.controlling.Input;
-import game.gameobject.GameObject;
+import game.engine.Engine;
+import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 import game.view.View;
 
@@ -113,7 +114,7 @@ public class SwingView implements View {
         final JLabel pointsLabel = new JLabel("You scored:" + Long.toString(points));
         final JButton again = new JButton("Play Again");
         again.addActionListener(a -> {
-            new Thread(() -> new Engine().mainLoop()).start();
+            new Thread(() -> new ControllerImpl(this).startGame()).start();
             frame.dispose();
         });
         final JButton exit = new JButton("Exit");
@@ -293,5 +294,13 @@ public class SwingView implements View {
     @Override
     public boolean isViewActive() {
         return frame.isShowing();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Input getInput() {
+        return input.clone();
     }
 }

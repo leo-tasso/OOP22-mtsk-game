@@ -1,10 +1,10 @@
-package game.gameobject;
+package game.engine.gameobject;
 
 import game.controlling.Input;
 import game.controlling.InputModel;
+import game.engine.minigame.Minigame;
 import api.Point2D;
 import api.Vector2D;
-import game.minigame.Minigame;
 import game.view.Drawings;
 
 /**

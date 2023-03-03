@@ -1,4 +1,4 @@
-package game.gameobject;
+package game.engine.gameobject;
 
 import game.view.Drawings;
 

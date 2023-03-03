@@ -1,4 +1,4 @@
-package game.minigame.catchthesquare;
+package game.engine.minigame.catchthesquare;
 
 /**
  * Interface to define the strategy of spawing time for the bombs.

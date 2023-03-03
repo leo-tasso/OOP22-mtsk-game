@@ -1,4 +1,4 @@
-package game.minigame;
+package game.engine.minigame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.NullInput;
-import game.gameobject.Circle;
-import game.gameobject.GameObject;
-import game.gameobject.RectangleAspect;
-import game.gameobject.SimplePhysics;
+import game.engine.gameobject.Circle;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.RectangleAspect;
+import game.engine.gameobject.SimplePhysics;
 
 /**
  * A simple test minigame.

@@ -1,4 +1,4 @@
-package game.minigame.catchthesquare;
+package game.engine.minigame.catchthesquare;
 
 /**
  * Spawn strategy that follows an exponetial curve till a maximum steepness and

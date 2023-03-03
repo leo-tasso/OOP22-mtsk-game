@@ -1,8 +1,8 @@
-package game.gameobject.catchthesqareobjects;
+package game.engine.gameobject.catchthesqareobjects;
 
 import api.ColorRGB;
-import game.gameobject.GameObject;
-import game.gameobject.RectangleAspect;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.RectangleAspect;
 import game.view.Drawings;
 
 /**

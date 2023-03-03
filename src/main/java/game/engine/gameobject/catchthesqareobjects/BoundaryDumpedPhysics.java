@@ -1,10 +1,10 @@
-package game.gameobject.catchthesqareobjects;
+package game.engine.gameobject.catchthesqareobjects;
 
 import api.Point2D;
 import api.Vector2D;
-import game.gameobject.GameObject;
-import game.gameobject.SimplePhysics;
-import game.minigame.Minigame;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.SimplePhysics;
+import game.engine.minigame.Minigame;
 
 /**
  * Class to model a PhysicsModel that moves the object according its velocity
