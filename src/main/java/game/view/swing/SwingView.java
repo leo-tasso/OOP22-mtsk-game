@@ -19,9 +19,9 @@ import javax.swing.JPanel;
 
 import api.ColorRGB;
 import api.Point2D;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import game.ControllerImpl;
 import game.controlling.Input;
+import game.controlling.KeyboardInput;
 import game.engine.Engine;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
@@ -42,12 +42,9 @@ public class SwingView implements View {
 
     /**
      * A constructor for the window view of the game.
-     * 
-     * @param input the input list to update
      */
-    @SuppressFBWarnings
-    public SwingView(final Input input) {
-        this.input = input;
+    public SwingView() {
+        this.input = new KeyboardInput();
         panelList = new ArrayList<>();
         final MinigamePanel newMinigame = new MinigamePanel();
         newMinigame.addKeyListener(newMinigame);
@@ -64,6 +61,7 @@ public class SwingView implements View {
         }
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
+        new ControllerImpl(this).startGame();
     }
 
     /**

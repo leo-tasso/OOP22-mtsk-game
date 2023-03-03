@@ -37,7 +37,7 @@ public class ControllerImpl implements Controller {
      * 
      */
     @Override
-    public void stopGame(final long score) {
+    public void gameOver(final long score) {
         view.renderGameOver(score);
     }
 
@@ -48,7 +48,7 @@ public class ControllerImpl implements Controller {
      */
     public static void main(final String[] args) {
         Application.launch(JavaFxView.class, args);
-        // new Engine().mainLoop();
+        //new SwingView();
     }
 
     /**
@@ -58,9 +58,10 @@ public class ControllerImpl implements Controller {
     public void showMessage(final String tutorial, final Engine engine) {
         view.showMessage(tutorial, engine);
     }
-/**
- * {@inheritDoc}
- */
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Input getInput() {
         return view.getInput();

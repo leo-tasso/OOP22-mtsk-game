@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import api.Point2D;
+import game.Controller;
 import game.ControllerImpl;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
@@ -57,6 +58,7 @@ public final class JavaFxView extends Application implements View {
     private Scene gameScene;
     private GridPane gp;
     private boolean windowOpen;
+    private final Controller controller = new ControllerImpl(this);
     private final Input input = new KeyboardInput();
 
     /**
@@ -159,7 +161,7 @@ public final class JavaFxView extends Application implements View {
                 input.setMoveRight(false);
             }
         });
-        new Thread(() -> new ControllerImpl(this).startGame()).start();
+        new Thread(() -> controller.startGame()).start();
         this.stage.setScene(gameScene);
     }
 

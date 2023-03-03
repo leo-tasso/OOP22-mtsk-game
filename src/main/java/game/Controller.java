@@ -21,7 +21,7 @@ public interface Controller {
      * 
      * @param score the obtained score.
      */
-    void stopGame(long score);
+    void gameOver(long score);
 
     /**
      * Method to show a message in the view.

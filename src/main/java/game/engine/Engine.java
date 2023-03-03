@@ -59,7 +59,7 @@ public class Engine {
             previousFrame = currentFrame;
             // TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
         }
-        controller.stopGame(points);
+        controller.gameOver(points);
     }
 
     private void addMinigame() {
