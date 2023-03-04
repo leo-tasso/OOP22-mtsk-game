@@ -11,6 +11,7 @@ public class LevelTwo implements Level {
     private static final int MAX_OBJS_OUT_AT_ONCE = 2;
     private static final double VECTOR_ORDINATE = 50;
     private static final long MAX_WAIT_TO_SPAWN = 10000L;
+    private static final long STATIONARY_TIME = 3000L;
     
     @Override
     public int getMaxObjsSimultaneouslyOut() {
@@ -25,5 +26,10 @@ public class LevelTwo implements Level {
     @Override
     public TimeInterval getSpawnWaitingTime() {
         return new TimeInterval(0, LevelTwo.MAX_WAIT_TO_SPAWN);
+    }
+
+    @Override
+    public long getHalfwayTime() {
+        return LevelTwo.STATIONARY_TIME;
     }
 }
