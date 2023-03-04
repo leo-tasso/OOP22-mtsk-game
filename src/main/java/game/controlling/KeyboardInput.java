@@ -12,7 +12,7 @@ public class KeyboardInput implements Input {
     private boolean moveDown;
     private boolean moveLeft;
     private boolean moveRight;
-    private Optional<Integer> numberPressed;
+    private Optional<Integer> numberPressed = Optional.empty();
 
     /**
      * Method to check if moveUp input is active.
@@ -106,6 +106,16 @@ public class KeyboardInput implements Input {
     }
 
     /**
+     * Sets the number pressed on the keyboard by the player.
+     * 
+     * @param numberPressed int in [1,9]
+     */
+    @Override
+    public void setNumberPressed(int numberPressed) {
+        this.numberPressed = Optional.of(numberPressed);
+    }
+
+    /**
      * Method to reset all inputs to false.
      */
     @Override
@@ -116,5 +126,4 @@ public class KeyboardInput implements Input {
         setMoveUp(false);
         this.numberPressed = Optional.empty();
     }
-
 }
