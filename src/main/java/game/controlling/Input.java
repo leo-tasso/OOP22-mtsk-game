@@ -72,6 +72,13 @@ public interface Input {
     Optional<Integer> getNumberPressed();
 
     /**
+     * Sets the number pressed on the keyboard by the player.
+     * 
+     * @param numberPressed int in [1,9]
+     */
+    void setNumberPressed(int numberPressed);
+
+    /**
      * Method to reset all inputs to false.
      */
     void reset();
