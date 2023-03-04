@@ -1,5 +1,7 @@
 package game.controlling;
 
+import java.util.Optional;
+
 /**
  * Interface to model the inputs.
  */
@@ -60,6 +62,14 @@ public interface Input {
      * @param moveLeft new value for moveLeft
      */
     void setMoveLeft(boolean moveLeft);
+
+    /**
+     * Method that returns an Optional containing, 
+     * possibly, the number pressed (in [1,9]).
+     * 
+     * @return an Optional of Integer
+     */
+    Optional<Integer> getNumberPressed();
 
     /**
      * Method to reset all inputs to false.
