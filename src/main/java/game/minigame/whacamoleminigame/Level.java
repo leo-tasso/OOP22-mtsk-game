@@ -36,4 +36,15 @@ public interface Level {
      * @return minimum and maximum waiting time
      */
     TimeInterval getSpawnWaitingTime();
+
+    /**
+     * Method which, depending on the current level, returns the length 
+     * of time in which an object remains stationary once it reaches the point 
+     * of maximum distance from the ground (the higher the level, the shorter 
+     * the time an object will remain stationary at the point of maximum 
+     * elevation, therefore the shorter the total time spent outside the hole)
+     * 
+     * @return duration of the period of immobility (in ms)
+     */
+    long getHalfwayTime();
 }
