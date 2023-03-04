@@ -122,6 +122,9 @@ public class SwingView implements View {
         private static final int RIGHT_BUTTON = 68;
         private static final int DOWN_BUTTON = 83;
         private static final int UP_BUTTON = 87;
+        private static final int ONE_BUTTON = 49;
+        private static final int NINE_BUTTON = 57;
+        private static final int KEYCODE_NUM_DIFF = 48;
         private static final long serialVersionUID = 1L;
 
         MinigamePanel() {
@@ -203,6 +206,8 @@ public class SwingView implements View {
                 input.setMoveRight(true);
             } else if (e.getKeyCode() == LEFT_BUTTON) {
                 input.setMoveLeft(true);
+            } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode()<= NINE_BUTTON) {
+                input.setNumberPressed(e.getKeyCode() - KEYCODE_NUM_DIFF);
             }
         }
 
