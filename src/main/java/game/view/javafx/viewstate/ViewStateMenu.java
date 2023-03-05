@@ -34,7 +34,7 @@ public final class ViewStateMenu implements ViewState {
      * @param stage the {@link stage} that will be used to display.
      */
     public ViewStateMenu(final JavaFxViewCoordinator jview, final Stage stage) {
-        final ImageView logo = new ImageView(new Image(this.getClass().getResourceAsStream("/Title.png")));
+        final ImageView logo = new ImageView(new Image(this.getClass().getResourceAsStream("/TitleInverted.png")));
         logo.setPreserveRatio(true);
         logo.fitWidthProperty().bind(stage.widthProperty().divide(2));
         logo.fitHeightProperty().bind(stage.heightProperty().divide(2));

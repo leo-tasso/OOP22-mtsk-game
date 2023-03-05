@@ -34,7 +34,7 @@ public class ButtonFactory {
     public Button create(final Stage stage, final String title, final EventHandler<ActionEvent> actions) {
         final Button b = new Button(title);
         b.setOnAction(actions);
-        b.prefWidthProperty().bind(stage.widthProperty().divide(ASPECT_HEIGHT));
+        b.prefWidthProperty().bind(stage.widthProperty().divide(ASPECT_HEIGHT / 2));
         b.prefHeightProperty().bind(stage.heightProperty().divide(ASPECT_WIDTH));
         b.setFont(Font.font("futura", fontSize));
         b.setStyle("-fx-background-color: black; -fx-background-radius: 20px; -fx-text-fill: white;");
