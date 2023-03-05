@@ -6,6 +6,7 @@ import java.util.List;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.minigame.CatchTheSquare;
+import game.minigame.IncrRateStrat;
 import game.minigame.Minigame;
 import game.minigame.TestMinigame;
 import game.view.SwingView;
@@ -15,10 +16,12 @@ import game.view.View;
  * Main game engine responsible of controlling the game.
  */
 public class Engine {
+    private static final double MAX_BOMB_RATE = 0.7;
+    private static final double BOMB_SPAWN_DIFF = 1.05;
     private static final long TIME_TO_NEXT_MINIGAME = 4000L;
     private static final long PERIOD = 5;
     private final List<Minigame> minigameList = new LinkedList<>();
-    private final Input input = new KeyboardInput();        /* user input set by the View */
+    private final Input input = new KeyboardInput(); /* user input set by the View */
     private final View view = new SwingView(this, input);
     private boolean paused;
 
@@ -36,7 +39,7 @@ public class Engine {
      */
     public void mainLoop() {
         final Long startTime = System.currentTimeMillis();
-        minigameList.add(new CatchTheSquare());
+        minigameList.add(new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE)));
         long previousFrame = System.currentTimeMillis();
         while (!minigameList.stream().anyMatch(Minigame::isGameOver)) {
             final long currentFrame = System.currentTimeMillis();
@@ -52,7 +55,7 @@ public class Engine {
             render();
             waitForNextFrame(currentFrame);
             previousFrame = currentFrame;
-        //TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
+            // TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
         }
         final Long points = System.currentTimeMillis() - startTime;
         view.renderGameOver(points);

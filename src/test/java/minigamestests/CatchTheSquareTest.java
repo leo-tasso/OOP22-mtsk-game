@@ -5,6 +5,7 @@ import game.controlling.KeyboardInput;
 import game.gameobject.GameObject;
 import game.gameobject.catchthesqareobjects.Bomb;
 import game.minigame.CatchTheSquare;
+import game.minigame.IncrRateStrat;
 import game.minigame.Minigame;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -27,13 +28,15 @@ class CatchTheSquareTest {
     private static final int ELAPSED_TIME = 10;
     private static final int BOUND_HEIGHT = 900;
     private static final int BOUND_LENGHT = 1600;
+    private static final double BOMB_SPAWN_DIFF = 1.05;
+    private static final double MAX_BOMB_RATE = 0.7;
 
     /**
      * Test to check if bombs explode after some time.
      */
     @Test
     void testExplosion() {
-        final Minigame cTS = new CatchTheSquare();
+        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE));
         for (int n = 0; n < REPETITIONS; n++) {
             cTS.compute(TIME_TO_WAIT / REPETITIONS); // just waits
         }
@@ -42,7 +45,7 @@ class CatchTheSquareTest {
 
     @Test
     void testDefusion() {
-        final Minigame cTS = new CatchTheSquare();
+        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE));
         final GameObject defuser = cTS.getGameObjects().get(0);
         while (cTS.getGameObjects().size() < 2) {
             cTS.compute(ELAPSED_TIME); // wait until some bomb is spawned
@@ -61,7 +64,7 @@ class CatchTheSquareTest {
 
     @Test
     void testControls() {
-        final Minigame cTS = new CatchTheSquare();
+        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE));
         final Input input = new KeyboardInput();
         input.setMoveDown(true);
         cTS.getGameObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
