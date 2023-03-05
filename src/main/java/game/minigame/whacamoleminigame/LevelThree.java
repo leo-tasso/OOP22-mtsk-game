@@ -9,7 +9,7 @@ import api.Vector2D;
  */
 public class LevelThree implements Level {
     private static final int MAX_OBJS_OUT_AT_ONCE = 3;
-    private static final double VECTOR_ORDINATE = 100;
+    private static final double VECTOR_ORDINATE = -100;
     private static final long MAX_WAIT_TO_SPAWN = 5000L;
     private static final long STATIONARY_TIME = 2000L;
     

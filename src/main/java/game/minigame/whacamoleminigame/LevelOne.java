@@ -9,7 +9,7 @@ import api.Vector2D;
  */
 public class LevelOne implements Level {
     private static final int MAX_OBJS_OUT_AT_ONCE = 1;
-    private static final double VECTOR_ORDINATE = 20;
+    private static final double VECTOR_ORDINATE = -20;
     private static final long MAX_WAIT_TO_SPAWN = 15000L;
     private static final long STATIONARY_TIME = 5000L;
 
