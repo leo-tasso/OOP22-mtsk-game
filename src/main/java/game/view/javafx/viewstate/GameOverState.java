@@ -8,6 +8,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -47,7 +53,11 @@ public class GameOverState implements ViewState {
             // Create a vertical box to hold the label and buttons
             final VBox root = new VBox(BUTTON_SPACING, scoreLabel, buttonBox);
             root.setAlignment(Pos.CENTER);
-
+            final BackgroundImage backgroundImage = new BackgroundImage(
+                    new Image(JavaFxViewCoordinator.class.getResourceAsStream("/Pattern.png")), BackgroundRepeat.REPEAT,
+                    BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+            final Background background = new Background(backgroundImage);
+            root.setBackground(background);
             // Create a scene with the root container
             goScene = new Scene(root);
 

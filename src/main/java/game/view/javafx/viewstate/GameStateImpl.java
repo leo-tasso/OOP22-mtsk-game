@@ -15,7 +15,13 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -48,6 +54,11 @@ public class GameStateImpl implements GameState {
         jView.setGameState(Optional.of(this));
         final Canvas canvas = new Canvas(START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
         gp = new GridPane();
+        final BackgroundImage backgroundImage = new BackgroundImage(
+                new Image(JavaFxViewCoordinator.class.getResourceAsStream("/Pattern.png")), BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        final Background background = new Background(backgroundImage);
+        gp.setBackground(background);
         minigameCanvases.clear();
         minigameCanvases.add(canvas);
         gp.add(canvas, 0, 0);
