@@ -17,7 +17,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -26,9 +25,6 @@ import javafx.stage.Stage;
 public final class ViewStateMenu implements ViewState {
     private static final int FONT_SIZE = 24;
     private static final int BUTTON_SPACING = 10;
-    private static final int ASPECT_WIDTH = 16;
-    private static final int ASPECT_HEIGHT = 9;
-
     private final Scene menuScene;
 
     /**
@@ -43,25 +39,12 @@ public final class ViewStateMenu implements ViewState {
         logo.fitWidthProperty().bind(stage.widthProperty().divide(2));
         logo.fitHeightProperty().bind(stage.heightProperty().divide(2));
         final List<Button> buttons = new ArrayList<>();
-        final Button playButton = new Button("Play");
-        playButton.setOnAction(e -> Platform.runLater(() -> new GameStateImpl(jview).display(jview, stage)));
-        buttons.add(playButton);
-
-        final Button exitButton = new Button("Exit");
-        exitButton.setOnAction(e -> Platform.runLater(() -> Platform.exit()));
-        buttons.add(exitButton);
-
-        buttons.forEach(b -> {
-            b.prefWidthProperty().bind(stage.widthProperty().divide(ASPECT_HEIGHT));
-            b.prefHeightProperty().bind(stage.heightProperty().divide(ASPECT_WIDTH));
-            b.setFont(Font.font("futura", FONT_SIZE));
-            b.setStyle("-fx-background-color: black; -fx-background-radius: 20px; -fx-text-fill: white;");
-            b.setOnMouseEntered(e -> b.setStyle("-fx-background-color: black;-fx-text-fill: white;"));
-            b.setOnMouseExited(e -> b
-                    .setStyle("-fx-background-color: black; -fx-background-radius: 20px; -fx-text-fill: white;"));
-            b.setOnMousePressed(e -> b.setStyle("-fx-background-color: #3D3D3D; -fx-text-fill: white;"));
-            b.setOnMouseReleased(e -> b.setStyle("-fx-background-color: black; -fx-text-fill: white;"));
-        });
+        final ButtonFactory bf = new ButtonFactory(FONT_SIZE);
+        buttons.add(
+                bf.create(stage, "Play", e -> Platform.runLater(() -> new GameStateImpl(jview).display(jview, stage))));
+        buttons.add(bf.create(stage, "Stats", e -> Platform.runLater(null))); // TODO to be implemented, goes to stats
+                                                                              // screen
+        buttons.add(bf.create(stage, "Exit", e -> Platform.runLater(() -> Platform.exit())));
 
         final VBox root = new VBox(BUTTON_SPACING, logo);
         root.getChildren().addAll(buttons);
