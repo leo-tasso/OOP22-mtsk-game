@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import api.ColorRGB;
 import api.Point2D;
+import game.controlling.InputModel;
 import game.gameobject.CircleAspect;
 import game.gameobject.GameObject;
 import game.gameobject.RectangleAspect;
@@ -35,16 +36,18 @@ public class CatchTheSquare implements Minigame {
     /**
      * Constructor for the minigame, it initializes its fields.
      * 
-     * @param spawnFreqStrat the function strategy to regulate the spawn frequency
-     *                       of the boms.
+     * @param spawnFreqStrat    the function strategy to regulate the spawn
+     *                          frequency
+     *                          of the boms.
+     * @param defuserInputModel the InputModel to be used my the defuser.
      */
-    public CatchTheSquare(final Function<Long, Long> spawnFreqStrat) {
+    public CatchTheSquare(final Function<Long, Long> spawnFreqStrat, final InputModel defuserInputModel) {
         this.gObjects = new ArrayList<>();
         this.totalElapsed = 0;
         this.totalBombsSpawned = 0;
         this.r = new Random();
         this.spawnFreqStrat = spawnFreqStrat;
-        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS);
+        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS, defuserInputModel);
         gObjects.add(defuser);
     }
 

@@ -1,5 +1,6 @@
 package minigamestests;
 
+import game.controlling.DirectionalInput;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.gameobject.GameObject;
@@ -36,7 +37,7 @@ class CatchTheSquareTest {
      */
     @Test
     void testExplosion() {
-        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE));
+        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE), new DirectionalInput());
         for (int n = 0; n < REPETITIONS; n++) {
             cTS.compute(TIME_TO_WAIT / REPETITIONS); // just waits
         }
@@ -45,7 +46,7 @@ class CatchTheSquareTest {
 
     @Test
     void testDefusion() {
-        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE));
+        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE), new DirectionalInput());
         final GameObject defuser = cTS.getGameObjects().get(0);
         while (cTS.getGameObjects().size() < 2) {
             cTS.compute(ELAPSED_TIME); // wait until some bomb is spawned
@@ -64,7 +65,7 @@ class CatchTheSquareTest {
 
     @Test
     void testControls() {
-        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE));
+        final Minigame cTS = new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE), new DirectionalInput());
         final Input input = new KeyboardInput();
         input.setMoveDown(true);
         cTS.getGameObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));

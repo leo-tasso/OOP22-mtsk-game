@@ -3,6 +3,7 @@ package game;
 import java.util.LinkedList;
 import java.util.List;
 
+import game.controlling.DirectionalInput;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.minigame.CatchTheSquare;
@@ -39,7 +40,7 @@ public class Engine {
      */
     public void mainLoop() {
         final Long startTime = System.currentTimeMillis();
-        minigameList.add(new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE)));
+        minigameList.add(new CatchTheSquare(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE), new DirectionalInput()));
         long previousFrame = System.currentTimeMillis();
         while (!minigameList.stream().anyMatch(Minigame::isGameOver)) {
             final long currentFrame = System.currentTimeMillis();
