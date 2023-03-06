@@ -8,12 +8,14 @@ import java.util.function.Function;
 
 import api.ColorRGB;
 import api.Point2D;
+import game.controlling.DirectionalInput;
 import game.controlling.InputModel;
 import game.gameobject.CircleAspect;
 import game.gameobject.GameObject;
 import game.gameobject.RectangleAspect;
 import game.gameobject.catchthesqareobjects.Bomb;
 import game.gameobject.catchthesqareobjects.Defuser;
+import game.minigame.difficultystrats.IncrRateStrat;
 
 /**
  * Minigame where the player has to catch sqares before the time runs out.
@@ -25,7 +27,8 @@ public class CatchTheSquare implements Minigame {
     private static final int BOMB_SIDE = (int) (DEFUSER_RADIUS * 1.5);
     private static final Point2D SPAWN_POINT_DEFUSER = new Point2D(RIGHT_BOUND / 2, BOTTOM_BOUND / 2);
     private static final int MAX_OBJECT = 6;
-
+    private static final double MAX_BOMB_RATE = 0.7;
+    private static final double BOMB_SPAWN_DIFF = 1.05;
     private long totalElapsed;
     private int totalBombsSpawned;
     private final Defuser defuser;
@@ -48,6 +51,18 @@ public class CatchTheSquare implements Minigame {
         this.r = new Random();
         this.spawnFreqStrat = spawnFreqStrat;
         defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS, defuserInputModel);
+        gObjects.add(defuser);
+    }
+/**
+ * Constructor with default values.
+ */
+    public CatchTheSquare() {
+        this.gObjects = new ArrayList<>();
+        this.totalElapsed = 0;
+        this.totalBombsSpawned = 0;
+        this.r = new Random();
+        this.spawnFreqStrat = new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE);
+        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS, new DirectionalInput());
         gObjects.add(defuser);
     }
 
