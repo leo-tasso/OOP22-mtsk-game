@@ -40,7 +40,7 @@ dependencies {
 application {
     // The following allows to run with: ./gradlew -PmainClass=it.unibo.oop.MyMainClass run
     //mainClass.set(project.properties["mainClass"].toString())
-    mainClass.set("game.Engine")
+    mainClass.set("game.ControllerImpl")
 }
 
 tasks.test {

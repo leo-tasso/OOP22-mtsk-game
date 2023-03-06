@@ -1,10 +1,10 @@
-package game.gameobject.catchthesqareobjects;
+package game.engine.gameobject.catchthesqareobjects;
 
 import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.NullInput;
-import game.gameobject.GameObject;
+import game.engine.gameobject.GameObject;
 
 /**
  * Bomb gameObject, describes a bomb with a timer.

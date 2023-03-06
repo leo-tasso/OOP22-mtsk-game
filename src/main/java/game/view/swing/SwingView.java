@@ -19,16 +19,18 @@ import javax.swing.JPanel;
 
 import api.ColorRGB;
 import api.Point2D;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import game.Engine;
+import game.ControllerImpl;
 import game.controlling.Input;
-import game.gameobject.GameObject;
+import game.controlling.KeyboardInput;
+import game.engine.Engine;
+import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 import game.view.View;
 
 /**
  * A class for the view using the swing library.
  */
+// @Deprecated
 public class SwingView implements View {
     private static final int SIZE = 1000;
     private static final List<ColorRGB> BACKGROUND_COLORS = List.of(ColorRGB.orange(), ColorRGB.aqua(), ColorRGB.blue(),
@@ -40,12 +42,9 @@ public class SwingView implements View {
 
     /**
      * A constructor for the window view of the game.
-     * 
-     * @param input the input list to update
      */
-    @SuppressFBWarnings
-    public SwingView(final Input input) {
-        this.input = input;
+    public SwingView() {
+        this.input = new KeyboardInput();
         panelList = new ArrayList<>();
         final MinigamePanel newMinigame = new MinigamePanel();
         newMinigame.addKeyListener(newMinigame);
@@ -62,6 +61,7 @@ public class SwingView implements View {
         }
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
+        new ControllerImpl(this).startGame();
     }
 
     /**
@@ -112,7 +112,7 @@ public class SwingView implements View {
         final JLabel pointsLabel = new JLabel("You scored:" + Long.toString(points));
         final JButton again = new JButton("Play Again");
         again.addActionListener(a -> {
-            new Thread(() -> new Engine().mainLoop()).start();
+            new Thread(() -> new ControllerImpl(this).startGame()).start();
             frame.dispose();
         });
         final JButton exit = new JButton("Exit");
@@ -292,5 +292,13 @@ public class SwingView implements View {
     @Override
     public boolean isViewActive() {
         return frame.isShowing();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Input getInput() {
+        return input.clone();
     }
 }

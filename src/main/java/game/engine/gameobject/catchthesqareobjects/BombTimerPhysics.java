@@ -1,8 +1,8 @@
-package game.gameobject.catchthesqareobjects;
+package game.engine.gameobject.catchthesqareobjects;
 
-import game.gameobject.GameObject;
-import game.gameobject.PhysicsModel;
-import game.minigame.Minigame;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.PhysicsModel;
+import game.engine.minigame.Minigame;
 
 /**
  * PhysicsModel for Bomb objects and subclasses that subtracts the elapsed

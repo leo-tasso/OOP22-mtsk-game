@@ -1,19 +1,14 @@
-package game;
+package game.engine;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import game.Controller;
 import game.controlling.Input;
-import game.controlling.KeyboardInput;
-import game.minigame.CatchTheSquare;
-import game.minigame.Minigame;
-import game.minigame.TestMinigame;
-import game.view.View;
-import game.view.javafx.JavaFxView;
-import game.view.swing.SwingView;
-import javafx.application.Application;
+import game.engine.minigame.CatchTheSquare;
+import game.engine.minigame.Minigame;
+import game.engine.minigame.TestMinigame;
 
 /**
  * Main game engine responsible of controlling the game.
@@ -24,39 +19,17 @@ public class Engine {
     private static final long TIME_TO_NEXT_MINIGAME = 5_000L;
     private static final long PERIOD = 5;
     private final List<Minigame> minigameList = new LinkedList<>();
-    private final Input input;
     private boolean paused;
     private int addedMinigame;
-    private final View view;
+    private final Controller controller;
 
     /**
      * Constructor to launch the engine from the view.
      * 
-     * @param view  the view that launches.
-     * @param input the Input class.
+     * @param controller the launching controller.
      */
-    @SuppressFBWarnings
-    public Engine(final View view, final Input input) {
-        this.view = view;
-        this.input = input;
-    }
-
-    /**
-     * Constructor to launch the engine from itself.
-     */
-    public Engine() {
-        this.input = new KeyboardInput();
-        this.view = new SwingView(input);
-    }
-
-    /**
-     * Start point of the game, initializes the loop.
-     * 
-     * @param args not used.
-     */
-    public static void main(final String[] args) {
-        Application.launch(JavaFxView.class, args);
-        // new Engine().mainLoop();
+    public Engine(final Controller controller) {
+        this.controller = controller;
     }
 
     /**
@@ -86,7 +59,7 @@ public class Engine {
             previousFrame = currentFrame;
             // TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
         }
-        view.renderGameOver(points);
+        controller.gameOver(points);
     }
 
     private void addMinigame() {
@@ -94,9 +67,8 @@ public class Engine {
         Minigame newMinigame;
         try {
             newMinigame = MINIGAME_SEQUENCE.get(addedMinigame++).getDeclaredConstructor().newInstance();
-            view.showMessage(newMinigame.getTutorial(), this);
+            controller.showMessage(newMinigame.getTutorial(), this);
             minigameList.add(newMinigame);
-            input.reset();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             return;
@@ -105,6 +77,7 @@ public class Engine {
     }
 
     private void processInput(final long elapsedTime) {
+        final Input input = controller.getInput();
         minigameList.stream().flatMap(m -> m.getGameObjects().stream()).forEach(o -> o.updateinput(input, elapsedTime));
     }
 
@@ -121,7 +94,7 @@ public class Engine {
      * Renders.
      */
     private void render() {
-        view.render(this.getMinigameList().stream().map(g -> g.getGameObjects()).toList());
+        controller.render(this.getMinigameList().stream().map(g -> g.getGameObjects()).toList());
     }
 
     /**

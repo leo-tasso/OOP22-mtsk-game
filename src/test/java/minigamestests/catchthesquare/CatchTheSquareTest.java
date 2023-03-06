@@ -5,10 +5,10 @@ import game.controlling.DirectionalLinearInput;
 import game.controlling.Input;
 import game.controlling.InputModel;
 import game.controlling.KeyboardInput;
-import game.gameobject.GameObject;
-import game.gameobject.catchthesqareobjects.Bomb;
-import game.minigame.CatchTheSquare;
-import game.minigame.Minigame;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.catchthesqareobjects.Bomb;
+import game.engine.minigame.CatchTheSquare;
+import game.engine.minigame.Minigame;
 import game.minigame.difficultystrats.IncrRateStrat;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -1,8 +1,8 @@
-package game.minigame;
+package game.engine.minigame;
 
 import java.util.List;
 
-import game.gameobject.GameObject;
+import game.engine.gameobject.GameObject;
 
 /**
  * General interface of a minigame.

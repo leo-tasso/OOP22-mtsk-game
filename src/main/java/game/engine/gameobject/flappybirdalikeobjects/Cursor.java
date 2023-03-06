@@ -1,12 +1,12 @@
-package game.gameobject.flappybirdalikeobjects;
+package game.engine.gameobject.flappybirdalikeobjects;
 
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.DirectionalInput;
 import game.controlling.Input;
 import game.controlling.InputModel;
-import game.gameobject.GameObject;
-import game.gameobject.SimplePhysics;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.SimplePhysics;
 
 /**
  * A cursor you can move up and down.

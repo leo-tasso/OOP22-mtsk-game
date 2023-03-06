@@ -1,11 +1,11 @@
-package game.gameobject.catchthesqareobjects;
+package game.engine.gameobject.catchthesqareobjects;
 
 import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.InputModel;
-import game.gameobject.CircleAspect;
-import game.gameobject.GameObject;
+import game.engine.gameobject.CircleAspect;
+import game.engine.gameobject.GameObject;
 
 /**
  * Class to model the defuser for the catchTheSquare Minigame.

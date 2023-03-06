@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import api.ColorRGB;
 import api.Point2D;
-import game.gameobject.catchthesqareobjects.Bomb;
+import game.engine.gameobject.catchthesqareobjects.Bomb;
 
 /**
  * Test to check the {@link Bomb} {@link GameObject} properties.

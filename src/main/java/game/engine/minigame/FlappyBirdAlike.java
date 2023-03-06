@@ -1,12 +1,12 @@
-package game.minigame;
+package game.engine.minigame;
 
 import java.util.List;
 import java.util.ArrayList;
 
-import game.gameobject.GameObject;
-import game.gameobject.flappybirdalikeobjects.Cursor;
 import api.Point2D;
 import api.Vector2D;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.flappybirdalikeobjects.Cursor;
 
 /**
  * The flappy bird like minigame.

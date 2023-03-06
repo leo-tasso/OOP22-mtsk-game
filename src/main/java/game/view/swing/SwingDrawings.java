@@ -11,7 +11,7 @@ import java.awt.FontMetrics;
 
 import api.ColorRGB;
 import api.Point2D;
-import game.gameobject.GameObject;
+import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 
 /**

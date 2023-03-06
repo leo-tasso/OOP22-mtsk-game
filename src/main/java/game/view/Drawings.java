@@ -1,7 +1,7 @@
 package game.view;
 
 import api.ColorRGB;
-import game.gameobject.GameObject;
+import game.engine.gameobject.GameObject;
 
 /**
  * The interface to update the way an object is drawn.
