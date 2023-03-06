@@ -3,7 +3,7 @@ package game.gameobject.catchthesqareobjects;
 import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
-import game.controlling.DirectionalInput;
+import game.controlling.InputModel;
 import game.gameobject.CircleAspect;
 import game.gameobject.GameObject;
 
@@ -18,11 +18,12 @@ public class Defuser extends GameObject {
     /**
      * Constructor for the defuser.
      * 
-     * @param coor   the spawn coordinates.
-     * @param radius the radius of the defuser.
+     * @param coor              the spawn coordinates.
+     * @param radius            the radius of the defuser.
+     * @param defuserInputModel the InputModel to be used by the defuser.
      */
-    public Defuser(final Point2D coor, final int radius) {
-        super(coor, Vector2D.nullVector(), 0, new DirectionalInput(), new BoundaryDumpedPhysics(radius, DUMP_COEFFICIENT),
+    public Defuser(final Point2D coor, final int radius, final InputModel defuserInputModel) {
+        super(coor, Vector2D.nullVector(), 0, defuserInputModel, new BoundaryDumpedPhysics(radius, DUMP_COEFFICIENT),
                 new CircleAspect(radius, CIRCLE_COLOR));
     }
 

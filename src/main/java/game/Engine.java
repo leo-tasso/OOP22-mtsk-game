@@ -85,9 +85,6 @@ public class Engine {
             waitForNextFrame(currentFrame);
             previousFrame = currentFrame;
             // TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
-            if (!view.isViewActive()) {
-                return;
-            }
         }
         view.renderGameOver(points);
     }

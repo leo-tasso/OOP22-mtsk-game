@@ -4,16 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Function;
 
 import api.ColorRGB;
 import api.Point2D;
+import game.controlling.DirectionalInput;
+import game.controlling.InputModel;
 import game.gameobject.CircleAspect;
 import game.gameobject.GameObject;
 import game.gameobject.RectangleAspect;
 import game.gameobject.catchthesqareobjects.Bomb;
 import game.gameobject.catchthesqareobjects.Defuser;
-import game.minigame.catchthesquare.IncrSpawnStrat;
-import game.minigame.catchthesquare.SpawnFreqStrat;
+import game.minigame.difficultystrats.IncrRateStrat;
 
 /**
  * Minigame where the player has to catch sqares before the time runs out.
@@ -23,27 +25,44 @@ public class CatchTheSquare implements Minigame {
     private static final int BOTTOM_BOUND = 900;
     private static final int DEFUSER_RADIUS = 100;
     private static final int BOMB_SIDE = (int) (DEFUSER_RADIUS * 1.5);
-    private static final double BOMB_SPAWN_DIFF = 1.05;
     private static final Point2D SPAWN_POINT_DEFUSER = new Point2D(RIGHT_BOUND / 2, BOTTOM_BOUND / 2);
     private static final int MAX_OBJECT = 6;
-
+    private static final double MAX_BOMB_RATE = 0.7;
+    private static final double BOMB_SPAWN_DIFF = 1.05;
     private long totalElapsed;
     private int totalBombsSpawned;
     private final Defuser defuser;
     private final List<GameObject> gObjects;
     private final Random r;
-    private final SpawnFreqStrat spawnFreqStrat;
+    private final Function<Long, Long> spawnFreqStrat;
 
     /**
      * Constructor for the minigame, it initializes its fields.
+     * 
+     * @param spawnFreqStrat    the function strategy to regulate the spawn
+     *                          frequency
+     *                          of the boms.
+     * @param defuserInputModel the InputModel to be used my the defuser.
      */
+    public CatchTheSquare(final Function<Long, Long> spawnFreqStrat, final InputModel defuserInputModel) {
+        this.gObjects = new ArrayList<>();
+        this.totalElapsed = 0;
+        this.totalBombsSpawned = 0;
+        this.r = new Random();
+        this.spawnFreqStrat = spawnFreqStrat;
+        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS, defuserInputModel);
+        gObjects.add(defuser);
+    }
+/**
+ * Constructor with default values.
+ */
     public CatchTheSquare() {
         this.gObjects = new ArrayList<>();
         this.totalElapsed = 0;
         this.totalBombsSpawned = 0;
         this.r = new Random();
-        this.spawnFreqStrat = new IncrSpawnStrat(BOMB_SPAWN_DIFF);
-        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS);
+        this.spawnFreqStrat = new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE);
+        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS, new DirectionalInput());
         gObjects.add(defuser);
     }
 
@@ -72,7 +91,7 @@ public class CatchTheSquare implements Minigame {
         if (collider.isPresent()) {
             gObjects.remove(collider.get());
         }
-        if (totalBombsSpawned < spawnFreqStrat.bombNumber(totalElapsed) && gObjects.size() < MAX_OBJECT) {
+        if (totalBombsSpawned < spawnFreqStrat.apply(totalElapsed) && gObjects.size() < MAX_OBJECT) {
             gObjects.add(new Bomb(randSpawnPoint(), BOMB_SIDE, ColorRGB.black())); // if changing bomb shape, also
                                                                                    // change
                                                                                    // checkCollision method
