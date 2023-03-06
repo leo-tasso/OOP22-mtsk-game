@@ -1,4 +1,4 @@
-package game.minigame;
+package game.minigame.difficultystrats;
 
 import java.util.function.Function;
 

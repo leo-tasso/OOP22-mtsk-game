@@ -7,9 +7,9 @@ import game.controlling.DirectionalInput;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.minigame.CatchTheSquare;
-import game.minigame.IncrRateStrat;
 import game.minigame.Minigame;
 import game.minigame.TestMinigame;
+import game.minigame.difficultystrats.IncrRateStrat;
 import game.view.SwingView;
 import game.view.View;
 
