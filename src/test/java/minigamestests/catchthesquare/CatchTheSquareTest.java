@@ -1,16 +1,5 @@
 package minigamestests.catchthesquare;
 
-import game.controlling.DirectionalInput;
-import game.controlling.DirectionalLinearInput;
-import game.controlling.Input;
-import game.controlling.InputModel;
-import game.controlling.KeyboardInput;
-import game.engine.gameobject.GameObject;
-import game.engine.gameobject.catchthesqareobjects.Bomb;
-import game.engine.minigame.CatchTheSquare;
-import game.engine.minigame.Minigame;
-import game.minigame.difficultystrats.IncrRateStrat;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +12,16 @@ import org.junit.jupiter.api.Test;
 
 import api.Point2D;
 import api.Vector2D;
+import game.controlling.DirectionalInput;
+import game.controlling.DirectionalLinearInput;
+import game.controlling.Input;
+import game.controlling.InputModel;
+import game.controlling.KeyboardInput;
+import game.engine.difficultystrats.IncrRateStrat;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.catchthesqareobjects.Bomb;
+import game.engine.minigame.CatchTheSquare;
+import game.engine.minigame.Minigame;
 
 /**
  * Unit test for the minigame CatchTheSquare.
