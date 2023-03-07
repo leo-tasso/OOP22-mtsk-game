@@ -52,7 +52,7 @@ public class GameOverState implements ViewState {
             scoreLabel.setStrokeWidth(2);
             scoreLabel.setStrokeLineJoin(StrokeLineJoin.ROUND);
             scoreLabel.setStroke(Color.BLACK);
-            final Button exitButton = bf.create(stage, "Exit", e -> Platform.exit());
+            final Button exitButton = bf.create(stage, "Exit", e -> stage.close());
             final Button playAgainButton = bf.create(stage, "Play Again", e -> {
                 Platform.runLater(() -> {
                     new GameStateImpl(view).display(view, stage);

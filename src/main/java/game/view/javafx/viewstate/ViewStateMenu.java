@@ -44,7 +44,7 @@ public final class ViewStateMenu implements ViewState {
                 bf.create(stage, "Play", e -> Platform.runLater(() -> new GameStateImpl(jview).display(jview, stage))));
         buttons.add(bf.create(stage, "Stats", e -> Platform.runLater(null))); // TODO to be implemented, goes to stats
                                                                               // screen
-        buttons.add(bf.create(stage, "Exit", e -> Platform.runLater(() -> Platform.exit())));
+        buttons.add(bf.create(stage, "Exit", e -> Platform.runLater(() -> stage.close())));
 
         final VBox root = new VBox(BUTTON_SPACING, logo);
         root.getChildren().addAll(buttons);
