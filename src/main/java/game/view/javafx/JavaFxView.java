@@ -9,7 +9,6 @@ import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.engine.Engine;
 import game.engine.gameobject.GameObject;
-import game.view.View;
 import game.view.javafx.viewstate.GameOverState;
 import game.view.javafx.viewstate.GameState;
 import game.view.javafx.viewstate.ViewStateMenu;
@@ -23,7 +22,7 @@ import javafx.stage.Stage;
 /**
  * Implementation of {@link View} using JavaFx.
  */
-public final class JavaFxView extends Application implements View, JavaFxViewCoordinator {
+public final class JavaFxView extends Application implements JavaFxViewCoordinator {
 
     private static final int START_WINDOW_WIDTH = 800;
     private static final int START_WINDOW_HEIGHT = 480;
