@@ -106,7 +106,7 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public void display(final JavaFxViewCoordinator jView, final Stage stage) {
-        new Thread(() -> jView.getController().startGame()).start();
+        new Thread(() -> jView.gameStarter()).start();
         stage.setScene(gameScene);
     }
 

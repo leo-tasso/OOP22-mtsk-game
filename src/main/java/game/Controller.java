@@ -1,61 +1,40 @@
 package game;
-
-import java.util.List;
-
-import game.controlling.Input;
-import game.engine.Engine;
-import game.engine.gameobject.GameObject;
-
 /**
- * Controller of the game, it mainly manages the interactions between Engine and
- * View.
+ * Interface to model the Controller of the Game.
  */
 public interface Controller {
+
     /**
-     * Method to start the game.
+     * The game loop performing each frame update according to the game loop
+     * pattern.
      */
     void startGame();
 
     /**
-     * Method will be called when the game stops.
+     * Method to set if the game loop is paused.
      * 
-     * @param score the obtained score.
+     * @param paused to set if is paused
      */
-    void gameOver(long score);
+    void setPaused(boolean paused);
 
     /**
-     * Method to show a message in the view.
+     * Method to get if the game loop is paused.
      * 
-     * @param tutorial
-     * @param engine
+     * @return true if the game loop is paused
      */
-    void showMessage(String tutorial, Engine engine);
+    boolean isPaused();
 
     /**
-     * Method to get the Input.
+     * Method to save the statistics.
      * 
-     * @return the Inputs
-     */
-    Input getInput();
-
-    /**
-     * Method to update the Object representation in the View.
-     * 
-     * @param list the list of object divided in list for each minigame.
-     */
-    void render(List<List<GameObject>> list);
-
-    /**
-     * Method to save the stats.
-     * 
-     * @param scores the stats to save.
+     * @param scores the statistics to save.
      */
     void saveStats(LeaderBoard scores);
 
     /**
-     * method to retrive the stats.
+     * Method to save the statistics.
      * 
-     * @return the stats retrived.
+     * @return the statistics to retrieved.
      */
     LeaderBoard getStats();
 

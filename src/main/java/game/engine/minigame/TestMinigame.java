@@ -68,7 +68,7 @@ public class TestMinigame implements Minigame {
      * @return The list of gameobjects.
      */
     @Override
-    public List<GameObject> getGameObjects() {
+    public List<GameObject> getObjects() {
         return new ArrayList<>(l);
     }
 

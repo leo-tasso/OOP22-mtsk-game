@@ -3,7 +3,6 @@ package game.view;
 import java.util.List;
 
 import game.controlling.Input;
-import game.engine.Engine;
 import game.engine.gameobject.GameObject;
 
 /**
@@ -28,9 +27,8 @@ public interface View {
      * Method to show a String message on a popup window.
      * 
      * @param tutorial the string to display.
-     * @param engine   the engine to resume.
      */
-    void showMessage(String tutorial, Engine engine);
+    void showMessage(String tutorial);
 
     /**
      * Checks if the view is still active.

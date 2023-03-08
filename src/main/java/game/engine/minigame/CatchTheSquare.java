@@ -161,7 +161,7 @@ public class CatchTheSquare implements Minigame {
      * @return the list of the gameObjects present in the minigame.
      */
     @Override
-    public List<GameObject> getGameObjects() {
+    public List<GameObject> getObjects() {
         return new ArrayList<>(gObjects);
     }
 

@@ -67,14 +67,14 @@ class CatchTheSquareTest {
             for (final Function<Long, Long> spawnStrat : SPAWN_STRATS) {
                 final Minigame cTS = new CatchTheSquare(spawnStrat,
                         inputModel);
-                final GameObject defuser = cTS.getGameObjects().get(0);
-                while (cTS.getGameObjects().size() < 2) {
+                final GameObject defuser = cTS.getObjects().get(0);
+                while (cTS.getObjects().size() < 2) {
                     cTS.compute(ELAPSED_TIME); // wait until some bomb is spawned
                 }
-                int objectsNold = cTS.getGameObjects().size();
-                while (objectsNold <= cTS.getGameObjects().size()) { // keep checking if any bomb has been defused
-                    objectsNold = cTS.getGameObjects().size();
-                    final Optional<GameObject> b = cTS.getGameObjects().stream().filter(o -> o instanceof Bomb)
+                int objectsNold = cTS.getObjects().size();
+                while (objectsNold <= cTS.getObjects().size()) { // keep checking if any bomb has been defused
+                    objectsNold = cTS.getObjects().size();
+                    final Optional<GameObject> b = cTS.getObjects().stream().filter(o -> o instanceof Bomb)
                             .findAny();
                     if (b.isPresent()) {
                         defuser.setCoor(b.get().getCoor());
@@ -94,10 +94,10 @@ class CatchTheSquareTest {
                         inputModel);
                 final Input input = new KeyboardInput();
                 input.setMoveDown(true);
-                cTS.getGameObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
+                cTS.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
                 cTS.compute(ELAPSED_TIME);
-                assertNotEquals(cTS.getGameObjects().get(0).getVel(), Vector2D.nullVector());
-                assertNotEquals(cTS.getGameObjects().get(0).getCoor(), new Point2D(BOUND_LENGHT / 2, BOUND_HEIGHT / 2));
+                assertNotEquals(cTS.getObjects().get(0).getVel(), Vector2D.nullVector());
+                assertNotEquals(cTS.getObjects().get(0).getCoor(), new Point2D(BOUND_LENGHT / 2, BOUND_HEIGHT / 2));
 
             }
         }
@@ -109,7 +109,7 @@ class CatchTheSquareTest {
             for (final Function<Long, Long> spawnStrat : SPAWN_STRATS) {
                 final Minigame cTS = new CatchTheSquare(spawnStrat,
                         inputModel);
-                final GameObject defuser = cTS.getGameObjects().get(0);
+                final GameObject defuser = cTS.getObjects().get(0);
                 defuser.setVel(new Vector2D(START_SPEED, START_SPEED));
                 for (int n = 0; n < REPETITIONS; n++) {
                     cTS.compute(ELAPSED_TIME);

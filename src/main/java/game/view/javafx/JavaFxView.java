@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import game.Controller;
 import game.ControllerImpl;
+import game.LeaderBoard;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
-import game.engine.Engine;
 import game.engine.gameobject.GameObject;
 import game.view.View;
 import game.view.javafx.viewstate.GameOverState;
@@ -81,15 +81,13 @@ public final class JavaFxView extends Application implements View, JavaFxViewCoo
      * {@inheritDoc}
      */
     @Override
-    public void showMessage(final String tutorial, final Engine controller) {
+    public void showMessage(final String tutorial) {
         Platform.runLater(() -> {
             final Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Message");
             alert.setHeaderText(null);
             alert.setContentText(tutorial);
-
             alert.initOwner(stage);
-
             alert.showAndWait();
             controller.setPaused(false);
         });
@@ -124,13 +122,21 @@ public final class JavaFxView extends Application implements View, JavaFxViewCoo
         this.gameState = gameState;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Controller getController() {
-        return controller;
+    public void gameStarter() {
+        controller.startGame();
+    }
+
+    @Override
+    public LeaderBoard getStats() {
+        return null;
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public boolean isFullScreen() {
@@ -138,7 +144,7 @@ public final class JavaFxView extends Application implements View, JavaFxViewCoo
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void toggleFullScreen() {

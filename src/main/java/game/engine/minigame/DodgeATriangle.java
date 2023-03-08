@@ -37,7 +37,7 @@ public class DodgeATriangle implements Minigame {
      * @return TODO
      */
     @Override
-    public List<GameObject> getGameObjects() {
+    public List<GameObject> getObjects() {
         // TODO Auto-generated method stub
         return List.of();
     }
