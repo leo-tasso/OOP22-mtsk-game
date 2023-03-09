@@ -90,4 +90,14 @@ public class WamObject extends GameObject {
     public Point2D getStartCoor() {
         return startCoor;
     }
+
+    /**
+     * Getter method for the time instant in which 
+     * the object will be in its initial coordinates.
+     * 
+     * @return the time of appearance (in ms)
+     */
+    public long getAppearanceTime() {
+        return this.appearanceTime;
+    }
 }
