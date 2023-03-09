@@ -13,5 +13,22 @@ import game.minigame.whacamoleminigame.WhacAMole;
  */
 public class WamInputModel implements InputModel {
 
-
+    /**
+     * I change the appearance of the hit object, then if it was a mole 
+     * I make it go back to its hole, while if it was a bomb the game 
+     * will end at the beginning of the next iteration of mainLoop().
+     */
+    @Override
+    public void update(GameObject obj, Input c, long elapsedTime) {
+        final WamObject wamObj = (WamObject) obj;
+        if (wamObj.getHoleNumber() == c.getNumberPressed().orElse(0)
+            && (wamObj.getStatus().equals(Status.IN_MOTION)
+            || wamObj.getStatus().equals(Status.HALFWAY))) {
+                wamObj.setStatus(Status.HIT);
+                wamObj.getAspectModel().change(); 
+                if (wamObj.getVel().getY() <= 0) {
+                    wamObj.setVel(wamObj.getLevel().getObjSpeed().invert());
+                }
+            }
+        }
 }
