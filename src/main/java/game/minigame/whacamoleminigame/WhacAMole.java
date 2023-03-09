@@ -1,13 +1,15 @@
 package game.minigame.whacamoleminigame;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
+import api.Vector2D;
 import game.gameobject.GameObject;
-import game.gameobject.whacamoleobjects.Bomb;
-import game.gameobject.whacamoleobjects.Mole;
 import game.gameobject.whacamoleobjects.Status;
+import game.gameobject.whacamoleobjects.Type;
+import game.gameobject.whacamoleobjects.WamObject;
 import game.minigame.Minigame;
 
 /**
@@ -17,10 +19,9 @@ public class WhacAMole implements Minigame {
     private static final int NUM_HOLES = 9;
     private static final long TIME_TO_NEXT_LEVEL = 24000L;
 
-    private List<Mole> moles; 
-    private List<Bomb> bombs;
+    private Set<WamObject> objs;
     private final List<Level> levels; 
-    private final long currentTime;
+    private long currentTime;
     private DrawStrategy draw;
     private Level currentLevel;
 
@@ -33,6 +34,7 @@ public class WhacAMole implements Minigame {
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
         this.currentLevel = this.levels.get(0);
         this.draw = new DrawStrategyImpl(NUM_HOLES);
+        this.objs = new HashSet<>();
     }
 
     /**
@@ -44,37 +46,61 @@ public class WhacAMole implements Minigame {
      */
     @Override
     public boolean isGameOver() { 
-        return this.moles.stream().map(Mole::getStatus).anyMatch(s -> s.equals(Status.MISSED))
-            || this.bombs.stream().map(Bomb::getStatus).anyMatch(s -> s.equals(Status.HIT));
+        return this.objs.stream()
+                .filter(o -> o.getType().equals(Type.MOLE))
+                .map(WamObject::getStatus)
+                .anyMatch(s -> s.equals(Status.MISSED))
+            || this.objs.stream()
+                .filter(o -> o.getType().equals(Type.BOMB))
+                .map(WamObject::getStatus)
+                .anyMatch(s -> s.equals(Status.HIT));
     }
 
     /**
-     * At this point the logical state of the GameObjects will have already 
-     * been updated by user's input, so I update their physics accordingly, 
-     * and check if it's time to level up and/or create new Objs to appear.
+     * At this point each object that has been hit will have been notified 
+     * by the InputModel, so now I need to update the logical state 
+     * of all the others and manage the physics of the moving objects.
+     * Finally I check if a new extraction is necessary.
      * 
      * @param elapsed time elapsed since the last frame
      */
     @Override
     public void compute(final long elapsed) {
         this.currentTime += elapsed;
-        /* I have to use two streams because if I generalize the type  */
-        /* to GameObject I could not do the check on the state of      */
-        /* the objects so I would have to create 2 classes for physics */
-        this.moles.stream().filter(m -> m.getStatus().equals(Status.IN_MOTION)).forEach(m -> m.updatePhysics(elapsed, this));
-        this.bombs.stream().filter(b -> b.getStatus().equals(Status.IN_MOTION)).forEach(b -> b.updatePhysics(elapsed, this));
         this.deleteOldObjs();
         this.calculateLevel();
+        this.objs.stream()
+            .filter(o -> o.getStatus().equals(Status.IN_MOTION))
+            .forEach(o -> o.updatePhysics(elapsed, this));
 
-        if (this.moles.isEmpty() && this.bombs.isEmpty()) {
+        this.objs.stream()
+            .filter(o -> o.getCoor().getY() > o.getStartCoor().getY())
+            .forEach(o -> {
+                o.setStatus(Status.MISSED);
+                o.setVel(Vector2D.nullVector());
+            });
+         
+        this.objs.stream()
+            .filter(o -> o.getStatus().equals(Status.WAITING))
+            .filter(o -> o.getAppearanceTime() <= this.currentTime)
+            .forEach(o -> {
+                o.setStatus(Status.IN_MOTION);
+                o.setVel(this.currentLevel.getObjSpeed());
+            });
+
+        this.objs.stream()
+            .filter(o -> o.getStatus().equals(Status.HALFWAY))
+            .filter(o -> o.getMotionRestartTime() <= this.currentTime)
+            .forEach(o -> {
+                o.setStatus(Status.IN_MOTION);
+                o.setVel(this.currentLevel.getObjSpeed().invert());
+            });
+
+        if (this.objs.isEmpty()) {
             this.draw.draw(this.currentLevel, this.currentTime).stream()
-                .forEach(o -> {
-                    if (o instanceof Mole) {
-                        moles.add((Mole) o);
-                    } else {
-                        bombs.add((Bomb) o);
-                    } 
-                });
+                .forEach(
+                    o -> this.objs.add((WamObject) o)
+                );
         }
     }
 
@@ -85,9 +111,7 @@ public class WhacAMole implements Minigame {
      */
     @Override
     public List<GameObject> getGameObjects() {
-        final List<GameObject> retList = new ArrayList<>(moles);
-        retList.addAll(bombs);
-        return retList;
+        return new ArrayList<>(objs);
     }
 
     /**
@@ -110,15 +134,16 @@ public class WhacAMole implements Minigame {
      * Method to clean the lists from GameObjects no longer in use.
      */
     private void deleteOldObjs() {
-        this.moles.stream()
-            .filter(m -> m.getDisappearanceTime() < this.currentTime)
+        this.objs.stream()
+            .filter(o -> o.getType().equals(Type.MOLE))
             .filter(m -> m.getStatus().equals(Status.HIT))
-            .forEach(m -> this.moles.remove(m));
+            .filter(m -> m.getCoor().getY() > m.getStartCoor().getY())
+            .forEach(m -> this.objs.remove(m));
         
-        this.bombs.stream()
-            .filter(b -> b.getDisappearanceTime() < this.currentTime)
+        this.objs.stream()
+            .filter(o -> o.getType().equals(Type.BOMB))
             .filter(b -> b.getStatus().equals(Status.MISSED))
-            .forEach(b -> this.bombs.remove(b));
+            .forEach(b -> this.objs.remove(b));
     }
 
     @Override
@@ -126,5 +151,14 @@ public class WhacAMole implements Minigame {
         return "Smash the moles before they can get back to their hole by "
              + "clicking the number from 1 to 9 on your keyboard corresponding to "
              + "the hole the mole came out of, but be careful not to hit the bombs!";
+    }
+
+    /**
+     * Getter method for the local time of this minigame.
+     * 
+     * @return the current time
+     */
+    public long getCurrentTime() {
+        return this.currentTime;
     }
 }
