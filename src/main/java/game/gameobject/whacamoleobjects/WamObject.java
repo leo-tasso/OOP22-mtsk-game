@@ -60,4 +60,14 @@ public class WamObject extends GameObject {
     public Status getStatus() {
         return this.status;
     }
+
+    /**
+     * Setter method for the current 
+     * logical state of the GameObject.
+     * 
+     * @param status the new status
+     */
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }
