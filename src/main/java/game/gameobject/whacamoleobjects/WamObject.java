@@ -70,4 +70,14 @@ public class WamObject extends GameObject {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    /**
+     * Getter method for the number of the 
+     * hole the object will come out of.
+     * 
+     * @return the hole assigned to this object
+     */
+    public int getHoleNumber() {
+        return this.holeNumber;
+    }
 }
