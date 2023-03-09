@@ -12,7 +12,10 @@ import game.minigame.whacamoleminigame.Level;
  * Class that models a GameObject belonging to the Whac-a-Mole minigame.
  */
 public class WamObject extends GameObject {
-    private static final int DELTA_Y = 0;
+    /* Difference of the Y coordinate between the starting point */
+    /* of the object and the most distant point from the hole    */
+    /* it reaches (i.e. the one where it will stop for a while)  */
+    public static final int DELTA_Y = 0; //TODO.
     
     private final Type type;
     private Status status;
@@ -133,5 +136,4 @@ public class WamObject extends GameObject {
     public Level getLevel() {
         return this.level;
     }
-
 }
