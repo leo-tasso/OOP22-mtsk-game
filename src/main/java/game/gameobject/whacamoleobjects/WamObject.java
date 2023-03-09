@@ -123,4 +123,15 @@ public class WamObject extends GameObject {
     public void setMotionRestartTime(final long l) {
         this.motionRestartTime = l;
     }
+
+    /**
+     * Getter method for the level to 
+     * which this object belongs.
+     * 
+     * @return the level of difficulty
+     */
+    public Level getLevel() {
+        return this.level;
+    }
+
 }
