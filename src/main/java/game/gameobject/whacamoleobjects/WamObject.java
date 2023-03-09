@@ -40,4 +40,14 @@ public class WamObject extends GameObject {
         motionRestartTime = 0L;
         //TODO Auto-generated constructor stub
     }
+
+    /**
+     * Getter method for the type of character 
+     * this object represents (mole or bomb).
+     * 
+     * @return the type
+     */
+    public Type getType() {
+        return this.type;
+    }
 }
