@@ -100,4 +100,15 @@ public class WamObject extends GameObject {
     public long getAppearanceTime() {
         return this.appearanceTime;
     }
+
+    /**
+     * Getter method for the instant of time in which the 
+     * object, after having stopped for a certain amount of time 
+     * outside the hole, restarts its motion to return inside.
+     * 
+     * @return the time it starts to go back to the den (in ms)
+     */
+    public long getMotionRestartTime() {
+        return this.motionRestartTime;
+    }
 }
