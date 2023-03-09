@@ -88,7 +88,7 @@ public class WamObject extends GameObject {
      * @return the starting point (x,y)
      */
     public Point2D getStartCoor() {
-        return startCoor;
+        return this.startCoor;
     }
 
     /**
