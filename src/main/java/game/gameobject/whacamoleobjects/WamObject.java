@@ -111,4 +111,16 @@ public class WamObject extends GameObject {
     public long getMotionRestartTime() {
         return this.motionRestartTime;
     }
+
+    /**
+     * Method to set the motion restart time, 
+     * calculated once the object reaches 
+     * the highest point of its journey.
+     * 
+     * @param l the time it starts to go back 
+     * to the den (in ms)
+     */
+    public void setMotionRestartTime(final long l) {
+        this.motionRestartTime = l;
+    }
 }
