@@ -80,4 +80,14 @@ public class WamObject extends GameObject {
     public int getHoleNumber() {
         return this.holeNumber;
     }
+
+    /**
+     * Getter method for the coordinates from which the 
+     * object starts its motion (just above the hole).
+     * 
+     * @return the starting point (x,y)
+     */
+    public Point2D getStartCoor() {
+        return startCoor;
+    }
 }
