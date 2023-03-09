@@ -22,4 +22,22 @@ public class WamObject extends GameObject {
     private final long appearanceTime;
     private long motionRestartTime;
 
+    /**
+     * Basic initialization of the various fields.
+     * 
+     * @param type           the role of this object in the game
+     * @param appearanceTime the time it actually comes into play
+     * @param currentLevel   lv from which to take the difficulty parameters
+     * @param holeNumber     assigned hole number
+     */
+    public WamObject(Type type, long appearanceTime, Level currentLevel, int holeNumber) {
+        super(HolesCoor.get(), Vector2D.nullVector());
+        this.type = type;
+        this.status = Status.WAITING;
+        this.level = currentLevel;
+        this.holeNumber = holeNumber;
+        startCoor = HolesCoor.get();
+        motionRestartTime = 0L;
+        //TODO Auto-generated constructor stub
+    }
 }
