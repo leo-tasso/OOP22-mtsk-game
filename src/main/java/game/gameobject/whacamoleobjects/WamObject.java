@@ -50,4 +50,14 @@ public class WamObject extends GameObject {
     public Type getType() {
         return this.type;
     }
+
+    /**
+     * Getter method for the current 
+     * logical state of the GameObject.
+     * 
+     * @return the status
+     */
+    public Status getStatus() {
+        return this.status;
+    }
 }
