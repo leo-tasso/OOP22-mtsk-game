@@ -17,7 +17,7 @@ public abstract class WamObject extends GameObject {
     /* Difference of the Y coordinate between the starting point */
     /* of the object and the most distant point from the hole    */
     /* it reaches (i.e. the one where it will stop for a while)  */
-    public static final int DELTA_Y = 0; //TODO.
+    public static final int DELTA_Y = 20; 
 
     private Status status;
     private final Level level;
