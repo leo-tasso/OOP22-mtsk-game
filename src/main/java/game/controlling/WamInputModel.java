@@ -1,10 +1,8 @@
 package game.controlling;
 
-import api.Vector2D;
 import game.gameobject.GameObject;
 import game.gameobject.whacamoleobjects.Status;
 import game.gameobject.whacamoleobjects.WamObject;
-import game.minigame.whacamoleminigame.WhacAMole;
 
 /**
  * Class responsible for updating the object (that contains an 
@@ -14,9 +12,8 @@ import game.minigame.whacamoleminigame.WhacAMole;
 public class WamInputModel implements InputModel {
 
     /**
-     * I change the appearance of the hit object, then if it was a mole 
-     * I make it go back to its hole, while if it was a bomb the game 
-     * will end at the beginning of the next iteration of mainLoop().
+     * In case there is an object outside 
+     * the user's selected hole, I hit it.
      */
     @Override
     public void update(GameObject obj, Input c, long elapsedTime) {
@@ -24,11 +21,7 @@ public class WamInputModel implements InputModel {
         if (wamObj.getHoleNumber() == c.getNumberPressed().orElse(0)
             && (wamObj.getStatus().equals(Status.IN_MOTION)
             || wamObj.getStatus().equals(Status.HALFWAY))) {
-                wamObj.setStatus(Status.HIT);
-                wamObj.getAspectModel().change(); 
-                if (wamObj.getVel().getY() <= 0) {
-                    wamObj.setVel(wamObj.getLevel().getObjSpeed().invert());
-                }
-            }
+                wamObj.hit();
         }
+    }
 }
