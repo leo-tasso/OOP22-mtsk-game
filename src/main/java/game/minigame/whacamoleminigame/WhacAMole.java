@@ -16,13 +16,14 @@ import game.minigame.Minigame;
  */
 public class WhacAMole implements Minigame {
     private static final int NUM_HOLES = 9;
-    private static final long TIME_TO_NEXT_LEVEL = 24000L;
+    private static final int DRAWS_TO_NEXT_LEVEL = 3;
 
     private Set<WamObject> objs;
     private final List<Level> levels; 
     private long currentTime;
     private DrawStrategy draw;
     private Level currentLevel;
+    private int numDraws;
 
     /**
      * General initialization of the fields, the start time is 
@@ -34,6 +35,7 @@ public class WhacAMole implements Minigame {
         this.currentLevel = this.levels.get(0);
         this.draw = new DrawStrategyImpl(NUM_HOLES);
         this.objs = new HashSet<>();
+        this.numDraws = 0;
     }
 
     /**
@@ -94,6 +96,7 @@ public class WhacAMole implements Minigame {
                 .forEach(
                     o -> this.objs.add((WamObject) o)
                 );
+            this.numDraws = this.numDraws + 1;
         }
     }
 
@@ -109,13 +112,13 @@ public class WhacAMole implements Minigame {
 
     /**
      * Method for calculating the difficulty level based on how 
-     * long the user is in the game. If there are no more levels 
+     * many draws have been made. If there are no more levels 
      * available to advance, then the user will stay on the last one.
      * 
      * @param currentTimeMillis
      */
     private void calculateLevel() {
-        final int levelIndex = (int) this.currentTime / (int) TIME_TO_NEXT_LEVEL;
+        final int levelIndex = (int) this.numDraws / (int) DRAWS_TO_NEXT_LEVEL;
         if (levelIndex > this.levels.size() - 1) {
             this.currentLevel = this.levels.get(this.levels.size() - 1);
         } else {
