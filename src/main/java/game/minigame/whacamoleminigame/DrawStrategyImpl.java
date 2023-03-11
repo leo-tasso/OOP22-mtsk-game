@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import game.gameobject.GameObject;
-import game.gameobject.whacamoleobjects.Type;
-import game.gameobject.whacamoleobjects.WamObject;
+import game.gameobject.whacamoleobjects.Bomb;
+import game.gameobject.whacamoleobjects.Mole;
 
 /**
  * Class that implements a simple draw of GameObjects.
@@ -43,13 +43,13 @@ public class DrawStrategyImpl implements DrawStrategy {
         for (int i = 0; i < nMoles; i++) {
             final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
             newGameObjs.add(
-                new WamObject(Type.MOLE, appearanceTime, currentLevel, assignHole(isHoleBusy)) // physics & aspect & input
+                new Mole(appearanceTime, currentLevel, assignHole(isHoleBusy), ) // physics & aspect & input
             );
         }
         for (int i = 0; i < nBombs; i++) {
             final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
             newGameObjs.add(
-                new WamObject(Type.BOMB, appearanceTime, currentLevel, assignHole(isHoleBusy)) // physics & aspect & input
+                new Bomb(appearanceTime, currentLevel, assignHole(isHoleBusy), ) // physics & aspect & input
             );
         }
         return newGameObjs; 
