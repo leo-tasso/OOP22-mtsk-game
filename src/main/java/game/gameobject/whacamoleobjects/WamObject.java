@@ -1,5 +1,7 @@
 package game.gameobject.whacamoleobjects;
 
+import javax.swing.AbstractAction;
+
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.InputModel;
@@ -11,13 +13,12 @@ import game.minigame.whacamoleminigame.Level;
 /**
  * Class that models a GameObject belonging to the Whac-a-Mole minigame.
  */
-public class WamObject extends GameObject {
+public abstract class WamObject extends GameObject {
     /* Difference of the Y coordinate between the starting point */
     /* of the object and the most distant point from the hole    */
     /* it reaches (i.e. the one where it will stop for a while)  */
     public static final int DELTA_Y = 0; //TODO.
-    
-    private final Type type;
+
     private Status status;
     private final Level level;
     private final int holeNumber;
@@ -33,9 +34,8 @@ public class WamObject extends GameObject {
      * @param currentLevel   lv from which to take the difficulty parameters
      * @param holeNumber     assigned hole number
      */
-    public WamObject(Type type, long appearanceTime, Level currentLevel, int holeNumber) {
+    public WamObject(long appearanceTime, Level currentLevel, int holeNumber) {
         super(HolesCoor.get(), Vector2D.nullVector());
-        this.type = type;
         this.status = Status.WAITING;
         this.level = currentLevel;
         this.holeNumber = holeNumber;
@@ -55,16 +55,6 @@ public class WamObject extends GameObject {
         if (this.getVel().getY() <= 0) {
             this.setVel(this.level.getObjSpeed().invert());
         }
-    }
-
-    /**
-     * Getter method for the type of character 
-     * this object represents (mole or bomb).
-     * 
-     * @return the type
-     */
-    public Type getType() {
-        return this.type;
     }
 
     /**
