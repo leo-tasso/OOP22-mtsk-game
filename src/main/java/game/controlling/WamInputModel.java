@@ -12,8 +12,9 @@ import game.gameobject.whacamoleobjects.WamObject;
 public class WamInputModel implements InputModel {
 
     /**
-     * In case there is an object outside 
-     * the user's selected hole, I hit it.
+     * I change the appearance of the hit object, then if it was a mole 
+     * I make it go back to its hole, while if it was a bomb the game 
+     * will end at the beginning of the next iteration of mainLoop().
      */
     @Override
     public void update(GameObject obj, Input c, long elapsedTime) {
@@ -21,7 +22,11 @@ public class WamInputModel implements InputModel {
         if (wamObj.getHoleNumber() == c.getNumberPressed().orElse(0)
             && (wamObj.getStatus().equals(Status.IN_MOTION)
             || wamObj.getStatus().equals(Status.HALFWAY))) {
-                wamObj.hit();
+                wamObj.setStatus(Status.HIT);
+                wamObj.getAspectModel().change();
+                if (wamObj.getVel().getY() <= 0) {
+                    wamObj.setVel(wamObj.getLevel().getObjSpeed().invert());
+                }
         }
     }
 }
