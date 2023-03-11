@@ -34,7 +34,12 @@ public abstract class WamObject extends GameObject {
      * @param currentLevel   lv from which to take the difficulty parameters
      * @param holeNumber     assigned hole number
      */
-    public WamObject(long appearanceTime, Level currentLevel, int holeNumber) {
+    public WamObject(long appearanceTime, 
+                    Level currentLevel, 
+                    int holeNumber, 
+                    PhysicsModel physicsModel, 
+                    AspectModel aspectModel, 
+                    InputModel inputModel) {
         super(HolesCoor.get(), Vector2D.nullVector());
         this.status = Status.WAITING;
         this.level = currentLevel;
