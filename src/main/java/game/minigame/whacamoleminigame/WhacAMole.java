@@ -8,7 +8,6 @@ import java.util.Set;
 import api.Vector2D;
 import game.gameobject.GameObject;
 import game.gameobject.whacamoleobjects.Status;
-import game.gameobject.whacamoleobjects.Type;
 import game.gameobject.whacamoleobjects.WamObject;
 import game.minigame.Minigame;
 
@@ -47,13 +46,7 @@ public class WhacAMole implements Minigame {
     @Override
     public boolean isGameOver() { 
         return this.objs.stream()
-                .filter(o -> o.getType().equals(Type.MOLE))
-                .map(WamObject::getStatus)
-                .anyMatch(s -> s.equals(Status.MISSED))
-            || this.objs.stream()
-                .filter(o -> o.getType().equals(Type.BOMB))
-                .map(WamObject::getStatus)
-                .anyMatch(s -> s.equals(Status.HIT));
+            .anyMatch(o -> o.isGameOver());
     }
 
     /**
@@ -135,15 +128,8 @@ public class WhacAMole implements Minigame {
      */
     private void deleteOldObjs() {
         this.objs.stream()
-            .filter(o -> o.getType().equals(Type.MOLE))
-            .filter(m -> m.getStatus().equals(Status.HIT))
-            .filter(m -> m.getCoor().getY() > m.getStartCoor().getY())
-            .forEach(m -> this.objs.remove(m));
-        
-        this.objs.stream()
-            .filter(o -> o.getType().equals(Type.BOMB))
-            .filter(b -> b.getStatus().equals(Status.MISSED))
-            .forEach(b -> this.objs.remove(b));
+            .filter(o -> !o.isStillInUse())
+            .forEach(o -> this.objs.remove(o));
     }
 
     @Override
