@@ -51,7 +51,16 @@ public abstract class WamObject extends GameObject {
      * 
      * @return whether the game is over or not
      */
-    abstract boolean isOver();
+    public abstract boolean isGameOver();
+
+    /**
+     * Check if the object has already performed its task 
+     * in the game and has therefore become irrelevant 
+     * (and that it is not the cause of GameOver).
+     * 
+     * @return whether the object is still in use or not
+     */
+    public abstract boolean isStillInUse();
 
     /**
      * Getter method for the current 
