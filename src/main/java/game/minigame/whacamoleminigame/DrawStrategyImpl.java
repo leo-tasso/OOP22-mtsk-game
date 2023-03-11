@@ -52,7 +52,7 @@ public class DrawStrategyImpl implements DrawStrategy {
                         assignHole(isHoleBusy), 
                         new WamPhysicsModel(), 
                         new MoleAspectModel(), 
-                        new WamInputModel());
+                        new WamInputModel())
             );
         }
         for (int i = 0; i < nBombs; i++) {
@@ -63,7 +63,7 @@ public class DrawStrategyImpl implements DrawStrategy {
                         assignHole(isHoleBusy),
                         new WamPhysicsModel(), 
                         new BombAspectModel(), 
-                        new WamInputModel());
+                        new WamInputModel())
             );
         }
         return newGameObjs; 
