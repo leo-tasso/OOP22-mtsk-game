@@ -45,6 +45,19 @@ public class WamObject extends GameObject {
     }
 
     /**
+     * I change the appearance of the hit object, then if it was a mole 
+     * I make it go back to its hole, while if it was a bomb the game 
+     * will end at the beginning of the next iteration of mainLoop().
+     */
+    public void hit() {
+        this.status = Status.HIT;
+        this.getAspectModel().change();
+        if (this.getVel().getY() <= 0) {
+            this.setVel(this.level.getObjSpeed().invert());
+        }
+    }
+
+    /**
      * Getter method for the type of character 
      * this object represents (mole or bomb).
      * 
