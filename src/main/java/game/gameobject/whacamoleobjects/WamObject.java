@@ -45,6 +45,15 @@ public abstract class WamObject extends GameObject {
     }
 
     /**
+     * Method that checks whether or not the object caused the 
+     * GameOver, with a different check routine depending on 
+     * the character type of the class implementing WamObject.
+     * 
+     * @return whether the game is over or not
+     */
+    abstract boolean isOver();
+
+    /**
      * I change the appearance of the hit object, then if it was a mole 
      * I make it go back to its hole, while if it was a bomb the game 
      * will end at the beginning of the next iteration of mainLoop().
