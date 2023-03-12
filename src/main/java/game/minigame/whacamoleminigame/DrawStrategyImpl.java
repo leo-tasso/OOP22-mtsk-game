@@ -8,9 +8,10 @@ import java.util.Set;
 
 import game.controlling.WamInputModel;
 import game.gameobject.GameObject;
-import game.gameobject.catchthesqareobjects.BombAspect;
 import game.gameobject.whacamoleobjects.Bomb;
+import game.gameobject.whacamoleobjects.BombAspectModel;
 import game.gameobject.whacamoleobjects.Mole;
+import game.gameobject.whacamoleobjects.MoleAspectModel;
 import game.gameobject.whacamoleobjects.WamPhysicsModel;
 
 /**
