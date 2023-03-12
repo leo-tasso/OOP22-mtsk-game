@@ -28,4 +28,10 @@ public class Mole extends WamObject {
                 InputModel inputModel) {
         super(appearanceTime, currentLevel, holeNumber, physicsModel, aspectModel, inputModel);
     }
+
+    @Override
+    public boolean isGameOver() {
+        return this.getStatus().equals(Status.MISSED);
+    }
+
 }
