@@ -33,4 +33,9 @@ public class Bomb extends WamObject {
     public boolean isGameOver() {
         return this.getStatus().equals(Status.HIT);
     }
+
+    @Override
+    public boolean isStillInUse() {
+        return !this.getStatus().equals(Status.MISSED);
+    }
 }
