@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import game.Controller;
 import game.view.View;
-import game.view.javafx.viewstate.GameState;
+import game.view.javafx.viewstate.gamestate.GameState;
 
 /**
  * Interface to model a javaFX coordinator, with mehtods to dialog with
