@@ -1,7 +1,5 @@
 package game.gameobject.whacamoleobjects;
 
-import javax.swing.AbstractAction;
-
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.InputModel;
@@ -43,14 +41,15 @@ public abstract class WamObject extends GameObject {
                     PhysicsModel physicsModel,
                     AspectModel aspectModel,
                     InputModel inputModel) {
-        super(HolesCoor.get(holeNumber), Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
+        super(new HolesCoorImpl().get(holeNumber), Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
         this.setPhysicsModel(physicsModel);
         this.setAspectModel(aspectModel);
         this.setInputModel(inputModel);
         this.status = Status.WAITING;
         this.level = currentLevel;
         this.holeNumber = holeNumber;
-        startCoor = HolesCoor.get();
+        this.appearanceTime = appearanceTime;
+        this.startCoor = new HolesCoorImpl().get(holeNumber);
         motionRestartTime = 0L;
     }
 
