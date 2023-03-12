@@ -64,6 +64,7 @@ public class WhacAMole implements Minigame {
         this.currentTime += elapsed;
         this.deleteOldObjs();
         this.calculateLevel();
+        this.drawIfNecessary();
         this.objs.stream()
             .filter(o -> o.getStatus().equals(Status.IN_MOTION))
             .forEach(o -> o.updatePhysics(elapsed, this));
@@ -90,7 +91,13 @@ public class WhacAMole implements Minigame {
                 o.setStatus(Status.IN_MOTION);
                 o.setVel(this.currentLevel.getObjSpeed().invert());
             });
+    }
 
+    /**
+     * Method that checks whether it is time 
+     * to perform a draw, and if so, does it.
+     */
+    private void drawIfNecessary() {
         if (this.objs.isEmpty()) {
             this.draw.draw(this.currentLevel, this.currentTime).stream()
                 .forEach(
