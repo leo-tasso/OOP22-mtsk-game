@@ -3,6 +3,7 @@ package game.controlling;
 import game.gameobject.GameObject;
 import game.gameobject.whacamoleobjects.Status;
 import game.gameobject.whacamoleobjects.WamObject;
+import game.gameobject.whacamoleobjects.WamAspectModel;
 
 /**
  * Class responsible for updating the object (that contains an 
@@ -23,7 +24,7 @@ public class WamInputModel implements InputModel {
             && (wamObj.getStatus().equals(Status.IN_MOTION)
             || wamObj.getStatus().equals(Status.HALFWAY))) {
                 wamObj.setStatus(Status.HIT);
-                wamObj.getAspectModel().change();
+                ((WamAspectModel) wamObj.getAspectModel()).change();
                 if (wamObj.getVel().getY() <= 0) {
                     wamObj.setVel(wamObj.getLevel().getObjSpeed().invert());
                 }
