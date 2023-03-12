@@ -11,7 +11,10 @@ import game.gameobject.PhysicsModel;
 import game.minigame.whacamoleminigame.Level;
 
 /**
- * Class that models a GameObject belonging to the Whac-a-Mole minigame.
+ * Class that models objects belonging to the Whac-a-Mole minigame.
+ * If I hadn't created this class, extending the characters' classes 
+ * directly from GameObject, I would have violated the DRY principle,
+ * since many functions would have had the same implementation.
  */
 public abstract class WamObject extends GameObject {
     /* Difference of the Y coordinate between the starting point */
@@ -35,18 +38,20 @@ public abstract class WamObject extends GameObject {
      * @param holeNumber     assigned hole number
      */
     public WamObject(long appearanceTime, 
-                    Level currentLevel, 
-                    int holeNumber, 
-                    PhysicsModel physicsModel, 
-                    AspectModel aspectModel, 
+                    Level currentLevel,
+                    int holeNumber,
+                    PhysicsModel physicsModel,
+                    AspectModel aspectModel,
                     InputModel inputModel) {
-        super(HolesCoor.get(), Vector2D.nullVector());
+        super(HolesCoor.get(holeNumber), Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
+        this.setPhysicsModel(physicsModel);
+        this.setAspectModel(aspectModel);
+        this.setInputModel(inputModel);
         this.status = Status.WAITING;
         this.level = currentLevel;
         this.holeNumber = holeNumber;
         startCoor = HolesCoor.get();
         motionRestartTime = 0L;
-        //TODO Auto-generated constructor stub
     }
 
     /**
