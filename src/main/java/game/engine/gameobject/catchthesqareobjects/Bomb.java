@@ -5,6 +5,7 @@ import api.Point2D;
 import api.Vector2D;
 import game.controlling.NullInput;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.hitboxmodel.SquareHitBoxModel;
 
 /**
  * Bomb gameObject, describes a bomb with a timer.
@@ -22,7 +23,8 @@ public class Bomb extends GameObject {
      * @param color the color of the bomb.
      */
     public Bomb(final Point2D coor, final int side, final ColorRGB color) {
-        super(coor, Vector2D.nullVector(), 0, new NullInput(), new BombTimerPhysics(), new BombAspect(side, color));
+        super(coor, Vector2D.nullVector(), 0, new NullInput(), new BombTimerPhysics(), new BombAspect(side, color),
+                new SquareHitBoxModel(side));
         timer = STARTING_TIMER;
     }
 

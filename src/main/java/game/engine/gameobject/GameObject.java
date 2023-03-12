@@ -2,6 +2,8 @@ package game.engine.gameobject;
 
 import game.controlling.Input;
 import game.controlling.InputModel;
+import game.engine.gameobject.hitboxmodel.HitBoxModel;
+import game.engine.gameobject.hitboxmodel.NullHitBoxModel;
 import game.engine.minigame.Minigame;
 import api.Point2D;
 import api.Vector2D;
@@ -17,6 +19,7 @@ public class GameObject {
     private InputModel inputModel;
     private PhysicsModel physicsModel;
     private AspectModel aspectModel;
+    private HitBoxModel hitBoxModel;
 
     /**
      * Constructor for general GameObject.
@@ -27,15 +30,34 @@ public class GameObject {
      * @param inputModel   the initial inputModel.
      * @param physicsModel the initial physicsModel.
      * @param aspectModel  the initial aspectModel.
+     * @param hitBoxModel  the initial hitBoxModel.
      */
     public GameObject(final Point2D coor, final Vector2D vel, final int rotation, final InputModel inputModel,
-            final PhysicsModel physicsModel, final AspectModel aspectModel) {
+            final PhysicsModel physicsModel,
+            final AspectModel aspectModel, final HitBoxModel hitBoxModel) {
         this.coor = coor;
         this.vel = vel;
         this.rotation = rotation;
         this.inputModel = inputModel;
         this.physicsModel = physicsModel;
         this.aspectModel = aspectModel;
+        this.hitBoxModel = hitBoxModel;
+    }
+
+    /**
+     * Constructor for general GameObject with null hitbox.
+     * 
+     * @param coor         the initial coordinates
+     * @param vel          the initial velocity.
+     * @param rotation     the initial rotation.
+     * @param inputModel   the initial inputModel.
+     * @param physicsModel the initial physicsModel.
+     * @param aspectModel  the initial aspectModel.
+     */
+    public GameObject(final Point2D coor, final Vector2D vel, final int rotation, final InputModel inputModel,
+            final PhysicsModel physicsModel, final AspectModel aspectModel) {
+        this(coor, vel, rotation, inputModel, physicsModel,
+                aspectModel, new NullHitBoxModel());
     }
 
     /**
@@ -157,6 +179,24 @@ public class GameObject {
      */
     public void setPhysicsModel(final PhysicsModel physicsModel) {
         this.physicsModel = physicsModel;
+    }
+
+    /**
+     * Getter for the HitBoxModel of the GameObject.
+     * 
+     * @return the HitBoxModel of the GameObject.
+     */
+    public HitBoxModel getHitBoxModel() {
+        return hitBoxModel;
+    }
+
+    /**
+     * Setter for the HitBoxModel of the GameObject.
+     * 
+     * @param hitBoxModel the HitBoxModel to set.
+     */
+    public void setHitBoxModel(final HitBoxModel hitBoxModel) {
+        this.hitBoxModel = hitBoxModel;
     }
 
     /**
