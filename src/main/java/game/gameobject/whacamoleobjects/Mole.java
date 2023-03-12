@@ -34,4 +34,8 @@ public class Mole extends WamObject {
         return this.getStatus().equals(Status.MISSED);
     }
 
+    @Override
+    public boolean isStillInUse() {
+        return !this.getStatus().equals(Status.HIT);
+    }
 }
