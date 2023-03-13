@@ -20,6 +20,6 @@ public class HolesCoor {
      * @return The coordinates of the center of the hole
      */
     Point2D get(int holeNumber) {
-        return this.holesCoor.get(holeNumber - 1);
+        return this.holesCoor.get(holeNumber);
     }
 }
