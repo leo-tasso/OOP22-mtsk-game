@@ -42,9 +42,6 @@ public abstract class WamObject extends GameObject {
                     AspectModel aspectModel,
                     InputModel inputModel) {
         super(new HolesCoorImpl().get(holeNumber), Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
-        this.setPhysicsModel(physicsModel);
-        this.setAspectModel(aspectModel);
-        this.setInputModel(inputModel);
         this.status = Status.WAITING;
         this.level = currentLevel;
         this.holeNumber = holeNumber;
