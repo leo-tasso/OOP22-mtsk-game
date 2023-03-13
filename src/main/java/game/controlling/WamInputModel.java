@@ -24,7 +24,7 @@ public class WamInputModel implements InputModel {
             && (wamObj.getStatus().equals(Status.IN_MOTION)
             || wamObj.getStatus().equals(Status.HALFWAY))) {
                 wamObj.setStatus(Status.HIT);
-                ((WamAspectModel) wamObj.getAspectModel()).change();
+                ((WamAspectModel) wamObj.getAspectModel()).hit();
                 if (wamObj.getVel().getY() <= 0) {
                     wamObj.setVel(wamObj.getLevel().getObjSpeed().invert());
                 }
