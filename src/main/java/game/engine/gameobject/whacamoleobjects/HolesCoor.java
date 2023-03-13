@@ -1,4 +1,4 @@
-package game.gameobject.whacamoleobjects;
+package game.engine.gameobject.whacamoleobjects;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,11 +1,11 @@
-package game.gameobject.whacamoleobjects;
+package game.engine.gameobject.whacamoleobjects;
 
 import api.Vector2D;
-import game.gameobject.GameObject;
-import game.gameobject.PhysicsModel;
-import game.gameobject.SimplePhysics;
-import game.minigame.Minigame;
-import game.minigame.whacamoleminigame.WhacAMole;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.PhysicsModel;
+import game.engine.gameobject.SimplePhysics;
+import game.engine.minigame.Minigame;
+import game.engine.minigame.whacamoleminigame.WhacAMole;
 
 /**
  * Class that deals with the physics of 

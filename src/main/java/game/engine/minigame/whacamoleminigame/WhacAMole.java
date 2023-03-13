@@ -1,15 +1,14 @@
-package game.minigame.whacamoleminigame;
+package game.engine.minigame.whacamoleminigame;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import api.Vector2D;
-import game.gameobject.GameObject;
-import game.gameobject.whacamoleobjects.Status;
-import game.gameobject.whacamoleobjects.WamObject;
-import game.minigame.Minigame;
+import game.engine.minigame.Minigame;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.whacamoleobjects.Status;
+import game.engine.gameobject.whacamoleobjects.WamObject;
 
 /**
  * Class that implements the Whac-a-mole minigame logic.
@@ -113,7 +112,7 @@ public class WhacAMole implements Minigame {
      * @return the list of GameObjects
      */
     @Override
-    public List<GameObject> getGameObjects() {
+    public List<GameObject> getObjects() {
         return new ArrayList<>(objs);
     }
 

@@ -1,12 +1,12 @@
-package game.gameobject.whacamoleobjects;
+package game.engine.gameobject.whacamoleobjects;
 
 import api.Point2D;
 import api.Vector2D;
 import game.controlling.InputModel;
-import game.gameobject.AspectModel;
-import game.gameobject.GameObject;
-import game.gameobject.PhysicsModel;
-import game.minigame.whacamoleminigame.Level;
+import game.engine.gameobject.AspectModel;
+import game.engine.gameobject.GameObject;
+import game.engine.gameobject.PhysicsModel;
+import game.engine.minigame.whacamoleminigame.Level;
 
 /**
  * Class that models objects belonging to the Whac-a-Mole minigame.

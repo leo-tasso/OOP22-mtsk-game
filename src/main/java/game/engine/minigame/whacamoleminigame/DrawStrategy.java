@@ -1,7 +1,7 @@
-package game.minigame.whacamoleminigame;
+package game.engine.minigame.whacamoleminigame;
 
 import java.util.Set;
-import game.gameobject.GameObject;
+import game.engine.gameobject.GameObject;
 
 /**
  * Interface used as a strategy pattern, containing the 

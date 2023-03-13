@@ -1,7 +1,7 @@
-package game.gameobject.whacamoleobjects;
+package game.engine.gameobject.whacamoleobjects;
 
-import game.gameobject.AspectModel;
-import game.gameobject.GameObject;
+import game.engine.gameobject.AspectModel;
+import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 
 /**

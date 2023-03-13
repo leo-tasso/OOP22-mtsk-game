@@ -1,4 +1,4 @@
-package game.minigame.whacamoleminigame;
+package game.engine.minigame.whacamoleminigame;
 
 import api.TimeInterval;
 import api.Vector2D;

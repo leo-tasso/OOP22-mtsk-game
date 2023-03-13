@@ -1,4 +1,4 @@
-package game.gameobject.whacamoleobjects;
+package game.engine.gameobject.whacamoleobjects;
 
 /**
  * Class that contains all the possible states that a mole or bomb can assume.
