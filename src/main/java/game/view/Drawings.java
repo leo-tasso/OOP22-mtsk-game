@@ -2,6 +2,7 @@ package game.view;
 
 import api.ColorRGB;
 import game.gameobject.GameObject;
+import game.gameobject.whacamoleobjects.Status;
 
 /**
  * The interface to update the way an object is drawn.
@@ -49,9 +50,17 @@ public interface Drawings {
      * The instructions on how to draw a mole.
      * 
      * @param object the gameObject of the mole to draw.
-     * @param color  the color of the mole to draw.
+     * @param status the state in which to represent the mole.
      */
-    void drawMole(GameObject object, ColorRGB color);
+    void drawMole(GameObject object, Status status);
+
+    /**
+     * The instructions on how to draw a bomb.
+     * 
+     * @param object the gameObject of the bomb to draw.
+     * @param status the state in which to represent the bomb.
+     */
+    void drawBomb(GameObject object, Status status);
 
     /**
      * Method to draw a label.
