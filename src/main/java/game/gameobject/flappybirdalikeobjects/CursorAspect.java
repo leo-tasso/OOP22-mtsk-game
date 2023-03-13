@@ -12,6 +12,7 @@ import game.view.Drawings;
 public class CursorAspect implements AspectModel {
 
     private final double size;
+    private final double xSpeed = 50;
 
     /**
     * The constructor for CursorAspect.
@@ -30,6 +31,6 @@ public class CursorAspect implements AspectModel {
     */
     @Override
     public void update(final GameObject object, final Drawings drawing) {
-        drawing.drawTriangle(object, ColorRGB.blue(), size);
+        drawing.drawTriangle(object, ColorRGB.blue(), size, Math.atan(object.getVel().getY() / xSpeed));
     }
 }

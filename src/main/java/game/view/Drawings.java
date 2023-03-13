@@ -39,11 +39,12 @@ public interface Drawings {
     /**
      * The instructions on how to draw a triangle.
      * 
-     * @param object the gameObject of the triangle to draw.
-     * @param color  the color of the triangle to draw.
-     * @param side   the side lenght of the triangle.
+     * @param object   the gameObject of the triangle to draw.
+     * @param color    the color of the triangle to draw.
+     * @param side     the side lenght of the triangle.
+     * @param rotAngle the angle of rotation of the triangle.
      */
-    void drawTriangle(GameObject object, ColorRGB color, double side);
+    void drawTriangle(GameObject object, ColorRGB color, double side, double rotAngle);
 
     /**
      * The instructions on how to draw a mole.

@@ -69,18 +69,20 @@ public class SwingDrawings implements Drawings {
      * @param object the object to draw
      */
     @Override
-    public void drawTriangle(final GameObject object, final ColorRGB color, final double side) {
-        final double shortOffset = Math.sqrt(3) / 6;
+    public void drawTriangle(final GameObject object, final ColorRGB color, final double side, final double rotAngle) {
         final double longOffset = Math.sqrt(3);
+        final double cosAngle = Math.cos(rotAngle);
+        final double sinAngle = Math.sin(rotAngle);
+
         final List<Double> xs = new ArrayList<>();
-        xs.add(object.getCoor().getX() - side * shortOffset);
-        xs.add(object.getCoor().getX() - side * shortOffset);
-        xs.add(object.getCoor().getX() + side / longOffset);
+        xs.add(object.getCoor().getX() + side / longOffset * Math.cos(rotAngle + Math.PI * 2 / 3));
+        xs.add(object.getCoor().getX() + side / longOffset * Math.cos(rotAngle + Math.PI * 4 / 3));
+        xs.add(object.getCoor().getX() + side / longOffset * cosAngle);
 
         final List<Double> ys = new ArrayList<>();
-        ys.add(object.getCoor().getY() + side / 2);
-        ys.add(object.getCoor().getY() - side / 2);
-        ys.add(object.getCoor().getY());
+        ys.add(object.getCoor().getY() + side / longOffset * Math.sin(rotAngle + Math.PI * 2 / 3));
+        ys.add(object.getCoor().getY() + side / longOffset * Math.sin(rotAngle + Math.PI * 4 / 3));
+        ys.add(object.getCoor().getY() + side / longOffset * sinAngle);
 
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         g2.setStroke(new BasicStroke(2f));
