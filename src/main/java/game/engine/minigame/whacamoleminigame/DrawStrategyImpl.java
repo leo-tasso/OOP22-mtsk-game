@@ -8,8 +8,8 @@ import java.util.Set;
 
 import game.controlling.WamInputModel;
 import game.engine.gameobject.GameObject;
-import game.engine.gameobject.whacamoleobjects.Bomb;
-import game.engine.gameobject.whacamoleobjects.BombAspectModel;
+import game.engine.gameobject.whacamoleobjects.WamBomb;
+import game.engine.gameobject.whacamoleobjects.WamBombAspectModel;
 import game.engine.gameobject.whacamoleobjects.Mole;
 import game.engine.gameobject.whacamoleobjects.MoleAspectModel;
 import game.engine.gameobject.whacamoleobjects.WamPhysicsModel;
@@ -59,11 +59,11 @@ public class DrawStrategyImpl implements DrawStrategy {
         for (int i = 0; i < nBombs; i++) {
             final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
             newGameObjs.add(
-                new Bomb(appearanceTime, 
+                new WamBomb(appearanceTime, 
                         currentLevel, 
                         assignHole(isHoleBusy),
                         new WamPhysicsModel(), 
-                        new BombAspectModel(), 
+                        new WamBombAspectModel(), 
                         new WamInputModel())
             );
         }
