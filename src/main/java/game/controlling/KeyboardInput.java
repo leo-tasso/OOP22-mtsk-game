@@ -126,4 +126,16 @@ public class KeyboardInput implements Input {
         setMoveUp(false);
         this.numberPressed = Optional.empty();
     }
+/**
+ * {@inheritDoc}
+ */
+    @Override
+    public KeyboardInput clone() {
+        try {
+            return (KeyboardInput) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
 }

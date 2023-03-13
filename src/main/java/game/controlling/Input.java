@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * Interface to model the inputs.
  */
-public interface Input {
+public interface Input extends Cloneable {
 
     /**
      * Method to check if moveUp input is active.
@@ -83,4 +83,10 @@ public interface Input {
      */
     void reset();
 
+    /**
+     * Method to clone the object.
+     * 
+     * @return the new copy of the object.
+     */
+    Input clone();
 }

@@ -1,6 +1,6 @@
 package game.controlling;
 
-import game.gameobject.GameObject;
+import game.engine.gameobject.GameObject;
 
 /**
  * Interface that allows to apply the changes
