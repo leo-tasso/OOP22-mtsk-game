@@ -12,6 +12,7 @@ import java.awt.FontMetrics;
 import api.ColorRGB;
 import api.Point2D;
 import game.gameobject.GameObject;
+import game.gameobject.whacamoleobjects.Status;
 
 /**
  * A class used to draw a circle.
@@ -104,11 +105,6 @@ public class SwingDrawings implements Drawings {
                 (int) (actualHeight));
     }
 
-    @Override
-    public void drawMole(final GameObject object, final ColorRGB color) {
-
-    }
-
     /**
      * Method to draw a label.
      * 
@@ -128,5 +124,21 @@ public class SwingDrawings implements Drawings {
         final double y = object.getCoor().getY() * dimention / COEFFICIENT
                 + (float) (fm.getHeight() - fm.getAscent()) / 2;
         tl.draw(g2, (float) (x + startingPoint.getX()), (float) (y + startingPoint.getY()));
+    }
+
+    /**
+     * Currently using JavaFx.
+     */
+    @Override
+    public void drawMole(GameObject object, Status status) {
+        throw new UnsupportedOperationException("Unimplemented method 'drawMole'");
+    }
+
+    /**
+     * Currently using JavaFx.
+     */
+    @Override
+    public void drawBomb(GameObject object, Status status) {
+        throw new UnsupportedOperationException("Unimplemented method 'drawBomb'");
     }
 }
