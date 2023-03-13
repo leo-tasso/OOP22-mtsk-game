@@ -6,6 +6,7 @@ import api.Vector2D;
 import game.controlling.InputModel;
 import game.engine.gameobject.CircleAspect;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.hitboxmodel.CircleHitBoxModel;
 
 /**
  * Class to model the defuser for the catchTheSquare Minigame.
@@ -24,7 +25,7 @@ public class Defuser extends GameObject {
      */
     public Defuser(final Point2D coor, final int radius, final InputModel defuserInputModel) {
         super(coor, Vector2D.nullVector(), 0, defuserInputModel, new BoundaryDumpedPhysics(radius, DUMP_COEFFICIENT),
-                new CircleAspect(radius, CIRCLE_COLOR));
+                new CircleAspect(radius, CIRCLE_COLOR), new CircleHitBoxModel(radius));
     }
 
 }

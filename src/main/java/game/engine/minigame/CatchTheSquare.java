@@ -16,7 +16,8 @@ import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
 import game.engine.gameobject.catchthesqareobjects.Bomb;
 import game.engine.gameobject.catchthesqareobjects.Defuser;
-
+import game.engine.gameobject.hitboxmodel.Collider;
+import game.engine.gameobject.hitboxmodel.ColliderImpl;
 
 /**
  * Minigame where the player has to catch sqares before the time runs out.
@@ -54,9 +55,10 @@ public class CatchTheSquare implements Minigame {
         defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS, defuserInputModel);
         gObjects.add(defuser);
     }
-/**
- * Constructor with default values.
- */
+
+    /**
+     * Constructor with default values.
+     */
     public CatchTheSquare() {
         this.gObjects = new ArrayList<>();
         this.totalElapsed = 0;
@@ -109,27 +111,8 @@ public class CatchTheSquare implements Minigame {
                     .filter(b -> b.getAspectModel() instanceof RectangleAspect) // check if bounding box is a square
                     .toList();
             for (final GameObject bomb : bombs) {
-                final double circleDistancex = Math.abs(defuser.getCoor().getX() - bomb.getCoor().getX());
-                final double circleDistancey = Math.abs(defuser.getCoor().getY() - bomb.getCoor().getY());
-
-                if (circleDistancex > (BOMB_SIDE / 2 + DEFUSER_RADIUS)) {
-                    continue;
-                }
-                if (circleDistancey > (BOMB_SIDE / 2 + DEFUSER_RADIUS)) {
-                    continue;
-                }
-
-                if (circleDistancex <= (BOMB_SIDE / 2)) {
-                    return Optional.of(bomb);
-                }
-                if (circleDistancey <= (BOMB_SIDE / 2)) {
-                    return Optional.of(bomb);
-                }
-
-                final double cornerDistanceSq = Math.pow(circleDistancex - BOMB_SIDE / 2, 2)
-                        + Math.pow(circleDistancey - BOMB_SIDE / 2, 2);
-
-                if (cornerDistanceSq <= Math.pow(DEFUSER_RADIUS, 2)) {
+                final Collider c = new ColliderImpl();
+                if (c.isColliding(bomb, defuser)) {
                     return Optional.of(bomb);
                 }
             }
