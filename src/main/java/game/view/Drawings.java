@@ -2,7 +2,6 @@ package game.view;
 
 import api.ColorRGB;
 import game.gameobject.GameObject;
-import game.gameobject.whacamoleobjects.Status;
 
 /**
  * The interface to update the way an object is drawn.

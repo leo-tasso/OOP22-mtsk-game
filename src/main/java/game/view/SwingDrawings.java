@@ -12,7 +12,6 @@ import java.awt.FontMetrics;
 import api.ColorRGB;
 import api.Point2D;
 import game.gameobject.GameObject;
-import game.gameobject.whacamoleobjects.Status;
 
 /**
  * A class used to draw a circle.
