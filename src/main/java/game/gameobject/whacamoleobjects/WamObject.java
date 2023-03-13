@@ -41,12 +41,12 @@ public abstract class WamObject extends GameObject {
                     PhysicsModel physicsModel,
                     AspectModel aspectModel,
                     InputModel inputModel) {
-        super(new HolesCoorImpl().get(holeNumber), Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
+        super(new HolesCoor().get(holeNumber), Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
         this.status = Status.WAITING;
         this.level = currentLevel;
         this.holeNumber = holeNumber;
         this.appearanceTime = appearanceTime;
-        this.startCoor = new HolesCoorImpl().get(holeNumber);
+        this.startCoor = new HolesCoor().get(holeNumber);
         motionRestartTime = 0L;
     }
 
