@@ -20,20 +20,29 @@ public class Mole extends WamObject {
      * @param aspectModel    the aspect model of the mole 
      * @param inputModel     the input model of the WamObject
      */
-    public Mole(long appearanceTime, 
-                Level currentLevel, 
-                int holeNumber,
-                PhysicsModel physicsModel, 
-                AspectModel aspectModel, 
-                InputModel inputModel) {
+    public Mole(final long appearanceTime, 
+                final Level currentLevel, 
+                final int holeNumber,
+                final PhysicsModel physicsModel, 
+                final AspectModel aspectModel, 
+                final InputModel inputModel) {
         super(appearanceTime, currentLevel, holeNumber, physicsModel, aspectModel, inputModel);
     }
 
+    /**
+     * Method that checks if the mole caused 
+     * the end of the game, i.e. if it managed 
+     * to re-enter its hole without being hit.
+     */
     @Override
     public boolean isGameOver() {
         return this.getStatus().equals(Status.MISSED);
     }
 
+    /**
+     * Method that checks if the mole instance is 
+     * still used in the game or can be deleted.
+     */
     @Override
     public boolean isStillInUse() {
         return !this.getStatus().equals(Status.HIT);
