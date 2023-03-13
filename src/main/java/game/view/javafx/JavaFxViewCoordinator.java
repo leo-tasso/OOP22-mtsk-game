@@ -3,13 +3,13 @@ package game.view.javafx;
 import java.util.Optional;
 
 import game.LeaderBoard;
-import game.view.javafx.viewstate.GameState;
-
+import game.view.View;
+import game.view.javafx.viewstate.gamestate.GameState;
 /**
  * Interface to model a javaFX coordinator, with mehtods to dialog with
  * ViewStates.
  */
-public interface JavaFxViewCoordinator {
+public interface JavaFxViewCoordinator extends View {
     /**
      * Method to set the {@link gameState} of the coordinator.
      * 

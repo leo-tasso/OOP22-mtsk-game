@@ -10,12 +10,12 @@ import api.ColorRGB;
 import api.Point2D;
 import game.controlling.DirectionalInput;
 import game.controlling.InputModel;
+import game.engine.difficultystrats.IncrRateStrat;
 import game.engine.gameobject.CircleAspect;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
 import game.engine.gameobject.catchthesqareobjects.Bomb;
 import game.engine.gameobject.catchthesqareobjects.Defuser;
-import game.minigame.difficultystrats.IncrRateStrat;
 
 
 /**

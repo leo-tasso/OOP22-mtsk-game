@@ -9,21 +9,23 @@ import game.LeaderBoard;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.engine.gameobject.GameObject;
-import game.view.View;
 import game.view.javafx.viewstate.GameOverState;
-import game.view.javafx.viewstate.GameState;
 import game.view.javafx.viewstate.ViewStateMenu;
+import game.view.javafx.viewstate.gamestate.GameState;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
  * Implementation of {@link View} using JavaFx.
  */
-public final class JavaFxView extends Application implements View, JavaFxViewCoordinator {
+public final class JavaFxView extends Application implements JavaFxViewCoordinator {
 
     private static final int START_WINDOW_WIDTH = 800;
     private static final int START_WINDOW_HEIGHT = 480;
@@ -56,6 +58,13 @@ public final class JavaFxView extends Application implements View, JavaFxViewCoo
         windowOpen = true;
         stage.setHeight(START_WINDOW_HEIGHT);
         stage.setWidth(START_WINDOW_WIDTH);
+        final Scene scene = new Scene(new VBox(), stage.getWidth(), stage.getHeight());
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode().equals(KeyCode.F)) {
+                this.toggleFullScreen();
+            }
+        });
+        stage.setScene(scene);
         stage.show();
     }
 
@@ -65,7 +74,7 @@ public final class JavaFxView extends Application implements View, JavaFxViewCoo
     @Override
     public void render(final List<List<GameObject>> objectsList) {
         if (gameState.isPresent()) {
-            gameState.get().refresh(objectsList);
+            gameState.get().refresh(objectsList, stage.getScene());
         }
     }
 
