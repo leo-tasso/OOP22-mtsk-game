@@ -130,7 +130,7 @@ public class SwingDrawings implements Drawings {
      * Currently using JavaFx.
      */
     @Override
-    public void drawMole(GameObject object, Status status) {
+    public void drawMole(final GameObject object, final Boolean beenHit) {
         throw new UnsupportedOperationException("Unimplemented method 'drawMole'");
     }
 
@@ -138,7 +138,7 @@ public class SwingDrawings implements Drawings {
      * Currently using JavaFx.
      */
     @Override
-    public void drawBomb(GameObject object, Status status) {
+    public void drawBomb(final GameObject object, final Boolean beenHit) {
         throw new UnsupportedOperationException("Unimplemented method 'drawBomb'");
     }
 }

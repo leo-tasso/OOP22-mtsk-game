@@ -50,17 +50,17 @@ public interface Drawings {
      * The instructions on how to draw a mole.
      * 
      * @param object the gameObject of the mole to draw.
-     * @param status the state in which to represent the mole.
+     * @param beenHit indicates which of the two aspects to represent.
      */
-    void drawMole(GameObject object, Status status);
+    void drawMole(GameObject object, Boolean beenHit);
 
     /**
      * The instructions on how to draw a bomb.
      * 
      * @param object the gameObject of the bomb to draw.
-     * @param status the state in which to represent the bomb.
+     * @param beenHit indicates which of the two aspects to represent.
      */
-    void drawBomb(GameObject object, Status status);
+    void drawBomb(GameObject object, Boolean beenHit);
 
     /**
      * Method to draw a label.
