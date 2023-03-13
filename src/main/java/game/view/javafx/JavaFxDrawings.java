@@ -105,15 +105,6 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawMole(final GameObject object, final ColorRGB color) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawMole'");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void drawLabel(final GameObject object, final ColorRGB color, final int size, final String string) {
         gc.setFill(jfxColor(color));
         gc.setFont(new Font("futura", size * dimention / COEFFICIENT));
@@ -122,6 +113,24 @@ public class JavaFxDrawings implements Drawings {
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
         gc.fillText(string, x + startingPoint.getX(), y + startingPoint.getY());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void drawMole(GameObject object, Boolean beenHit) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'drawMole'");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void drawBomb(GameObject object, Boolean beenHit) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'drawBomb'");
     }
 
     /**
