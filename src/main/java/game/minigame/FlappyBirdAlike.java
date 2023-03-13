@@ -36,7 +36,10 @@ public class FlappyBirdAlike implements Minigame {
     *
     */
     public FlappyBirdAlike() {
-        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT), Vector2D.nullVector(), CURSOR_SIZE));
+        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT),
+                Vector2D.nullVector(),
+                CURSOR_SIZE,
+                -ENEMY_SPEED));
     }
 
     /**

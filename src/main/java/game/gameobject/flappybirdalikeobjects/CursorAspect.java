@@ -12,15 +12,17 @@ import game.view.Drawings;
 public class CursorAspect implements AspectModel {
 
     private final double size;
-    private final double xSpeed = 50;
+    private final double xSpeed;
 
     /**
     * The constructor for CursorAspect.
     *
     * @param size the size of the cursor.
+    * @param xSpeed the speed at which the cursor 'moves forward'
     */
-    public CursorAspect(final double size) {
+    public CursorAspect(final double size, final double xSpeed) {
         this.size = size;
+        this.xSpeed = xSpeed;
     }
 
     /**

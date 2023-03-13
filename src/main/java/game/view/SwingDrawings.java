@@ -70,19 +70,19 @@ public class SwingDrawings implements Drawings {
      */
     @Override
     public void drawTriangle(final GameObject object, final ColorRGB color, final double side, final double rotAngle) {
-        final double longOffset = Math.sqrt(3);
-        final double cosAngle = Math.cos(rotAngle);
-        final double sinAngle = Math.sin(rotAngle);
+        final double radius = side / Math.sqrt(3);
+        final double rotAngle1 = rotAngle + Math.PI * 2 / 3;
+        final double rotAngle2 = rotAngle + Math.PI * 4 / 3;
 
         final List<Double> xs = new ArrayList<>();
-        xs.add(object.getCoor().getX() + side / longOffset * Math.cos(rotAngle + Math.PI * 2 / 3));
-        xs.add(object.getCoor().getX() + side / longOffset * Math.cos(rotAngle + Math.PI * 4 / 3));
-        xs.add(object.getCoor().getX() + side / longOffset * cosAngle);
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle1));
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle2));
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle));
 
         final List<Double> ys = new ArrayList<>();
-        ys.add(object.getCoor().getY() + side / longOffset * Math.sin(rotAngle + Math.PI * 2 / 3));
-        ys.add(object.getCoor().getY() + side / longOffset * Math.sin(rotAngle + Math.PI * 4 / 3));
-        ys.add(object.getCoor().getY() + side / longOffset * sinAngle);
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle1));
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle2));
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle));
 
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         g2.setStroke(new BasicStroke(2f));

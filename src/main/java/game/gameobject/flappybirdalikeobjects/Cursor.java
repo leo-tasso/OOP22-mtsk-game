@@ -19,8 +19,9 @@ public class Cursor extends GameObject {
      * @param coor the initial coordinates of the cursor.
      * @param vel the initial speed of the cursor.
      * @param size the size of the cursor.
+     * @param xSpeed the speed at which the cursor 'moves forward'
      */
-    public Cursor(final Point2D coor, final Vector2D vel, final double size) {
+    public Cursor(final Point2D coor, final Vector2D vel, final double size, final double xSpeed) {
         super(coor, vel);
         this.setInputModel(new InputModel() {
 
@@ -35,6 +36,6 @@ public class Cursor extends GameObject {
 
         });
         this.setPhysicsModel(new FlappyPhysics(size));
-        this.setAspectModel(new CursorAspect(size));
+        this.setAspectModel(new CursorAspect(size, xSpeed));
     }
 }
