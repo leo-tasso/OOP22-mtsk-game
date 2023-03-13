@@ -7,7 +7,7 @@ import game.view.Drawings;
 /**
  * The AspectModel for the Bomb object.
  */
-public class BombAspectModel implements AspectModel {
+public class WamBombAspectModel implements AspectModel {
 
     /**
      * I order to draw the Bomb only if it has actually 

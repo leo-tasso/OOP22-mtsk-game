@@ -8,7 +8,7 @@ import game.engine.minigame.whacamoleminigame.Level;
 /**
  * Class that models the bomb character in the Whac-a-Mole minigame.
  */
-public class Bomb extends WamObject {
+public class WamBomb extends WamObject {
 
     /**
      * Simple constructor aimed at initializing Bomb fields.
@@ -20,7 +20,7 @@ public class Bomb extends WamObject {
      * @param aspectModel    the aspect model of the bomb 
      * @param inputModel     the input model of the WamObject
      */
-    public Bomb(long appearanceTime, 
+    public WamBomb(long appearanceTime, 
                 Level currentLevel, 
                 int holeNumber,
                 PhysicsModel physicsModel, 
