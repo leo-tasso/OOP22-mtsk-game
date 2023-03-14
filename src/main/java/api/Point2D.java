@@ -77,6 +77,16 @@ public class Point2D {
     }
 
     /**
+     * To get the distance between this point and the parameter.
+     * 
+     * @param p the second point of the measure.
+     * @return the distance between those points.
+     */
+    public double distance(final Point2D p) {
+        return Math.sqrt(Math.pow(Math.abs(this.getX() - p.getX()), 2) + Math.pow(Math.abs(this.getY() - p.getY()), 2));
+    }
+
+    /**
      * Hash code generator for Point2D.
      */
     @Override

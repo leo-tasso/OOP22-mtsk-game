@@ -5,8 +5,14 @@ package api;
  *
  */
 public class ColorRGB {
-    private static final int COLOR_RANGE_TOP = 255;
-    private static final int COLOR_RANGE_BOTTOM = 0;
+    /**
+     * Top value for the range of the color component.
+     */
+    public static final int COLOR_RANGE_TOP = 255;
+    /**
+     * Bottom value for the range of the color component.
+     */
+    public static final int COLOR_RANGE_BOTTOM = 0;
     private final int red;
     private final int green;
     private final int blue;
@@ -112,5 +118,23 @@ public class ColorRGB {
      */
     public static ColorRGB black() {
         return new ColorRGB(COLOR_RANGE_BOTTOM, COLOR_RANGE_BOTTOM, COLOR_RANGE_BOTTOM);
+    }
+
+    /**
+     * Method to get a Orange ColorRgb Object.
+     * 
+     * @return a Orange ColorRgb Object.
+     */
+    public static ColorRGB orange() {
+        return new ColorRGB(COLOR_RANGE_TOP, COLOR_RANGE_TOP / 2, COLOR_RANGE_BOTTOM);
+    }
+
+    /**
+     * Method to get a lightBlue ColorRgb Object.
+     * 
+     * @return a lightBlue ColorRgb Object.
+     */
+    public static ColorRGB aqua() {
+        return new ColorRGB(COLOR_RANGE_BOTTOM, COLOR_RANGE_TOP / 2, COLOR_RANGE_TOP / 2);
     }
 }

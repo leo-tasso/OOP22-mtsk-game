@@ -1,9 +1,8 @@
 package game.controlling;
 
-
 /**
- * Class that encodes the input of the user, that indicates 
- * the direction in which the GameObject should be moved, 
+ * Class that encodes the input of the user, that indicates
+ * the direction in which the GameObject should be moved,
  * setting one of the 4 boolean values ​​to true.
  */
 public class KeyboardInput implements Input {
@@ -91,4 +90,28 @@ public class KeyboardInput implements Input {
     public void setMoveRight(final boolean moveRight) {
         this.moveRight = moveRight;
     }
+
+    /**
+     * Method to reset all inputs to false.
+     */
+    @Override
+    public void reset() {
+        setMoveDown(false);
+        setMoveLeft(false);
+        setMoveRight(false);
+        setMoveUp(false);
+
+    }
+/**
+ * {@inheritDoc}
+ */
+    @Override
+    public KeyboardInput clone() {
+        try {
+            return (KeyboardInput) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
 }

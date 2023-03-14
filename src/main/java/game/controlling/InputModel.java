@@ -1,6 +1,6 @@
 package game.controlling;
 
-import game.gameobject.GameObject;
+import game.engine.gameobject.GameObject;
 
 /**
  * Interface that allows to apply the changes
@@ -13,6 +13,7 @@ public interface InputModel {
      * 
      * @param obj the objects
      * @param c   the inputs
+     * @param elapsedTime the elapsed time from last frame
      */
-    void update(GameObject obj, Input c);
+    void update(GameObject obj, Input c, long elapsedTime);
 }

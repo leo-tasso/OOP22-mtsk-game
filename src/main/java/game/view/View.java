@@ -1,13 +1,20 @@
 package game.view;
 
+import java.util.List;
+
+import game.controlling.Input;
+import game.engine.gameobject.GameObject;
+
 /**
  * Main view interface, shows the game.
  */
 public interface View {
     /**
-     * Renders.
+     * The method to render the view.
+     * 
+     * @param objectsList a list of list of gameObjects for each minigame.
      */
-    void render();
+    void render(List<List<GameObject>> objectsList);
 
     /**
      * Displays final score.
@@ -15,4 +22,25 @@ public interface View {
      * @param points the scored points to display.
      */
     void renderGameOver(Long points);
+
+    /**
+     * Method to show a String message on a popup window.
+     * 
+     * @param tutorial the string to display.
+     */
+    void showMessage(String tutorial);
+
+    /**
+     * Checks if the view is still active.
+     * 
+     * @return if the view is still active.
+     */
+    boolean isViewActive();
+
+    /**
+     * Method to get the input.
+     * 
+     * @return the input obtained.
+     */
+    Input getInput();
 }
