@@ -28,7 +28,7 @@ public interface Minigame {
      * 
      * @return the list of game objects.
      */
-    List<GameObject> getGameObjects();
+    List<GameObject> getObjects();
 
     /**
      * Method to get a help string on how to play the minigame.

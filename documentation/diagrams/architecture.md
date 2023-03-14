@@ -1,16 +1,23 @@
 ::: mermaid
 classDiagram
-    Engine *-- "1..*" Minigame 
-    Engine *-- "1" View
+    Engine *-- "1..*" Minigame
+    ControllerImpl *-- "1" View
+    Controller "1" --* View
     SwingView ..|> View
+    JavaFxView ..|> View
     Minigame *-- "1..*" GameObject
     GameObject *-- "1" AspectModel
     GameObject *-- "1" InputModel
     GameObject *-- "1" PhysicsModel
-    AspectModel -- Drawings
-    View -- Drawings
+    View *-- Drawings
+    Controller ..|> ControllerImpl
+    ControllerImpl *-- Engine
+    class Controller{
+        <<interface>>
+    }
 
     class Engine{
+    <<interface>>
     -processInput() void
     -updateGame(long) void
     -render() void
@@ -54,3 +61,4 @@ classDiagram
     +update(GameObject, Drawings) void
     }
 :::
+//TODO Correct method names.

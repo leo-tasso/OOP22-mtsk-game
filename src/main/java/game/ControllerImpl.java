@@ -1,10 +1,7 @@
 package game;
 
-import java.util.List;
-
-import game.controlling.Input;
 import game.engine.Engine;
-import game.engine.gameobject.GameObject;
+import game.engine.EngineImpl;
 import game.view.View;
 import game.view.javafx.JavaFxView;
 import javafx.application.Application;
@@ -14,6 +11,9 @@ import javafx.application.Application;
  */
 public class ControllerImpl implements Controller {
     private final View view;
+    private static final long TIME_TO_NEXT_MINIGAME = 5_000L;
+    private static final long PERIOD = 5;
+    private boolean paused;
 
     /**
      * Constructor.
@@ -22,6 +22,7 @@ public class ControllerImpl implements Controller {
      */
     public ControllerImpl(final View view) {
         this.view = view;
+
     }
 
     /**
@@ -29,50 +30,49 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public void startGame() {
-        new Engine(this).mainLoop();
-    }
+        final Engine e = new EngineImpl();
+        Long lastAddedTime = 0L;
+        view.showMessage(e.addMinigame());
+        this.setPaused(true);
+        long previousFrame = System.currentTimeMillis();
+        Long points = 0L;
+        while (!e.isGameOver()) {
+            final long currentFrame = System.currentTimeMillis();
+            final long elapsed = currentFrame - previousFrame;
+            if (points - lastAddedTime > TIME_TO_NEXT_MINIGAME
+                    && e.activeMinigames() < e.getMinigameSequence().size()) {
+                view.showMessage(e.addMinigame());
+                this.setPaused(true);
+                lastAddedTime = points;
+            }
 
-    /**
-     * {@inheritDoc}
-     * 
-     */
-    @Override
-    public void gameOver(final long score) {
-        view.renderGameOver(score);
-    }
-
-    /**
-     * Start point of the game, initializes the loop.
-     * 
-     * @param args not used.
-     */
-    public static void main(final String[] args) {
-        Application.launch(JavaFxView.class, args);
-        //new SwingView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void showMessage(final String tutorial, final Engine engine) {
-        view.showMessage(tutorial, engine);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Input getInput() {
-        return view.getInput();
+            if (!isPaused()) {
+                points += elapsed;
+                e.processInput(elapsed, view.getInput());
+                e.updateGame(elapsed);
+            }
+            view.render(e.getMinigameObjects());
+            waitForNextFrame(currentFrame);
+            previousFrame = currentFrame;
+            // TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
+        }
+        view.renderGameOver(points);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void render(final List<List<GameObject>> list) {
-        view.render(list);
+    public void setPaused(final boolean paused) {
+        this.paused = paused;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPaused() {
+        return this.paused;
     }
 
     /**
@@ -93,4 +93,29 @@ public class ControllerImpl implements Controller {
         throw new UnsupportedOperationException("Unimplemented method 'getStats'");
     }
 
+    /**
+     * Waits for next frame.
+     * 
+     * @param currentFrame the current frame.
+     */
+    private void waitForNextFrame(final long currentFrame) {
+        final long delta = System.currentTimeMillis() - currentFrame;
+        if (delta < PERIOD) {
+            try {
+                Thread.sleep(PERIOD - delta);
+            } catch (IllegalArgumentException | InterruptedException ex) {
+                return;
+            }
+        }
+    }
+
+    /**
+     * Start point of the game, initializes the loop.
+     * 
+     * @param args not used.
+     */
+    public static void main(final String[] args) {
+        Application.launch(JavaFxView.class, args);
+        // new SwingView(); //to use swing instead of JavaFx
+    }
 }

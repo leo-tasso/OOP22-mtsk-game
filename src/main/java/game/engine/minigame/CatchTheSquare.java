@@ -10,6 +10,7 @@ import api.ColorRGB;
 import api.Point2D;
 import game.controlling.DirectionalInput;
 import game.controlling.InputModel;
+import game.engine.difficultystrats.IncrRateStrat;
 import game.engine.gameobject.CircleAspect;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
@@ -17,7 +18,6 @@ import game.engine.gameobject.catchthesqareobjects.CtsBomb;
 import game.engine.gameobject.catchthesqareobjects.Defuser;
 import game.engine.gameobject.hitboxmodel.Collider;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;
-import game.minigame.difficultystrats.IncrRateStrat;
 
 /**
  * Minigame where the player has to catch sqares before the time runs out.
@@ -144,7 +144,7 @@ public class CatchTheSquare implements Minigame {
      * @return the list of the gameObjects present in the minigame.
      */
     @Override
-    public List<GameObject> getGameObjects() {
+    public List<GameObject> getObjects() {
         return new ArrayList<>(gObjects);
     }
 

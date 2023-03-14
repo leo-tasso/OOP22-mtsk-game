@@ -19,10 +19,10 @@ import javax.swing.JPanel;
 
 import api.ColorRGB;
 import api.Point2D;
+import game.Controller;
 import game.ControllerImpl;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
-import game.engine.Engine;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 import game.view.View;
@@ -39,6 +39,7 @@ public class SwingView implements View {
     private final Input input;
     private final List<MinigamePanel> panelList;
     private final JFrame frame;
+    private final Controller controller;
 
     /**
      * A constructor for the window view of the game.
@@ -61,7 +62,8 @@ public class SwingView implements View {
         }
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
-        new ControllerImpl(this).startGame();
+        controller = new ControllerImpl(this);
+        controller.startGame();
     }
 
     /**
@@ -268,14 +270,10 @@ public class SwingView implements View {
     }
 
     /**
-     * Method to show a message in a popup window.
-     * 
-     * @param tutorial   the string to display.
-     * @param controller the controller to resume.
-     * 
+     * {@inheritDoc}
      */
     @Override
-    public void showMessage(final String tutorial, final Engine controller) {
+    public void showMessage(final String tutorial) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

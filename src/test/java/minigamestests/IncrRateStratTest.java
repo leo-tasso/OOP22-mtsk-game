@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import game.minigame.difficultystrats.IncrRateStrat;
+import game.engine.difficultystrats.IncrRateStrat;
 
 /**
  * Class to check the {@link IncrRateStratTest} class mathematical properties.

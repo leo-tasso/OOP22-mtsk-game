@@ -51,7 +51,7 @@ public class FlappyBirdAlike implements Minigame {
      * @return the list of GameObjects currently loaded.
      */
     @Override
-    public List<GameObject> getGameObjects() {
+    public List<GameObject> getObjects() {
         return new ArrayList<>(this.l);
     }
 

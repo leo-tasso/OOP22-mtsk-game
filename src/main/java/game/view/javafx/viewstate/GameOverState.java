@@ -3,9 +3,9 @@ package game.view.javafx.viewstate;
 import java.util.Optional;
 
 import game.view.javafx.JavaFxViewCoordinator;
+import game.view.javafx.viewstate.gamestate.GameStateImpl;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -28,10 +28,8 @@ import javafx.stage.Stage;
  */
 public class GameOverState implements ViewState {
     private static final int LABEL_SIZE = 55;
-
     private static final int BUTTON_SPACING = 20;
-
-    private Scene goScene;
+    private VBox root;
 
     /**
      * Constructor to initialize the State.
@@ -52,29 +50,22 @@ public class GameOverState implements ViewState {
             scoreLabel.setStrokeWidth(2);
             scoreLabel.setStrokeLineJoin(StrokeLineJoin.ROUND);
             scoreLabel.setStroke(Color.BLACK);
-            final Button exitButton = bf.create(stage, "Exit", e -> Platform.exit());
+            final Button exitButton = bf.create(stage, "Exit", e -> stage.close());
             final Button playAgainButton = bf.create(stage, "Play Again", e -> {
                 Platform.runLater(() -> {
-                    new GameStateImpl(view).display(view, stage);
+                    new GameStateImpl(view, stage.getScene()).display(view, stage);
                 });
             });
             final Button statsButton = bf.create(stage, "Stats", null); // TODO to implement
-
-            // Create a horizontal box to hold the buttons
             final HBox buttonBox = new HBox(BUTTON_SPACING, exitButton, statsButton, playAgainButton);
             buttonBox.setAlignment(Pos.CENTER);
-
-            // Create a vertical box to hold the label and buttons
-            final VBox root = new VBox(BUTTON_SPACING, scoreLabel, buttonBox);
+            root = new VBox(BUTTON_SPACING, scoreLabel, buttonBox);
             root.setAlignment(Pos.CENTER);
             final BackgroundImage backgroundImage = new BackgroundImage(
                     new Image(JavaFxViewCoordinator.class.getResourceAsStream("/Pattern.png")), BackgroundRepeat.REPEAT,
                     BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
             final Background background = new Background(backgroundImage);
             root.setBackground(background);
-            // Create a scene with the root container
-            goScene = new Scene(root, stage.getWidth(), stage.getHeight());
-
         });
     }
 
@@ -84,10 +75,7 @@ public class GameOverState implements ViewState {
     @Override
     public void display(final JavaFxViewCoordinator view, final Stage stage) {
         Platform.runLater(() -> {
-            stage.setFullScreenExitHint("");
-            final Boolean isFullScreen = stage.isFullScreen();
-            stage.setScene(goScene);
-            stage.setFullScreen(isFullScreen);
+            stage.getScene().setRoot(root);
         });
     }
 

@@ -1,4 +1,4 @@
-package game.view.javafx.viewstate;
+package game.view.javafx.viewstate.gamestate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -40,16 +39,15 @@ public class GameStateImpl implements GameState {
     private final List<Canvas> minigameCanvases = new ArrayList<>();
 
     private final Input input;
-
-    private final Scene gameScene;
     private final GridPane gp;
 
     /**
      * Constructor to initialize the state.
      * 
      * @param jView the main {@link JavaFxViewCoordinator}.
+     * @param scene the {@link Scene} where this state will be applied.
      */
-    public GameStateImpl(final JavaFxViewCoordinator jView) {
+    public GameStateImpl(final JavaFxViewCoordinator jView, final Scene scene) {
         this.input = new KeyboardInput();
         jView.setGameState(Optional.of(this));
         final Canvas canvas = new Canvas(START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
@@ -62,43 +60,17 @@ public class GameStateImpl implements GameState {
         minigameCanvases.clear();
         minigameCanvases.add(canvas);
         gp.add(canvas, 0, 0);
-        gameScene = new Scene(gp, START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
-        gameScene.widthProperty().addListener((observable, oldValue, newValue) -> {
+        scene.widthProperty().addListener((observable, oldValue, newValue) -> {
             final double width = newValue.doubleValue();
             minigameCanvases.forEach(c -> c.setWidth(width / gp.getColumnCount()));
         });
 
-        gameScene.heightProperty().addListener((observable, oldValue,
+        scene.heightProperty().addListener((observable, oldValue,
                 newValue) -> {
             final double height = newValue.doubleValue();
             minigameCanvases.forEach(c -> c.setHeight(height / gp.getRowCount()));
         });
-
-        gameScene.setOnKeyPressed(e -> {
-            if (e.getCode().equals(KeyCode.W)) {
-                input.setMoveUp(true);
-            } else if (e.getCode().equals(KeyCode.A)) {
-                input.setMoveLeft(true);
-            } else if (e.getCode().equals(KeyCode.S)) {
-                input.setMoveDown(true);
-            } else if (e.getCode().equals(KeyCode.D)) {
-                input.setMoveRight(true);
-            } else if (e.getCode().equals(KeyCode.F)) {
-                jView.toggleFullScreen();
-            }
-
-        });
-        gameScene.setOnKeyReleased(e -> {
-            if (e.getCode().equals(KeyCode.W)) {
-                input.setMoveUp(false);
-            } else if (e.getCode().equals(KeyCode.A)) {
-                input.setMoveLeft(false);
-            } else if (e.getCode().equals(KeyCode.S)) {
-                input.setMoveDown(false);
-            } else if (e.getCode().equals(KeyCode.D)) {
-                input.setMoveRight(false);
-            }
-        });
+        new InputButtonsImpl().attach(scene, input);
     }
 
     /**
@@ -106,15 +78,15 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public void display(final JavaFxViewCoordinator jView, final Stage stage) {
-        new Thread(() -> jView.getController().startGame()).start();
-        stage.setScene(gameScene);
+        new Thread(() -> jView.gameStarter()).start();
+        stage.getScene().setRoot(gp);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void refresh(final List<List<GameObject>> objectsList) {
+    public void refresh(final List<List<GameObject>> objectsList, final Scene scene) {
         Platform.runLater(() -> {
             while (objectsList.size() > minigameCanvases.size()) {
                 final Canvas c = new Canvas();
@@ -129,8 +101,8 @@ public class GameStateImpl implements GameState {
             if (!minigameCanvases.isEmpty()) {
                 minigameCanvases.forEach(c -> {
                     final GraphicsContext gc = c.getGraphicsContext2D();
-                    c.setHeight(gameScene.getHeight() / gp.getRowCount());
-                    c.setWidth(gameScene.getWidth() / gp.getColumnCount());
+                    c.setHeight(scene.getHeight() / gp.getRowCount());
+                    c.setWidth(scene.getWidth() / gp.getColumnCount());
 
                     gc.clearRect(0, 0, c.getWidth(), c.getHeight());
                     gc.setStroke(Color.BLACK);
