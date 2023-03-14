@@ -90,6 +90,11 @@ public class WhacAMole implements Minigame {
                 o.setStatus(Status.IN_MOTION);
                 o.setVel(this.currentLevel.getObjSpeed().invert());
             });
+
+        /* 
+        this.objs.forEach(
+            o -> System.out.println(o.getCoor())
+        ); */
     }
 
     /**
@@ -136,9 +141,11 @@ public class WhacAMole implements Minigame {
      * Method to clean the lists from GameObjects no longer in use.
      */
     private void deleteOldObjs() {
-        this.objs.stream()
-            .filter(o -> !o.isStillInUse())
-            .forEach(o -> this.objs.remove(o));
+        this.objs.removeAll(
+            this.objs.stream()
+                .filter(o -> !o.isStillInUse())
+                .toList()
+        );
     }
 
     @Override
