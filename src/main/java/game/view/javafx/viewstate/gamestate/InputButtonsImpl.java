@@ -9,6 +9,9 @@ import javafx.scene.input.KeyEvent;
  * Implementation of {@link InputButtons}.
  */
 public class InputButtonsImpl implements InputButtons {
+    private static final int ONE_BUTTON = 49;
+    private static final int NINE_BUTTON = 57;
+    private static final int KEYCODE_NUM_DIFF = 48;
 
     /**
      * {@inheritDoc}
@@ -24,7 +27,10 @@ public class InputButtonsImpl implements InputButtons {
                 input.setMoveDown(true);
             } else if (e.getCode().equals(KeyCode.D)) {
                 input.setMoveRight(true);
+            } else if (e.getCode().getCode() >= ONE_BUTTON && e.getCode().getCode() <= NINE_BUTTON) {
+                input.setNumberPressed(e.getCode().getCode() - KEYCODE_NUM_DIFF);
             }
+
         });
         scene.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
             if (e.getCode().equals(KeyCode.W)) {
