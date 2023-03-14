@@ -9,12 +9,13 @@ import game.engine.gameobject.GameObject;
 import game.engine.minigame.CatchTheSquare;
 import game.engine.minigame.Minigame;
 import game.engine.minigame.TestMinigame;
+import game.engine.minigame.whacamoleminigame.WhacAMole;
 
 /**
  * Main game engine responsible of controlling the game.
  */
 public class EngineImpl implements Engine {
-    private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(CatchTheSquare.class,
+    private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(WhacAMole.class, CatchTheSquare.class,
             CatchTheSquare.class, TestMinigame.class);
     private final List<Minigame> minigameList = new LinkedList<>();
     private int addedMinigame;

@@ -9,9 +9,16 @@ import api.Point2D;
  * about the position of the holes in the playing field.
  */
 public class HolesCoor {
-    private final Map<Integer, Point2D> holesCoor = new HashMap<>(
-        //INSERT VALUES
-    );
+    private final Map<Integer, Point2D> holesCoor = new HashMap<>();
+
+    /**
+     *  
+     */    
+    public HolesCoor() {
+        for (int i = 1; i <= 9; i++) {
+            this.holesCoor.put(i, new Point2D(10 * i, 10 * i));
+        }
+    }
 
     /**
      * Getter method for the coordinates of a specific hole.

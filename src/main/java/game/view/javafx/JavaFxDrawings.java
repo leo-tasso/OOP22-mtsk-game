@@ -121,7 +121,11 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawMole(GameObject object, Boolean beenHit) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawMole'");
+        if (!beenHit) {
+            drawCircle(object, ColorRGB.white(), 20);
+        } else {
+            drawCircle(object, ColorRGB.red(), 20);
+        }
     }
 
     /**
@@ -129,8 +133,11 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawBomb(GameObject object, Boolean beenHit) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawBomb'");
+        if (!beenHit) {
+            drawSquare(object, ColorRGB.blue(), 15);
+        } else {
+            drawSquare(object, ColorRGB.aqua(), 15);
+        }
     }
 
     /**
