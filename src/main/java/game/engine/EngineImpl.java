@@ -14,6 +14,8 @@ import game.engine.minigame.TestMinigame;
  * Main game engine responsible of controlling the game.
  */
 public class EngineImpl implements Engine {
+    private static final int RIGHT_LIMIT = 1600;
+    private static final int BOTTOM_LIMIT = 900;
     private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(CatchTheSquare.class,
             CatchTheSquare.class, TestMinigame.class);
     private final List<Minigame> minigameList = new LinkedList<>();
@@ -83,5 +85,21 @@ public class EngineImpl implements Engine {
     @Override
     public List<Class<? extends Minigame>> getMinigameSequence() {
         return MINIGAME_SEQUENCE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getRightLimit() {
+        return RIGHT_LIMIT;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getBottomLimit() {
+        return BOTTOM_LIMIT;
     }
 }
