@@ -1,6 +1,6 @@
 package game.engine.gameobject.hitboxmodel;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * HitBoxModel to model a cicular boudary.
@@ -22,31 +22,7 @@ public class CircleHitBoxModel implements HitBoxModel {
      * @return the radius of the circle.
      */
     @Override
-    public double getSize() {
-        return size;
-    }
-
-    /**
-     * Not applicable.
-     */
-    @Override
-    public Optional<Double> getSize1() {
-        return Optional.empty();
-    }
-
-    /**
-     * Not applicable.
-     */
-    @Override
-    public Optional<Double> getSize2() {
-        return Optional.empty();
-    }
-
-    /**
-     * Not applicable.
-     */
-    @Override
-    public Optional<Double> getSize3() {
-        return Optional.empty();
+    public List<Double> getSizes() {
+        return List.of(size);
     }
 }

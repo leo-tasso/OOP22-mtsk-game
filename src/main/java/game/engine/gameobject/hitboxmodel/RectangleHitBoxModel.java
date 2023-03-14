@@ -1,14 +1,14 @@
 package game.engine.gameobject.hitboxmodel;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class to model a rectangle hitbox.
  */
 public class RectangleHitBoxModel implements HitBoxModel {
 
-    private final double size;
-    private final Optional<Double> size1;
+    private final List<Double> sizes;
 
     /**
      * Constructor for the hitbox.
@@ -17,40 +17,15 @@ public class RectangleHitBoxModel implements HitBoxModel {
      * @param side2 the height of the rectangle.
      */
     public RectangleHitBoxModel(final double side1, final double side2) {
-        this.size = side1;
-        this.size1 = Optional.of(side2);
-
+        sizes = List.of(side1, side2);
     }
 
     /**
-     * @return the with of the rectangle.
+     * @return the sizes of the rectangle.
      */
     @Override
-    public double getSize() {
-        return size;
+    public List<Double> getSizes() {
+        return new ArrayList<>(sizes);
     }
 
-    /**
-     * @return the height of the rectangle.
-     */
-    @Override
-    public Optional<Double> getSize1() {
-        return size1;
-    }
-
-    /**
-     * Not applicable.
-     */
-    @Override
-    public Optional<Double> getSize2() {
-        return Optional.empty();
-    }
-
-    /**
-     * Not applicable.
-     */
-    @Override
-    public Optional<Double> getSize3() {
-        return Optional.empty();
-    }
 }
