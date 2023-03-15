@@ -14,8 +14,6 @@ import game.engine.minigame.TestMinigame;
  * Main game engine responsible of controlling the game.
  */
 public class EngineImpl implements Engine {
-    private static final int RATIO = 16 / 9;
-    private final int rightLimit;
     private final int bottomLimit;
     private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(CatchTheSquare.class,
             CatchTheSquare.class, TestMinigame.class);
@@ -28,7 +26,6 @@ public class EngineImpl implements Engine {
      * @param bottomLimit the height in points that the view will display.
      */
     public EngineImpl(final int bottomLimit) {
-        this.rightLimit = bottomLimit * RATIO;
         this.bottomLimit = bottomLimit;
     }
 
@@ -40,8 +37,8 @@ public class EngineImpl implements Engine {
         Minigame newMinigame;
         try {
             newMinigame = MINIGAME_SEQUENCE.get(addedMinigame)
-                    .getDeclaredConstructor(int.class, int.class)
-                    .newInstance(rightLimit, bottomLimit);
+                    .getDeclaredConstructor(int.class)
+                    .newInstance(bottomLimit);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             newMinigame = null;
@@ -56,8 +53,9 @@ public class EngineImpl implements Engine {
                 | NoSuchMethodException | SecurityException e) {
             throw new IllegalArgumentException("Unable to add minigame", e);
         }
+        // ^^ TODO deprecated legacy code to support no arguments minigame constructors,
+        // delete once all minigames implemented it
 
-        // TODO remove
         minigameList.add(newMinigame);
         addedMinigame++;
         return newMinigame.getTutorial();
