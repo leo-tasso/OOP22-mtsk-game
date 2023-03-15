@@ -183,7 +183,7 @@ public class SwingView implements View {
                 startingPoint = getStartingPoint();
                 g2.drawRect((int) startingPoint.getX(), (int) startingPoint.getY(), boxWidth(), boxHeight());
 
-                final Drawings d = new SwingDrawings(g2, startingPoint, boxHeight());
+                final Drawings d = new SwingDrawings(g2, startingPoint, boxHeight(), controller.getFieldHeight());
                 if (!objectsList.isEmpty()) {
                     objectsList.forEach(o -> o.updateAspect(d));
                 }

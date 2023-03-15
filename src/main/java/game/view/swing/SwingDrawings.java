@@ -18,7 +18,7 @@ import game.view.Drawings;
  * A class used to draw a circle.
  */
 public class SwingDrawings implements Drawings {
-    private static final int COEFFICIENT = 900;
+    private final int coefficient;
     private final Graphics2D g2;
     // coordinates (related to the Jframe) of the upper left corner of the play
     // field
@@ -32,8 +32,12 @@ public class SwingDrawings implements Drawings {
      * @param g2            the Graphics2D object.
      * @param startingPoint the up-left corner coordinates of the canvas
      * @param dimention     the current height of the canvas
+     * @param coefficient   the height in points of the field that the view shall
+     *                      display
      */
-    public SwingDrawings(final Graphics2D g2, final Point2D startingPoint, final float dimention) {
+    public SwingDrawings(final Graphics2D g2, final Point2D startingPoint, final float dimention,
+            final int coefficient) {
+        this.coefficient = coefficient;
         this.g2 = (Graphics2D) g2.create();
         this.startingPoint = startingPoint;
         this.dimention = dimention;
@@ -55,11 +59,11 @@ public class SwingDrawings implements Drawings {
         final int y = (int) pos.getY(); // y of the centre
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         g2.setStroke(new BasicStroke(2f)); // the pen width
-        final int rad = (int) Math.round(dimention / COEFFICIENT * radius);
+        final int rad = (int) Math.round(dimention / coefficient * radius);
         g2.drawOval(
                 // coordinates of the upper left corner of the square circumscribing the circle
-                (int) (x * dimention / COEFFICIENT - rad + startingPoint.getX()),
-                (int) (y * dimention / COEFFICIENT - rad + startingPoint.getY()),
+                (int) (x * dimention / coefficient - rad + startingPoint.getX()),
+                (int) (y * dimention / coefficient - rad + startingPoint.getY()),
                 rad * 2, // side of the square
                 rad * 2);
     }
@@ -90,8 +94,8 @@ public class SwingDrawings implements Drawings {
      */
     @Override
     public void drawRectangle(final GameObject object, final ColorRGB color, final double width, final double height) {
-        final double actualHeight = height * dimention / COEFFICIENT;
-        final double actualWidth = width * dimention / COEFFICIENT;
+        final double actualHeight = height * dimention / coefficient;
+        final double actualWidth = width * dimention / coefficient;
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         g2.setStroke(new BasicStroke(2f));
         g2.drawRect(
@@ -99,8 +103,8 @@ public class SwingDrawings implements Drawings {
                  * coordinates of the upper left corner of rectangle: the
                  * last addendum is necessary to enter the right play field
                  */
-                (int) ((object.getCoor().getX() - width / 2) * dimention / COEFFICIENT + startingPoint.getX()),
-                (int) ((object.getCoor().getY() - height / 2) * dimention / COEFFICIENT + startingPoint.getY()),
+                (int) ((object.getCoor().getX() - width / 2) * dimention / coefficient + startingPoint.getX()),
+                (int) ((object.getCoor().getY() - height / 2) * dimention / coefficient + startingPoint.getY()),
                 (int) (actualWidth),
                 (int) (actualHeight));
     }
@@ -121,12 +125,12 @@ public class SwingDrawings implements Drawings {
     @Override
     public void drawLabel(final GameObject object, final ColorRGB color, final int size, final String string) {
         final FontRenderContext frc = g2.getFontRenderContext();
-        final Font font = new Font("Courier", Font.BOLD, (int) (size * dimention / COEFFICIENT));
+        final Font font = new Font("Courier", Font.BOLD, (int) (size * dimention / coefficient));
         final TextLayout tl = new TextLayout(string, font, frc);
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         final FontMetrics fm = g2.getFontMetrics(font);
-        final double x = object.getCoor().getX() * dimention / COEFFICIENT - (float) fm.stringWidth(string) / 2;
-        final double y = object.getCoor().getY() * dimention / COEFFICIENT
+        final double x = object.getCoor().getX() * dimention / coefficient - (float) fm.stringWidth(string) / 2;
+        final double y = object.getCoor().getY() * dimention / coefficient
                 + (float) (fm.getHeight() - fm.getAscent()) / 2;
         tl.draw(g2, (float) (x + startingPoint.getX()), (float) (y + startingPoint.getY()));
     }
