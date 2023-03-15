@@ -14,12 +14,23 @@ import game.engine.minigame.TestMinigame;
  * Main game engine responsible of controlling the game.
  */
 public class EngineImpl implements Engine {
-    private static final int RIGHT_LIMIT = 1600;
-    private static final int BOTTOM_LIMIT = 900;
+    private static final int RATIO = 16 / 9;
+    private final int rightLimit;
+    private final int bottomLimit;
     private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(CatchTheSquare.class,
             CatchTheSquare.class, TestMinigame.class);
     private final List<Minigame> minigameList = new LinkedList<>();
     private int addedMinigame;
+
+    /**
+     * Constructor for this {@link Engine}.
+     * 
+     * @param bottomLimit the height in points that the view will display.
+     */
+    public EngineImpl(final int bottomLimit) {
+        this.rightLimit = bottomLimit * RATIO;
+        this.bottomLimit = bottomLimit;
+    }
 
     /**
      * {@inheritDoc}
@@ -28,14 +39,28 @@ public class EngineImpl implements Engine {
     public String addMinigame() {
         Minigame newMinigame;
         try {
-            newMinigame = MINIGAME_SEQUENCE.get(addedMinigame++).getDeclaredConstructor().newInstance();
-
-            minigameList.add(newMinigame);
-            return newMinigame.getTutorial();
+            newMinigame = MINIGAME_SEQUENCE.get(addedMinigame)
+                    .getDeclaredConstructor(int.class, int.class)
+                    .newInstance(rightLimit, bottomLimit);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            newMinigame = null;
+        }
+        try {
+            if (newMinigame == null) {
+                newMinigame = MINIGAME_SEQUENCE.get(addedMinigame)
+                        .getDeclaredConstructor()
+                        .newInstance();
+            }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
-            return "";
+            throw new IllegalArgumentException("Unable to add minigame", e);
         }
+
+        // TODO remove
+        minigameList.add(newMinigame);
+        addedMinigame++;
+        return newMinigame.getTutorial();
 
     }
 
@@ -85,21 +110,5 @@ public class EngineImpl implements Engine {
     @Override
     public List<Class<? extends Minigame>> getMinigameSequence() {
         return MINIGAME_SEQUENCE;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getRightLimit() {
-        return RIGHT_LIMIT;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getBottomLimit() {
-        return BOTTOM_LIMIT;
     }
 }

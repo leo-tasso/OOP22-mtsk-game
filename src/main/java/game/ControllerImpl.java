@@ -10,6 +10,7 @@ import javafx.application.Application;
  * Implementation of the controller.
  */
 public class ControllerImpl implements Controller {
+    private static final int DEFINITION = 900; // hight in coordinate points that the view should display
     private final View view;
     private static final long TIME_TO_NEXT_MINIGAME = 5_000L;
     private static final long PERIOD = 5;
@@ -30,7 +31,7 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public void startGame() {
-        final Engine e = new EngineImpl();
+        final Engine e = new EngineImpl(DEFINITION);
         Long lastAddedTime = 0L;
         view.showMessage(e.addMinigame());
         this.setPaused(true);
