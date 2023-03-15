@@ -74,7 +74,7 @@ public final class JavaFxView extends Application implements JavaFxViewCoordinat
     @Override
     public void render(final List<List<GameObject>> objectsList) {
         if (gameState.isPresent()) {
-            gameState.get().refresh(objectsList, stage.getScene());
+            gameState.get().refresh(objectsList, stage.getScene(), controller.getFieldHeight());
         }
     }
 

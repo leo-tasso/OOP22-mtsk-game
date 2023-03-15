@@ -86,7 +86,7 @@ public class GameStateImpl implements GameState {
      * {@inheritDoc}
      */
     @Override
-    public void refresh(final List<List<GameObject>> objectsList, final Scene scene) {
+    public void refresh(final List<List<GameObject>> objectsList, final Scene scene, final int heightCoefficent) {
         Platform.runLater(() -> {
             while (objectsList.size() > minigameCanvases.size()) {
                 final Canvas c = new Canvas();
@@ -123,7 +123,8 @@ public class GameStateImpl implements GameState {
                             getStartingPoint().getY(),
                             boxWidth(),
                             boxHeight());
-                    final Drawings d = new JavaFxDrawings(c, this.getStartingPoint(), this.boxHeight());
+                    final Drawings d = new JavaFxDrawings(c, this.getStartingPoint(), this.boxHeight(),
+                            heightCoefficent);
                     objectsList.get(minigameCanvases.indexOf(c)).forEach(o -> o.updateAspect(d));
                 });
             }
