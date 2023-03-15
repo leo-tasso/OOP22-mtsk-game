@@ -10,6 +10,7 @@ public class KeyboardInput implements Input {
     private boolean moveDown;
     private boolean moveLeft;
     private boolean moveRight;
+    private boolean jump;
 
     /**
      * Method to check if moveUp input is active.
@@ -84,11 +85,31 @@ public class KeyboardInput implements Input {
     /**
      * Method to set moveRight.
      * 
-     * @param moveRight if the moveRight command is active
+     * @param moveRight new value for moveRight
      */
     @Override
     public void setMoveRight(final boolean moveRight) {
         this.moveRight = moveRight;
+    }
+
+    /**
+     * Method to check if jump input is active.
+     * 
+     * @return if the jump command is active
+     */
+    @Override
+    public boolean isJump() {
+        return jump;
+    }
+
+    /**
+     * Method to set jump.
+     * 
+     * @param jump new value for jump
+     */
+    @Override
+    public void setJump(final boolean jump) {
+        this.jump = jump;
     }
 
     /**
@@ -100,11 +121,12 @@ public class KeyboardInput implements Input {
         setMoveLeft(false);
         setMoveRight(false);
         setMoveUp(false);
-
+        setJump(false);
     }
-/**
- * {@inheritDoc}
- */
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public KeyboardInput clone() {
         try {
@@ -113,5 +135,4 @@ public class KeyboardInput implements Input {
             throw new IllegalStateException(e);
         }
     }
-
 }

@@ -34,6 +34,13 @@ public interface Input extends Cloneable {
     boolean isMoveLeft();
 
     /**
+     * Method to check if jump input is active.
+     * 
+     * @return if the jump command is active
+     */
+    boolean isJump();
+
+    /**
      * Method to set if moveUp input is active.
      * 
      * @param moveUp if the moveUp command is active
@@ -60,6 +67,13 @@ public interface Input extends Cloneable {
      * @param moveLeft new value for moveLeft
      */
     void setMoveLeft(boolean moveLeft);
+
+    /**
+     * Method to set jump input.
+     * 
+     * @param jump new value for jump
+     */
+    void setJump(boolean jump);
 
     /**
      * Method to reset all inputs to false.

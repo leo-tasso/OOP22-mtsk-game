@@ -24,6 +24,8 @@ public class InputButtonsImpl implements InputButtons {
                 input.setMoveDown(true);
             } else if (e.getCode().equals(KeyCode.D)) {
                 input.setMoveRight(true);
+            } else if (e.getCode().equals(KeyCode.SPACE)) {
+                input.setJump(true);
             }
         });
         scene.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
@@ -35,6 +37,8 @@ public class InputButtonsImpl implements InputButtons {
                 input.setMoveDown(false);
             } else if (e.getCode().equals(KeyCode.D)) {
                 input.setMoveRight(false);
+            } else if (e.getCode().equals(KeyCode.SPACE)) {
+                input.setJump(false);
             }
         });
     }
