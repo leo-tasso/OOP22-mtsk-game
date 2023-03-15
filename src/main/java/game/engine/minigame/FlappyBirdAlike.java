@@ -10,6 +10,8 @@ import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
 import game.engine.gameobject.SimplePhysics;
 import game.engine.gameobject.flappybirdalikeobjects.Cursor;
+import game.engine.gameobject.hitboxmodel.ColliderImpl;
+import game.engine.gameobject.hitboxmodel.RectangleHitBoxModel;
 import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
@@ -25,8 +27,7 @@ public class FlappyBirdAlike implements Minigame {
     private static final int ENEMY_WIDTH = 100;
     private static final int ENEMY_SPAWN = 2000;
     private static final int ENEMY_SPEED = -50;
-    private static final int FIELD_MIDDLE = 500;
-    private static final int FIELD_HEIGHT = 1000;
+    private static final int FIELD_HEIGHT = 900;
     private static final int MAX_HEIGHT = FIELD_HEIGHT - (int) CURSOR_SIZE;
     private final List<GameObject> l = new ArrayList<>();
     private final Random rand = new Random();
@@ -51,22 +52,7 @@ public class FlappyBirdAlike implements Minigame {
     @Override
     public boolean isGameOver() {
         return l.size() > 1
-                && obstacleInRange()
-                && obstacleHit(l.get(1).getCoor().getY());
-    }
-
-    private boolean obstacleInRange() {
-        return l.get(1).getCoor().getX() - ENEMY_WIDTH / 2 < l.get(0).getCoor().getX() + CURSOR_SIZE / 2
-                && l.get(1).getCoor().getX() + ENEMY_WIDTH / 2 > l.get(0).getCoor().getX() - CURSOR_SIZE / 2;
-    }
-
-    private boolean obstacleHit(final double y) {
-        return y < FIELD_MIDDLE && l.get(0).getCoor().getY() - boundingOffset() < enemyHeight
-                || y > FIELD_MIDDLE && l.get(0).getCoor().getY() + boundingOffset() > FIELD_HEIGHT - enemyHeight;
-    }
-
-    private double boundingOffset() {
-        return (l.get(0).getCoor().getX() - l.get(1).getCoor().getX() + CURSOR_SIZE / 2) / 2;
+                && new ColliderImpl().isColliding(l.get(0), l.get(1));
     }
 
     /**
@@ -83,7 +69,8 @@ public class FlappyBirdAlike implements Minigame {
                     new Vector2D(ENEMY_SPEED, 0),
                     0, new NullInput(),
                     new SimplePhysics(),
-                    new RectangleAspect(ENEMY_WIDTH, enemyHeight, ColorRGB.black())));
+                    new RectangleAspect(ENEMY_WIDTH, enemyHeight, ColorRGB.black()),
+                    new RectangleHitBoxModel(ENEMY_WIDTH, enemyHeight)));
         }
 
         l.removeIf(e -> e.getCoor().getX() < -ENEMY_WIDTH);
@@ -105,8 +92,7 @@ public class FlappyBirdAlike implements Minigame {
      */
     @Override
     public String getTutorial() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTutorial'");
+        return "Press the SPACEBAR to jump.\n You can use it in midair too!";
     }
 
 }
