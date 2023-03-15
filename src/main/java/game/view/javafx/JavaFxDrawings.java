@@ -1,5 +1,8 @@
 package game.view.javafx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import api.ColorRGB;
 import api.Point2D;
 import game.engine.gameobject.GameObject;
@@ -86,19 +89,24 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawTriangle(final GameObject object, final ColorRGB color, final double radius, final double rotAngle) {
+    public void drawTriangle(final GameObject object, final ColorRGB color, final double side, final double rotAngle) {
+        final double radius = side / Math.sqrt(3);
+        final double rotAngle1 = rotAngle + Math.PI * 2 / 3;
+        final double rotAngle2 = rotAngle + Math.PI * 4 / 3;
+
+        final List<Double> xs = new ArrayList<>();
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle1));
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle2));
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle));
+
+        final List<Double> ys = new ArrayList<>();
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle1));
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle2));
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle));
+
         gc.setFill(jfxColor(color));
-        gc.fillPolygon(new double[] {
-                (object.getCoor().getX() - radius / 2) * dimention / COEFFICIENT + startingPoint.getX(),
-                (object.getCoor().getX() - radius / 2) * dimention / COEFFICIENT + startingPoint.getX(),
-                (object.getCoor().getX() + radius) * dimention / COEFFICIENT + startingPoint.getX() },
-                new double[] {
-                        (object.getCoor().getY() - radius * Math.sqrt(3) / 2) * dimention / COEFFICIENT
-                                + startingPoint.getY(),
-                        (object.getCoor().getY() + radius * Math.sqrt(3) / 2) * dimention / COEFFICIENT
-                                + startingPoint.getY(),
-                        object.getCoor().getY() * dimention / COEFFICIENT + startingPoint.getY(),
-                }, 3);
+        gc.fillPolygon(xs.stream().mapToDouble(x -> x * dimention / COEFFICIENT + startingPoint.getX()).toArray(),
+                ys.stream().mapToDouble(y -> y * dimention / COEFFICIENT + startingPoint.getY()).toArray(), 3);
     }
 
     /**

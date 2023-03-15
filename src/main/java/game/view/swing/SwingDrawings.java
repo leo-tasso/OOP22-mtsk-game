@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.FontMetrics;
@@ -73,7 +71,7 @@ public class SwingDrawings implements Drawings {
      */
     @Override
     public void drawTriangle(final GameObject object, final ColorRGB color, final double side, final double rotAngle) {
-        final double radius = side / Math.sqrt(3);
+        /*final double radius = side / Math.sqrt(3);
         final double rotAngle1 = rotAngle + Math.PI * 2 / 3;
         final double rotAngle2 = rotAngle + Math.PI * 4 / 3;
 
@@ -90,7 +88,7 @@ public class SwingDrawings implements Drawings {
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         g2.setStroke(new BasicStroke(2f));
         g2.drawPolygon(xs.stream().mapToInt(x -> (int) Math.round(x * dimention / COEFFICIENT + startingPoint.getX())).toArray(),
-                ys.stream().mapToInt(y -> (int) Math.round(y * dimention / COEFFICIENT + startingPoint.getY())).toArray(), 3);
+                ys.stream().mapToInt(y -> (int) Math.round(y * dimention / COEFFICIENT + startingPoint.getY())).toArray(), 3);*/
     }
 
     /**
