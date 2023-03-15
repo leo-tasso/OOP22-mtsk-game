@@ -15,6 +15,7 @@ import game.engine.gameobject.CircleAspect;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
 import game.engine.gameobject.catchthesqareobjects.Bomb;
+import game.engine.gameobject.catchthesqareobjects.BoundaryDumpedPhysics;
 import game.engine.gameobject.catchthesqareobjects.Defuser;
 import game.engine.gameobject.hitboxmodel.Collider;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;
@@ -23,14 +24,17 @@ import game.engine.gameobject.hitboxmodel.ColliderImpl;
  * Minigame where the player has to catch sqares before the time runs out.
  */
 public class CatchTheSquare implements Minigame {
-    private static final double RATIO = 16 / 9d;
-    private final int rightBound;
-    private final int bottomBound;
+
     private static final int DEFUSER_RADIUS = 100;
     private static final int BOMB_SIDE = (int) (DEFUSER_RADIUS * 1.5);
     private static final int MAX_OBJECT = 6;
     private static final double MAX_BOMB_RATE = 0.7;
     private static final double BOMB_SPAWN_DIFF = 1.05;
+    private static final double DUMP_COEFFICIENT = 2;
+    private static final double RATIO = 16 / 9d;
+
+    private final int rightBound;
+    private final int bottomBound;
     private long totalElapsed;
     private int totalBombsSpawned;
     private final Defuser defuser;
@@ -57,7 +61,8 @@ public class CatchTheSquare implements Minigame {
         this.totalBombsSpawned = 0;
         this.r = new Random();
         this.spawnFreqStrat = spawnFreqStrat;
-        defuser = new Defuser(new Point2D(rightBound / 2d, bottomBound / 2d), DEFUSER_RADIUS, defuserInputModel);
+        defuser = new Defuser(new Point2D(rightBound / 2d, bottomBound / 2d), DEFUSER_RADIUS, defuserInputModel,
+                new BoundaryDumpedPhysics(rightBound, bottomBound, DEFUSER_RADIUS, DUMP_COEFFICIENT));
         gObjects.add(defuser);
     }
 

@@ -11,8 +11,8 @@ import game.engine.minigame.Minigame;
  * but makes it bouce on the borders.
  */
 public class BoundaryDumpedPhysics extends SimplePhysics {
-    private static final int RIGHT_LIMIT = 1600;
-    private static final int BOTTOM_LIMIT = 900;
+    private final int rightLimit;
+    private final int bottomLimit;
     private final int radius;
     private final double dumpCoefficient;
 
@@ -23,8 +23,14 @@ public class BoundaryDumpedPhysics extends SimplePhysics {
      *                        defuser
      * @param dumpCoefficient the dump coefficient of a bouce on the border, set to
      *                        one to retain all the energy
+     * @param rightLimit      the right border of the field.
+     * @param bottomLimit     the bottom limit of the field.
      */
-    public BoundaryDumpedPhysics(final int radius, final double dumpCoefficient) {
+
+    public BoundaryDumpedPhysics(final int rightLimit, final int bottomLimit, final int radius,
+            final double dumpCoefficient) {
+        this.rightLimit = rightLimit;
+        this.bottomLimit = bottomLimit;
         this.radius = radius;
         this.dumpCoefficient = dumpCoefficient;
     }
@@ -35,12 +41,12 @@ public class BoundaryDumpedPhysics extends SimplePhysics {
     @Override
     public void update(final long dt, final GameObject obj, final Minigame miniGame) {
         super.update(dt, obj, miniGame);
-        if (obj.getCoor().getY() > BOTTOM_LIMIT - radius) {
-            obj.setCoor(new Point2D(obj.getCoor().getX(), BOTTOM_LIMIT - radius));
+        if (obj.getCoor().getY() > bottomLimit - radius) {
+            obj.setCoor(new Point2D(obj.getCoor().getX(), bottomLimit - radius));
             obj.setVel(new Vector2D(obj.getVel().getX(), -Math.abs(obj.getVel().getY() / dumpCoefficient)));
         }
-        if (obj.getCoor().getX() > RIGHT_LIMIT - radius) {
-            obj.setCoor(new Point2D(RIGHT_LIMIT - radius, obj.getCoor().getY()));
+        if (obj.getCoor().getX() > rightLimit - radius) {
+            obj.setCoor(new Point2D(rightLimit - radius, obj.getCoor().getY()));
             obj.setVel(new Vector2D(-Math.abs(obj.getVel().getX() / dumpCoefficient), obj.getVel().getY()));
         }
         if (obj.getCoor().getX() < 0 + radius) {
