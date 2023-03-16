@@ -28,7 +28,8 @@ public class FlappyBirdAlike implements Minigame {
     private static final int ENEMY_SPAWN = 2000;
     private static final int ENEMY_SPEED = -50;
     private static final int FIELD_HEIGHT = 900;
-    private static final int MAX_HEIGHT = FIELD_HEIGHT - (int) CURSOR_SIZE;
+    private static final int HEIGHT_OFFSET = 100;
+    private static final int MAX_HEIGHT = FIELD_HEIGHT - (int) CURSOR_SIZE - 2 * HEIGHT_OFFSET;
     private final List<GameObject> l = new ArrayList<>();
     private final Random rand = new Random();
     private int enemyHeight;
@@ -63,7 +64,7 @@ public class FlappyBirdAlike implements Minigame {
     @Override
     public void compute(final long elapsed) {
         if (l.size() == 1) {
-            enemyHeight = rand.nextInt(MAX_HEIGHT);
+            enemyHeight = rand.nextInt(MAX_HEIGHT) + HEIGHT_OFFSET;
             final double y = rand.nextInt(2) == 1 ? enemyHeight / 2.0 : FIELD_HEIGHT - enemyHeight / 2.0;
             l.add(new GameObject(new Point2D(ENEMY_SPAWN, y),
                     new Vector2D(ENEMY_SPEED, 0),
@@ -92,7 +93,7 @@ public class FlappyBirdAlike implements Minigame {
      */
     @Override
     public String getTutorial() {
-        return "Press the SPACEBAR to jump.\n You can use it in midair too!";
+        return "Press the SPACEBAR to jump and evade obstacles.\n You can jump in midair too!";
     }
 
 }
