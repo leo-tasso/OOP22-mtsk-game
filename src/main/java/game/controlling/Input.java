@@ -74,9 +74,9 @@ public interface Input extends Cloneable {
     /**
      * Sets the number pressed on the keyboard by the player.
      * 
-     * @param numberPressed int in [1,9]
+     * @param numberPressed if present, an int in [1,9]
      */
-    void setNumberPressed(int numberPressed);
+    void setNumberPressed(Optional<Integer> numberPressed);
 
     /**
      * Method to reset all inputs to false.
