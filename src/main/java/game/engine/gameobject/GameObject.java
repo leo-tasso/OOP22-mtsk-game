@@ -146,7 +146,7 @@ public class GameObject {
     /**
      * The method to update the input of the object.
      *
-     * @param input
+     * @param input the input class to use to update the objects.
      * @param elapsedTime the time elapsed from the last frame
      */
     public void updateinput(final Input input, final long elapsedTime) {

@@ -1,4 +1,4 @@
-package minigamestests.catchthesquare;
+package minigamestests.catchthesquaretest;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

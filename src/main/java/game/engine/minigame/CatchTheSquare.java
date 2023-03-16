@@ -15,6 +15,7 @@ import game.engine.gameobject.CircleAspect;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
 import game.engine.gameobject.catchthesqareobjects.Bomb;
+import game.engine.gameobject.catchthesqareobjects.BoundaryDumpedPhysics;
 import game.engine.gameobject.catchthesqareobjects.Defuser;
 import game.engine.gameobject.hitboxmodel.Collider;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;
@@ -23,14 +24,17 @@ import game.engine.gameobject.hitboxmodel.ColliderImpl;
  * Minigame where the player has to catch sqares before the time runs out.
  */
 public class CatchTheSquare implements Minigame {
-    private static final int RIGHT_BOUND = 1600;
-    private static final int BOTTOM_BOUND = 900;
+
     private static final int DEFUSER_RADIUS = 100;
     private static final int BOMB_SIDE = (int) (DEFUSER_RADIUS * 1.5);
-    private static final Point2D SPAWN_POINT_DEFUSER = new Point2D(RIGHT_BOUND / 2, BOTTOM_BOUND / 2);
     private static final int MAX_OBJECT = 6;
     private static final double MAX_BOMB_RATE = 0.7;
     private static final double BOMB_SPAWN_DIFF = 1.05;
+    private static final double DUMP_COEFFICIENT = 2;
+    private static final double RATIO = 16 / 9d;
+
+    private final int rightBound;
+    private final int bottomBound;
     private long totalElapsed;
     private int totalBombsSpawned;
     private final Defuser defuser;
@@ -45,28 +49,30 @@ public class CatchTheSquare implements Minigame {
      *                          frequency
      *                          of the boms.
      * @param defuserInputModel the InputModel to be used my the defuser.
+     * @param bottomBound       the height in points that the View will
+     *                          display.
      */
-    public CatchTheSquare(final Function<Long, Long> spawnFreqStrat, final InputModel defuserInputModel) {
+    public CatchTheSquare(final Function<Long, Long> spawnFreqStrat, final InputModel defuserInputModel,
+            final int bottomBound) {
         this.gObjects = new ArrayList<>();
+        this.bottomBound = bottomBound;
+        this.rightBound = (int) (bottomBound * RATIO);
         this.totalElapsed = 0;
         this.totalBombsSpawned = 0;
         this.r = new Random();
         this.spawnFreqStrat = spawnFreqStrat;
-        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS, defuserInputModel);
+        defuser = new Defuser(new Point2D(rightBound / 2d, bottomBound / 2d), DEFUSER_RADIUS, defuserInputModel,
+                new BoundaryDumpedPhysics(rightBound, bottomBound, DEFUSER_RADIUS, DUMP_COEFFICIENT));
         gObjects.add(defuser);
     }
 
     /**
      * Constructor with default values.
+     * 
+     * @param bottomBound the height in points that the View will display.
      */
-    public CatchTheSquare() {
-        this.gObjects = new ArrayList<>();
-        this.totalElapsed = 0;
-        this.totalBombsSpawned = 0;
-        this.r = new Random();
-        this.spawnFreqStrat = new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE);
-        defuser = new Defuser(SPAWN_POINT_DEFUSER, DEFUSER_RADIUS, new DirectionalInput());
-        gObjects.add(defuser);
+    public CatchTheSquare(final int bottomBound) {
+        this(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE), new DirectionalInput(), bottomBound);
     }
 
     /**
@@ -127,8 +133,8 @@ public class CatchTheSquare implements Minigame {
      * @return the new spawn point.
      */
     private Point2D randSpawnPoint() {
-        final Point2D p = new Point2D(r.nextInt(BOMB_SIDE / 2, RIGHT_BOUND - BOMB_SIDE / 2),
-                r.nextInt(BOMB_SIDE / 2, BOTTOM_BOUND - BOMB_SIDE / 2));
+        final Point2D p = new Point2D(r.nextInt(BOMB_SIDE / 2, rightBound - BOMB_SIDE / 2),
+                r.nextInt(BOMB_SIDE / 2, bottomBound - BOMB_SIDE / 2));
         for (final GameObject gameObject : gObjects) {
             if (p.distance(gameObject.getCoor()) < BOMB_SIDE * 2) {
                 return randSpawnPoint(); // Throws exeption if there's no space for new object, adjust sizes and spawn

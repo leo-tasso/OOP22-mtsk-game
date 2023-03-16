@@ -1,4 +1,4 @@
-package minigamestests.catchthesquare;
+package minigamestests.catchthesquaretest;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -51,7 +51,7 @@ class CatchTheSquareTest {
         for (final InputModel inputModel : INPUT_MODEL_STRATS) {
             for (final Function<Long, Long> spawnStrat : SPAWN_STRATS) {
                 final Minigame cTS = new CatchTheSquare(spawnStrat,
-                        inputModel);
+                        inputModel, FRAME_HEIGHT);
                 for (int n = 0; n < REPETITIONS; n++) {
                     cTS.compute(TIME_TO_WAIT / REPETITIONS); // just waits
                 }
@@ -65,7 +65,7 @@ class CatchTheSquareTest {
         for (final InputModel inputModel : INPUT_MODEL_STRATS) {
             for (final Function<Long, Long> spawnStrat : SPAWN_STRATS) {
                 final Minigame cTS = new CatchTheSquare(spawnStrat,
-                        inputModel);
+                        inputModel, FRAME_HEIGHT);
                 final GameObject defuser = cTS.getObjects().get(0);
                 while (cTS.getObjects().size() < 2) {
                     cTS.compute(ELAPSED_TIME); // wait until some bomb is spawned
@@ -90,7 +90,7 @@ class CatchTheSquareTest {
         for (final InputModel inputModel : INPUT_MODEL_STRATS) {
             for (final Function<Long, Long> spawnStrat : SPAWN_STRATS) {
                 final Minigame cTS = new CatchTheSquare(spawnStrat,
-                        inputModel);
+                        inputModel, FRAME_HEIGHT);
                 final Input input = new KeyboardInput();
                 input.setMoveDown(true);
                 cTS.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
@@ -107,7 +107,7 @@ class CatchTheSquareTest {
         for (final InputModel inputModel : INPUT_MODEL_STRATS) {
             for (final Function<Long, Long> spawnStrat : SPAWN_STRATS) {
                 final Minigame cTS = new CatchTheSquare(spawnStrat,
-                        inputModel);
+                        inputModel, FRAME_HEIGHT);
                 final GameObject defuser = cTS.getObjects().get(0);
                 defuser.setVel(new Vector2D(START_SPEED, START_SPEED));
                 for (int n = 0; n < REPETITIONS; n++) {

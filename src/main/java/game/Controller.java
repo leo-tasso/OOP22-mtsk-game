@@ -1,4 +1,5 @@
 package game;
+
 /**
  * Interface to model the Controller of the Game.
  */
@@ -37,5 +38,10 @@ public interface Controller {
      * @return the statistics to retrieved.
      */
     LeaderBoard getStats();
+
+    /**
+     * @return the height in points of the game field that the view will display.
+     */
+    int getFieldHeight();
 
 }

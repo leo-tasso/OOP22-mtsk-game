@@ -23,7 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Implementation of {@link View} using JavaFx.
+ * Implementation of View using JavaFx.
  */
 public final class JavaFxView extends Application implements JavaFxViewCoordinator {
 
@@ -74,7 +74,7 @@ public final class JavaFxView extends Application implements JavaFxViewCoordinat
     @Override
     public void render(final List<List<GameObject>> objectsList) {
         if (gameState.isPresent()) {
-            gameState.get().refresh(objectsList, stage.getScene());
+            gameState.get().refresh(objectsList, stage.getScene(), controller.getFieldHeight());
         }
     }
 

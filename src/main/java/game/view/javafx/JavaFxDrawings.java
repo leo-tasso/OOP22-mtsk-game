@@ -13,10 +13,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 /**
- * Implementation of {@link Drawigns} for JavaFX.
+ * Implementation of Drawings for JavaFX.
  */
 public class JavaFxDrawings implements Drawings {
-    private static final int COEFFICIENT = 900;
+    private final int coefficient;
     // coordinates (related to the Jframe) of the upper left corner of the play
     // field
     private final Point2D startingPoint;
@@ -32,8 +32,12 @@ public class JavaFxDrawings implements Drawings {
      * @param canvas        the canvas in which to draw.
      * @param startingPoint the starting point for the minigame area.
      * @param dimention     dimention of the hight of the minigame area.
+     * @param coefficient   the height in points of the field that the view shall
+     *                      display.
      */
-    public JavaFxDrawings(final Canvas canvas, final Point2D startingPoint, final double dimention) {
+    public JavaFxDrawings(final Canvas canvas, final Point2D startingPoint, final double dimention,
+            final int coefficient) {
+        this.coefficient = coefficient;
         this.gc = canvas.getGraphicsContext2D();
         gc.setLineWidth(3.0);
         this.startingPoint = startingPoint;
@@ -48,10 +52,10 @@ public class JavaFxDrawings implements Drawings {
         final Point2D pos = object.getCoor();
         final int x = (int) pos.getX(); // x of the centre
         final int y = (int) pos.getY(); // y of the centre
-        final int scaledRad = (int) Math.round(dimention / COEFFICIENT * radius);
+        final int scaledRad = (int) Math.round(dimention / coefficient * radius);
         gc.setStroke(jfxColor(color));
-        gc.strokeOval(x * dimention / COEFFICIENT - scaledRad + startingPoint.getX(),
-                y * dimention / COEFFICIENT - scaledRad + startingPoint.getY(),
+        gc.strokeOval(x * dimention / coefficient - scaledRad + startingPoint.getX(),
+                y * dimention / coefficient - scaledRad + startingPoint.getY(),
                 scaledRad * 2, scaledRad * 2);
     }
 
@@ -68,16 +72,16 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawRectangle(final GameObject object, final ColorRGB color, final double width, final double height) {
-        final double actualHeight = height * dimention / COEFFICIENT;
-        final double actualWidth = width * dimention / COEFFICIENT;
+        final double actualHeight = height * dimention / coefficient;
+        final double actualWidth = width * dimention / coefficient;
         gc.setStroke(jfxColor(color));
         gc.strokeRect(
                 /*
                  * coordinates of the upper left corner of rectangle: the
                  * last addendum is necessary to enter the right play field
                  */
-                (object.getCoor().getX() - width / 2) * dimention / COEFFICIENT + startingPoint.getX(),
-                (object.getCoor().getY() - height / 2) * dimention / COEFFICIENT + startingPoint.getY(),
+                (object.getCoor().getX() - width / 2) * dimention / coefficient + startingPoint.getX(),
+                (object.getCoor().getY() - height / 2) * dimention / coefficient + startingPoint.getY(),
                 actualWidth,
                 actualHeight);
     }
@@ -89,15 +93,15 @@ public class JavaFxDrawings implements Drawings {
     public void drawTriangle(final GameObject object, final ColorRGB color, final double radius) {
         gc.setFill(jfxColor(color));
         gc.fillPolygon(new double[] {
-                (object.getCoor().getX() - radius / 2) * dimention / COEFFICIENT + startingPoint.getX(),
-                (object.getCoor().getX() - radius / 2) * dimention / COEFFICIENT + startingPoint.getX(),
-                (object.getCoor().getX() + radius) * dimention / COEFFICIENT + startingPoint.getX() },
+                (object.getCoor().getX() - radius / 2) * dimention / coefficient + startingPoint.getX(),
+                (object.getCoor().getX() - radius / 2) * dimention / coefficient + startingPoint.getX(),
+                (object.getCoor().getX() + radius) * dimention / coefficient + startingPoint.getX() },
                 new double[] {
-                        (object.getCoor().getY() - radius * Math.sqrt(3) / 2) * dimention / COEFFICIENT
+                        (object.getCoor().getY() - radius * Math.sqrt(3) / 2) * dimention / coefficient
                                 + startingPoint.getY(),
-                        (object.getCoor().getY() + radius * Math.sqrt(3) / 2) * dimention / COEFFICIENT
+                        (object.getCoor().getY() + radius * Math.sqrt(3) / 2) * dimention / coefficient
                                 + startingPoint.getY(),
-                        object.getCoor().getY() * dimention / COEFFICIENT + startingPoint.getY(),
+                        object.getCoor().getY() * dimention / coefficient + startingPoint.getY(),
                 }, 3);
     }
 
@@ -107,9 +111,9 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawLabel(final GameObject object, final ColorRGB color, final int size, final String string) {
         gc.setFill(jfxColor(color));
-        gc.setFont(new Font("futura", size * dimention / COEFFICIENT));
-        final double x = object.getCoor().getX() * dimention / COEFFICIENT;
-        final double y = object.getCoor().getY() * dimention / COEFFICIENT;
+        gc.setFont(new Font("futura", size * dimention / coefficient));
+        final double x = object.getCoor().getX() * dimention / coefficient;
+        final double y = object.getCoor().getY() * dimention / coefficient;
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
         gc.fillText(string, x + startingPoint.getX(), y + startingPoint.getY());

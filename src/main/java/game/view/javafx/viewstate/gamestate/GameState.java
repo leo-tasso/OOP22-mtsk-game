@@ -14,10 +14,12 @@ public interface GameState extends ViewState {
     /**
      * Method to refresh the view.
      * 
-     * @param objectList the new list of object to display.
-     * @param scene      the scene to update.
+     * @param objectList       the new list of object to display.
+     * @param scene            the scene to update.
+     * @param heightCoefficent the height in points of the game field that the view
+     *                         shall display.
      */
-    void refresh(List<List<GameObject>> objectList, Scene scene);
+    void refresh(List<List<GameObject>> objectList, Scene scene, int heightCoefficent);
 
     /**
      * Method to get the {@link Input} created by the view.

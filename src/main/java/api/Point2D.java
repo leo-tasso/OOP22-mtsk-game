@@ -11,8 +11,8 @@ public class Point2D {
     /**
      * Constructor with 2 arguments.
      * 
-     * @param x first component
-     * @param y
+     * @param x first component.
+     * @param y second component.
      */
     public Point2D(final double x, final double y) {
         this.x = x;

@@ -62,18 +62,4 @@ public interface Engine {
      * @return the list of classes of the expected minigames sequence.
      */
     List<Class<? extends Minigame>> getMinigameSequence();
-
-    /**
-     * Getter method for the width of each playing field.
-     * 
-     * @return the width.
-     */
-    int getRightLimit();
-
-    /**
-     * Getter method for the height of each playing field.
-     * 
-     * @return the height.
-     */
-    int getBottomLimit();
 }

@@ -10,6 +10,7 @@ import javafx.application.Application;
  * Implementation of the controller.
  */
 public class ControllerImpl implements Controller {
+    private static final int FIELD_HEIGHT = 900; // hight in coordinate points that the view should display
     private final View view;
     private static final long TIME_TO_NEXT_MINIGAME = 5_000L;
     private static final long PERIOD = 5;
@@ -30,13 +31,13 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public void startGame() {
-        final Engine e = new EngineImpl();
+        final Engine e = new EngineImpl(FIELD_HEIGHT);
         Long lastAddedTime = 0L;
         view.showMessage(e.addMinigame());
         this.setPaused(true);
         long previousFrame = System.currentTimeMillis();
         Long points = 0L;
-        while (!e.isGameOver()) {
+        while (!e.isGameOver() && view.isViewActive()) {
             final long currentFrame = System.currentTimeMillis();
             final long elapsed = currentFrame - previousFrame;
             if (points - lastAddedTime > TIME_TO_NEXT_MINIGAME
@@ -107,6 +108,14 @@ public class ControllerImpl implements Controller {
                 return;
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getFieldHeight() {
+        return FIELD_HEIGHT;
     }
 
     /**
