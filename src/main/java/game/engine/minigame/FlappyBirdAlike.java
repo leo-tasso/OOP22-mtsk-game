@@ -2,10 +2,11 @@ package game.engine.minigame;
 
 import java.util.List;
 import java.util.Random;
-
+import java.util.function.Function;
 import java.util.ArrayList;
 
 import game.controlling.NullInput;
+import game.engine.difficultystrats.StepRateStrat;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
 import game.engine.gameobject.SimplePhysics;
@@ -30,16 +31,22 @@ public class FlappyBirdAlike implements Minigame {
     private static final int FIELD_HEIGHT = 900;
     private static final int HEIGHT_OFFSET = 100;
     private static final int MAX_HEIGHT = FIELD_HEIGHT - (int) CURSOR_SIZE - 2 * HEIGHT_OFFSET;
+    private static final long INC_DIFF_TIME_WINDOW = 10_000L;
+    private static final int X_OFFSET = 100;
+    private static final int NUM_STEPS = 8;
     private final List<GameObject> l = new ArrayList<>();
     private final Random rand = new Random();
+    private Function<Long, Integer> freqStrat = new StepRateStrat(NUM_STEPS, X_OFFSET, INC_DIFF_TIME_WINDOW);
+    private long totalElapsed;
     private int enemyHeight;
+    private int curLimit;
 
     /**
     * Contructs an instance of the flappy bird minigame.
     *
     */
     public FlappyBirdAlike() {
-        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT),
+        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT - CURSOR_SIZE / 2),
                 Vector2D.nullVector(),
                 CURSOR_SIZE,
                 -ENEMY_SPEED));
@@ -63,7 +70,9 @@ public class FlappyBirdAlike implements Minigame {
     */
     @Override
     public void compute(final long elapsed) {
-        if (l.size() == 1) {
+        totalElapsed += elapsed;
+        curLimit = freqStrat.apply(totalElapsed);
+        if (l.size() == 1 || l.get(l.size() - 1).getCoor().getX() < curLimit) {
             enemyHeight = rand.nextInt(MAX_HEIGHT) + HEIGHT_OFFSET;
             final double y = rand.nextInt(2) == 1 ? enemyHeight / 2.0 : FIELD_HEIGHT - enemyHeight / 2.0;
             l.add(new GameObject(new Point2D(ENEMY_SPAWN, y),
