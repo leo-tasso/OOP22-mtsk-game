@@ -108,11 +108,11 @@ public class KeyboardInput implements Input {
     /**
      * Sets the number pressed on the keyboard by the player.
      * 
-     * @param numberPressed int in [1,9]
+     * @param numberPressed if present, an int in [1,9]
      */
     @Override
-    public void setNumberPressed(int numberPressed) {
-        this.numberPressed = Optional.of(numberPressed);
+    public void setNumberPressed(final Optional<Integer> numberPressed) {
+        this.numberPressed = numberPressed;
     }
 
     /**
