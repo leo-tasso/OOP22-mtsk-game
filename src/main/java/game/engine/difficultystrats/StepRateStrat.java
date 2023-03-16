@@ -10,20 +10,20 @@ import java.util.function.Function;
 public class StepRateStrat implements Function<Long, Integer> {
 
     private final int numSteps;
-    private final int valueStep;
-    private final long denominator;
+    private final int stepValue;
+    private final long stepLength;
 
     /**
      * Constructor for StepRateStrat.
      * 
      * @param numSteps the number of steps required to reach the maximum value
-     * @param valueStep the difference between two adjacent steps
-     * @param denominator the distance to get to the next step
+     * @param stepValue the difference between two adjacent steps
+     * @param stepLength the distance to get to the next step
      */
-    public StepRateStrat(final int numSteps, final int valueStep, final long denominator) {
+    public StepRateStrat(final int numSteps, final int stepValue, final long stepLength) {
         this.numSteps = numSteps;
-        this.valueStep = valueStep;
-        this.denominator = denominator;
+        this.stepValue = stepValue;
+        this.stepLength = stepLength;
     }
 
     /**
@@ -32,8 +32,8 @@ public class StepRateStrat implements Function<Long, Integer> {
      */
     @Override
     public Integer apply(final Long totalElapsed) {
-        return Optional.of(totalElapsed / denominator)
-                .map(x -> (int) (x >= numSteps ? numSteps * valueStep : x.intValue() * valueStep))
+        return Optional.of(totalElapsed / stepLength)
+                .map(x -> (int) (x >= numSteps ? numSteps * stepValue : x.intValue() * stepValue))
                 .get();
     }
 }
