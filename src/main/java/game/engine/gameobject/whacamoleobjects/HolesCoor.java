@@ -15,7 +15,7 @@ public class HolesCoor {
      * Constructor that initializes the map.
      */
     public HolesCoor() {
-        for (int i = 1; i <= 9; i++) {
+        for (int i = 1; i <= 0; i++) {
             this.holesToCoor.put(i, new Point2D(10 * i, 10 * i));
         }
     }

@@ -122,9 +122,9 @@ public class JavaFxDrawings implements Drawings {
     public void drawMole(final GameObject object, final Boolean beenHit) {
         // TODO Auto-generated method stub
         if (!beenHit) {
-            drawCircle(object, ColorRGB.white(), 20);
+            drawCircle(object, ColorRGB.white(), 0);
         } else {
-            drawCircle(object, ColorRGB.red(), 20);
+            drawCircle(object, ColorRGB.red(), 0);
         }
     }
 
@@ -134,9 +134,9 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawBomb(final GameObject object, final Boolean beenHit) {
         if (!beenHit) {
-            drawSquare(object, ColorRGB.blue(), 15);
+            drawSquare(object, ColorRGB.blue(), 0);
         } else {
-            drawSquare(object, ColorRGB.aqua(), 15);
+            drawSquare(object, ColorRGB.aqua(), 0);
         }
     }
 
