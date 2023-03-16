@@ -18,14 +18,16 @@ public class WamInputModel implements InputModel {
      */
     @Override
     public void update(final GameObject obj, final Input c, final long elapsedTime) {
-        final WamObject wamObj = (WamObject) obj;
-        if (wamObj.getHoleNumber() == c.getNumberPressed().orElse(0)
-            && (wamObj.getStatus().equals(Status.IN_MOTION)
-            || wamObj.getStatus().equals(Status.HALFWAY))) {
-                wamObj.setStatus(Status.HIT);
-                if (wamObj.getVel().getY() <= 0) {
-                    wamObj.setVel(wamObj.getLevel().getObjSpeed().invert());
-                }
+        if (obj instanceof WamObject) {
+            final WamObject wamObj = (WamObject) obj;
+            if (wamObj.getHoleNumber() == c.getNumberPressed().orElse(0)
+                && (wamObj.getStatus().equals(Status.IN_MOTION)
+                || wamObj.getStatus().equals(Status.HALFWAY))) {
+                    wamObj.setStatus(Status.HIT);
+                    if (wamObj.getVel().getY() <= 0) {
+                        wamObj.setVel(wamObj.getLevel().getObjSpeed().invert());
+                    }
+            }
         }
     }
 }

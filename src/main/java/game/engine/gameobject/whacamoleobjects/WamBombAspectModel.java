@@ -17,13 +17,15 @@ public class WamBombAspectModel implements AspectModel {
      */
     @Override
     public void update(final GameObject object, final Drawings drawing) {
-        final Status status = ((WamObject) object).getStatus();
-        if (!status.equals(Status.WAITING)) {
-            if (status.equals(Status.HIT)) {
-                drawing.drawBomb(object, true);
-            } else {
-                drawing.drawBomb(object, false);
+        if (object instanceof WamObject) {
+            final Status status = ((WamObject) object).getStatus();
+            if (!status.equals(Status.WAITING)) {
+                if (status.equals(Status.HIT)) {
+                    drawing.drawBomb(object, true);
+                } else {
+                    drawing.drawBomb(object, false);
+                }
             }
-        } 
+        }
     }
 }

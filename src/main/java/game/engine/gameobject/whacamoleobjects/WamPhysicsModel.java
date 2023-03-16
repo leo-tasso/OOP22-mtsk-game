@@ -20,13 +20,15 @@ public class WamPhysicsModel extends SimplePhysics {
     @Override
     public void update(final long dt, final GameObject obj, final Minigame miniGame) {
         super.update(dt, obj, miniGame); 
-        final WamObject wamObj = (WamObject) obj; //TODO  istanceof
-        final long currentTime = ((WhacAMole) miniGame).getCurrentTime();
-        if (wamObj.getCoor().getY() <= wamObj.getStartCoor().getY() - WamObject.DELTA_Y
-                && !wamObj.getStatus().equals(Status.HALFWAY)) {
-            wamObj.setStatus(Status.HALFWAY);
-            wamObj.setVel(Vector2D.nullVector());
-            wamObj.setMotionRestartTime(currentTime + wamObj.getLevel().getHalfwayTime());
+        if (obj instanceof WamObject && miniGame instanceof WhacAMole) {
+            final WamObject wamObj = (WamObject) obj;
+            final long currentTime = ((WhacAMole) miniGame).getCurrentTime();
+            if (wamObj.getCoor().getY() <= wamObj.getStartCoor().getY() - WamObject.DELTA_Y
+                    && !wamObj.getStatus().equals(Status.HALFWAY)) {
+                wamObj.setStatus(Status.HALFWAY);
+                wamObj.setVel(Vector2D.nullVector());
+                wamObj.setMotionRestartTime(currentTime + wamObj.getLevel().getHalfwayTime());
+            }
         }
     }
 }

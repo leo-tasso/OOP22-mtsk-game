@@ -19,6 +19,7 @@ import game.engine.gameobject.whacamoleobjects.WamPhysicsModel;
  */
 public class DrawStrategyImpl implements DrawStrategy {
     private static final long SAFETY_TIME_MARGIN = 10L;
+    private static final Random RANDOM = new Random();
     private final int numHoles;
 
     /**
@@ -42,9 +43,8 @@ public class DrawStrategyImpl implements DrawStrategy {
         for (int i = 1; i <= numHoles; i++) {
             holesOccupied.put(i, false);
         }
-        final Random rand = new Random();
-        final int nMoles = rand.nextInt(maxObjs + 1);
-        final int nBombs = rand.nextInt(maxObjs - nMoles + 1); 
+        final int nMoles = RANDOM.nextInt(maxObjs + 1);
+        final int nBombs = RANDOM.nextInt(maxObjs - nMoles + 1); 
         /* To avoid assigning an appearance time so close that */
         /* the program is still executing the underlying loops */
         final long lowerBound = currentTime + SAFETY_TIME_MARGIN;
@@ -81,15 +81,14 @@ public class DrawStrategyImpl implements DrawStrategy {
      * @return the integer representing the hole
      */
     private Integer assignHole(final Map<Integer, Boolean> isHoleBusy) {
-        final Random rand = new Random();
         final Boolean holeFound = false;
-        Integer holeAssigned = rand.nextInt(isHoleBusy.size()) + 1;
+        Integer holeAssigned = RANDOM.nextInt(isHoleBusy.size()) + 1;
         while (!holeFound) {
             if (!isHoleBusy.get(holeAssigned)) {
                 isHoleBusy.replace(holeAssigned, true);
                 return holeAssigned;
             } 
-            holeAssigned = rand.nextInt(isHoleBusy.size()) + 1;
+            holeAssigned = RANDOM.nextInt(isHoleBusy.size()) + 1;
         }
         return holeAssigned;
     }
