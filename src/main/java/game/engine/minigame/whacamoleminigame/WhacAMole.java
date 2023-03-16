@@ -17,10 +17,10 @@ public class WhacAMole implements Minigame {
     private static final int NUM_HOLES = 9;
     private static final int DRAWS_TO_NEXT_LEVEL = 3;
 
-    private Set<WamObject> objs;
+    private final Set<WamObject> objs;
     private final List<Level> levels; 
     private long currentTime;
-    private DrawStrategy draw;
+    private final DrawStrategy draw;
     private Level currentLevel;
     private int numDraws;
 

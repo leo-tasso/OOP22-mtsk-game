@@ -38,9 +38,9 @@ public class DrawStrategyImpl implements DrawStrategy {
     public Set<GameObject> draw(final Level currentLevel, final long currentTime) {
         final Set<GameObject> newGameObjs = new HashSet<>();
         final int maxObjs = currentLevel.getMaxObjsSimultaneouslyOut();
-        final Map<Integer, Boolean> isHoleBusy = new HashMap<>();
+        final Map<Integer, Boolean> holesOccupied = new HashMap<>();
         for (int i = 1; i <= numHoles; i++) {
-            isHoleBusy.put(i, false);
+            holesOccupied.put(i, false);
         }
         final Random rand = new Random();
         final int nMoles = rand.nextInt(maxObjs + 1);
@@ -53,7 +53,7 @@ public class DrawStrategyImpl implements DrawStrategy {
             newGameObjs.add(
                 new Mole(appearanceTime, 
                         currentLevel, 
-                        assignHole(isHoleBusy), 
+                        assignHole(holesOccupied), 
                         new WamPhysicsModel(), 
                         new MoleAspectModel(), 
                         new WamInputModel())
@@ -64,7 +64,7 @@ public class DrawStrategyImpl implements DrawStrategy {
             newGameObjs.add(
                 new WamBomb(appearanceTime, 
                         currentLevel, 
-                        assignHole(isHoleBusy),
+                        assignHole(holesOccupied),
                         new WamPhysicsModel(), 
                         new WamBombAspectModel(), 
                         new WamInputModel())
@@ -82,12 +82,11 @@ public class DrawStrategyImpl implements DrawStrategy {
      */
     private Integer assignHole(final Map<Integer, Boolean> isHoleBusy) {
         final Random rand = new Random();
-        Boolean holeFound = false;
+        final Boolean holeFound = false;
         Integer holeAssigned = rand.nextInt(isHoleBusy.size()) + 1;
         while (!holeFound) {
             if (!isHoleBusy.get(holeAssigned)) {
                 isHoleBusy.replace(holeAssigned, true);
-                holeFound = true;
                 return holeAssigned;
             } 
             holeAssigned = rand.nextInt(isHoleBusy.size()) + 1;

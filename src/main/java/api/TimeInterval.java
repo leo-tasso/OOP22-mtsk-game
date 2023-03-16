@@ -69,7 +69,7 @@ public class TimeInterval {
         } else if (getClass() != obj.getClass()) {
             return false;
         }
-        TimeInterval other = (TimeInterval) obj;
+        final TimeInterval other = (TimeInterval) obj;
         if (start != other.start) {
             return false;
         } else if (end != other.end) {

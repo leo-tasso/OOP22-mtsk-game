@@ -10,7 +10,7 @@ import api.Vector2D;
 public class LevelTwo implements Level {
     private static final int MAX_OBJS_OUT_AT_ONCE = 2;
     private static final double VECTOR_ORDINATE = -50;
-    private static final long MAX_WAIT_TO_SPAWN = 10000L;
+    private static final long MAX_WAIT_TO_SPAWN = 10_000L;
     private static final long STATIONARY_TIME = 3000L;
 
     /**
