@@ -37,7 +37,7 @@ public class ControllerImpl implements Controller {
         this.setPaused(true);
         long previousFrame = System.currentTimeMillis();
         Long points = 0L;
-        while (!e.isGameOver()) {
+        while (!e.isGameOver() && view.isViewActive()) {
             final long currentFrame = System.currentTimeMillis();
             final long elapsed = currentFrame - previousFrame;
             if (points - lastAddedTime > TIME_TO_NEXT_MINIGAME
