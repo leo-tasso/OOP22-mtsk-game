@@ -13,7 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 /**
- * Implementation of {@link Drawigns} for JavaFX.
+ * Implementation of Drawings for JavaFX.
  */
 public class JavaFxDrawings implements Drawings {
     private final int coefficient;

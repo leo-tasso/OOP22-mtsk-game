@@ -29,8 +29,8 @@ public final class ViewStateMenu implements ViewState {
     /**
      * Constructor to initialize the state.
      * 
-     * @param jview the {@link jview}.
-     * @param stage the {@link stage} that will be used to display.
+     * @param jview the {@link JavaFxViewCoordinator}.
+     * @param stage the {@link Stage} that will be used to display.
      */
     public ViewStateMenu(final JavaFxViewCoordinator jview, final Stage stage) {
         final ImageView logo = new ImageView(new Image(this.getClass().getResourceAsStream("/TitleInverted.png")));

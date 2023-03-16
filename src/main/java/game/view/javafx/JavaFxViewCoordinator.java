@@ -11,9 +11,9 @@ import game.view.javafx.viewstate.gamestate.GameState;
  */
 public interface JavaFxViewCoordinator extends View {
     /**
-     * Method to set the {@link gameState} of the coordinator.
+     * Method to set the {@link GameState} of the coordinator.
      * 
-     * @param gameState the {@link gameState} to set
+     * @param gameState the {@link GameState} to set
      */
     void setGameState(Optional<GameState> gameState);
 

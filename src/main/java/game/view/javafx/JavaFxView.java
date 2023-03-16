@@ -23,7 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Implementation of {@link View} using JavaFx.
+ * Implementation of View using JavaFx.
  */
 public final class JavaFxView extends Application implements JavaFxViewCoordinator {
 

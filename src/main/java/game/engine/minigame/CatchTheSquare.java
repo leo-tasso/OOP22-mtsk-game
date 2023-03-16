@@ -49,7 +49,7 @@ public class CatchTheSquare implements Minigame {
      *                          frequency
      *                          of the boms.
      * @param defuserInputModel the InputModel to be used my the defuser.
-     * @param bottomBound       the height in points that the {@link View} will
+     * @param bottomBound       the height in points that the View will
      *                          display.
      */
     public CatchTheSquare(final Function<Long, Long> spawnFreqStrat, final InputModel defuserInputModel,
@@ -69,7 +69,7 @@ public class CatchTheSquare implements Minigame {
     /**
      * Constructor with default values.
      * 
-     * @param bottomBound the height in points that the {@link View} will display.
+     * @param bottomBound the height in points that the View will display.
      */
     public CatchTheSquare(final int bottomBound) {
         this(new IncrRateStrat(BOMB_SPAWN_DIFF, MAX_BOMB_RATE), new DirectionalInput(), bottomBound);

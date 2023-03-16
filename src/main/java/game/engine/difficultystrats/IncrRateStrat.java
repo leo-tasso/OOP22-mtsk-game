@@ -16,7 +16,7 @@ public class IncrRateStrat implements Function<Long, Long> {
      * 
      * @param difficulty       the rate of increase of the spawning objects.
      *                         Suggested
-     *                         values 1< x <1.3
+     *                         values 1 &lt; x &lt; 1.3
      * @param flattenSpawnRate the maximum rate, once reached it will be kept
      */
     public IncrRateStrat(final double difficulty, final double flattenSpawnRate) {

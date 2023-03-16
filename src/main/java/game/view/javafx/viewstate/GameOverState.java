@@ -35,7 +35,7 @@ public class GameOverState implements ViewState {
      * Constructor to initialize the State.
      * 
      * @param view   the {@link JavaFxViewCoordinator} coordinator.
-     * @param stage  the {@link stage} that will be used to display.
+     * @param stage  the Stage that will be used to display.
      * @param points the scored points during the gameplay.
      */
     public GameOverState(final JavaFxViewCoordinator view, final Stage stage, final Long points) {
