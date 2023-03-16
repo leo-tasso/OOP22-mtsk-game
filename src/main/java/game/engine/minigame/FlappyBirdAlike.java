@@ -36,10 +36,9 @@ public class FlappyBirdAlike implements Minigame {
     private static final int NUM_STEPS = 8;
     private final List<GameObject> l = new ArrayList<>();
     private final Random rand = new Random();
-    private Function<Long, Integer> freqStrat = new StepRateStrat(NUM_STEPS, X_OFFSET, INC_DIFF_TIME_WINDOW);
+    private final Function<Long, Integer> freqStrat = new StepRateStrat(NUM_STEPS, X_OFFSET, INC_DIFF_TIME_WINDOW);
     private long totalElapsed;
     private int enemyHeight;
-    private int curLimit;
 
     /**
     * Contructs an instance of the flappy bird minigame.
@@ -71,8 +70,7 @@ public class FlappyBirdAlike implements Minigame {
     @Override
     public void compute(final long elapsed) {
         totalElapsed += elapsed;
-        curLimit = freqStrat.apply(totalElapsed);
-        if (l.size() == 1 || l.get(l.size() - 1).getCoor().getX() < curLimit) {
+        if (l.size() == 1 || l.get(l.size() - 1).getCoor().getX() < freqStrat.apply(totalElapsed)) {
             enemyHeight = rand.nextInt(MAX_HEIGHT) + HEIGHT_OFFSET;
             final double y = rand.nextInt(2) == 1 ? enemyHeight / 2.0 : FIELD_HEIGHT - enemyHeight / 2.0;
             l.add(new GameObject(new Point2D(ENEMY_SPAWN, y),

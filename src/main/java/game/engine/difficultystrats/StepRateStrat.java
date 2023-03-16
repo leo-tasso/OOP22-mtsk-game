@@ -9,9 +9,9 @@ import java.util.function.Function;
  */
 public class StepRateStrat implements Function<Long, Integer> {
 
-    private int numSteps;
-    private int valueStep;
-    private long denominator;
+    private final int numSteps;
+    private final int valueStep;
+    private final long denominator;
 
     /**
      * Constructor for StepRateStrat.
@@ -31,9 +31,9 @@ public class StepRateStrat implements Function<Long, Integer> {
      * before spawning a new one.
      */
     @Override
-    public Integer apply(Long totalElapsed) {
+    public Integer apply(final Long totalElapsed) {
         return Optional.of(totalElapsed / denominator)
-                .map(x -> (int) (x >= numSteps ? numSteps * valueStep : x * valueStep))
+                .map(x -> (int) (x >= numSteps ? numSteps * valueStep : x.intValue() * valueStep))
                 .get();
     }
 }
