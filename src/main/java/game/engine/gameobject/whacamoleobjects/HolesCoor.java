@@ -12,8 +12,8 @@ public class HolesCoor {
     private final Map<Integer, Point2D> holesCoor = new HashMap<>();
 
     /**
-     *  
-     */    
+     *
+     */
     public HolesCoor() {
         for (int i = 1; i <= 9; i++) {
             this.holesCoor.put(i, new Point2D(10 * i, 10 * i));
@@ -26,7 +26,7 @@ public class HolesCoor {
      * @param holeNumber n of the hole whose position you want
      * @return The coordinates of the center of the hole
      */
-    Point2D get(int holeNumber) {
+    Point2D get(final int holeNumber) {
         return this.holesCoor.get(holeNumber);
     }
 }

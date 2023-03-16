@@ -15,9 +15,11 @@ import game.engine.minigame.whacamoleminigame.Level;
  * since many functions would have had the same implementation.
  */
 public abstract class WamObject extends GameObject {
-    /* Difference of the Y coordinate between the starting point */
-    /* of the object and the most distant point from the hole    */
-    /* it reaches (i.e. the one where it will stop for a while)  */
+    /**
+     * Difference of the Y coordinate between the starting point 
+     * of the object and the most distant point from the hole
+     * it reaches (i.e. the one where it will stop for a while)
+     */
     public static final int DELTA_Y = 20; 
 
     private Status status;
@@ -30,17 +32,19 @@ public abstract class WamObject extends GameObject {
     /**
      * Basic initialization of the various fields.
      * 
-     * @param type           the role of this object in the game
      * @param appearanceTime the time it actually comes into play
      * @param currentLevel   lv from which to take the difficulty parameters
      * @param holeNumber     assigned hole number
+     * @param physicsModel 
+     * @param aspectModel
+     * @param inputModel
      */
-    public WamObject(long appearanceTime, 
-                    Level currentLevel,
-                    int holeNumber,
-                    PhysicsModel physicsModel,
-                    AspectModel aspectModel,
-                    InputModel inputModel) {
+    public WamObject(final long appearanceTime, 
+                    final Level currentLevel,
+                    final int holeNumber,
+                    final PhysicsModel physicsModel,
+                    final AspectModel aspectModel,
+                    final InputModel inputModel) {
         super(new HolesCoor().get(holeNumber), Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
         this.status = Status.WAITING;
         this.level = currentLevel;
@@ -84,7 +88,7 @@ public abstract class WamObject extends GameObject {
      * 
      * @param status the new status
      */
-    public void setStatus(Status status) {
+    public void setStatus(final Status status) {
         this.status = status;
     }
 

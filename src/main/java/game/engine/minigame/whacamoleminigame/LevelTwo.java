@@ -12,22 +12,34 @@ public class LevelTwo implements Level {
     private static final double VECTOR_ORDINATE = -50;
     private static final long MAX_WAIT_TO_SPAWN = 10000L;
     private static final long STATIONARY_TIME = 3000L;
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMaxObjsSimultaneouslyOut() {
         return LevelTwo.MAX_OBJS_OUT_AT_ONCE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vector2D getObjSpeed() {
         return new Vector2D(0, LevelTwo.VECTOR_ORDINATE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TimeInterval getSpawnWaitingTime() {
         return new TimeInterval(0, LevelTwo.MAX_WAIT_TO_SPAWN);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getHalfwayTime() {
         return LevelTwo.STATIONARY_TIME;

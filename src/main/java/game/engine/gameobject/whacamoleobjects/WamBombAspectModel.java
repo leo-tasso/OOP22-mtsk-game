@@ -16,7 +16,7 @@ public class WamBombAspectModel implements AspectModel {
      * appearance based on whether it has been hit or not.
      */
     @Override
-    public void update(GameObject object, Drawings drawing) {
+    public void update(final GameObject object, final Drawings drawing) {
         final Status status = ((WamObject) object).getStatus();
         if (!status.equals(Status.WAITING)) {
             if (status.equals(Status.HIT)) {

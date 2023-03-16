@@ -26,7 +26,7 @@ public class TimeInterval {
     public long drawInBetween() {
         return (long) Math.random() * (this.end - this.start) + this.start;
     }
-    
+
     /**
      * Getter for start of the range.
      * 
@@ -45,6 +45,9 @@ public class TimeInterval {
         return this.end;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -54,19 +57,24 @@ public class TimeInterval {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        } else if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        } else if (getClass() != obj.getClass()) {
             return false;
+        }
         TimeInterval other = (TimeInterval) obj;
-        if (start != other.start)
+        if (start != other.start) {
             return false;
-        if (end != other.end)
+        } else if (end != other.end) {
             return false;
+        }
         return true;
-    }    
+    }
 }

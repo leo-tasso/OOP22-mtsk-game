@@ -74,7 +74,7 @@ public class WhacAMole implements Minigame {
                 o.setStatus(Status.MISSED);
                 o.setVel(Vector2D.nullVector());
             });
-         
+
         this.objs.stream()
             .filter(o -> o.getStatus().equals(Status.WAITING))
             .filter(o -> o.getAppearanceTime() <= this.currentTime)
@@ -125,8 +125,6 @@ public class WhacAMole implements Minigame {
      * Method for calculating the difficulty level based on how 
      * many draws have been made. If there are no more levels 
      * available to advance, then the user will stay on the last one.
-     * 
-     * @param currentTimeMillis
      */
     private void calculateLevel() {
         final int levelIndex = (int) this.numDraws / (int) DRAWS_TO_NEXT_LEVEL;
@@ -148,6 +146,9 @@ public class WhacAMole implements Minigame {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTutorial() {
         return "Smash the moles before they can get back to their hole by "

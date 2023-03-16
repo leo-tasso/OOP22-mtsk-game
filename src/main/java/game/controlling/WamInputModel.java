@@ -17,7 +17,7 @@ public class WamInputModel implements InputModel {
      * will end at the beginning of the next iteration of mainLoop().
      */
     @Override
-    public void update(GameObject obj, Input c, long elapsedTime) {
+    public void update(final GameObject obj, final Input c, final long elapsedTime) {
         final WamObject wamObj = (WamObject) obj;
         if (wamObj.getHoleNumber() == c.getNumberPressed().orElse(0)
             && (wamObj.getStatus().equals(Status.IN_MOTION)

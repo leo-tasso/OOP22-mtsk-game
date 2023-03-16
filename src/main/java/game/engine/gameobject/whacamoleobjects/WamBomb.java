@@ -20,20 +20,26 @@ public class WamBomb extends WamObject {
      * @param aspectModel    the aspect model of the bomb 
      * @param inputModel     the input model of the WamObject
      */
-    public WamBomb(long appearanceTime, 
-                Level currentLevel, 
-                int holeNumber,
-                PhysicsModel physicsModel, 
-                AspectModel aspectModel, 
-                InputModel inputModel) {
+    public WamBomb(final long appearanceTime, 
+                final Level currentLevel, 
+                final int holeNumber,
+                final PhysicsModel physicsModel, 
+                final AspectModel aspectModel, 
+                final InputModel inputModel) {
         super(appearanceTime, currentLevel, holeNumber, physicsModel, aspectModel, inputModel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isGameOver() {
         return this.getStatus().equals(Status.HIT);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isStillInUse() {
         return !this.getStatus().equals(Status.MISSED);

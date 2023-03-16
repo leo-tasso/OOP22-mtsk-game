@@ -18,7 +18,7 @@ public class WamPhysicsModel extends SimplePhysics {
      * their maximum position (and if so, it stops them).
      */
     @Override
-    public void update(long dt, GameObject obj, Minigame miniGame) {
+    public void update(final long dt, final GameObject obj, final Minigame miniGame) {
         super.update(dt, obj, miniGame); 
         final WamObject wamObj = (WamObject) obj; //TODO  istanceof
         final long currentTime = ((WhacAMole) miniGame).getCurrentTime();

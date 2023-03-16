@@ -31,8 +31,11 @@ public class DrawStrategyImpl implements DrawStrategy {
         this.numHoles = numHoles;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Set<GameObject> draw(Level currentLevel, long currentTime) {
+    public Set<GameObject> draw(final Level currentLevel, final long currentTime) {
         final Set<GameObject> newGameObjs = new HashSet<>();
         final int maxObjs = currentLevel.getMaxObjsSimultaneouslyOut();
         final Map<Integer, Boolean> isHoleBusy = new HashMap<>();
@@ -77,7 +80,7 @@ public class DrawStrategyImpl implements DrawStrategy {
      * @param isHoleBusy
      * @return the integer representing the hole
      */
-    private Integer assignHole(Map<Integer, Boolean> isHoleBusy) {
+    private Integer assignHole(final Map<Integer, Boolean> isHoleBusy) {
         final Random rand = new Random();
         Boolean holeFound = false;
         Integer holeAssigned = rand.nextInt(isHoleBusy.size()) + 1;

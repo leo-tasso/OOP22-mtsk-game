@@ -248,7 +248,7 @@ public class SwingView implements View {
                 input.setMoveRight(true);
             } else if (e.getKeyCode() == A_BUTTON) {
                 input.setMoveLeft(true);
-            } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode()<= NINE_BUTTON) {
+            } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode() <= NINE_BUTTON) {
                 input.setNumberPressed(Optional.of(e.getKeyCode() - KEYCODE_NUM_DIFF));
             }
 
@@ -271,7 +271,7 @@ public class SwingView implements View {
                 input.setMoveLeft(false);
             } else if (e.getKeyCode() == F_BUTTON) {
                 toggleFullScreen();
-            } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode()<= NINE_BUTTON) {
+            } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode() <= NINE_BUTTON) {
                 input.setNumberPressed(Optional.empty());
             }
         }
