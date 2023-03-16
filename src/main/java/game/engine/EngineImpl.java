@@ -9,7 +9,6 @@ import game.engine.gameobject.GameObject;
 import game.engine.minigame.CatchTheSquare;
 import game.engine.minigame.Minigame;
 import game.engine.minigame.TestMinigame;
-import game.engine.minigame.whacamoleminigame.WhacAMole;
 
 /**
  * Main game engine responsible of controlling the game.
