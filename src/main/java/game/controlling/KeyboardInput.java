@@ -1,5 +1,7 @@
 package game.controlling;
 
+import java.util.Optional;
+
 /**
  * Class that encodes the input of the user, that indicates
  * the direction in which the GameObject should be moved,
@@ -10,6 +12,7 @@ public class KeyboardInput implements Input {
     private boolean moveDown;
     private boolean moveLeft;
     private boolean moveRight;
+    private Optional<Integer> numberPressed = Optional.empty();
 
     /**
      * Method to check if moveUp input is active.
@@ -92,6 +95,27 @@ public class KeyboardInput implements Input {
     }
 
     /**
+     * Method that returns an Optional containing, 
+     * possibly, the number pressed (in [1,9]).
+     * 
+     * @return an Optional of Integer
+     */
+    @Override
+    public Optional<Integer> getNumberPressed() {
+        return this.numberPressed;
+    }
+
+    /**
+     * Sets the number pressed on the keyboard by the player.
+     * 
+     * @param numberPressed if present, an int in [1,9]
+     */
+    @Override
+    public void setNumberPressed(final Optional<Integer> numberPressed) {
+        this.numberPressed = numberPressed;
+    }
+
+    /**
      * Method to reset all inputs to false.
      */
     @Override
@@ -100,7 +124,7 @@ public class KeyboardInput implements Input {
         setMoveLeft(false);
         setMoveRight(false);
         setMoveUp(false);
-
+        this.numberPressed = Optional.empty();
     }
 /**
  * {@inheritDoc}

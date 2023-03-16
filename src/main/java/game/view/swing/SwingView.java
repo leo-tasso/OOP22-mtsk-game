@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -153,6 +154,9 @@ public class SwingView implements View {
         private static final int ASPECT_WIDTH = 16;
         private static final int ASPECT_HEIGHT = 9;
         private static final double ASPECT_RATIO = ASPECT_WIDTH / (double) ASPECT_HEIGHT;
+        private static final int ONE_BUTTON = 49;
+        private static final int NINE_BUTTON = 57;
+        private static final int KEYCODE_NUM_DIFF = 48;
         private static final int A_BUTTON = 65;
         private static final int D_BUTTON = 68;
         private static final int S_BUTTON = 83;
@@ -244,6 +248,8 @@ public class SwingView implements View {
                 input.setMoveRight(true);
             } else if (e.getKeyCode() == A_BUTTON) {
                 input.setMoveLeft(true);
+            } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode() <= NINE_BUTTON) {
+                input.setNumberPressed(Optional.of(e.getKeyCode() - KEYCODE_NUM_DIFF));
             }
 
         }
@@ -265,6 +271,8 @@ public class SwingView implements View {
                 input.setMoveLeft(false);
             } else if (e.getKeyCode() == F_BUTTON) {
                 toggleFullScreen();
+            } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode() <= NINE_BUTTON) {
+                input.setNumberPressed(Optional.empty());
             }
         }
     }

@@ -49,9 +49,17 @@ public interface Drawings {
      * The instructions on how to draw a mole.
      * 
      * @param object the gameObject of the mole to draw.
-     * @param color  the color of the mole to draw.
+     * @param beenHit indicates which of the two aspects to represent.
      */
-    void drawMole(GameObject object, ColorRGB color);
+    void drawMole(GameObject object, Boolean beenHit);
+
+    /**
+     * The instructions on how to draw a bomb.
+     * 
+     * @param object the gameObject of the bomb to draw.
+     * @param beenHit indicates which of the two aspects to represent.
+     */
+    void drawBomb(GameObject object, Boolean beenHit);
 
     /**
      * Method to draw a label.
