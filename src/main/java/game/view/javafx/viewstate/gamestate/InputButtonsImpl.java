@@ -1,5 +1,7 @@
 package game.view.javafx.viewstate.gamestate;
 
+import java.util.Optional;
+
 import game.controlling.Input;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -28,7 +30,7 @@ public class InputButtonsImpl implements InputButtons {
             } else if (e.getCode().equals(KeyCode.D)) {
                 input.setMoveRight(true);
             } else if (e.getCode().getCode() >= ONE_BUTTON && e.getCode().getCode() <= NINE_BUTTON) {
-                input.setNumberPressed(e.getCode().getCode() - KEYCODE_NUM_DIFF);
+                input.setNumberPressed(Optional.of(e.getCode().getCode() - KEYCODE_NUM_DIFF));
             }
 
         });
@@ -41,6 +43,8 @@ public class InputButtonsImpl implements InputButtons {
                 input.setMoveDown(false);
             } else if (e.getCode().equals(KeyCode.D)) {
                 input.setMoveRight(false);
+            } else if (e.getCode().getCode() >= ONE_BUTTON && e.getCode().getCode() <= NINE_BUTTON) {
+                input.setNumberPressed(Optional.empty());
             }
         });
     }

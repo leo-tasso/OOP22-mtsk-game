@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -248,7 +249,7 @@ public class SwingView implements View {
             } else if (e.getKeyCode() == A_BUTTON) {
                 input.setMoveLeft(true);
             } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode()<= NINE_BUTTON) {
-                input.setNumberPressed(e.getKeyCode() - KEYCODE_NUM_DIFF);
+                input.setNumberPressed(Optional.of(e.getKeyCode() - KEYCODE_NUM_DIFF));
             }
 
         }
@@ -270,6 +271,8 @@ public class SwingView implements View {
                 input.setMoveLeft(false);
             } else if (e.getKeyCode() == F_BUTTON) {
                 toggleFullScreen();
+            } else if (e.getKeyCode() >= ONE_BUTTON && e.getKeyCode()<= NINE_BUTTON) {
+                input.setNumberPressed(Optional.empty());
             }
         }
     }
