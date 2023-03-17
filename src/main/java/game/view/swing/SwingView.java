@@ -115,7 +115,7 @@ public class SwingView implements View {
         final JLabel pointsLabel = new JLabel("You scored:" + Long.toString(points));
         final JButton again = new JButton("Play Again");
         again.addActionListener(a -> {
-            new Thread(() -> new ControllerImpl(this).startGame()).start();
+            new Thread(() -> new SwingView()).start();
             frame.dispose();
         });
         final JButton exit = new JButton("Exit");
