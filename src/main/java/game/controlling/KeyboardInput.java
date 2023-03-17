@@ -149,6 +149,16 @@ public class KeyboardInput implements Input {
     }
 
     /**
+     * Method to set forward.
+     * 
+     * @param forward new value for forward
+     */
+    @Override
+    public void setForward(final boolean forward) {
+        this.forward = forward;
+    }
+
+    /**
      * Method to reset all inputs to false.
      */
     @Override
