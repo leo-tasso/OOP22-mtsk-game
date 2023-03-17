@@ -1,5 +1,6 @@
 package game.engine.gameobject.whacamoleobjects;
 
+import api.Point2D;
 import game.controlling.InputModel;
 import game.engine.gameobject.AspectModel;
 import game.engine.gameobject.PhysicsModel;
@@ -13,6 +14,7 @@ public class Mole extends WamObject {
     /**
      * Simple constructor aimed at initializing Mole fields.
      * 
+     * @param startCoor      the initial coordinates
      * @param appearanceTime the time at which it is scheduled to appear
      * @param currentLevel   the level to which the object belongs
      * @param holeNumber     the identifier of the hole assigned to the mole
@@ -20,13 +22,14 @@ public class Mole extends WamObject {
      * @param aspectModel    the aspect model of the mole 
      * @param inputModel     the input model of the WamObject
      */
-    public Mole(final long appearanceTime, 
+    public Mole(final Point2D startCoor,
+                final long appearanceTime, 
                 final Level currentLevel, 
                 final int holeNumber,
                 final PhysicsModel physicsModel, 
                 final AspectModel aspectModel, 
                 final InputModel inputModel) {
-        super(appearanceTime, currentLevel, holeNumber, physicsModel, aspectModel, inputModel);
+        super(startCoor, appearanceTime, currentLevel, holeNumber, physicsModel, aspectModel, inputModel);
     }
 
     /**
