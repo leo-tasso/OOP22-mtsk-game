@@ -169,6 +169,16 @@ public class KeyboardInput implements Input {
     }
 
     /**
+     * Method to set backwards.
+     * 
+     * @param backwards new value for backwards
+     */
+    @Override
+    public void setBackwards(final boolean backwards) {
+        this.backwards = backwards;
+    }
+
+    /**
      * Method to reset all inputs to false.
      */
     @Override
