@@ -5,6 +5,8 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.ArrayList;
 
+import game.controlling.FlappyInput;
+import game.controlling.InputModel;
 import game.controlling.NullInput;
 import game.engine.difficultystrats.StepRateStrat;
 import game.engine.gameobject.GameObject;
@@ -42,13 +44,27 @@ public class FlappyBirdAlike implements Minigame {
 
     /**
     * Contructs an instance of the flappy bird minigame.
-    *
+    * 
+    * @param inputModel the custom inputModel used to control the cursor movement
+    */
+    public FlappyBirdAlike(final InputModel inputModel) {
+        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT - CURSOR_SIZE / 2),
+                Vector2D.nullVector(),
+                CURSOR_SIZE,
+                -ENEMY_SPEED,
+                inputModel));
+    }
+
+    /**
+    * Contructs an instance of the flappy bird minigame
+    * with default input controls.
     */
     public FlappyBirdAlike() {
         this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT - CURSOR_SIZE / 2),
                 Vector2D.nullVector(),
                 CURSOR_SIZE,
-                -ENEMY_SPEED));
+                -ENEMY_SPEED,
+                new FlappyInput()));
     }
 
     /**
