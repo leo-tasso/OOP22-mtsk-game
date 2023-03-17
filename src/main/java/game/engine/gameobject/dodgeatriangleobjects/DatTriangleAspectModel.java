@@ -31,6 +31,6 @@ public class DatTriangleAspectModel implements AspectModel {
      */
     @Override
     public void update(final GameObject object, final Drawings drawing) {
-        drawing.drawTriangle(object, ColorRGB.green(), side, rightSpawn ? Math.PI : 0);
+        drawing.drawTriangle(object, ColorRGB.orange(), side, rightSpawn ? Math.PI : 0);
     }
 }

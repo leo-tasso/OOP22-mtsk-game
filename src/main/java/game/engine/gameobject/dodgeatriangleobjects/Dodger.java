@@ -6,6 +6,7 @@ import api.Vector2D;
 import game.controlling.InputModel;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
+import game.engine.gameobject.SimplePhysics;
 import game.engine.gameobject.hitboxmodel.SquareHitBoxModel;
 
 /**
@@ -23,10 +24,10 @@ public class Dodger extends GameObject {
      * @param inputModel  the dodger's input model
      */
     public Dodger(final int initialY, final int size, final InputModel inputModel) {
-        super(new Point2D(initialY * 8 / 9, initialY / 2), Vector2D.nullVector());
+        super(new Point2D(initialY * 16 / 9, initialY), Vector2D.nullVector());
         this.setInputModel(inputModel);
-        this.setPhysicsModel(null);
-        this.setAspectModel(new RectangleAspect(size, size, ColorRGB.aqua()));
+        this.setPhysicsModel(new SimplePhysics());
+        this.setAspectModel(new RectangleAspect(size, size, ColorRGB.black()));
         this.setHitBoxModel(new SquareHitBoxModel(size));
     }
 }
