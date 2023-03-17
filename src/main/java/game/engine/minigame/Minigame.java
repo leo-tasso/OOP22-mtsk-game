@@ -6,6 +6,8 @@ import game.engine.gameobject.GameObject;
 
 /**
  * General interface of a minigame.
+ * 
+ * !!EACH MINIGAME SHALL HAVE A CONSTRUCTOR WITH ONE INT ARGUMENT (the hight that will be displayed)!!
  */
 public interface Minigame {
 
