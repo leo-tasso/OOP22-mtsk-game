@@ -10,9 +10,7 @@ import game.engine.gameobject.GameObject;
 public class DodgeATriangle implements Minigame {
 
     /**
-     * TODO.
-     * 
-     * @return TODO
+     * {@inheritDoc}
      */
     @Override
     public boolean isGameOver() {
@@ -21,9 +19,7 @@ public class DodgeATriangle implements Minigame {
     }
 
     /**
-     * TODO.
-     * 
-     * @param elapsed TODO
+     * {@inheritDoc}
      */
     @Override
     public void compute(final long elapsed) {
@@ -32,9 +28,7 @@ public class DodgeATriangle implements Minigame {
     }
 
     /**
-     * TODO.
-     * 
-     * @return TODO
+     * {@inheritDoc}
      */
     @Override
     public List<GameObject> getObjects() {
@@ -43,11 +37,10 @@ public class DodgeATriangle implements Minigame {
     }
 
     /**
-     * Method to get the tutorial string.
+     * {@inheritDoc}
      */
     @Override
     public String getTutorial() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTutorial'");
+        return "Use the arrows to move forward and backwards.\nAvoid the triangles.";
     }
 }
