@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import game.controlling.Input;
+import game.controlling.KeyboardInput;
 import game.engine.minigame.FlappyBirdAlike;
 import game.engine.minigame.Minigame;
 
@@ -15,10 +17,23 @@ import game.engine.minigame.Minigame;
  */
 class FlappyBirdAlikeTest {
 
+    private static final int LIMIT_BOTTOM = 800;
+    private static final int LIMIT_HIGH = 100;
+    private static final int NUM_JUMPS = 30;
+    private static final long ELAPSED_TIME = 10L;
+
     @Test
     void boundaryCheck() {
         final Minigame m = new FlappyBirdAlike();
-        assertEquals(m.getObjects().get(0).getCoor().getY(), 0);
+        assertEquals(m.getObjects().get(0).getCoor().getY(), LIMIT_BOTTOM);
+        final Input input = new KeyboardInput();
+        for (int i = 0; i < NUM_JUMPS; i++) {
+            input.setJump(true);
+            m.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
+            m.compute(ELAPSED_TIME);
+            input.setJump(false);
+            assertTrue(m.getObjects().get(0).getCoor().getY() >= LIMIT_HIGH);
+        }
     }
 
     @Test
