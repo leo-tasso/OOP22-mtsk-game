@@ -14,6 +14,8 @@ public class KeyboardInput implements Input {
     private boolean moveRight;
     private Optional<Integer> numberPressed = Optional.empty();
     private boolean jump;
+    private boolean forward;
+    private boolean backwards;
 
     /**
      * Method to check if moveUp input is active.
@@ -125,7 +127,7 @@ public class KeyboardInput implements Input {
     public boolean isJump() {
         return jump;
     }
-
+    
     /**
      * Method to set jump.
      * 
@@ -134,6 +136,16 @@ public class KeyboardInput implements Input {
     @Override
     public void setJump(final boolean jump) {
         this.jump = jump;
+    }
+
+    /**
+     * Method to check if forward input is active.
+     * 
+     * @return if the forward command is active
+     */
+    @Override
+    public boolean isForward() {
+        return this.forward;
     }
 
     /**
@@ -147,6 +159,8 @@ public class KeyboardInput implements Input {
         setMoveUp(false);
         this.numberPressed = Optional.empty();
         setJump(false);
+        setForward(false);
+        setBackwards(false);
     }
 
     /**
