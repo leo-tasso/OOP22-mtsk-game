@@ -2,6 +2,7 @@ package game.engine.minigame.whacamoleminigame;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -20,16 +21,17 @@ import game.engine.gameobject.whacamoleobjects.WamPhysicsModel;
 public class DrawStrategyImpl implements DrawStrategy {
     private static final long SAFETY_TIME_MARGIN = 10L;
     private static final Random RANDOM = new Random();
-    private final int numHoles;
+    private final List<GameObject> holes;
 
     /**
-     * Constructor that takes the number of holes in the game, 
-     * so as to correctly assign them to the extracted objects.
+     * Constructor that takes the list of holes 
+     * in the game, from which to take the initial 
+     * coordinates of the created objects.
      * 
-     * @param numHoles the number of holes in the playing field
+     * @param holes the list of holes 
      */
-    public DrawStrategyImpl(final int numHoles) {
-        this.numHoles = numHoles;
+    public DrawStrategyImpl(final List<GameObject> holes) {
+        this.holes = holes;
     }
 
     /**
@@ -40,7 +42,7 @@ public class DrawStrategyImpl implements DrawStrategy {
         final Set<GameObject> newGameObjs = new HashSet<>();
         final int maxObjs = currentLevel.getMaxObjsSimultaneouslyOut();
         final Map<Integer, Boolean> holesOccupied = new HashMap<>();
-        for (int i = 1; i <= numHoles; i++) {
+        for (int i = 1; i <= holes.size(); i++) {
             holesOccupied.put(i, false);
         }
         final int nMoles = RANDOM.nextInt(maxObjs + 1);
@@ -49,22 +51,26 @@ public class DrawStrategyImpl implements DrawStrategy {
         /* the program is still executing the underlying loops */
         final long lowerBound = currentTime + SAFETY_TIME_MARGIN;
         for (int i = 0; i < nMoles; i++) {
+            final int holeAssigned = assignHole(holesOccupied);
             final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
             newGameObjs.add(
-                new Mole(appearanceTime, 
+                new Mole(holes.get(holeAssigned - 1).getCoor(),
+                        appearanceTime, 
                         currentLevel, 
-                        assignHole(holesOccupied), 
+                        holeAssigned, 
                         new WamPhysicsModel(), 
                         new MoleAspectModel(), 
                         new WamInputModel())
             );
         }
         for (int i = 0; i < nBombs; i++) {
+            final int holeAssigned = assignHole(holesOccupied);
             final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
             newGameObjs.add(
-                new WamBomb(appearanceTime, 
+                new WamBomb(holes.get(holeAssigned - 1).getCoor(),
+                        appearanceTime, 
                         currentLevel, 
-                        assignHole(holesOccupied),
+                        holeAssigned,
                         new WamPhysicsModel(), 
                         new WamBombAspectModel(), 
                         new WamInputModel())
