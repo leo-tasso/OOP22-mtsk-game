@@ -21,12 +21,22 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
  * Class to represent the state of the gameplay.
+ * 
+ * Each minigame has a canvas, each canvas is contained into a stackpane
+ * container to keep it aligned to the center (both vertically and
+ * horizontally),
+ * and each container is organized into a gridpane, its sizes are proportional
+ * to the active minigames number.
  */
 public class GameStateImpl implements GameState {
     private static final int ASPECT_WIDTH = 16;
@@ -59,16 +69,16 @@ public class GameStateImpl implements GameState {
         gp.setBackground(background);
         minigameCanvases.clear();
         minigameCanvases.add(canvas);
-        gp.add(canvas, 0, 0);
+        final StackPane container = new StackPane(canvas);
+        gp.add(container, 0, 0);
+        setGridNumbers(gp, 1, 1);
         scene.widthProperty().addListener((observable, oldValue, newValue) -> {
-            final double width = newValue.doubleValue();
-            minigameCanvases.forEach(c -> c.setWidth(width / gp.getColumnCount()));
+            minigameCanvases.forEach(c -> c.setWidth(boxWidth(scene)));
         });
 
         scene.heightProperty().addListener((observable, oldValue,
                 newValue) -> {
-            final double height = newValue.doubleValue();
-            minigameCanvases.forEach(c -> c.setHeight(height / gp.getRowCount()));
+            minigameCanvases.forEach(c -> c.setHeight(boxHeight(scene)));
         });
         new InputButtonsImpl().attach(scene, input);
     }
@@ -92,8 +102,10 @@ public class GameStateImpl implements GameState {
                 final Canvas c = new Canvas();
                 input.reset();
                 minigameCanvases.add(c);
-                gp.add(c,
+                final StackPane container = new StackPane(c);
+                gp.add(container,
                         (minigameCanvases.size() - 1) % 2, (minigameCanvases.size() - 1) / 2);
+                setGridNumbers(gp, gp.getRowCount(), gp.getColumnCount());
             }
             if (objectsList.size() < minigameCanvases.size()) {
                 minigameCanvases.remove(minigameCanvases.size() - 1);
@@ -101,8 +113,8 @@ public class GameStateImpl implements GameState {
             if (!minigameCanvases.isEmpty()) {
                 minigameCanvases.forEach(c -> {
                     final GraphicsContext gc = c.getGraphicsContext2D();
-                    c.setHeight(scene.getHeight() / gp.getRowCount());
-                    c.setWidth(scene.getWidth() / gp.getColumnCount());
+                    c.setHeight(boxHeight(scene));
+                    c.setWidth(boxWidth(scene));
 
                     gc.clearRect(0, 0, c.getWidth(), c.getHeight());
                     gc.setStroke(Color.BLACK);
@@ -111,25 +123,43 @@ public class GameStateImpl implements GameState {
                              * coordinates of the upper left corner of rectangle: the
                              * last addendum is necessary to enter the right play field
                              */
-                            getStartingPoint().getX(), // TODO is it better to draw also outside the area?
-                            getStartingPoint().getY(),
-                            boxWidth(),
-                            boxHeight());
+                            getStartingPoint(scene).getX(), // TODO is it better to draw also outside the area?
+                            getStartingPoint(scene).getY(),
+                            boxWidth(scene),
+                            boxHeight(scene));
                     gc.setFill(BACKGROUND_COLORS.size() > minigameCanvases.indexOf(c)
                             ? BACKGROUND_COLORS.get(minigameCanvases.indexOf(c))
                             : BACKGROUND_COLORS.get(BACKGROUND_COLORS.size() - 1));
                     gc.fillRect(
-                            getStartingPoint().getX(),
-                            getStartingPoint().getY(),
-                            boxWidth(),
-                            boxHeight());
-                    final Drawings d = new JavaFxDrawings(c, this.getStartingPoint(), this.boxHeight(),
+                            getStartingPoint(scene).getX(),
+                            getStartingPoint(scene).getY(),
+                            boxWidth(scene),
+                            boxHeight(scene));
+                    final Drawings d = new JavaFxDrawings(c, this.getStartingPoint(scene), this.boxHeight(scene),
                             heightCoefficent);
                     objectsList.get(minigameCanvases.indexOf(c)).forEach(o -> o.updateAspect(d));
                 });
             }
         });
 
+    }
+
+    private void setGridNumbers(final GridPane gp, final int rows, final int cols) {
+        gp.getColumnConstraints().clear();
+        gp.getRowConstraints().clear();
+        final ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setHgrow(Priority.ALWAYS);
+        columnConstraints.setPercentWidth(100.0 / cols);
+        for (int i = 0; i < cols; i++) {
+            gp.getColumnConstraints().add(columnConstraints);
+        }
+
+        final RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Priority.ALWAYS);
+        rowConstraints.setPercentHeight(100.0 / rows);
+        for (int i = 0; i < rows; i++) {
+            gp.getRowConstraints().add(rowConstraints);
+        }
     }
 
     /**
@@ -144,10 +174,11 @@ public class GameStateImpl implements GameState {
      * Method to get the starting coordinates of the top left corner of the
      * rectangle of the game area.
      * 
+     * @param scene the scene from which extract the size parameter.
      * @return the starting point of the game area.
      */
-    private Point2D getStartingPoint() {
-        if (isLarger()) {
+    private Point2D getStartingPoint(final Scene scene) {
+        if (isLarger(scene)) {
             return new Point2D(
                     (minigameCanvases.get(0).getWidth() - minigameCanvases.get(0).getHeight() * ASPECT_RATIO) / 2, 0);
         }
@@ -157,35 +188,39 @@ public class GameStateImpl implements GameState {
 
     /**
      * Method to get the width of the canvas.
-     *
+     * 
+     * @param scene the scene from which extract the size parameter.
      * @return the width of the canvas
      */
-    private double boxWidth() {
-        if (isLarger()) {
-            return minigameCanvases.get(0).getHeight() * ASPECT_RATIO;
+    private double boxWidth(final Scene scene) {
+        if (isLarger(scene)) {
+            return scene.getHeight() / gp.getRowCount() * ASPECT_RATIO;
         }
-        return minigameCanvases.get(0).getWidth();
+        return scene.getWidth() / gp.getColumnCount();
     }
 
     /**
      * Method to get the height of the canvas.
-     *
+     * 
+     * @param scene the scene from which extract the size parameter.
      * @return the height of the canvas
      */
-    private double boxHeight() {
-        if (isLarger()) {
-            return minigameCanvases.get(0).getHeight();
+    private double boxHeight(final Scene scene) {
+        if (isLarger(scene)) {
+            return scene.getHeight() / gp.getRowCount();
         }
-        return minigameCanvases.get(0).getWidth() / ASPECT_RATIO;
+        return scene.getWidth() / gp.getColumnCount() / ASPECT_RATIO;
     }
 
     /**
      * Method to determine if the frame is larger than taller.
      *
+     * @param scene the scene from which extract the size parameter.
      * @return whether the frame is larger
      */
-    private boolean isLarger() {
-        return minigameCanvases.get(0).getHeight() / ASPECT_HEIGHT < minigameCanvases.get(0).getWidth() / ASPECT_WIDTH;
+    private boolean isLarger(final Scene scene) {
+        return scene.getHeight() / gp.getRowCount() / ASPECT_HEIGHT < scene.getWidth() / gp.getColumnCount()
+                / ASPECT_WIDTH;
     }
 
 }

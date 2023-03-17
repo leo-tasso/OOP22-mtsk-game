@@ -31,6 +31,8 @@ public class InputButtonsImpl implements InputButtons {
                 input.setMoveRight(true);
             } else if (e.getCode().getCode() >= ONE_BUTTON && e.getCode().getCode() <= NINE_BUTTON) {
                 input.setNumberPressed(Optional.of(e.getCode().getCode() - KEYCODE_NUM_DIFF));
+            } else if (e.getCode().equals(KeyCode.SPACE)) {
+                input.setJump(true);
             }
 
         });
@@ -45,6 +47,8 @@ public class InputButtonsImpl implements InputButtons {
                 input.setMoveRight(false);
             } else if (e.getCode().getCode() >= ONE_BUTTON && e.getCode().getCode() <= NINE_BUTTON) {
                 input.setNumberPressed(Optional.empty());
+            } else if (e.getCode().equals(KeyCode.SPACE)) {
+                input.setJump(false);
             }
         });
     }

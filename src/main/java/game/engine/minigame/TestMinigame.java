@@ -22,7 +22,7 @@ public class TestMinigame implements Minigame {
     private static final int RECTANGLE_WIDTH = 100;
     private static final int RECTANGLE_HEIGHT = 200;
     private static final int RECTANGLE_STARTING_COORDINATE = 300;
-    private static final int FLOOR_GAME_OVER = 2000;
+    // private static final int FLOOR_GAME_OVER = 2000;
     private static final double CIRCLE_RADIUS = 100;
     private final List<GameObject> l;
 
@@ -46,7 +46,8 @@ public class TestMinigame implements Minigame {
      */
     @Override
     public boolean isGameOver() {
-        return l.get(0).getCoor().getY() > FLOOR_GAME_OVER;
+        return false;
+        // return l.get(0).getCoor().getY() > FLOOR_GAME_OVER;
     }
 
     /**

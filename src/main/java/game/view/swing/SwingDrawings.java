@@ -74,7 +74,25 @@ public class SwingDrawings implements Drawings {
      * @param object the object to draw
      */
     @Override
-    public void drawTriangle(final GameObject object, final ColorRGB color, final double side) {
+    public void drawTriangle(final GameObject object, final ColorRGB color, final double side, final double rotAngle) {
+        /*final double radius = side / Math.sqrt(3);
+        final double rotAngle1 = rotAngle + Math.PI * 2 / 3;
+        final double rotAngle2 = rotAngle + Math.PI * 4 / 3;
+
+        final List<Double> xs = new ArrayList<>();
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle1));
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle2));
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle));
+
+        final List<Double> ys = new ArrayList<>();
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle1));
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle2));
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle));
+
+        g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
+        g2.setStroke(new BasicStroke(2f));
+        g2.drawPolygon(xs.stream().mapToInt(x -> (int) Math.round(x * dimention / COEFFICIENT + startingPoint.getX())).toArray(),
+                ys.stream().mapToInt(y -> (int) Math.round(y * dimention / COEFFICIENT + startingPoint.getY())).toArray(), 3);*/
     }
 
     /**

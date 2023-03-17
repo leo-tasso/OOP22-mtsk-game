@@ -31,7 +31,7 @@ import game.view.View;
 /**
  * A class for the view using the swing library.
  */
-// @Deprecated
+@Deprecated
 public class SwingView implements View {
     private static final int SIZE = 1000;
     private static final List<ColorRGB> BACKGROUND_COLORS = List.of(ColorRGB.orange(), ColorRGB.aqua(), ColorRGB.blue(),
