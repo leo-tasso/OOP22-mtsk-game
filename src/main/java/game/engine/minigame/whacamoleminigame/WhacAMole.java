@@ -6,7 +6,6 @@ import java.util.List;
 import api.Point2D;
 import api.Vector2D;
 import game.engine.minigame.Minigame;
-import javafx.scene.effect.Light.Point;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.whacamoleobjects.Status;
 import game.engine.gameobject.whacamoleobjects.WamObject;
@@ -26,15 +25,17 @@ public class WhacAMole implements Minigame {
     private int numDraws;
 
     /**
-     * General initialization of the fields, the start time is 
-     * requested in order to calculate when to advance in level.
+     * General initialization of the fields. The start time 
+     * is requested in order to calculate when to advance 
+     * in level, the WamObject list is initialized with the 
+     * objects representing the holes in the playing field.
      */
     public WhacAMole() {
         this.currentTime = 0L;
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
         this.objs = new ArrayList<>(new HolesGenerator().generate(NUM_HOLES));
+        this.draw = new DrawStrategyImpl(new ArrayList<>(this.objs));
         this.currentLevel = this.levels.get(0);
-        this.draw = new DrawStrategyImpl(this.objs);
         this.numDraws = 0;
     }
 
