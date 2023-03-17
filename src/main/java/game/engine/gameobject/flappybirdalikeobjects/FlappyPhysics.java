@@ -40,7 +40,7 @@ public class FlappyPhysics extends SimplePhysics {
         obj.setVel(new Vector2D(0, obj.getVel().getY() + ACCEL * dt));
         if (obj.getCoor().getY() < Y_MIN + cursorOffset) {
             obj.setCoor(new Point2D(obj.getCoor().getX(), Y_MIN + cursorOffset));
-            obj.setVel(new Vector2D(0, 1));
+            obj.setVel(Vector2D.nullVector());
         }
         if (obj.getCoor().getY() > Y_MAX - cursorOffset) {
             obj.setCoor(new Point2D(obj.getCoor().getX(), Y_MAX - cursorOffset));
