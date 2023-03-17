@@ -2,9 +2,13 @@ package game.engine.minigame;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.Random;
+import api.Point2D;
+import api.Vector2D;
 import game.controlling.DodgerInputModel;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.dodgeatriangleobjects.DatTriangle;
 import game.engine.gameobject.dodgeatriangleobjects.Dodger;
 import game.engine.gameobject.hitboxmodel.Collider;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;
@@ -18,9 +22,14 @@ public class DodgeATriangle implements Minigame {
 
     private static final int INITIAL_Y = 450;
     private static final int SIDE_LENGTH = 140;
+    private static final int SPAWN_LEFT = - SIDE_LENGTH;
+    private static final int SPAWN_RIGHT = 1600 + SIDE_LENGTH;
+    private static final Vector2D ENEMY_SPEED = new Vector2D(40, 0);
+    private static final int NUM_SLOTS = 5;
 
     private final List<GameObject> l = new ArrayList<>();
     private final Collider c = new ColliderImpl();
+    private final Random rand = new Random();
     private long totalElapsed;
 
     /**
@@ -49,6 +58,20 @@ public class DodgeATriangle implements Minigame {
     @Override
     public void compute(final long elapsed) {
         this.totalElapsed += elapsed;
+        if (l.size() == 1) {
+            int enemyY = Optional.of(rand.nextInt(NUM_SLOTS))
+                    .map(y -> INITIAL_Y + (y - 3) * SIDE_LENGTH)
+                    .get();
+            int enemyX = Optional.of(rand.nextInt(2))
+                    .map(x -> x == 0 ? SPAWN_LEFT : SPAWN_RIGHT)
+                    .get();
+            l.add(new DatTriangle(new Point2D(enemyX, enemyY),
+                    enemyX < 0 ? ENEMY_SPEED : ENEMY_SPEED.invert(),
+                    SIDE_LENGTH));
+        }
+        l.removeIf(o -> o.getCoor().getX() < SPAWN_LEFT
+                || o.getCoor().getX() > SPAWN_RIGHT);
+        l.forEach(e -> e.updatePhysics(elapsed, this));
     }
 
     /**
