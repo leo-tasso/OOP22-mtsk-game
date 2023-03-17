@@ -42,7 +42,7 @@ public class DodgeATriangle implements Minigame {
      */
     @Override
     public List<GameObject> getObjects() {
-        return this.l;
+        return new ArrayList<>(this.l);
     }
 
     /**
