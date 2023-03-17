@@ -107,6 +107,20 @@ public interface Input extends Cloneable {
     void setJump(boolean jump);
 
     /**
+     * Method to set forward input.
+     * 
+     * @param forward new value for forward
+     */
+    void setForward(boolean jump);
+
+    /**
+     * Method to set backwards input.
+     * 
+     * @param backwards new value for backwards
+     */
+    void setBackwards(boolean jump);
+
+    /**
      * Method to reset all inputs to false.
      */
     void reset();
