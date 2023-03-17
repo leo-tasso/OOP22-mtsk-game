@@ -1,12 +1,12 @@
 package game.engine.minigame.whacamoleminigame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
 import game.controlling.WamInputModel;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.whacamoleobjects.WamBomb;
@@ -31,7 +31,8 @@ public class DrawStrategyImpl implements DrawStrategy {
      * @param holes the list of holes 
      */
     public DrawStrategyImpl(final List<GameObject> holes) {
-        this.holes = holes;
+        this.holes = new ArrayList<>();
+        holes.forEach(h -> this.holes.add(h));
     }
 
     /**

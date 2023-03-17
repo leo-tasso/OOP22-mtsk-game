@@ -14,7 +14,7 @@ public class Hole extends WamObject {
     /**
      * Simple constructor aimed at initializing Hole fields.
      * 
-     * @param startCoor      the coordinates it will keep for the whole game
+     * @param coor           the coordinates it will keep for the whole game
      * @param appearanceTime the start time of the game
      * @param currentLevel   unused value
      * @param holeNumber     the number that identifies it

@@ -15,10 +15,10 @@ public class HolesGenerator {
      * "table" where the number of rows of columns is the same.
      * 
      * @param numHoles the number of dens to creates
-     * @return
+     * @return a list containing the holes created
      */
-    public List<WamObject> generate(int numHoles) {
-        return null;
+    public List<WamObject> generate(final int numHoles) {
+        return List.of();
         // ADD PLAYING FIELD DIM TO CONSTRUCTOR
         // NULL_INPUT_CLASS TO HOLES
     }

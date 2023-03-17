@@ -32,12 +32,13 @@ public abstract class WamObject extends GameObject {
     /**
      * Basic initialization of the various fields.
      * 
+     * @param startCoor      the initial coordinates of the object
      * @param appearanceTime the time it actually comes into play
      * @param currentLevel   lv from which to take the difficulty parameters
      * @param holeNumber     assigned hole number
-     * @param physicsModel 
-     * @param aspectModel
-     * @param inputModel
+     * @param physicsModel   the physicsModel of the object
+     * @param aspectModel    the aspectModel of the object
+     * @param inputModel     the inputModel of the object
      */
     public WamObject(final Point2D startCoor,
                     final long appearanceTime, 

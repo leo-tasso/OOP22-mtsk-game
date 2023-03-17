@@ -3,7 +3,6 @@ package game.engine.minigame.whacamoleminigame;
 import java.util.ArrayList;
 import java.util.List;
 
-import api.Point2D;
 import api.Vector2D;
 import game.engine.minigame.Minigame;
 import game.engine.gameobject.GameObject;
@@ -66,11 +65,11 @@ public class WhacAMole implements Minigame {
         this.deleteOldObjs();
         this.calculateLevel();
         this.drawIfNecessary();
-        
+
         this.objs.stream()
             .filter(o -> o.getStatus().equals(Status.IN_MOTION))
             .forEach(o -> o.updatePhysics(elapsed, this));
-            
+
         this.objs.stream()
             .filter(o -> o.getStatus().equals(Status.WAITING))
             .filter(o -> o.getAppearanceTime() <= this.currentTime)
