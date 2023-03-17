@@ -1,5 +1,8 @@
 package game.view.javafx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import api.ColorRGB;
 import api.Point2D;
 import game.engine.gameobject.GameObject;
@@ -90,19 +93,24 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawTriangle(final GameObject object, final ColorRGB color, final double radius) {
-        gc.setFill(jfxColor(color));
-        gc.fillPolygon(new double[] {
-                (object.getCoor().getX() - radius / 2) * dimention / coefficient + startingPoint.getX(),
-                (object.getCoor().getX() - radius / 2) * dimention / coefficient + startingPoint.getX(),
-                (object.getCoor().getX() + radius) * dimention / coefficient + startingPoint.getX() },
-                new double[] {
-                        (object.getCoor().getY() - radius * Math.sqrt(3) / 2) * dimention / coefficient
-                                + startingPoint.getY(),
-                        (object.getCoor().getY() + radius * Math.sqrt(3) / 2) * dimention / coefficient
-                                + startingPoint.getY(),
-                        object.getCoor().getY() * dimention / coefficient + startingPoint.getY(),
-                }, 3);
+    public void drawTriangle(final GameObject object, final ColorRGB color, final double side, final double rotAngle) {
+        final double radius = side / Math.sqrt(3);
+        final double rotAngle1 = rotAngle + Math.PI * 2 / 3;
+        final double rotAngle2 = rotAngle + Math.PI * 4 / 3;
+
+        final List<Double> xs = new ArrayList<>();
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle1));
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle2));
+        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle));
+
+        final List<Double> ys = new ArrayList<>();
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle1));
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle2));
+        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle));
+
+        gc.setStroke(jfxColor(color));
+        gc.strokePolygon(xs.stream().mapToDouble(x -> x * dimention / coefficient + startingPoint.getX()).toArray(),
+                ys.stream().mapToDouble(y -> y * dimention / coefficient + startingPoint.getY()).toArray(), 3);
     }
 
     /**
