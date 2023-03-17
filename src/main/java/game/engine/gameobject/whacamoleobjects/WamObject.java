@@ -39,18 +39,19 @@ public abstract class WamObject extends GameObject {
      * @param aspectModel
      * @param inputModel
      */
-    public WamObject(final long appearanceTime, 
+    public WamObject(final Point2D startCoor,
+                    final long appearanceTime, 
                     final Level currentLevel,
                     final int holeNumber,
                     final PhysicsModel physicsModel,
                     final AspectModel aspectModel,
                     final InputModel inputModel) {
-        super(new HolesCoor().get(holeNumber), Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
+        super(startCoor, Vector2D.nullVector(), 0, inputModel, physicsModel, aspectModel);
         this.status = Status.WAITING;
         this.level = currentLevel;
         this.holeNumber = holeNumber;
         this.appearanceTime = appearanceTime;
-        this.startCoor = new HolesCoor().get(holeNumber);
+        this.startCoor = startCoor;
         motionRestartTime = 0L;
     }
 
