@@ -1,8 +1,6 @@
 package minigamestests.flappybirdalike;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -13,10 +11,11 @@ import game.engine.minigame.FlappyBirdAlike;
 import game.engine.minigame.Minigame;
 
 /**
- * Unit test for the minigame FlappyBirdAlike
+ * Unit test for the minigame FlappyBirdAlike.
  */
 class FlappyBirdAlikeTest {
 
+    private static final int CURSOR_INDEX = 0;
     private static final int LIMIT_BOTTOM = 800;
     private static final int LIMIT_HIGH = 100;
     private static final int NUM_JUMPS = 100;
@@ -27,17 +26,19 @@ class FlappyBirdAlikeTest {
     @Test
     void boundaryCheck() {
         final Minigame m = new FlappyBirdAlike();
-        assertEquals(m.getObjects().get(0).getCoor().getY(), LIMIT_BOTTOM);
+        assertEquals(m.getObjects().get(CURSOR_INDEX).getCoor().getY(), LIMIT_BOTTOM);
         final Input input = new KeyboardInput();
         for (int i = 0; i < NUM_JUMPS; i++) {
-            input.setJump(true);
-            m.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
-            m.compute(ELAPSED_TIME);
-            assertTrue(m.getObjects().get(0).getCoor().getY() >= LIMIT_HIGH);
-            input.setJump(false);
-            m.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
-            m.compute(ELAPSED_TIME);
+            jumpUpdate(true, m, input);
+            assertTrue(m.getObjects().get(CURSOR_INDEX).getCoor().getY() >= LIMIT_HIGH);
+            jumpUpdate(false, m, input);
         }
+    }
+
+    private void jumpUpdate(final boolean jump, final Minigame m, final Input input) {
+        input.setJump(jump);
+        m.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
+        m.compute(ELAPSED_TIME);
     }
 
     @Test
@@ -73,8 +74,7 @@ class FlappyBirdAlikeTest {
             m.compute(ELAPSED_TIME);
         }
 
-        assertEquals(m.getObjects().get(0).getVel().getX(), 0);
+        assertEquals(m.getObjects().get(CURSOR_INDEX).getVel().getX(), 0);
         assertEquals(m.getObjects().get(1).getVel().getY(), 0);
     }
-    
 }

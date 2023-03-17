@@ -19,6 +19,7 @@ public class Cursor extends GameObject {
      * @param vel  the initial speed of the cursor.
      * @param size the size of the cursor.
      * @param xSpeed the speed at which the cursor 'moves forward'
+     * @param inputModel the input model applied to the object
      */
     public Cursor(final Point2D coor, final Vector2D vel, final double size, final double xSpeed, final InputModel inputModel) {
         super(coor, vel);
