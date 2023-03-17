@@ -68,7 +68,13 @@ class FlappyBirdAlikeTest {
 
     @Test
     void speedCheck() {
+        final Minigame m = new FlappyBirdAlike();
+        while (m.getObjects().size() == 1) {
+            m.compute(ELAPSED_TIME);
+        }
 
+        assertEquals(m.getObjects().get(0).getVel().getX(), 0);
+        assertEquals(m.getObjects().get(1).getVel().getY(), 0);
     }
     
 }
