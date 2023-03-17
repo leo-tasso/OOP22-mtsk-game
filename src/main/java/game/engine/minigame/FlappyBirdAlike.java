@@ -41,6 +41,7 @@ public class FlappyBirdAlike implements Minigame {
     private final Function<Long, Integer> freqStrat = new StepRateStrat(NUM_STEPS, X_OFFSET, INC_DIFF_TIME_WINDOW);
     private long totalElapsed;
     private int enemyHeight;
+    private boolean gameOver;
 
     /**
     * Contructs an instance of the flappy bird minigame.
@@ -74,8 +75,11 @@ public class FlappyBirdAlike implements Minigame {
     */
     @Override
     public boolean isGameOver() {
-        return l.size() > 1
+        if (!gameOver) {
+            gameOver = l.size() > 1
                 && new ColliderImpl().isColliding(l.get(0), l.get(1));
+        }
+        return gameOver;
     }
 
     /**

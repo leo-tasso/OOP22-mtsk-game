@@ -20,6 +20,8 @@ class FlappyBirdAlikeTest {
     private static final int LIMIT_BOTTOM = 800;
     private static final int LIMIT_HIGH = 100;
     private static final int NUM_JUMPS = 100;
+    private static final int FIELD_MIDDLE = 450;
+    private static final int CYCLES = 400;
     private static final long ELAPSED_TIME = 10L;
 
     @Test
@@ -31,8 +33,10 @@ class FlappyBirdAlikeTest {
             input.setJump(true);
             m.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
             m.compute(ELAPSED_TIME);
-            input.setJump(false);
             assertTrue(m.getObjects().get(0).getCoor().getY() >= LIMIT_HIGH);
+            input.setJump(false);
+            m.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
+            m.compute(ELAPSED_TIME);
         }
     }
 
@@ -48,7 +52,18 @@ class FlappyBirdAlikeTest {
 
     @Test
     void hitboxCheck() {
+        final Minigame m = new FlappyBirdAlike();
+        while (m.getObjects().size() == 1
+                || m.getObjects().get(1).getCoor().getY() < FIELD_MIDDLE) {
+            m.compute(ELAPSED_TIME);
+        }
 
+        for (int i = 0; i < CYCLES; i++) {
+            m.compute(ELAPSED_TIME);
+            m.isGameOver();
+        }
+
+        assertTrue(m.isGameOver());
     }
 
     @Test
