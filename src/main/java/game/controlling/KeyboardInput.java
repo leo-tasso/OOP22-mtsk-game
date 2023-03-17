@@ -159,6 +159,16 @@ public class KeyboardInput implements Input {
     }
 
     /**
+     * Method to check if backwards input is active.
+     * 
+     * @return if the backwards command is active
+     */
+    @Override
+    public boolean isBackwards() {
+        return this.backwards;
+    }
+
+    /**
      * Method to reset all inputs to false.
      */
     @Override
