@@ -1,5 +1,6 @@
 package game.view.javafx.viewstate.gamestate;
 
+import java.security.Key;
 import java.util.Optional;
 
 import game.controlling.Input;
@@ -33,8 +34,11 @@ public class InputButtonsImpl implements InputButtons {
                 input.setNumberPressed(Optional.of(e.getCode().getCode() - KEYCODE_NUM_DIFF));
             } else if (e.getCode().equals(KeyCode.SPACE)) {
                 input.setJump(true);
+            } else if (e.getCode().equals(KeyCode.UP)) {
+                input.setForward(true);
+            } else if (e.getCode().equals(KeyCode.DOWN)) {
+                input.setBackwards(true);
             }
-
         });
         scene.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
             if (e.getCode().equals(KeyCode.W)) {
@@ -49,6 +53,10 @@ public class InputButtonsImpl implements InputButtons {
                 input.setNumberPressed(Optional.empty());
             } else if (e.getCode().equals(KeyCode.SPACE)) {
                 input.setJump(false);
+            } else if (e.getCode().equals(KeyCode.UP)) {
+                input.setForward(false);
+            } else if (e.getCode().equals(KeyCode.DOWN)) {
+                input.setBackwards(false);
             }
         });
     }
