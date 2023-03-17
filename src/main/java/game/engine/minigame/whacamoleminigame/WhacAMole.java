@@ -1,11 +1,12 @@
 package game.engine.minigame.whacamoleminigame;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import api.Point2D;
 import api.Vector2D;
 import game.engine.minigame.Minigame;
+import javafx.scene.effect.Light.Point;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.whacamoleobjects.Status;
 import game.engine.gameobject.whacamoleobjects.WamObject;
@@ -17,7 +18,7 @@ public class WhacAMole implements Minigame {
     private static final int NUM_HOLES = 9;
     private static final int DRAWS_TO_NEXT_LEVEL = 3;
 
-    private final Set<WamObject> objs;
+    private final List<WamObject> objs;
     private final List<Level> levels; 
     private long currentTime;
     private final DrawStrategy draw;
@@ -31,9 +32,9 @@ public class WhacAMole implements Minigame {
     public WhacAMole() {
         this.currentTime = 0L;
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
+        this.objs = new ArrayList<>(new HolesGenerator().generate(NUM_HOLES));
         this.currentLevel = this.levels.get(0);
         this.draw = new DrawStrategyImpl(NUM_HOLES);
-        this.objs = new HashSet<>();
         this.numDraws = 0;
     }
 
@@ -64,17 +65,11 @@ public class WhacAMole implements Minigame {
         this.deleteOldObjs();
         this.calculateLevel();
         this.drawIfNecessary();
+        
         this.objs.stream()
             .filter(o -> o.getStatus().equals(Status.IN_MOTION))
             .forEach(o -> o.updatePhysics(elapsed, this));
-
-        this.objs.stream()
-            .filter(o -> o.getCoor().getY() > o.getStartCoor().getY())
-            .forEach(o -> {
-                o.setStatus(Status.MISSED);
-                o.setVel(Vector2D.nullVector());
-            });
-
+            
         this.objs.stream()
             .filter(o -> o.getStatus().equals(Status.WAITING))
             .filter(o -> o.getAppearanceTime() <= this.currentTime)
@@ -84,17 +79,19 @@ public class WhacAMole implements Minigame {
             });
 
         this.objs.stream()
+            .filter(o -> o.getCoor().getY() > o.getStartCoor().getY())
+            .forEach(o -> {
+                o.setStatus(Status.MISSED);
+                o.setVel(Vector2D.nullVector());
+            });
+
+        this.objs.stream()
             .filter(o -> o.getStatus().equals(Status.HALFWAY))
             .filter(o -> o.getMotionRestartTime() <= this.currentTime)
             .forEach(o -> {
                 o.setStatus(Status.IN_MOTION);
                 o.setVel(this.currentLevel.getObjSpeed().invert());
             });
-
-        /* 
-        this.objs.forEach(
-            o -> System.out.println(o.getCoor())
-        ); */
     }
 
     /**
@@ -102,10 +99,10 @@ public class WhacAMole implements Minigame {
      * to perform a draw, and if so, does it.
      */
     private void drawIfNecessary() {
-        if (this.objs.isEmpty()) {
-            this.draw.draw(this.currentLevel, this.currentTime).stream()
+        if (this.objs.size() == WhacAMole.NUM_HOLES) {
+            this.draw.draw(this.currentLevel, this.currentTime, this.objs).stream()
                 .forEach(
-                    o -> this.objs.add((WamObject) o)
+                    o -> this.objs.add(0, (WamObject) o)
                 );
             this.numDraws = this.numDraws + 1;
         }
