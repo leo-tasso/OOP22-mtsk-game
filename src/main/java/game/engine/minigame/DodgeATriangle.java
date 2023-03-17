@@ -3,7 +3,9 @@ package game.engine.minigame;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.controlling.DodgerInputModel;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.dodgeatriangleobjects.Dodger;
 import game.engine.gameobject.hitboxmodel.Collider;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;
 
@@ -14,8 +16,21 @@ import game.engine.gameobject.hitboxmodel.ColliderImpl;
  */
 public class DodgeATriangle implements Minigame {
 
+    private static final int INITIAL_Y = 450;
+    private static final int SIDE_LENGTH = 140;
+
     private final List<GameObject> l = new ArrayList<>();
     private final Collider c = new ColliderImpl();
+    private long totalElapsed;
+
+    /**
+     * Constructor that initializes the 
+     * list with the main character.
+     */
+    public DodgeATriangle() {
+        this.l.add(new Dodger(INITIAL_Y, SIDE_LENGTH,
+                new DodgerInputModel(SIDE_LENGTH, INITIAL_Y)));
+    }
 
     /**
      * {@inheritDoc}
@@ -33,8 +48,7 @@ public class DodgeATriangle implements Minigame {
      */
     @Override
     public void compute(final long elapsed) {
-        // TODO Auto-generated method stub
-
+        this.totalElapsed += elapsed;
     }
 
     /**

@@ -18,12 +18,12 @@ public class Dodger extends GameObject {
     /**
      * Simple constructor for Dodger fields.
      * 
-     * @param height
-     * @param size
-     * @param inputModel
+     * @param initialY    the initial Y coordinate
+     * @param size        the side of the square
+     * @param inputModel  the dodger's input model
      */
-    public Dodger(final int height, final int size, final InputModel inputModel) {
-        super(new Point2D(height * 8 / 9, height / 2), Vector2D.nullVector());
+    public Dodger(final int initialY, final int size, final InputModel inputModel) {
+        super(new Point2D(initialY * 8 / 9, initialY / 2), Vector2D.nullVector());
         this.setInputModel(inputModel);
         this.setPhysicsModel(null);
         this.setAspectModel(new RectangleAspect(size, size, ColorRGB.aqua()));
