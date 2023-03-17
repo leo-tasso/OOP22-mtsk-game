@@ -19,7 +19,7 @@ class FlappyBirdAlikeTest {
 
     private static final int LIMIT_BOTTOM = 800;
     private static final int LIMIT_HIGH = 100;
-    private static final int NUM_JUMPS = 30;
+    private static final int NUM_JUMPS = 100;
     private static final long ELAPSED_TIME = 10L;
 
     @Test
@@ -38,7 +38,12 @@ class FlappyBirdAlikeTest {
 
     @Test
     void closestObstacleCheck() {
+        final Minigame m = new FlappyBirdAlike();
+        while (m.getObjects().size() < 3) {
+            m.compute(ELAPSED_TIME);
+        }
 
+        assertTrue(m.getObjects().get(1).getCoor().getX() < m.getObjects().get(2).getCoor().getX());
     }
 
     @Test

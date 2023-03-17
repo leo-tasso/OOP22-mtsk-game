@@ -28,7 +28,7 @@ public class FlappyBirdAlike implements Minigame {
     private static final double CURSOR_SIZE = 200;
     private static final double CURSOR_X = 50;
     private static final int ENEMY_WIDTH = 100;
-    private static final int ENEMY_SPAWN = 2000;
+    private static final int ENEMY_SPAWN = 1600 + ENEMY_WIDTH;
     private static final int ENEMY_SPEED = -50;
     private static final int FIELD_HEIGHT = 900;
     private static final int HEIGHT_OFFSET = 100;
