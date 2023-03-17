@@ -7,9 +7,9 @@ import java.util.List;
 import game.controlling.Input;
 import game.engine.gameobject.GameObject;
 import game.engine.minigame.CatchTheSquare;
+import game.engine.minigame.DodgeATriangle;
 import game.engine.minigame.FlappyBirdAlike;
 import game.engine.minigame.Minigame;
-import game.engine.minigame.TestMinigame;
 
 /**
  * Main game engine responsible of controlling the game.
@@ -17,7 +17,7 @@ import game.engine.minigame.TestMinigame;
 public class EngineImpl implements Engine {
     private final int bottomLimit;
     private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(CatchTheSquare.class,
-            FlappyBirdAlike.class, TestMinigame.class);
+            FlappyBirdAlike.class, DodgeATriangle.class);
     private final List<Minigame> minigameList = new LinkedList<>();
     private int addedMinigame;
 
