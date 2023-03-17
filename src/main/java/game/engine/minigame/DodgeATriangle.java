@@ -1,21 +1,31 @@
 package game.engine.minigame;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.hitboxmodel.Collider;
+import game.engine.gameobject.hitboxmodel.ColliderImpl;
 
 /**
- * TODO.
+ * Class that models the dodge a triangle minigame, where 
+ * the player must move a small square on a vertical 
+ * axis, avoiding triangles that come from left to right.
  */
 public class DodgeATriangle implements Minigame {
+
+    private final List<GameObject> l = new ArrayList<>();
+    private final Collider c = new ColliderImpl();
 
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean isGameOver() {
-        // TODO Auto-generated method stub
-        return false;
+        final GameObject pl = l.get(0);
+        return l.stream()
+            .skip(1)
+            .anyMatch(o -> c.isColliding(pl, o));                               
     }
 
     /**
