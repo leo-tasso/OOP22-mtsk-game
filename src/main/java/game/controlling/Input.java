@@ -43,6 +43,20 @@ public interface Input extends Cloneable {
     boolean isJump();
 
     /**
+     * Method to check if forward input is active.
+     * 
+     * @return if the forward command is active
+     */
+    boolean isForward();
+
+    /**
+     * Method to check if backwards input is active.
+     * 
+     * @return if the backwards command is active
+     */
+    boolean isBackwards();
+
+    /**
      * Method to set if moveUp input is active.
      * 
      * @param moveUp if the moveUp command is active
