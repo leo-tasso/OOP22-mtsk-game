@@ -14,6 +14,7 @@ public class DodgerInputModel implements InputModel {
     private final Point2D backwards;
     private final int limitLow;
     private final int limitHigh;
+    private boolean hold;
 
     /**
      * Constructor for the dodger's input model.
@@ -29,14 +30,23 @@ public class DodgerInputModel implements InputModel {
     }
 
     /**
-     * {@inheritDoc}
+     * If the player asks to move the dodger up, and it isn't 
+     * already in the topmost slot (in which case it would stay 
+     * there) then he moves it, s.ame applies to the lowest slot. 
+     * It takes multiple frames for the user to press a button, 
+     * and I have to treat the press as a single movement.
+     * 
      */
     @Override
-    public void update(GameObject obj, Input c, long elapsedTime) {
-        if (c.isForward() && obj.getCoor().getY() > limitLow) {
+    public void update(GameObject obj, Input c, long elapsedTime) {   
+        if (!hold && c.isForward() && obj.getCoor().getY() > limitLow) {
             obj.setCoor(obj.getCoor().sum(forward));
-        } else if (c.isBackwards() && obj.getCoor().getY() < limitHigh) {
+            this.hold = true;
+        } else if (!hold && c.isBackwards() && obj.getCoor().getY() < limitHigh) {
             obj.setCoor(obj.getCoor().sum(backwards));
+            this.hold = true;
+        } else if (!(c.isForward() || c.isBackwards())) {
+            this.hold = false;
         }
         obj.setVel(Vector2D.nullVector());
     }   
