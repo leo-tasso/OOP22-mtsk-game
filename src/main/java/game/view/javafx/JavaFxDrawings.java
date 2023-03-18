@@ -74,10 +74,14 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawRectangle(final GameObject object, final ColorRGB color, final double width, final double height, final boolean filled) {
+    public void drawRectangle(final GameObject object,
+            final ColorRGB color,
+            final double width,
+            final double height,
+            final boolean filled) {
         final double actualHeight = height * dimention / coefficient;
         final double actualWidth = width * dimention / coefficient;
-        
+
         if (filled) {
             gc.setFill(jfxColor(color));
             gc.fillRect(

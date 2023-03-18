@@ -11,7 +11,7 @@ import game.view.Drawings;
  * to the direction of its motion.
  */
 public class DatTriangleAspectModel implements AspectModel {
-    
+
     private final int side;
     private final boolean rightSpawn;
 

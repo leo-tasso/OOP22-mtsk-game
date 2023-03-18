@@ -28,5 +28,4 @@ public class DatTriangle extends GameObject {
         this.setAspectModel(new DatTriangleAspectModel(side, coor.getX() > 0));
         this.setHitBoxModel(new RectangleHitBoxModel(side * Math.sqrt(3) / 2, side));
     }
-    
 }

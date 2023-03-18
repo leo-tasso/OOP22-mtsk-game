@@ -111,7 +111,11 @@ public class SwingDrawings implements Drawings {
      * @param object the object to draw
      */
     @Override
-    public void drawRectangle(final GameObject object, final ColorRGB color, final double width, final double height, final boolean filled) {
+    public void drawRectangle(final GameObject object,
+            final ColorRGB color,
+            final double width,
+            final double height,
+            final boolean filled) {
         final double actualHeight = height * dimention / coefficient;
         final double actualWidth = width * dimention / coefficient;
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));

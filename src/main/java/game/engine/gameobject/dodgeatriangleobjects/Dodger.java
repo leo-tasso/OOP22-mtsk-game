@@ -16,6 +16,8 @@ import game.engine.gameobject.hitboxmodel.SquareHitBoxModel;
  */
 public class Dodger extends GameObject {
 
+    private static final double RATIO = 16 / 9.0;
+
     /**
      * Simple constructor for Dodger fields.
      * 
@@ -24,7 +26,7 @@ public class Dodger extends GameObject {
      * @param inputModel  the dodger's input model
      */
     public Dodger(final int initialY, final int size, final InputModel inputModel) {
-        super(new Point2D(initialY * 16 / 9, initialY), Vector2D.nullVector());
+        super(new Point2D(initialY * RATIO, initialY), Vector2D.nullVector());
         this.setInputModel(inputModel);
         this.setPhysicsModel(new SimplePhysics());
         this.setAspectModel(new RectangleAspect(size, size, ColorRGB.red(), true));

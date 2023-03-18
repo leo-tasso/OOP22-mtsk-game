@@ -16,7 +16,8 @@ import game.engine.minigame.Minigame;
  */
 public class EngineImpl implements Engine {
     private final int bottomLimit;
-    private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(DodgeATriangle.class);
+    private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(DodgeATriangle.class,
+            CatchTheSquare.class, FlappyBirdAlike.class);
     private final List<Minigame> minigameList = new LinkedList<>();
     private int addedMinigame;
 

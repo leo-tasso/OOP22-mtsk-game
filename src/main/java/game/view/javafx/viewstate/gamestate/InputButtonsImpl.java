@@ -1,8 +1,6 @@
 package game.view.javafx.viewstate.gamestate;
 
-import java.security.Key;
 import java.util.Optional;
-
 import game.controlling.Input;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

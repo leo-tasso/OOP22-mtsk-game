@@ -127,7 +127,7 @@ public class KeyboardInput implements Input {
     public boolean isJump() {
         return jump;
     }
-    
+
     /**
      * Method to set jump.
      * 

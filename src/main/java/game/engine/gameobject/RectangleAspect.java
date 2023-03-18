@@ -18,6 +18,7 @@ public class RectangleAspect implements AspectModel {
      * @param width  the width of the rectangle.
      * @param height the height of the rectangle.
      * @param color  the color of the rectangle.
+     * @param filled whether the rectangle is colored in or not.
      */
     public RectangleAspect(final int width, final int height, final ColorRGB color, final boolean filled) {
         this.width = width;

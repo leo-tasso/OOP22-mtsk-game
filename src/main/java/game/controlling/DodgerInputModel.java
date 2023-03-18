@@ -38,7 +38,7 @@ public class DodgerInputModel implements InputModel {
      * 
      */
     @Override
-    public void update(GameObject obj, Input c, long elapsedTime) {   
+    public void update(final GameObject obj, final Input c, final long elapsedTime) {
         if (!hold && c.isForward() && obj.getCoor().getY() > limitLow) {
             obj.setCoor(obj.getCoor().sum(forward));
             this.hold = true;
@@ -49,5 +49,5 @@ public class DodgerInputModel implements InputModel {
             this.hold = false;
         }
         obj.setVel(Vector2D.nullVector());
-    }   
+    }
 }

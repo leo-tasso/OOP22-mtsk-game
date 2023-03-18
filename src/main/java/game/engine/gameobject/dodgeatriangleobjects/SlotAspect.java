@@ -7,6 +7,9 @@ import game.engine.gameobject.AspectModel;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 
+/**
+ * An aspect model class to visualize cells in DodgeATriangle.
+ */
 public class SlotAspect implements AspectModel {
 
     private final double side;
@@ -15,11 +18,14 @@ public class SlotAspect implements AspectModel {
     private final int slotOffset;
 
     /**
+     * Simple constructor for the SlotAspect class. 
+     * slotOffset represents the number of spaces 
+     * above the dodger at the start of the game 
+     * (also equal to those below).
      * 
-     * 
-     * @param side
-     * @param center
-     * @param numSlots
+     * @param side     square side of a single slot
+     * @param center   the coordinates of the center of the playing field
+     * @param numSlots number of slots
      */
     public SlotAspect(final double side, final Point2D center, final int numSlots) {
         this.side = side;
@@ -27,7 +33,10 @@ public class SlotAspect implements AspectModel {
         this.numSlots = numSlots;
         this.slotOffset = numSlots / 2;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final GameObject obj, final Drawings drawing) {
         for (int i = 0; i < numSlots; i++) {
