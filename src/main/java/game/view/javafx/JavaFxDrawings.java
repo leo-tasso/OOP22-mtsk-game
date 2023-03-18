@@ -156,7 +156,7 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawHoleUpperPart(GameObject object) {
+    public void drawHoleUpperPart(final GameObject object) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'drawHoleUpperPart'");
     }
@@ -165,7 +165,7 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawHoleLowerPart(GameObject object) {
+    public void drawHoleLowerPart(final GameObject object) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'drawHoleLowerPart'");
     }

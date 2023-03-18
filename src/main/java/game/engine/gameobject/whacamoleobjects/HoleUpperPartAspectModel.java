@@ -13,7 +13,7 @@ public class HoleUpperPartAspectModel implements AspectModel {
      * {@inheritDoc}
      */
     @Override
-    public void update(GameObject object, Drawings drawing) {
+    public void update(final GameObject object, final Drawings drawing) {
         drawing.drawHoleUpperPart(object);
-    }   
+    }
 }

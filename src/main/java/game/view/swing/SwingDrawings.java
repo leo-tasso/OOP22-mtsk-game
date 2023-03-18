@@ -168,7 +168,7 @@ public class SwingDrawings implements Drawings {
      * Currently using JavaFx.
      */
     @Override
-    public void drawHoleUpperPart(GameObject object) {
+    public void drawHoleUpperPart(final GameObject object) {
         throw new UnsupportedOperationException("Unimplemented method 'drawHoleUpperPart'");
     }
 
@@ -176,7 +176,7 @@ public class SwingDrawings implements Drawings {
      * Currently using JavaFx.
      */
     @Override
-    public void drawHoleLowerPart(GameObject object) {
+    public void drawHoleLowerPart(final GameObject object) {
         throw new UnsupportedOperationException("Unimplemented method 'drawHoleLowerPart'");
     }
 }
