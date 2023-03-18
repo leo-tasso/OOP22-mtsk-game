@@ -14,7 +14,7 @@ import game.engine.minigame.whacamoleminigame.Level;
  * position on the GameObject list, it has a class of its own.
  */
 public class HoleUpperPart extends Hole {
-    
+
     /**
      * Simple constructor aimed at initializing hole's upper part.
      * 
