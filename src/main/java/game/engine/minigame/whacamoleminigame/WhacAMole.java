@@ -99,10 +99,13 @@ public class WhacAMole implements Minigame {
      * to perform a draw, and if so, does it.
      */
     private void drawIfNecessary() {
-        if (this.objs.size() == WhacAMole.NUM_HOLES) {
+        if (this.objs.size() == WhacAMole.NUM_HOLES * 2) {
             this.draw.draw(this.currentLevel, this.currentTime).stream()
                 .forEach(
-                    o -> this.objs.add(0, (WamObject) o)
+                    /* Since the visualization of the layers when they   */
+                    /* overlap depends on the print order, I have to put */
+                    /* all the objects after the upper part of the holes */
+                    o -> this.objs.add(NUM_HOLES, (WamObject) o)
                 );
             this.numDraws = this.numDraws + 1;
         }
