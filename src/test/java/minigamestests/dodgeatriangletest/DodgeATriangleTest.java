@@ -45,4 +45,28 @@ class DodgeATriangleTest {
         }
         assertTrue(m.isGameOver());
     }
+
+    @Test
+    void boundaryTest() {
+        final Minigame m = new DodgeATriangle();
+        final Input input = new KeyboardInput();
+
+        for (int j = 0; j < MOVES; j++) {
+            setInput(m, input, i -> i.setForward(true));
+            setInput(m, input, i -> i.setForward(false));
+            assertTrue(m.getObjects().get(0).getCoor().getY() >= LIMIT_LOW);
+        }
+
+        for (int j = 0; j < MOVES; j++) {
+            setInput(m, input, i -> i.setBackwards(true));
+            setInput(m, input, i -> i.setBackwards(false));
+            assertTrue(m.getObjects().get(0).getCoor().getY() <= LIMIT_HIGH);
+        }
+    }
+
+    private void setInput(final Minigame m, final Input input, final Consumer<Input> c) {
+        c.accept(input);
+        m.getObjects().forEach(o -> o.updateinput(input, ELAPSED_TIME));
+        m.compute(ELAPSED_TIME);
+    }
 }
