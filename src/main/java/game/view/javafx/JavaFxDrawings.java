@@ -66,27 +66,41 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawSquare(final GameObject object, final ColorRGB color, final double side) {
-        drawRectangle(object, color, side, side);
+    public void drawSquare(final GameObject object, final ColorRGB color, final double side, final boolean filled) {
+        drawRectangle(object, color, side, side, filled);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void drawRectangle(final GameObject object, final ColorRGB color, final double width, final double height) {
+    public void drawRectangle(final GameObject object, final ColorRGB color, final double width, final double height, final boolean filled) {
         final double actualHeight = height * dimention / coefficient;
         final double actualWidth = width * dimention / coefficient;
-        gc.setStroke(jfxColor(color));
-        gc.strokeRect(
-                /*
-                 * coordinates of the upper left corner of rectangle: the
-                 * last addendum is necessary to enter the right play field
-                 */
-                (object.getCoor().getX() - width / 2) * dimention / coefficient + startingPoint.getX(),
-                (object.getCoor().getY() - height / 2) * dimention / coefficient + startingPoint.getY(),
-                actualWidth,
-                actualHeight);
+        
+        if (filled) {
+            gc.setFill(jfxColor(color));
+            gc.fillRect(
+                    /*
+                     * coordinates of the upper left corner of rectangle: the
+                     * last addendum is necessary to enter the right play field
+                     */
+                    (object.getCoor().getX() - width / 2) * dimention / coefficient + startingPoint.getX(),
+                    (object.getCoor().getY() - height / 2) * dimention / coefficient + startingPoint.getY(),
+                    actualWidth,
+                    actualHeight);
+        } else {
+            gc.setStroke(jfxColor(color));
+            gc.strokeRect(
+                    /*
+                     * coordinates of the upper left corner of rectangle: the
+                     * last addendum is necessary to enter the right play field
+                     */
+                    (object.getCoor().getX() - width / 2) * dimention / coefficient + startingPoint.getX(),
+                    (object.getCoor().getY() - height / 2) * dimention / coefficient + startingPoint.getY(),
+                    actualWidth,
+                    actualHeight);
+        }
     }
 
     /**
@@ -146,9 +160,9 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawBomb(final GameObject object, final Boolean beenHit) {
         if (!beenHit) {
-            drawSquare(object, ColorRGB.blue(), 0);
+            drawSquare(object, ColorRGB.blue(), 0, false);
         } else {
-            drawSquare(object, ColorRGB.aqua(), 0);
+            drawSquare(object, ColorRGB.aqua(), 0, false);
         }
     }
 
@@ -163,5 +177,4 @@ public class JavaFxDrawings implements Drawings {
                 color.getGreen() / (double) ColorRGB.COLOR_RANGE_TOP,
                 color.getBlue() / (double) ColorRGB.COLOR_RANGE_TOP);
     }
-
 }
