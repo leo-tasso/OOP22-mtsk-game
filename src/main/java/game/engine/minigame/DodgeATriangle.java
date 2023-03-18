@@ -45,6 +45,7 @@ public class DodgeATriangle implements Minigame {
     private final Random rand = new Random();
     private long totalElapsed;
     private final Function<Long, Integer> diff = new StepRateStrat(NUM_STEPS, X_OFFSET, MS_TO_ADD_ENEMY);
+    private boolean gameOver;
 
     /**
      * Constructor that initializes the 
@@ -65,10 +66,13 @@ public class DodgeATriangle implements Minigame {
      */
     @Override
     public boolean isGameOver() {
-        final GameObject pl = l.get(0);
-        return l.stream()
-            .skip(1)
-            .anyMatch(o -> c.isColliding(pl, o));
+        if (!gameOver) {
+            final GameObject pl = l.get(0);
+            gameOver =  l.stream()
+                .skip(1)
+                .anyMatch(o -> c.isColliding(pl, o));
+        }
+        return gameOver;
     }
 
     /**
