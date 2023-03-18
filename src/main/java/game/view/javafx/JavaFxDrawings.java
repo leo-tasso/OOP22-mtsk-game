@@ -153,6 +153,24 @@ public class JavaFxDrawings implements Drawings {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void drawHoleUpperPart(GameObject object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'drawHoleUpperPart'");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void drawHoleLowerPart(GameObject object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'drawHoleLowerPart'");
+    }
+
+    /**
      * Method to translate ColorRGB colors to JavaFx Color.
      * 
      * @param color the ColorRgb input color.
@@ -163,5 +181,6 @@ public class JavaFxDrawings implements Drawings {
                 color.getGreen() / (double) ColorRGB.COLOR_RANGE_TOP,
                 color.getBlue() / (double) ColorRGB.COLOR_RANGE_TOP);
     }
+
 
 }
