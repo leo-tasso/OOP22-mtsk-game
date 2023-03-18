@@ -23,8 +23,9 @@ public interface Drawings {
      * @param object the gameObject of the square to draw.
      * @param color  the color of the square to draw.
      * @param side   the lenght of the side of the square.
+     * @param filled
      */
-    void drawSquare(GameObject object, ColorRGB color, double side);
+    void drawSquare(GameObject object, ColorRGB color, double side, boolean filled);
 
     /**
      * The instructions on how to draw a rectangle.
@@ -33,8 +34,9 @@ public interface Drawings {
      * @param color  the color of the rectangle to draw.
      * @param width  the width of the rectangle to draw.
      * @param height the height of the rectangle to draw.
+     * @param filled 
      */
-    void drawRectangle(GameObject object, ColorRGB color, double width, double height);
+    void drawRectangle(GameObject object, ColorRGB color, double width, double height, boolean filled);
 
     /**
      * The instructions on how to draw a triangle.
