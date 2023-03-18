@@ -21,7 +21,7 @@ public class BombAspect extends RectangleAspect {
      * @param color the color of the object.
      */
     public BombAspect(final int side, final ColorRGB color) {
-        super(side, side, color);
+        super(side, side, color, false);
         previousColor = color;
     }
 

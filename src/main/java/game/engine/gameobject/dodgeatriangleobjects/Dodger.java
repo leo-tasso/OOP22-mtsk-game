@@ -27,7 +27,7 @@ public class Dodger extends GameObject {
         super(new Point2D(initialY * 16 / 9, initialY), Vector2D.nullVector());
         this.setInputModel(inputModel);
         this.setPhysicsModel(new SimplePhysics());
-        this.setAspectModel(new RectangleAspect(size, size, ColorRGB.black()));
+        this.setAspectModel(new RectangleAspect(size, size, ColorRGB.red(), true));
         this.setHitBoxModel(new SquareHitBoxModel(size));
     }
 }

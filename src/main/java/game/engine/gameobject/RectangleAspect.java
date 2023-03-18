@@ -10,6 +10,7 @@ public class RectangleAspect implements AspectModel {
     private int width;
     private int height;
     private ColorRGB color;
+    private final boolean filled;
 
     /**
      * Constructor with the dimentions of the rectangle.
@@ -18,10 +19,11 @@ public class RectangleAspect implements AspectModel {
      * @param height the height of the rectangle.
      * @param color  the color of the rectangle.
      */
-    public RectangleAspect(final int width, final int height, final ColorRGB color) {
+    public RectangleAspect(final int width, final int height, final ColorRGB color, final boolean filled) {
         this.width = width;
         this.height = height;
         this.color = color;
+        this.filled = filled;
     }
 
     /**
@@ -31,7 +33,7 @@ public class RectangleAspect implements AspectModel {
      */
     @Override
     public void update(final GameObject object, final Drawings d) {
-        d.drawRectangle(object, color, width, height);
+        d.drawRectangle(object, color, width, height, filled);
     }
 
     /**

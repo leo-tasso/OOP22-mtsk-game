@@ -36,7 +36,7 @@ public class TestMinigame implements Minigame {
                         CIRCLE_RADIUS)));
         l.add(new GameObject(new Point2D(RECTANGLE_STARTING_COORDINATE, RECTANGLE_STARTING_COORDINATE),
                 new Vector2D(0, 0), 0, new NullInput(), new SimplePhysics(),
-                new RectangleAspect(RECTANGLE_WIDTH, RECTANGLE_HEIGHT, ColorRGB.white())));
+                new RectangleAspect(RECTANGLE_WIDTH, RECTANGLE_HEIGHT, ColorRGB.white(), true)));
     }
 
     /**

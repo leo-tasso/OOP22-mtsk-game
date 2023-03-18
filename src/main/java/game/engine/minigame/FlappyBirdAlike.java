@@ -97,7 +97,7 @@ public class FlappyBirdAlike implements Minigame {
                     new Vector2D(ENEMY_SPEED, 0),
                     0, new NullInput(),
                     new SimplePhysics(),
-                    new RectangleAspect(ENEMY_WIDTH, enemyHeight, ColorRGB.black()),
+                    new RectangleAspect(ENEMY_WIDTH, enemyHeight, ColorRGB.black(), false),
                     new RectangleHitBoxModel(ENEMY_WIDTH, enemyHeight)));
         }
 
