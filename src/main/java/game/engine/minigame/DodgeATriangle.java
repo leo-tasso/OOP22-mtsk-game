@@ -28,7 +28,7 @@ public class DodgeATriangle implements Minigame {
     private static final int INITIAL_X = 800;
     private static final int INITIAL_Y = 450;
     private static final int SIDE_LENGTH = 140;
-    private static final int SPAWN_LEFT = - SIDE_LENGTH;
+    private static final int SPAWN_LEFT = -SIDE_LENGTH;
     private static final int SPAWN_RIGHT = 1600 + SIDE_LENGTH;
     private static final Vector2D ENEMY_SPEED = new Vector2D(40, 0);
     private static final int NUM_SLOTS = 5;
@@ -61,7 +61,7 @@ public class DodgeATriangle implements Minigame {
         final GameObject pl = l.get(0);
         return l.stream()
             .skip(1)
-            .anyMatch(o -> c.isColliding(pl, o));                               
+            .anyMatch(o -> c.isColliding(pl, o));
     }
 
     /**
@@ -71,10 +71,10 @@ public class DodgeATriangle implements Minigame {
     public void compute(final long elapsed) {
         this.totalElapsed += elapsed;
         if (l.size() == 1) {
-            int enemyY = Optional.of(rand.nextInt(NUM_SLOTS))
+            final int enemyY = Optional.of(rand.nextInt(NUM_SLOTS))
                     .map(y -> INITIAL_Y + (y - 2) * SIDE_LENGTH)
                     .get();
-            int enemyX = Optional.of(rand.nextInt(2))
+            final int enemyX = Optional.of(rand.nextInt(2))
                     .map(x -> x == 0 ? SPAWN_LEFT : SPAWN_RIGHT)
                     .get();
             l.add(new DatTriangle(new Point2D(enemyX, enemyY),
@@ -87,12 +87,12 @@ public class DodgeATriangle implements Minigame {
     }
 
     /**
-     * {@inheritDoc}
+     * The slots object is only used to add visual cells to the 
+     * game, therefore it's not in the main gameobject list.
      */
     @Override
     public List<GameObject> getObjects() {
         return Stream.concat(l.stream(), Stream.of(slots)).toList();
-        // return new ArrayList<>(this.l);
     }
 
     /**
