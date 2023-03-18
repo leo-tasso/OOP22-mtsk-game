@@ -7,9 +7,11 @@ import game.engine.gameobject.PhysicsModel;
 import game.engine.minigame.whacamoleminigame.Level;
 
 /**
- * 
+ * Class that represents the lower part of the hole, 
+ * i.e. the "tube" from which moles and bombs come out 
+ * and re-enter, and which therefore must hide these.
  */
-public class HoleLowerPart extends Hole {
+public class HoleLowerPart extends HolePart {
 
     /**
      * Simple constructor aimed at initializing the hole's lower part.
