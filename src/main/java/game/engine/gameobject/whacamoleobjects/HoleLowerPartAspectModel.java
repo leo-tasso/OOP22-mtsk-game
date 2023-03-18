@@ -5,7 +5,7 @@ import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 
 /**
- * 
+ * The AspectModel for the Hole's lower section.
  */
 public class HoleLowerPartAspectModel implements AspectModel {
 
@@ -14,8 +14,6 @@ public class HoleLowerPartAspectModel implements AspectModel {
      */
     @Override
     public void update(GameObject object, Drawings drawing) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        drawing.drawHoleLowerPart(object);
     }
-    
 }
