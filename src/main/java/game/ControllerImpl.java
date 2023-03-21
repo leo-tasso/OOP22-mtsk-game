@@ -1,5 +1,8 @@
 package game;
 
+import java.sql.Timestamp;
+import java.util.Map;
+
 import game.engine.Engine;
 import game.engine.EngineImpl;
 import game.view.View;
@@ -77,24 +80,6 @@ public class ControllerImpl implements Controller {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void saveStats(final LeaderBoard scores) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveStats'");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public LeaderBoard getStats() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getStats'");
-    }
-
-    /**
      * Waits for next frame.
      * 
      * @param currentFrame the current frame.
@@ -126,5 +111,23 @@ public class ControllerImpl implements Controller {
     public static void main(final String[] args) {
         Application.launch(JavaFxView.class, args);
         // new SwingView(); //to use swing instead of JavaFx
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void saveStats(final Timestamp timestamp, final long score) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'saveStats'");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<Timestamp, Long> getStats() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getStats'");
     }
 }
