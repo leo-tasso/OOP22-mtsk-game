@@ -70,4 +70,31 @@ class WhacAMoleTest {
         }
         assertTrue(mole.get().getStatus().equals(Status.MISSED) && wam.isGameOver());
     }
+
+    @Test
+    void hitBombTest() {
+        final Minigame wam = new WhacAMole();
+
+        while (wam.getObjects().stream()
+                .noneMatch(o -> o instanceof Bomb)
+            || wam.getObjects().stream()
+                .filter(o -> o instanceof Bomb)
+                .noneMatch(o -> ((WamObject) o).getAppearanceTime() > ((WhacAMole) wam).getCurrentTime())) {
+            /* I iterate until at least one bomb is drawn and actually */
+            /* comes out of one of the holes becoming hittable         */
+            deleteMoles(wam);
+            wam.compute(ELAPSED_TIME);
+        }
+
+        final Optional<WamObject> bombToHit = wam.getObjects().stream()
+            .filter(o -> o instanceof Bomb)
+            .map(o -> (WamObject) o)
+            .reduce(BinaryOperator.minBy(Comparator.comparingLong(WamObject::getAppearanceTime)));
+
+        final Input input = new KeyboardInput();
+        input.setNumberPressed(Optional.of(bombToHit.get().getHoleNumber()));
+        bombToHit.get().updateinput(input, ELAPSED_TIME);
+        assertTrue(bombToHit.get().getStatus().equals(Status.HIT) && wam.isGameOver());
+    }
+
 }
