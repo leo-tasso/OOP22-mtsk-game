@@ -97,4 +97,21 @@ class WhacAMoleTest {
         assertTrue(bombToHit.get().getStatus().equals(Status.HIT) && wam.isGameOver());
     }
 
+
+
+
+
+    /** 
+     * I need to eliminate all possible moles, since by not
+     * handling their input (not hitting them) they could be the
+     * cause of the gameOver and produce a "false positive" test.
+     * 
+     * @param wam the Whac-a-Mole Minigame
+     */
+    private void deleteMoles(final Minigame wam) {
+        final List<GameObject> moles = wam.getObjects().stream()
+                        .filter(o -> o instanceof Mole)
+                        .toList();
+            wam.getObjects().removeAll(moles);
+    }
 }
