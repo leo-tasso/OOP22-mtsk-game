@@ -87,15 +87,15 @@ public class DrawStrategyImpl implements DrawStrategy {
      * @param isHoleBusy
      * @return the integer representing the hole
      */
-    private Integer assignHole(final Map<Integer, Boolean> isHoleBusy) {
+    private Integer assignHole(final Map<Integer, Boolean> holesOccupied) {
         final Boolean holeFound = false;
-        Integer holeAssigned = RANDOM.nextInt(isHoleBusy.size()) + 1;
+        Integer holeAssigned = RANDOM.nextInt(holesOccupied.size()) + 1;
         while (!holeFound) {
-            if (!isHoleBusy.get(holeAssigned)) {
-                isHoleBusy.replace(holeAssigned, true);
+            if (!holesOccupied.get(holeAssigned)) {
+                holesOccupied.replace(holeAssigned, true);
                 return holeAssigned;
             } 
-            holeAssigned = RANDOM.nextInt(isHoleBusy.size()) + 1;
+            holeAssigned = RANDOM.nextInt(holesOccupied.size()) + 1;
         }
         return holeAssigned;
     }
