@@ -21,10 +21,11 @@ import game.engine.minigame.whacamoleminigame.WhacAMole;
  */
 class WhacAMoleTest {
     private static final int ELAPSED_TIME = 10;
+    private static final int FRAME_HEIGHT = 900;
 
     @Test
     void hitMoleTest() {
-        final Minigame wam = new WhacAMole();
+        final Minigame wam = new WhacAMole(FRAME_HEIGHT);
 
         while (wam.getObjects().stream()
                 .noneMatch(o -> o instanceof Mole)
@@ -51,7 +52,7 @@ class WhacAMoleTest {
 
     @Test
     void missMoleTest() {
-        final Minigame wam = new WhacAMole();
+        final Minigame wam = new WhacAMole(FRAME_HEIGHT);
 
         while (wam.getObjects().stream()
                 .noneMatch(o -> o instanceof Mole)) {
@@ -73,7 +74,7 @@ class WhacAMoleTest {
 
     @Test
     void hitBombTest() {
-        final Minigame wam = new WhacAMole();
+        final Minigame wam = new WhacAMole(FRAME_HEIGHT);
 
         while (wam.getObjects().stream()
                 .noneMatch(o -> o instanceof Bomb)
@@ -99,7 +100,7 @@ class WhacAMoleTest {
 
     @Test
     void missBombTest() {
-        final Minigame wam = new WhacAMole();
+        final Minigame wam = new WhacAMole(FRAME_HEIGHT);
 
         while (wam.getObjects().stream()
                 .noneMatch(o -> o instanceof Bomb)
