@@ -13,7 +13,10 @@ import game.engine.gameobject.whacamoleobjects.WamObject;
  * Class that implements the Whac-a-mole minigame logic.
  */
 public class WhacAMole implements Minigame {
-    private static final int NUM_HOLES = 9;
+    /**
+     *  Number of holes in the game.
+     */
+    public static final int NUM_HOLES = 9;
     private static final int DRAWS_TO_NEXT_LEVEL = 3;
 
     private final List<WamObject> objs;
@@ -33,7 +36,7 @@ public class WhacAMole implements Minigame {
         this.currentTime = 0L;
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
         this.objs = new ArrayList<>(new HolesGenerator().generate(NUM_HOLES));
-        this.draw = new DrawStrategyImpl(new ArrayList<>(this.objs));
+        this.draw = new DrawStrategyImpl(new ArrayList<>(this.objs.subList(NUM_HOLES, this.objs.size())));
         this.currentLevel = this.levels.get(0);
         this.numDraws = 0;
     }
@@ -99,7 +102,7 @@ public class WhacAMole implements Minigame {
      * to perform a draw, and if so, does it.
      */
     private void drawIfNecessary() {
-        if (this.objs.size() == WhacAMole.NUM_HOLES * 2) {
+        if (this.objs.size() <= WhacAMole.NUM_HOLES * 2) {
             this.draw.draw(this.currentLevel, this.currentTime).stream()
                 .forEach(
                     /* Since the visualization of the layers when they   */
