@@ -97,9 +97,33 @@ class WhacAMoleTest {
         assertTrue(bombToHit.get().getStatus().equals(Status.HIT) && wam.isGameOver());
     }
 
+    @Test
+    void missBombTest() {
+        final Minigame wam = new WhacAMole();
 
+        while (wam.getObjects().stream()
+                .noneMatch(o -> o instanceof Bomb)
+            || wam.getObjects().stream()
+                .filter(o -> o instanceof Bomb)
+                .noneMatch(o -> ((WamObject) o).getAppearanceTime() > ((WhacAMole) wam).getCurrentTime())) {
+            deleteMoles(wam);
+            wam.compute(ELAPSED_TIME);
+        }
 
+        final Optional<WamObject> bombToMiss = wam.getObjects().stream()
+                .filter(o -> o instanceof Bomb)
+                .map(o -> (WamObject) o)
+                .reduce(BinaryOperator.minBy(Comparator.comparingLong(WamObject::getAppearanceTime)));
+        /* After taking the reference to the closest bomb    */
+        /* in terms of appearance, I make it exit and return */
+        /* to the lair, then verifying that it is correctly  */
+        /* marked as MISSED and that the game does not end   */
+        while (bombToMiss.get().getCoor().getY() < bombToMiss.get().getStartCoor().getY()) {
+            wam.compute(ELAPSED_TIME);
+        }
+        assertTrue(bombToMiss.get().getStatus().equals(Status.MISSED) && !wam.isGameOver());
 
+    }
 
     /** 
      * I need to eliminate all possible moles, since by not
