@@ -48,4 +48,26 @@ class WhacAMoleTest {
         moleToHit.get().updateinput(input, ELAPSED_TIME);
         assertTrue(moleToHit.get().getStatus().equals(Status.HIT) && !wam.isGameOver());
     }
+
+    @Test
+    void missMoleTest() {
+        final Minigame wam = new WhacAMole();
+
+        while (wam.getObjects().stream()
+                .noneMatch(o -> o instanceof Mole)) {
+            wam.compute(ELAPSED_TIME);
+        }
+
+        final Optional<WamObject> mole = wam.getObjects().stream()
+            .filter(o -> o instanceof Mole)
+            .map(o -> (WamObject) o)
+            .reduce(BinaryOperator.minBy(Comparator.comparingLong(WamObject::getAppearanceTime)));
+        /* I iterate until the mole comes out  */
+        /* and re-enters the den that has been */ 
+        /* assigned to it, without hitting it  */
+        while (mole.get().getCoor().getY() < mole.get().getStartCoor().getY()) {
+            wam.compute(ELAPSED_TIME);
+        }
+        assertTrue(mole.get().getStatus().equals(Status.MISSED) && wam.isGameOver());
+    }
 }
