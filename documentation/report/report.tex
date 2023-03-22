@@ -2,6 +2,8 @@
 
 \usepackage{graphicx}
 \usepackage{pgfplots}
+\usepackage{graphicx}
+
 \pgfplotsset{compat=1.18}
 
 \title{Report\\ \textbf {``MTSK-GAME''}}
@@ -94,58 +96,65 @@ a full separation of concerns based on domains (allow a single entity to span mu
 \end{figure}
 \subsection*{Leonardo Tassinari}
 \textbf{Difficulty in CTS}\\
-\textbf{Problem} The spawn rate of the squares shall increase over time.\\
-\textbf{Solution} The CatchTheSquare's constructor adopts the strategy pattern taking a \textit{Function} interface. That function will return to the minigame the number of bombs that are expected to be spawn so far given the total amount of milliseconds elapsed from the beginning of the minigame.
+\textbf{Problem:} The spawn rate of the squares shall increase over time.\\
+\textbf{Solution:} The CatchTheSquare's constructor adopts the strategy pattern taking a \textit{Function} interface. That function will return to the minigame the number of bombs that are expected to be spawn so far given the total amount of milliseconds elapsed from the beginning of the minigame.
 My implementation of the function uses an exponential curve to increment the spawn rate progressively until a certain rate.
 The limit rate is represented by the inclination of the line tangent to the exponential curve on the point where the derivate of the exponential reaches that steepness.\\
-TODO ADD UML DIAGRAM
-\begin{figure}[ht]    
+\begin{figure}[ht]
 	\centering
-\begin{tikzpicture}
-	\begin{axis}[
-		xmin = 0, xmax = 100,
-		ymin = 0, ymax = 50,
-		xtick distance = 10,
-		ytick distance = 10,
-		xticklabels=\empty,
-		yticklabels=\empty,
-		grid = both,
-		minor tick num = 1,
-		major grid style = {lightgray},
-		minor grid style = {lightgray!25},
-		width = \textwidth,
-		height = 0.5\textwidth
-		]
-		\addplot[
-			domain = 0:55,
-			samples = 200,
-			smooth,
-			thick,
-			red,
-		] {1.05^x};
-		\addplot[
-			domain = 55:150,
-			samples = 200,
-			dotted,
-			thick,
-			red,
-		] {1.05^x};
-		\addplot[
-			domain = 55:150,
-			samples = 200,
-			smooth,
-			thick,
-			blue,
-		] {x*0.7-24};
-		\addplot[
-			domain = 0:55,
-			samples = 200,
-			dotted,
-			thick,
-			blue,
-		] {x*0.7-24};
-	\end{axis}
-\end{tikzpicture}
-\caption{An example of the trend of the implemented function}
+	\includegraphics[width=\textwidth]{res/RateStrat.pdf}
+	\caption{The corresponding UML diagram}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+				xmin = 0, xmax = 100,
+				ymin = 0, ymax = 50,
+				xtick distance = 10,
+				ytick distance = 10,
+				xticklabels=\empty,
+				yticklabels=\empty,
+				grid = both,
+				minor tick num = 1,
+				major grid style = {lightgray},
+				minor grid style = {lightgray!25},
+				width = \textwidth,
+				height = 0.5\textwidth
+			]
+			\addplot[
+				domain = 0:55,
+				samples = 200,
+				smooth,
+				thick,
+				red,
+			] {1.05^x};
+			\addplot[
+				domain = 55:150,
+				samples = 200,
+				dotted,
+				thick,
+				red,
+			] {1.05^x};
+			\addplot[
+				domain = 55:150,
+				samples = 200,
+				smooth,
+				thick,
+				blue,
+			] {x*0.7-24};
+			\addplot[
+				domain = 0:55,
+				samples = 200,
+				dotted,
+				thick,
+				blue,
+			] {x*0.7-24};
+			\pgfmathsetmacro{\angle}{asin(0.7/sqrt(1+0.7^2))} %asin(rise/hypotenus)
+			\draw[black,thick] (axis cs: 44, 0) arc[start angle=0, end angle=\angle, radius=10];
+			\node[black] at (axis cs: 48, 4) {\(\theta\)max};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{An example of the trend of the implemented function}
 \end{figure}
 \end{document}
