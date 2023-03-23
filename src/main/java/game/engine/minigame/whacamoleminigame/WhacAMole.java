@@ -2,7 +2,6 @@ package game.engine.minigame.whacamoleminigame;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import api.Vector2D;
 import game.engine.minigame.Minigame;
 import game.engine.gameobject.GameObject;
@@ -18,7 +17,7 @@ public class WhacAMole implements Minigame {
      */
     public static final int NUM_HOLES = 9;
     private static final int DRAWS_TO_NEXT_LEVEL = 3;
-
+    
     private final List<WamObject> objs;
     private final List<Level> levels; 
     private long currentTime;
@@ -32,10 +31,10 @@ public class WhacAMole implements Minigame {
      * in level, the WamObject list is initialized with the 
      * objects representing the holes in the playing field.
      */
-    public WhacAMole() {
+    public WhacAMole(final double fieldHeight) {
         this.currentTime = 0L;
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
-        this.objs = new ArrayList<>(new HolesGenerator().generate(NUM_HOLES));
+        this.objs = new ArrayList<>(new HolesGenerator(fieldHeight).generate(NUM_HOLES));
         this.draw = new DrawStrategyImpl(new ArrayList<>(this.objs.subList(NUM_HOLES, this.objs.size())));
         this.currentLevel = this.levels.get(0);
         this.numDraws = 0;
