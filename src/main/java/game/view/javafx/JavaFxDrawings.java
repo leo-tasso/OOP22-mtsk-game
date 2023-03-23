@@ -185,7 +185,12 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleLowerPart(final GameObject object) {
-
+        try {
+            final Image holeLowerPart = new Image(new FileInputStream("src/main/resources/lower_part_hole.png"));
+            gc.drawImage(holeLowerPart, object.getCoor().getX(), object.getCoor().getY());
+        } catch (FileNotFoundException e) {
+            System.exit(0);
+        }
     }
 
     /**
