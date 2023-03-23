@@ -89,7 +89,8 @@ public class DrawStrategyImpl implements DrawStrategy {
      * Method that randomly assigns a Hole from 
      * which to make the bomb or mole emerge.
      * 
-     * @param isHoleBusy
+     * @param holesOccupied from the hole's number
+     * to 'true' if it has already been assigned
      * @return the integer representing the hole
      */
     private Integer assignHole(final Map<Integer, Boolean> holesOccupied) {

@@ -39,5 +39,5 @@ public class LevelNull implements Level {
     @Override
     public long getHalfwayTime() {
         return 0L;
-    }   
+    }
 }
