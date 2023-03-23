@@ -154,7 +154,17 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawBomb(final GameObject object, final Boolean beenHit) {
-
+        try {
+            final Image bomb;
+            if (beenHit) {
+                bomb = new Image(new FileInputStream("src/main/resources/boom.png"));
+            } else {
+                bomb = new Image(new FileInputStream("src/main/resources/bomb.png"));
+            }
+            gc.drawImage(bomb, object.getCoor().getX(), object.getCoor().getY());
+        } catch (FileNotFoundException e) {
+            System.exit(0);
+        }
     }
 
     /**
