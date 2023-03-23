@@ -126,8 +126,8 @@ public class JavaFxDrawings implements Drawings {
         ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle2));
         ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle));
 
-        gc.setStroke(jfxColor(color));
-        gc.strokePolygon(xs.stream().mapToDouble(x -> x * dimention / coefficient + startingPoint.getX()).toArray(),
+        gc.setFill(jfxColor(color));
+        gc.fillPolygon(xs.stream().mapToDouble(x -> x * dimention / coefficient + startingPoint.getX()).toArray(),
                 ys.stream().mapToDouble(y -> y * dimention / coefficient + startingPoint.getY()).toArray(), 3);
     }
 
