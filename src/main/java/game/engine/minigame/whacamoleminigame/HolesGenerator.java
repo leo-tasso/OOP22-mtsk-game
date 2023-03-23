@@ -52,7 +52,6 @@ public class HolesGenerator {
         for (int y = dy; holesCounter <= numHoles; y += dy * 2) {
             int holesInThisRow = 0;
             for (int x = dx;  holesInThisRow < holesPerRow; x += dx * 2) {
-                System.out.println("[x = " + x + "]  [y = " + y + "]"); // AHIAHIAHIAHIHAIHAIAH
                 holes.add(holesCounter - 1, new HoleUpperPart(
                         new Point2D(x, y - HALF_HEIGHT_UPPER_PART),
                         0, 

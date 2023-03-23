@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
 import api.ColorRGB;
 import api.Point2D;
 import game.engine.gameobject.GameObject;
@@ -13,7 +12,6 @@ import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -204,6 +202,4 @@ public class JavaFxDrawings implements Drawings {
                 color.getGreen() / (double) ColorRGB.COLOR_RANGE_TOP,
                 color.getBlue() / (double) ColorRGB.COLOR_RANGE_TOP);
     }
-
-
 }
