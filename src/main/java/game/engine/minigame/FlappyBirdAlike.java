@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.ArrayList;
 
 import game.controlling.FlappyInput;
-import game.controlling.InputModel;
 import game.controlling.NullInput;
 import game.engine.difficultystrats.StepRateStrat;
 import game.engine.gameobject.GameObject;
@@ -25,17 +24,17 @@ import api.Vector2D;
 */
 public class FlappyBirdAlike implements Minigame {
 
-    private static final double CURSOR_SIZE = 200;
-    private static final double CURSOR_X = 50;
-    private static final int ENEMY_WIDTH = 100;
-    private static final int ENEMY_SPAWN = 1600 + ENEMY_WIDTH;
-    private static final int ENEMY_SPEED = -50;
-    private static final int FIELD_HEIGHT = 900;
-    private static final int HEIGHT_OFFSET = 100;
-    private static final int MAX_HEIGHT = FIELD_HEIGHT - (int) CURSOR_SIZE - 2 * HEIGHT_OFFSET;
+    private static final double RATIO = 16 / 9d;
+    private static final int DEFAULT_HEIGHT = 900;
     private static final long INC_DIFF_TIME_WINDOW = 10_000L;
     private static final int X_OFFSET = 100;
     private static final int NUM_STEPS = 8;
+    private final int height;
+    private final int maxHeight;
+    private final int enemySpeed;
+    private final int heightOffset;
+    private final int enemyWidth;
+    private final int enemySpawn;
     private final List<GameObject> l = new ArrayList<>();
     private final Random rand = new Random();
     private final Function<Long, Integer> freqStrat = new StepRateStrat(NUM_STEPS, X_OFFSET, INC_DIFF_TIME_WINDOW);
@@ -46,26 +45,29 @@ public class FlappyBirdAlike implements Minigame {
     /**
     * Contructs an instance of the flappy bird minigame.
     * 
-    * @param inputModel the custom inputModel used to control the cursor movement
+    * @param height the height of the game's world
     */
-    public FlappyBirdAlike(final InputModel inputModel) {
-        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT - CURSOR_SIZE / 2),
+    public FlappyBirdAlike(final int height) {
+        this.height = height;
+        this.enemySpeed = (int) (-height * RATIO / 32);
+        final double cursorSize = height * RATIO / 8;
+        this.heightOffset = (int) (height * RATIO / 16);
+        this.enemyWidth = heightOffset;
+        this.maxHeight = height - (int) cursorSize - 2 * heightOffset;
+        this.enemySpawn = (int) (height * RATIO) + enemyWidth;
+        this.l.add(new Cursor(new Point2D(cursorSize / 2 + height * RATIO / 32, height - cursorSize / 2),
                 Vector2D.nullVector(),
-                CURSOR_SIZE,
-                -ENEMY_SPEED,
-                inputModel));
+                cursorSize,
+                -enemySpeed,
+                new FlappyInput()));
     }
 
     /**
-    * Contructs an instance of the flappy bird minigame
-    * with default input controls.
-    */
+     * Contructs an instance of the flappy bird minigame
+     * with default height setting.
+     */
     public FlappyBirdAlike() {
-        this.l.add(new Cursor(new Point2D(CURSOR_SIZE / 2 + CURSOR_X, FIELD_HEIGHT - CURSOR_SIZE / 2),
-                Vector2D.nullVector(),
-                CURSOR_SIZE,
-                -ENEMY_SPEED,
-                new FlappyInput()));
+        this(DEFAULT_HEIGHT);
     }
 
     /**
@@ -91,17 +93,17 @@ public class FlappyBirdAlike implements Minigame {
     public void compute(final long elapsed) {
         totalElapsed += elapsed;
         if (l.size() == 1 || l.get(l.size() - 1).getCoor().getX() < freqStrat.apply(totalElapsed)) {
-            enemyHeight = rand.nextInt(MAX_HEIGHT) + HEIGHT_OFFSET;
-            final double y = rand.nextInt(2) == 1 ? enemyHeight / 2.0 : FIELD_HEIGHT - enemyHeight / 2.0;
-            l.add(new GameObject(new Point2D(ENEMY_SPAWN, y),
-                    new Vector2D(ENEMY_SPEED, 0),
+            enemyHeight = rand.nextInt(maxHeight) + heightOffset;
+            final double y = rand.nextInt(2) == 1 ? enemyHeight / 2.0 : height - enemyHeight / 2.0;
+            l.add(new GameObject(new Point2D(enemySpawn, y),
+                    new Vector2D(enemySpeed, 0),
                     0, new NullInput(),
                     new SimplePhysics(),
-                    new RectangleAspect(ENEMY_WIDTH, enemyHeight, ColorRGB.black(), false),
-                    new RectangleHitBoxModel(ENEMY_WIDTH, enemyHeight)));
+                    new RectangleAspect(enemyWidth, enemyHeight, ColorRGB.black(), false),
+                    new RectangleHitBoxModel(enemyWidth, enemyHeight)));
         }
 
-        l.removeIf(e -> e.getCoor().getX() < -ENEMY_WIDTH);
+        l.removeIf(e -> e.getCoor().getX() < -enemyWidth);
         l.forEach(e -> e.updatePhysics(elapsed, this));
     }
 
