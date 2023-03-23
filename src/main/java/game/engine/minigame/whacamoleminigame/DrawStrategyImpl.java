@@ -22,7 +22,6 @@ public class DrawStrategyImpl implements DrawStrategy {
     private static final long SAFETY_TIME_MARGIN = 10L;
     private static final Random RANDOM = new Random();
     private final List<GameObject> holes;
-    private final int numHoles;
 
     /**
      * Constructor that takes the list of holes 
@@ -34,7 +33,6 @@ public class DrawStrategyImpl implements DrawStrategy {
     public DrawStrategyImpl(final List<GameObject> holes) {
         this.holes = new ArrayList<>();
         holes.forEach(h -> this.holes.add(h));
-        this.numHoles = holes.size() / 2;
     }
 
     /**
@@ -57,7 +55,7 @@ public class DrawStrategyImpl implements DrawStrategy {
             final int holeAssigned = assignHole(holesOccupied);
             final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
             newGameObjs.add(
-                new Mole(holes.get(holeAssigned + this.numHoles - 1).getCoor(),
+                new Mole(holes.get(holeAssigned - 1).getCoor(),
                         appearanceTime, 
                         currentLevel, 
                         holeAssigned, 
@@ -70,14 +68,11 @@ public class DrawStrategyImpl implements DrawStrategy {
             final int holeAssigned = assignHole(holesOccupied);
             final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
             newGameObjs.add(
-                /* I will have to refer to the coordinates of     */
-                /* the lower part of the holes, which are located */
-                /* starting from the second half of the list      */
-                new WamBomb(holes.get(holeAssigned + numHoles - 1).getCoor(),
-                        appearanceTime, 
+                new WamBomb(holes.get(holeAssigned - 1).getCoor(),
+                        appearanceTime,
                         currentLevel, 
                         holeAssigned,
-                        new WamPhysicsModel(), 
+                        new WamPhysicsModel(),
                         new WamBombAspectModel(), 
                         new WamInputModel())
             );
