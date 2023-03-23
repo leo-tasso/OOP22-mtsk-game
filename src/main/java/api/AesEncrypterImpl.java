@@ -21,6 +21,10 @@ public class AesEncrypterImpl implements Encrypter {
      * Constructor of the class.
      * 
      * @param password the key to use to encrypt and decrypt.
+     *                 !!It must be 16 bits long!!
+     *                 Obviously if the password is hard coded in the program it is not
+     *                 safe, unless the bytecode is offuscated, but at least it adds
+     *                 another (little) layer of security. Be aware.
      */
     public AesEncrypterImpl(final String password) {
         this.key = new SecretKeySpec(password.getBytes(StandardCharsets.UTF_8), "AES");
