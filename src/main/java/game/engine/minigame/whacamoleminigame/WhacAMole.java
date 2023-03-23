@@ -30,6 +30,8 @@ public class WhacAMole implements Minigame {
      * is requested in order to calculate when to advance 
      * in level, the WamObject list is initialized with the 
      * objects representing the holes in the playing field.
+     * 
+     * @param fieldHeight the height of the playing field
      */
     public WhacAMole(final double fieldHeight) {
         this.currentTime = 0L;
