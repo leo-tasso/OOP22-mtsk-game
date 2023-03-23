@@ -29,11 +29,11 @@ public class DodgeATriangle implements Minigame {
 
     private static final double RATIO = 16 / 9d;
     private static final int DEFAULT_HEIGHT = 900;
+    private static final int DIFFICULTY_OFFSET = 100;
     private static final int SLOT_RATIO = 9;
     private static final Vector2D DEFAULT_SPEED = new Vector2D(40, 0);
     private static final int NUM_SLOTS = 5;
     private static final int NUM_STEPS = 8;
-    private static final int X_OFFSET = 100;
     private static final long MS_TO_ADD_ENEMY = 10_000L;
 
     private final int width;
@@ -47,7 +47,7 @@ public class DodgeATriangle implements Minigame {
     private final Collider c = new ColliderImpl();
     private final Random rand = new Random();
     private long totalElapsed;
-    private final Function<Long, Integer> diff = new StepRateStrat(NUM_STEPS, X_OFFSET, MS_TO_ADD_ENEMY);
+    private final Function<Long, Integer> diff;
     private boolean gameOver;
 
     /**
@@ -64,6 +64,7 @@ public class DodgeATriangle implements Minigame {
         this.spawnLeft = -sideLength;
         this.spawnRight = (int) (width + sideLength);
         this.enemySpeed = DEFAULT_SPEED.mul(height / (double) DEFAULT_HEIGHT);
+        this.diff = new StepRateStrat(NUM_STEPS, height / DEFAULT_HEIGHT * DIFFICULTY_OFFSET, MS_TO_ADD_ENEMY);
         this.l.add(new Dodger(initialY, sideLength,
                 new DodgerInputModel(sideLength, initialY)));
         this.slots = new GameObject(new Point2D(initialX, initialY), enemySpeed);

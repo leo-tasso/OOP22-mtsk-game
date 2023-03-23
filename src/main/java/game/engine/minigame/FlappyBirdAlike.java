@@ -26,8 +26,8 @@ public class FlappyBirdAlike implements Minigame {
 
     private static final double RATIO = 16 / 9d;
     private static final int DEFAULT_HEIGHT = 900;
+    private static final int DIFFICULTY_OFFSET = 100;
     private static final long INC_DIFF_TIME_WINDOW = 10_000L;
-    private static final int X_OFFSET = 100;
     private static final int NUM_STEPS = 8;
     private final int height;
     private final int maxHeight;
@@ -37,7 +37,7 @@ public class FlappyBirdAlike implements Minigame {
     private final int enemySpawn;
     private final List<GameObject> l = new ArrayList<>();
     private final Random rand = new Random();
-    private final Function<Long, Integer> freqStrat = new StepRateStrat(NUM_STEPS, X_OFFSET, INC_DIFF_TIME_WINDOW);
+    private final Function<Long, Integer> freqStrat;
     private long totalElapsed;
     private int enemyHeight;
     private boolean gameOver;
@@ -55,6 +55,7 @@ public class FlappyBirdAlike implements Minigame {
         this.enemyWidth = heightOffset;
         this.maxHeight = height - (int) cursorSize - 2 * heightOffset;
         this.enemySpawn = (int) (height * RATIO) + enemyWidth;
+        this.freqStrat = new StepRateStrat(NUM_STEPS, height / DEFAULT_HEIGHT * DIFFICULTY_OFFSET, INC_DIFF_TIME_WINDOW);
         this.l.add(new Cursor(new Point2D(cursorSize / 2 + height * RATIO / 32, height - cursorSize / 2),
                 Vector2D.nullVector(),
                 cursorSize,
