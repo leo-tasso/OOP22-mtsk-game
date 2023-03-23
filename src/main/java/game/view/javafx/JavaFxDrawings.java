@@ -1,5 +1,7 @@
 package game.view.javafx;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,8 @@ import game.view.Drawings;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -132,11 +136,16 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawMole(final GameObject object, final Boolean beenHit) {
-        // TODO Auto-generated method stub
-        if (!beenHit) {
-            drawCircle(object, ColorRGB.white(), 0);
-        } else {
-            drawCircle(object, ColorRGB.red(), 0);
+        try {
+            final Image mole;
+            if (beenHit) {
+                mole = new Image(new FileInputStream("src/main/resources/hit_mole.png"));
+            } else {
+                mole = new Image(new FileInputStream("src/main/resources/mole.png"));
+            }
+            gc.drawImage(mole, object.getCoor().getX(), object.getCoor().getY());
+        } catch (FileNotFoundException e) {
+            System.exit(0);
         }
     }
 
@@ -145,11 +154,7 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawBomb(final GameObject object, final Boolean beenHit) {
-        if (!beenHit) {
-            drawSquare(object, ColorRGB.blue(), 0);
-        } else {
-            drawSquare(object, ColorRGB.aqua(), 0);
-        }
+
     }
 
     /**
@@ -157,8 +162,7 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleUpperPart(final GameObject object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawHoleUpperPart'");
+
     }
 
     /**
@@ -166,8 +170,7 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleLowerPart(final GameObject object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawHoleLowerPart'");
+
     }
 
     /**
