@@ -168,13 +168,13 @@ public class WhacAMole implements Minigame {
     public long getCurrentTime() {
         return this.currentTime;
     }
-    
+
     /**
      * 
      * 
      * @param objs
      */
-    public void setObjects(List<WamObject> objs) {
+    public void setObjects(final List<WamObject> objs) {
         this.objs = new ArrayList<>(objs);
     }
 }
