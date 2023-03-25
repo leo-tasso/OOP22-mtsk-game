@@ -79,7 +79,7 @@ public class WhacAMole implements Minigame {
             .filter(o -> o.getAppearanceTime() <= this.currentTime)
             .forEach(o -> {
                 o.setStatus(Status.IN_MOTION);
-                o.setVel(this.currentLevel.getObjSpeed());
+                o.setVel(o.getLevel().getObjSpeed());
             });
 
         this.objs.stream()
