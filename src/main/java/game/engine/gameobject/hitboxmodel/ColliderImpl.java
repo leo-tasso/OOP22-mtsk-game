@@ -31,16 +31,16 @@ public class ColliderImpl implements Collider {
      * @return if the two rectangles are colliding.
      */
     private boolean rectangleRectangleCompare(final GameObject h, final GameObject g) {
-        return h.getCoor().getX() - h.getHitBoxModel().getSize() / 2 < g.getCoor().getX()
-                + g.getHitBoxModel().getSize() / 2
-                && h.getCoor().getX() + h.getHitBoxModel().getSize() / 2 > g.getCoor().getX()
-                        - g.getHitBoxModel().getSize() / 2
+        return h.getCoor().getX() - h.getHitBoxModel().getSizes().get(0) / 2 < g.getCoor().getX()
+                + g.getHitBoxModel().getSizes().get(0) / 2
+                && h.getCoor().getX() + h.getHitBoxModel().getSizes().get(0) / 2 > g.getCoor().getX()
+                        - g.getHitBoxModel().getSizes().get(0) / 2
                 &&
-                h.getCoor().getY() - h.getHitBoxModel().getSize1().get() / 2 < g.getCoor().getY()
-                        + g.getHitBoxModel().getSize1().get() / 2
+                h.getCoor().getY() - h.getHitBoxModel().getSizes().get(1) / 2 < g.getCoor().getY()
+                        + g.getHitBoxModel().getSizes().get(1) / 2
                 &&
-                h.getCoor().getY() + h.getHitBoxModel().getSize1().get() / 2 > g.getCoor().getY()
-                        - g.getHitBoxModel().getSize1().get() / 2;
+                h.getCoor().getY() + h.getHitBoxModel().getSizes().get(1) / 2 > g.getCoor().getY()
+                        - g.getHitBoxModel().getSizes().get(1) / 2;
     }
 
     /**
@@ -52,13 +52,13 @@ public class ColliderImpl implements Collider {
      */
     private boolean circleRectangleCompare(final GameObject circle, final GameObject rectangle) {
         final double circleDistancex = Math.abs(circle.getCoor().getX() - rectangle.getCoor().getX());
-        final double rectWidth = rectangle.getHitBoxModel().getSize();
-        final double circleRad = circle.getHitBoxModel().getSize();
+        final double rectWidth = rectangle.getHitBoxModel().getSizes().get(0);
+        final double circleRad = circle.getHitBoxModel().getSizes().get(0);
         if (circleDistancex > (rectWidth / 2 + circleRad)) {
             return false;
         }
         final double circleDistancey = Math.abs(circle.getCoor().getY() - rectangle.getCoor().getY());
-        final double rectHeight = rectangle.getHitBoxModel().getSize1().get();
+        final double rectHeight = rectangle.getHitBoxModel().getSizes().get(1);
         if (circleDistancey > (rectHeight / 2 + circleRad)) {
             return false;
         }

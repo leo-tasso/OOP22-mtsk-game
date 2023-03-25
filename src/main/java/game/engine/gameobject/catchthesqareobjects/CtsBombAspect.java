@@ -8,7 +8,7 @@ import game.view.Drawings;
 /**
  * Aspect for for a Bomb object, displayed with its timer inside.
  */
-public class BombAspect extends RectangleAspect {
+public class CtsBombAspect extends RectangleAspect {
     private static final int WARING_SECONDS = 5;
     private static final int FONT_SIZE_REDUCTION = 4;
     private final ColorRGB previousColor;
@@ -20,7 +20,7 @@ public class BombAspect extends RectangleAspect {
      * @param side  the side of the object.
      * @param color the color of the object.
      */
-    public BombAspect(final int side, final ColorRGB color) {
+    public CtsBombAspect(final int side, final ColorRGB color) {
         super(side, side, color, false);
         previousColor = color;
     }
@@ -30,10 +30,10 @@ public class BombAspect extends RectangleAspect {
      */
     @Override
     public void update(final GameObject object, final Drawings d) {
-        if (!(object instanceof Bomb)) {
+        if (!(object instanceof CtsBomb)) {
             throw new IllegalCallerException("TimerPhysics can be used only on Bomb or his subclasses");
         }
-        final Bomb bObj = (Bomb) object;
+        final CtsBomb bObj = (CtsBomb) object;
         if (bObj.getTimer() < WARING_SECONDS * 1000 && (long) (bObj.getTimer() / 100) % 2 == 0) {
             super.setColor(warningColor);
         } else {

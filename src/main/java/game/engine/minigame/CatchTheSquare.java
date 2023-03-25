@@ -14,8 +14,8 @@ import game.engine.difficultystrats.IncrRateStrat;
 import game.engine.gameobject.CircleAspect;
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.RectangleAspect;
-import game.engine.gameobject.catchthesqareobjects.Bomb;
 import game.engine.gameobject.catchthesqareobjects.BoundaryDumpedPhysics;
+import game.engine.gameobject.catchthesqareobjects.CtsBomb;
 import game.engine.gameobject.catchthesqareobjects.Defuser;
 import game.engine.gameobject.hitboxmodel.Collider;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;
@@ -83,8 +83,8 @@ public class CatchTheSquare implements Minigame {
     @Override
     public boolean isGameOver() {
         return !gObjects.stream()
-                .filter(o -> o instanceof Bomb)
-                .map(obj -> (Bomb) obj)
+                .filter(o -> o instanceof CtsBomb)
+                .map(obj -> (CtsBomb) obj)
                 .allMatch(b -> b.getTimer() >= 0);
     }
 
@@ -101,7 +101,7 @@ public class CatchTheSquare implements Minigame {
             gObjects.remove(collider.get());
         }
         if (totalBombsSpawned < spawnFreqStrat.apply(totalElapsed) && gObjects.size() < MAX_OBJECT) {
-            gObjects.add(new Bomb(randSpawnPoint(), BOMB_SIDE, ColorRGB.black())); // if changing bomb shape, also
+            gObjects.add(new CtsBomb(randSpawnPoint(), BOMB_SIDE, ColorRGB.black())); // if changing bomb shape, also
                                                                                    // change
                                                                                    // checkCollision method
             totalBombsSpawned++;
@@ -113,7 +113,7 @@ public class CatchTheSquare implements Minigame {
     private Optional<GameObject> checkCollision(final Defuser defuser) {
         if (defuser.getAspectModel() instanceof CircleAspect) { // check if the bounding box is a circle
             final List<GameObject> bombs = gObjects.stream()
-                    .filter(o -> o instanceof Bomb)
+                    .filter(o -> o instanceof CtsBomb)
                     .filter(b -> b.getAspectModel() instanceof RectangleAspect) // check if bounding box is a square
                     .toList();
             for (final GameObject bomb : bombs) {

@@ -10,7 +10,7 @@ import game.engine.gameobject.hitboxmodel.SquareHitBoxModel;
 /**
  * Bomb gameObject, describes a bomb with a timer.
  */
-public class Bomb extends GameObject {
+public class CtsBomb extends GameObject {
     private long timer;
     private static final int STARTING_TIMER = 10_000;
 
@@ -22,8 +22,8 @@ public class Bomb extends GameObject {
      *              implementation.
      * @param color the color of the bomb.
      */
-    public Bomb(final Point2D coor, final int side, final ColorRGB color) {
-        super(coor, Vector2D.nullVector(), 0, new NullInput(), new BombTimerPhysics(), new BombAspect(side, color),
+    public CtsBomb(final Point2D coor, final int side, final ColorRGB color) {
+        super(coor, Vector2D.nullVector(), 0, new NullInput(), new CtsBombTimerPhysics(), new CtsBombAspect(side, color),
                 new SquareHitBoxModel(side));
         timer = STARTING_TIMER;
     }

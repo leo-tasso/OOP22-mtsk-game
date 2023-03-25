@@ -1,6 +1,6 @@
 package game.engine.gameobject.hitboxmodel;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Interface to model an hitboxmodel, the component that dictates the boudary
@@ -8,30 +8,9 @@ import java.util.Optional;
  */
 public interface HitBoxModel {
     /**
-     * To get the first size of the object.
+     * To get the sizes of the object's hitbox.
      * 
-     * @return the first size of the object.
+     * @return the list of sizes of the hitbox.
      */
-    double getSize();
-
-    /**
-     * To get the second size of the object.
-     * 
-     * @return an Optional of the second size of the object if exists.
-     */
-    Optional<Double> getSize1();
-
-    /**
-     * To get the third size of the object.
-     * 
-     * @return an Optional of the third size of the object if exists.
-     */
-    Optional<Double> getSize2();
-
-    /**
-     * To get the fourht size of the object.
-     * 
-     * @return an Optional of the fourht size of the object if exists.
-     */
-    Optional<Double> getSize3();
+    List<Double> getSizes();
 }
