@@ -19,8 +19,8 @@ public class HolesGenerator {
     private static final double RATIO = 16.0 / 9.0;
     private static final int HALF_HEIGHT_LOWER_PART = 73;
     private static final int HALF_HEIGHT_UPPER_PART = 12;
-    private final double fieldHeight;
-    private final double fieldWidth;
+    private final int fieldHeight;
+    private final int fieldWidth;
 
     /**
      * Constructor that sets the value of the height 
@@ -28,9 +28,9 @@ public class HolesGenerator {
      * 
      * @param fieldHeight the height of the playing fields
      */
-    public HolesGenerator(final double fieldHeight) {
+    public HolesGenerator(final int fieldHeight) {
         this.fieldHeight = fieldHeight;
-        this.fieldWidth = fieldHeight * RATIO;
+        this.fieldWidth = (int) (fieldHeight * RATIO);
     }
 
     /**

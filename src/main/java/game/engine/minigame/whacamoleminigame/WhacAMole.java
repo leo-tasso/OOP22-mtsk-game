@@ -33,7 +33,7 @@ public class WhacAMole implements Minigame {
      * 
      * @param fieldHeight the height of the playing field
      */
-    public WhacAMole(final double fieldHeight) {
+    public WhacAMole(final int fieldHeight) {
         this.currentTime = 0L;
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
         this.objs = new ArrayList<>(new HolesGenerator(fieldHeight).generate(NUM_HOLES));
