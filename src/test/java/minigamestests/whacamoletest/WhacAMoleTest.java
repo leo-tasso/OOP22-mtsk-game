@@ -9,9 +9,9 @@ import java.util.function.BinaryOperator;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.engine.gameobject.GameObject;
-import game.engine.gameobject.catchthesqareobjects.Bomb;
 import game.engine.gameobject.whacamoleobjects.Mole;
 import game.engine.gameobject.whacamoleobjects.Status;
+import game.engine.gameobject.whacamoleobjects.WamBomb;
 import game.engine.gameobject.whacamoleobjects.WamObject;
 import game.engine.minigame.Minigame;
 import game.engine.minigame.whacamoleminigame.WhacAMole;
@@ -29,9 +29,9 @@ class WhacAMoleTest {
 
         while (wam.getObjects().stream()
                 .noneMatch(o -> o instanceof Mole)
-            ||  wam.getObjects().stream()
+            || wam.getObjects().stream()
                 .filter(o -> o instanceof Mole)
-                .noneMatch(o -> ((WamObject) o).getAppearanceTime() > ((WhacAMole) wam).getCurrentTime())) {
+                .noneMatch(o -> ((WamObject) o).getAppearanceTime() < ((WhacAMole) wam).getCurrentTime())) {
             /* I iterate until at least one mole is drawn and actually */
             /* comes out of one of the holes becoming hittable         */ 
             wam.compute(ELAPSED_TIME);
@@ -55,40 +55,53 @@ class WhacAMoleTest {
         final Minigame wam = new WhacAMole(FRAME_HEIGHT);
 
         while (wam.getObjects().stream()
-                .noneMatch(o -> o instanceof Mole)) {
+                .noneMatch(o -> o instanceof Mole)
+            || wam.getObjects().stream()
+                .filter(o -> o instanceof Mole)
+                .noneMatch(o -> ((WamObject) o).getStatus().equals(Status.IN_MOTION))) {
             wam.compute(ELAPSED_TIME);
         }
 
-        final Optional<WamObject> mole = wam.getObjects().stream()
+        final Optional<WamObject> moleToMiss = wam.getObjects().stream()
             .filter(o -> o instanceof Mole)
             .map(o -> (WamObject) o)
             .reduce(BinaryOperator.minBy(Comparator.comparingLong(WamObject::getAppearanceTime)));
-        /* I iterate until the mole comes out  */
-        /* and re-enters the den that has been */ 
-        /* assigned to it, without hitting it  */
-        while (mole.get().getCoor().getY() < mole.get().getStartCoor().getY()) {
+        /* I iterate until the mole re-enters the den that */
+        /* has been assigned to it, without hitting it     */
+        while (moleToMiss.get().getCoor().getY() <= moleToMiss.get().getStartCoor().getY()) {
             wam.compute(ELAPSED_TIME);
         }
-        assertTrue(mole.get().getStatus().equals(Status.MISSED) && wam.isGameOver());
+        System.out.println(moleToMiss.get().getStatus());                               // TO REMOVE !!!
+        System.out.println("[StartCoor: " + moleToMiss.get().getStartCoor() + "]");     // TO REMOVE !!!
+        System.out.println("[Coor: " + moleToMiss.get().getCoor() + "]");               // TO REMOVE !!!
+        System.out.println(wam.isGameOver());
+        assertTrue(moleToMiss.get().getStatus().equals(Status.MISSED) && wam.isGameOver());
     }
 
     @Test
-    void hitBombTest() {
+    void hitWamBombTest() {
         final Minigame wam = new WhacAMole(FRAME_HEIGHT);
 
         while (wam.getObjects().stream()
-                .noneMatch(o -> o instanceof Bomb)
+                .noneMatch(o -> o instanceof WamBomb)
             || wam.getObjects().stream()
-                .filter(o -> o instanceof Bomb)
-                .noneMatch(o -> ((WamObject) o).getAppearanceTime() > ((WhacAMole) wam).getCurrentTime())) {
+                .filter(o -> o instanceof WamBomb)
+                .noneMatch(o -> ((WamObject) o).getStatus().equals(Status.IN_MOTION))) {
             /* I iterate until at least one bomb is drawn and actually */
             /* comes out of one of the holes becoming hittable         */
-            deleteMoles(wam);
             wam.compute(ELAPSED_TIME);
+            /*
+            wam.getObjects().stream().filter(o -> o instanceof Mole).forEach(o -> System.out.println(((WamObject)o).getStatus()));
+            System.out.println(wam.getObjects().size());
+            for (GameObject o : wam.getObjects()) {
+                System.out.print("  " + o.getClass());
+            } */
         }
+        deleteMoles(wam);
+        // wam.getObjects().stream().filter(o -> o instanceof Mole).forEach(o -> System.out.println(((WamObject)o).getStatus()));
 
         final Optional<WamObject> bombToHit = wam.getObjects().stream()
-            .filter(o -> o instanceof Bomb)
+            .filter(o -> o instanceof WamBomb)
             .map(o -> (WamObject) o)
             .reduce(BinaryOperator.minBy(Comparator.comparingLong(WamObject::getAppearanceTime)));
 
@@ -99,27 +112,27 @@ class WhacAMoleTest {
     }
 
     @Test
-    void missBombTest() {
+    void missWamBombTest() {
         final Minigame wam = new WhacAMole(FRAME_HEIGHT);
 
         while (wam.getObjects().stream()
-                .noneMatch(o -> o instanceof Bomb)
+                .noneMatch(o -> o instanceof WamBomb)
             || wam.getObjects().stream()
-                .filter(o -> o instanceof Bomb)
-                .noneMatch(o -> ((WamObject) o).getAppearanceTime() > ((WhacAMole) wam).getCurrentTime())) {
-            deleteMoles(wam);
-            wam.compute(ELAPSED_TIME);
+                .filter(o -> o instanceof WamBomb)
+                .noneMatch(o -> ((WamObject) o).getAppearanceTime() < ((WhacAMole) wam).getCurrentTime())) {
+                wam.compute(ELAPSED_TIME);
         }
+        deleteMoles(wam);
 
         final Optional<WamObject> bombToMiss = wam.getObjects().stream()
-                .filter(o -> o instanceof Bomb)
+                .filter(o -> o instanceof WamBomb)
                 .map(o -> (WamObject) o)
                 .reduce(BinaryOperator.minBy(Comparator.comparingLong(WamObject::getAppearanceTime)));
         /* After taking the reference to the closest bomb    */
         /* in terms of appearance, I make it exit and return */
         /* to the lair, then verifying that it is correctly  */
         /* marked as MISSED and that the game does not end   */
-        while (bombToMiss.get().getCoor().getY() < bombToMiss.get().getStartCoor().getY()) {
+        while (bombToMiss.get().getCoor().getY() <= bombToMiss.get().getStartCoor().getY()) {
             wam.compute(ELAPSED_TIME);
         }
         assertTrue(bombToMiss.get().getStatus().equals(Status.MISSED) && !wam.isGameOver());
@@ -137,6 +150,6 @@ class WhacAMoleTest {
         final List<GameObject> moles = wam.getObjects().stream()
                         .filter(o -> o instanceof Mole)
                         .toList();
-            wam.getObjects().removeAll(moles);
+        wam.getObjects().removeAll(moles);
     }
 }
