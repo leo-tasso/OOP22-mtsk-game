@@ -2,6 +2,8 @@ package minigamestests.whacamoletest;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -89,21 +91,14 @@ class WhacAMoleTest {
                 .noneMatch(o -> ((WamObject) o).getStatus().equals(Status.IN_MOTION))) {
             /* I iterate until at least one bomb is drawn and actually */
             /* comes out of one of the holes becoming hittable         */
+            deleteMoles(wam);
             wam.compute(ELAPSED_TIME);
-            /*
-            wam.getObjects().stream().filter(o -> o instanceof Mole).forEach(o -> System.out.println(((WamObject)o).getStatus()));
-            System.out.println(wam.getObjects().size());
-            for (GameObject o : wam.getObjects()) {
-                System.out.print("  " + o.getClass());
-            } */
         }
-        deleteMoles(wam);
-        // wam.getObjects().stream().filter(o -> o instanceof Mole).forEach(o -> System.out.println(((WamObject)o).getStatus()));
 
         final Optional<WamObject> bombToHit = wam.getObjects().stream()
-            .filter(o -> o instanceof WamBomb)
-            .map(o -> (WamObject) o)
-            .reduce(BinaryOperator.minBy(Comparator.comparingLong(WamObject::getAppearanceTime)));
+                .filter(o -> o instanceof WamBomb)
+                .map(o -> (WamObject) o)
+                .reduce(BinaryOperator.minBy(Comparator.comparingLong(WamObject::getAppearanceTime)));
 
         final Input input = new KeyboardInput();
         input.setNumberPressed(Optional.of(bombToHit.get().getHoleNumber()));
@@ -120,9 +115,9 @@ class WhacAMoleTest {
             || wam.getObjects().stream()
                 .filter(o -> o instanceof WamBomb)
                 .noneMatch(o -> ((WamObject) o).getAppearanceTime() < ((WhacAMole) wam).getCurrentTime())) {
-                wam.compute(ELAPSED_TIME);
+            deleteMoles(wam);
+            wam.compute(ELAPSED_TIME);
         }
-        deleteMoles(wam);
 
         final Optional<WamObject> bombToMiss = wam.getObjects().stream()
                 .filter(o -> o instanceof WamBomb)
@@ -136,7 +131,6 @@ class WhacAMoleTest {
             wam.compute(ELAPSED_TIME);
         }
         assertTrue(bombToMiss.get().getStatus().equals(Status.MISSED) && !wam.isGameOver());
-
     }
 
     /** 
@@ -148,8 +142,13 @@ class WhacAMoleTest {
      */
     private void deleteMoles(final Minigame wam) {
         final List<GameObject> moles = wam.getObjects().stream()
-                        .filter(o -> o instanceof Mole)
-                        .toList();
-        wam.getObjects().removeAll(moles);
+                .filter(o -> o instanceof Mole)
+                .toList();
+        final List<WamObject> objs = new ArrayList<>();
+        wam.getObjects().stream()
+                .map(o -> (WamObject) o)
+                .forEach(o -> objs.add(o));
+        objs.removeAll(moles);
+        ((WhacAMole) wam).setObjects(objs);
     }
 }
