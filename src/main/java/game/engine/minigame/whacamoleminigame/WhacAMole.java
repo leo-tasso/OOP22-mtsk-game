@@ -170,9 +170,11 @@ public class WhacAMole implements Minigame {
     }
 
     /**
+     * Method that allows you to update the list of objects (It is 
+     * used to test that the bombs work correctly, eliminating the 
+     * moles to ensure that they do not interfere with the test result).
      * 
-     * 
-     * @param objs
+     * @param objs the new object list
      */
     public void setObjects(final List<WamObject> objs) {
         this.objs = new ArrayList<>(objs);
