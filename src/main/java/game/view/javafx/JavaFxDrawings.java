@@ -143,7 +143,7 @@ public class JavaFxDrawings implements Drawings {
             }
             gc.drawImage(mole, object.getCoor().getX(), object.getCoor().getY());
         } catch (FileNotFoundException e) {
-            System.exit(0);
+            return;
         }
     }
 
@@ -161,7 +161,7 @@ public class JavaFxDrawings implements Drawings {
             }
             gc.drawImage(bomb, object.getCoor().getX(), object.getCoor().getY());
         } catch (FileNotFoundException e) {
-            System.exit(0);
+            return;
         }
     }
 
@@ -174,7 +174,7 @@ public class JavaFxDrawings implements Drawings {
             final Image holeUpperPart = new Image(new FileInputStream("src/main/resources/upper_part_hole.png"));
             gc.drawImage(holeUpperPart, object.getCoor().getX(), object.getCoor().getY());
         } catch (FileNotFoundException e) {
-            System.exit(0);
+            return;
         }
     }
 
@@ -187,7 +187,7 @@ public class JavaFxDrawings implements Drawings {
             final Image holeLowerPart = new Image(new FileInputStream("src/main/resources/lower_part_hole.png"));
             gc.drawImage(holeLowerPart, object.getCoor().getX(), object.getCoor().getY());
         } catch (FileNotFoundException e) {
-            System.exit(0);
+            return;
         }
     }
 
