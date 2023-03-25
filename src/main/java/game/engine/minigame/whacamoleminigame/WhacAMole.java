@@ -18,7 +18,7 @@ public class WhacAMole implements Minigame {
     public static final int NUM_HOLES = 9;
     private static final int DRAWS_TO_NEXT_LEVEL = 3;
 
-    private final List<WamObject> objs;
+    private List<WamObject> objs;
     private final List<Level> levels; 
     private long currentTime;
     private final DrawStrategy draw;
@@ -167,5 +167,14 @@ public class WhacAMole implements Minigame {
      */
     public long getCurrentTime() {
         return this.currentTime;
+    }
+    
+    /**
+     * 
+     * 
+     * @param objs
+     */
+    public void setObjects(List<WamObject> objs) {
+        this.objs = new ArrayList<>(objs);
     }
 }
