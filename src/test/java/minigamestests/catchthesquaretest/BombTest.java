@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import api.ColorRGB;
 import api.Point2D;
-import game.engine.gameobject.catchthesqareobjects.Bomb;
+import game.engine.gameobject.catchthesqareobjects.CtsBomb;
 
 /**
- * Test to check the {@link Bomb} {@link GameObject} properties.
+ * Test to check the {@link CtsBomb} {@link GameObject} properties.
  */
 class BombTest {
     private static final int SIDE = 20;
@@ -18,7 +18,7 @@ class BombTest {
 
     @Test
     void timeDec() {
-        final Bomb b = new Bomb(Point2D.origin(), SIDE, ColorRGB.black());
+        final CtsBomb b = new CtsBomb(Point2D.origin(), SIDE, ColorRGB.black());
         final long start = b.getTimer();
         for (int i = 0; i < ITERATIONS; i++) {
             b.updatePhysics(DELTA, null);

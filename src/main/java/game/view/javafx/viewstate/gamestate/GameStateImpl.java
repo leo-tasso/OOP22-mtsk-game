@@ -123,7 +123,7 @@ public class GameStateImpl implements GameState {
                              * coordinates of the upper left corner of rectangle: the
                              * last addendum is necessary to enter the right play field
                              */
-                            getStartingPoint(scene).getX(), // TODO is it better to draw also outside the area?
+                            getStartingPoint(scene).getX(),
                             getStartingPoint(scene).getY(),
                             boxWidth(scene),
                             boxHeight(scene));

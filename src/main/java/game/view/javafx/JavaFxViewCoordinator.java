@@ -2,7 +2,6 @@ package game.view.javafx;
 
 import java.util.Optional;
 
-import game.LeaderBoard;
 import game.view.View;
 import game.view.javafx.viewstate.gamestate.GameState;
 /**
@@ -21,13 +20,6 @@ public interface JavaFxViewCoordinator extends View {
      * Method to start the game from the coordinator.
      */
     void gameStarter();
-
-    /**
-     * Method to get the stats.
-     * 
-     * @return the saved stats.
-     */
-    LeaderBoard getStats();
 
     /**
      * To toggle between full screen and windowed.

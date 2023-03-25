@@ -19,7 +19,7 @@ import game.controlling.InputModel;
 import game.controlling.KeyboardInput;
 import game.engine.difficultystrats.IncrRateStrat;
 import game.engine.gameobject.GameObject;
-import game.engine.gameobject.catchthesqareobjects.Bomb;
+import game.engine.gameobject.catchthesqareobjects.CtsBomb;
 import game.engine.minigame.CatchTheSquare;
 import game.engine.minigame.Minigame;
 
@@ -73,7 +73,7 @@ class CatchTheSquareTest {
                 int objectsNold = cTS.getObjects().size();
                 while (objectsNold <= cTS.getObjects().size()) { // keep checking if any bomb has been defused
                     objectsNold = cTS.getObjects().size();
-                    final Optional<GameObject> b = cTS.getObjects().stream().filter(o -> o instanceof Bomb)
+                    final Optional<GameObject> b = cTS.getObjects().stream().filter(o -> o instanceof CtsBomb)
                             .findAny();
                     if (b.isPresent()) {
                         defuser.setCoor(b.get().getCoor());

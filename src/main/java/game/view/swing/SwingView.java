@@ -193,7 +193,7 @@ public class SwingView implements View {
                 }
                 // gets and paints only gameobjects of the same minigame index as the panel
             } catch (ClassCastException e) {
-                frame.setVisible(false); // TODO add quit method to engine
+                frame.setVisible(false);
                 frame.dispose();
             }
         }

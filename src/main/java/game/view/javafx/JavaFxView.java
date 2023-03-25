@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import game.Controller;
 import game.ControllerImpl;
-import game.LeaderBoard;
 import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.engine.gameobject.GameObject;
@@ -137,11 +136,6 @@ public final class JavaFxView extends Application implements JavaFxViewCoordinat
     @Override
     public void gameStarter() {
         controller.startGame();
-    }
-
-    @Override
-    public LeaderBoard getStats() {
-        return null;
     }
 
     /**
