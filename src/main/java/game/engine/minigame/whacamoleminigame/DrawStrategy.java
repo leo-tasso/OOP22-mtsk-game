@@ -6,7 +6,7 @@ import game.engine.gameobject.GameObject;
 /**
  * Interface used as a strategy pattern, containing the 
  * interchangeable algorithm that creates moles/bombs in random 
- * number & positions (also assigning them an arbitrary appearance 
+ * number and positions (also assigning them an arbitrary appearance 
  * time) within the limits set by the current level of difficulty.
  */
 public interface DrawStrategy {

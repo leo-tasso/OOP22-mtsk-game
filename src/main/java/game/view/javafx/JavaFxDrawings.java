@@ -1,8 +1,9 @@
 package game.view.javafx;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
 import api.ColorRGB;
 import api.Point2D;
 import game.engine.gameobject.GameObject;
@@ -10,6 +11,7 @@ import game.view.Drawings;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -150,11 +152,16 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawMole(final GameObject object, final Boolean beenHit) {
-        // TODO Auto-generated method stub
-        if (!beenHit) {
-            drawCircle(object, ColorRGB.white(), 0);
-        } else {
-            drawCircle(object, ColorRGB.red(), 0);
+        try {
+            final Image mole;
+            if (beenHit) {
+                mole = new Image(new FileInputStream("src/main/resources/hit_mole.png"));
+            } else {
+                mole = new Image(new FileInputStream("src/main/resources/mole.png"));
+            }
+            gc.drawImage(mole, object.getCoor().getX(), object.getCoor().getY());
+        } catch (FileNotFoundException e) {
+            return;
         }
     }
 
@@ -162,11 +169,43 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawBomb(final GameObject object, final Boolean beenHit) {
-        if (!beenHit) {
-            drawSquare(object, ColorRGB.blue(), 0, false);
-        } else {
-            drawSquare(object, ColorRGB.aqua(), 0, false);
+    public void drawWamBomb(final GameObject object, final Boolean beenHit) {
+        try {
+            final Image bomb;
+            if (beenHit) {
+                bomb = new Image(new FileInputStream("src/main/resources/boom.png"));
+            } else {
+                bomb = new Image(new FileInputStream("src/main/resources/bomb.png"));
+            }
+            gc.drawImage(bomb, object.getCoor().getX(), object.getCoor().getY());
+        } catch (FileNotFoundException e) {
+            return;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void drawHoleUpperPart(final GameObject object) {
+        try {
+            final Image holeUpperPart = new Image(new FileInputStream("src/main/resources/upper_part_hole.png"));
+            gc.drawImage(holeUpperPart, object.getCoor().getX(), object.getCoor().getY());
+        } catch (FileNotFoundException e) {
+            return;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void drawHoleLowerPart(final GameObject object) {
+        try {
+            final Image holeLowerPart = new Image(new FileInputStream("src/main/resources/lower_part_hole.png"));
+            gc.drawImage(holeLowerPart, object.getCoor().getX(), object.getCoor().getY());
+        } catch (FileNotFoundException e) {
+            return;
         }
     }
 

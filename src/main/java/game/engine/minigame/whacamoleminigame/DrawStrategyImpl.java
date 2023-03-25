@@ -69,10 +69,10 @@ public class DrawStrategyImpl implements DrawStrategy {
             final long appearanceTime = lowerBound + currentLevel.getSpawnWaitingTime().drawInBetween();
             newGameObjs.add(
                 new WamBomb(holes.get(holeAssigned - 1).getCoor(),
-                        appearanceTime, 
+                        appearanceTime,
                         currentLevel, 
                         holeAssigned,
-                        new WamPhysicsModel(), 
+                        new WamPhysicsModel(),
                         new WamBombAspectModel(), 
                         new WamInputModel())
             );
@@ -84,18 +84,19 @@ public class DrawStrategyImpl implements DrawStrategy {
      * Method that randomly assigns a Hole from 
      * which to make the bomb or mole emerge.
      * 
-     * @param isHoleBusy
+     * @param holesOccupied from the hole's number
+     * to 'true' if it has already been assigned
      * @return the integer representing the hole
      */
-    private Integer assignHole(final Map<Integer, Boolean> isHoleBusy) {
+    private Integer assignHole(final Map<Integer, Boolean> holesOccupied) {
         final Boolean holeFound = false;
-        Integer holeAssigned = RANDOM.nextInt(isHoleBusy.size()) + 1;
+        Integer holeAssigned = RANDOM.nextInt(holesOccupied.size()) + 1;
         while (!holeFound) {
-            if (!isHoleBusy.get(holeAssigned)) {
-                isHoleBusy.replace(holeAssigned, true);
+            if (!holesOccupied.get(holeAssigned)) {
+                holesOccupied.replace(holeAssigned, true);
                 return holeAssigned;
             } 
-            holeAssigned = RANDOM.nextInt(isHoleBusy.size()) + 1;
+            holeAssigned = RANDOM.nextInt(holesOccupied.size()) + 1;
         }
         return holeAssigned;
     }

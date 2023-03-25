@@ -164,7 +164,23 @@ public class SwingDrawings implements Drawings {
      * Currently using JavaFx.
      */
     @Override
-    public void drawBomb(final GameObject object, final Boolean beenHit) {
+    public void drawWamBomb(final GameObject object, final Boolean beenHit) {
         throw new UnsupportedOperationException("Unimplemented method 'drawBomb'");
+    }
+
+    /**
+     * Currently using JavaFx.
+     */
+    @Override
+    public void drawHoleUpperPart(final GameObject object) {
+        throw new UnsupportedOperationException("Unimplemented method 'drawHoleUpperPart'");
+    }
+
+    /**
+     * Currently using JavaFx.
+     */
+    @Override
+    public void drawHoleLowerPart(final GameObject object) {
+        throw new UnsupportedOperationException("Unimplemented method 'drawHoleLowerPart'");
     }
 }
