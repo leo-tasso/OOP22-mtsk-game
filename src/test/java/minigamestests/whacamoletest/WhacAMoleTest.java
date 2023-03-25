@@ -73,10 +73,6 @@ class WhacAMoleTest {
         while (moleToMiss.get().getCoor().getY() <= moleToMiss.get().getStartCoor().getY()) {
             wam.compute(ELAPSED_TIME);
         }
-        System.out.println(moleToMiss.get().getStatus());                               // TO REMOVE !!!
-        System.out.println("[StartCoor: " + moleToMiss.get().getStartCoor() + "]");     // TO REMOVE !!!
-        System.out.println("[Coor: " + moleToMiss.get().getCoor() + "]");               // TO REMOVE !!!
-        System.out.println(wam.isGameOver());
         assertTrue(moleToMiss.get().getStatus().equals(Status.MISSED) && wam.isGameOver());
     }
 
