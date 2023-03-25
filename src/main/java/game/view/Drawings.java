@@ -60,7 +60,7 @@ public interface Drawings {
      * @param object the gameObject of the bomb to draw.
      * @param beenHit indicates which of the two aspects to represent.
      */
-    void drawBomb(GameObject object, Boolean beenHit);
+    void drawWamBomb(GameObject object, Boolean beenHit);
 
     /**
      * The instructions on how to draw the upper part of the hole.

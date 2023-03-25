@@ -151,7 +151,7 @@ public class JavaFxDrawings implements Drawings {
      * {@inheritDoc}
      */
     @Override
-    public void drawBomb(final GameObject object, final Boolean beenHit) {
+    public void drawWamBomb(final GameObject object, final Boolean beenHit) {
         try {
             final Image bomb;
             if (beenHit) {

@@ -21,9 +21,9 @@ public class WamBombAspectModel implements AspectModel {
             final Status status = ((WamObject) object).getStatus();
             if (!status.equals(Status.WAITING)) {
                 if (status.equals(Status.HIT)) {
-                    drawing.drawBomb(object, true);
+                    drawing.drawWamBomb(object, true);
                 } else {
-                    drawing.drawBomb(object, false);
+                    drawing.drawWamBomb(object, false);
                 }
             }
         }
