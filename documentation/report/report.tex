@@ -158,4 +158,13 @@ The limit rate is represented by the inclination of the line tangent to the expo
 	\end{tikzpicture}
 	\caption{An example of the trend of the implemented function}
 \end{figure}
+\pagebreak\\
+\textbf{Problem:} The \textit{View} shall display different items over time.\\
+\textbf{Solution:} The \textit{JavaFxView} adopts a state pattern, each state has a method to display its item overwriting the ones present at the moment.\\ 
+A special state, the \textit{GameState} is a subclass of state able to show the gameplay.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{res/ViewState.pdf}
+	\caption{The corresponding UML diagram}
+\end{figure}
 \end{document}
