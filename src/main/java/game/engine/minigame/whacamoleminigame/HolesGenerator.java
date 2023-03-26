@@ -17,8 +17,9 @@ import game.engine.gameobject.whacamoleobjects.WamObject;
  */
 public class HolesGenerator {
     private static final double RATIO = 16.0 / 9.0;
-    private static final int HALF_HEIGHT_LOWER_PART = 73;
-    private static final int HALF_HEIGHT_UPPER_PART = 12;
+    private static final int HALF_SIDE_LOWER_PART = 75;
+    private static final int HALF_WIDTH_UPPER_PART = 75;
+    private static final int HALF_HEIGHT_UPPER_PART = 10;
     private final int fieldHeight;
     private final int fieldWidth;
 
@@ -53,15 +54,15 @@ public class HolesGenerator {
             int holesInThisRow = 0;
             for (int x = dx;  holesInThisRow < holesPerRow; x += dx * 2) {
                 holes.add(holesCounter - 1, new HoleUpperPart(
-                        new Point2D(x, y - HALF_HEIGHT_UPPER_PART),
+                        new Point2D(x - HALF_WIDTH_UPPER_PART, y - HALF_HEIGHT_UPPER_PART * 2),
                         0, 
                         new LevelNull(), 
                         holesCounter,
                         new SimplePhysics(), 
-                        new HoleLowerPartAspectModel(), 
+                        new HoleLowerPartAspectModel(),
                         new NullInput()));
                 holes.add(new HoleLowerPart(
-                        new Point2D(x, y + HALF_HEIGHT_LOWER_PART),
+                        new Point2D(x - HALF_SIDE_LOWER_PART, y),
                         0, 
                         new LevelNull(), 
                         holesCounter++, 
