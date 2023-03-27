@@ -8,10 +8,10 @@ import api.ColorRGB;
 import api.Point2D;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
+import game.view.WamImagesCache;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -21,8 +21,6 @@ import javafx.scene.text.TextAlignment;
  * Implementation of Drawings for JavaFX.
  */
 public class JavaFxDrawings implements Drawings {
-    private static final int CIRCUMSCRIBED_SQUARE_SIDE = 300;
-
     private final int coefficient;
     /* coordinates (related to the Jframe) of  */
     /* the upper left corner of the play field */
@@ -31,12 +29,7 @@ public class JavaFxDrawings implements Drawings {
     /* the size of the objects inside of it) */
     private final double dimention;
     private final GraphicsContext gc;
-    private Image moleImage;
-    private Image bombImage;
-    private Image hitMoleImage;
-    private Image hitBombImage;
-    private Image holeLowerPartImage;
-    private Image holeUpperPartImage;
+    private final WamImagesCache wamCache;
 
     /**
      * Constructor for the class.
@@ -55,7 +48,7 @@ public class JavaFxDrawings implements Drawings {
         gc.setLineWidth(3.0);
         this.startingPoint = startingPoint;
         this.dimention = dimention;
-        initializeImages();
+        this.wamCache = new WamImagesCache(coefficient, dimention);
     }
 
     /**
@@ -162,11 +155,11 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawMole(final GameObject object, final Boolean beenHit) {
         if (beenHit) {
-            gc.drawImage(hitMoleImage, object.getCoor().getX() * dimention / coefficient,
-                                       object.getCoor().getY() * dimention / coefficient);
+            gc.drawImage(wamCache.getHitMoleImage(), object.getCoor().getX() * dimention / coefficient,
+                                                     object.getCoor().getY() * dimention / coefficient);
         } else {
-            gc.drawImage(moleImage, object.getCoor().getX() * dimention / coefficient,
-                                    object.getCoor().getY() * dimention / coefficient);
+            gc.drawImage(wamCache.getMoleImage(), object.getCoor().getX() * dimention / coefficient,
+                                                  object.getCoor().getY() * dimention / coefficient);
         }
     }
 
@@ -176,11 +169,11 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawWamBomb(final GameObject object, final Boolean beenHit) {
         if (beenHit) {
-            gc.drawImage(hitBombImage, object.getCoor().getX() * dimention / coefficient,
-                                       object.getCoor().getY() * dimention / coefficient);
+            gc.drawImage(wamCache.getHitBombImage(), object.getCoor().getX() * dimention / coefficient,
+                                                     object.getCoor().getY() * dimention / coefficient);
         } else {
-            gc.drawImage(bombImage, object.getCoor().getX() * dimention / coefficient, 
-                                    object.getCoor().getY() * dimention / coefficient);
+            gc.drawImage(wamCache.getBombImage(), object.getCoor().getX() * dimention / coefficient, 
+                                                  object.getCoor().getY() * dimention / coefficient);
         }
     }
 
@@ -189,8 +182,8 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleUpperPart(final GameObject object) {
-        gc.drawImage(holeUpperPartImage, object.getCoor().getX() * dimention / coefficient, 
-                                         object.getCoor().getY() * dimention / coefficient);
+        gc.drawImage(wamCache.getHoleUpperPartImage(), object.getCoor().getX() * dimention / coefficient, 
+                                                       object.getCoor().getY() * dimention / coefficient);
     }
 
     /**
@@ -198,8 +191,8 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleLowerPart(final GameObject object) {
-        gc.drawImage(holeLowerPartImage, object.getCoor().getX() * dimention / coefficient, 
-                                         object.getCoor().getY() * dimention / coefficient);
+        gc.drawImage(wamCache.getHoleLowerPartImage(), object.getCoor().getX() * dimention / coefficient, 
+                                                       object.getCoor().getY() * dimention / coefficient);
     }
 
     /**
@@ -212,45 +205,5 @@ public class JavaFxDrawings implements Drawings {
         return Color.color(color.getRed() / (double) ColorRGB.COLOR_RANGE_TOP,
                 color.getGreen() / (double) ColorRGB.COLOR_RANGE_TOP,
                 color.getBlue() / (double) ColorRGB.COLOR_RANGE_TOP);
-    }
-
-    /**
-     * Being that re-assigning images to Image type variables 
-     * each time would be too expensive in terms of performance, 
-     * I initialize them once and for all in this method.
-     * 
-     * @throws FileNotFoundException if one of the files is not found
-     */
-    private void initializeImages() throws FileNotFoundException {
-        this.moleImage = new Image(new FileInputStream("src/main/resources/mole.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                true,
-                                false);
-        this.bombImage = new Image(new FileInputStream("src/main/resources/bomb.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                true,
-                                false);
-        this.hitMoleImage = new Image(new FileInputStream("src/main/resources/hit_mole.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                true,
-                                false);
-        this.hitBombImage = new Image(new FileInputStream("src/main/resources/boom.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                true,
-                                false);
-        this.holeLowerPartImage = new Image(new FileInputStream("src/main/resources/hole_lower_part.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                true,
-                                false);
-        this.holeUpperPartImage = new Image(new FileInputStream("src/main/resources/hole_upper_part.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
-                                true,
-                                false);
     }
 }
