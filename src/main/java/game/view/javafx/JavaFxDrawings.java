@@ -1,7 +1,5 @@
 package game.view.javafx;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import api.ColorRGB;
@@ -39,16 +37,16 @@ public class JavaFxDrawings implements Drawings {
      * @param dimention     dimention of the hight of the minigame area.
      * @param coefficient   the height in points of the field that the view shall
      *                      display.
-     * @throws FileNotFoundException
+     * @param wamCache      the Whac-a-Mole game images already loaded
      */
     public JavaFxDrawings(final Canvas canvas, final Point2D startingPoint, final double dimention,
-            final int coefficient) throws FileNotFoundException {
+            final int coefficient, WamImagesCache wamCache) {
         this.coefficient = coefficient;
         this.gc = canvas.getGraphicsContext2D();
         gc.setLineWidth(3.0);
         this.startingPoint = startingPoint;
         this.dimention = dimention;
-        this.wamCache = new WamImagesCache(coefficient, dimention);
+        this.wamCache = wamCache;
     }
 
     /**
