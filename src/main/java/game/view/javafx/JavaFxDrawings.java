@@ -21,15 +21,22 @@ import javafx.scene.text.TextAlignment;
  * Implementation of Drawings for JavaFX.
  */
 public class JavaFxDrawings implements Drawings {
+    private static final int CIRCUMSCRIBED_SQUARE_SIDE = 300;
+
     private final int coefficient;
-    // coordinates (related to the Jframe) of the upper left corner of the play
-    // field
+    /* coordinates (related to the Jframe) of  */
+    /* the upper left corner of the play field */
     private final Point2D startingPoint;
-
-    // heigh of the play field (to scale the size of the objects inside of it)
+    /* heigh of the play field (to scale     */
+    /* the size of the objects inside of it) */
     private final double dimention;
-
     private final GraphicsContext gc;
+    private Image moleImage;
+    private Image bombImage;
+    private Image hitMoleImage;
+    private Image hitBombImage;
+    private Image holeLowerPartImage;
+    private Image holeUpperPartImage;
 
     /**
      * Constructor for the class.
@@ -39,14 +46,16 @@ public class JavaFxDrawings implements Drawings {
      * @param dimention     dimention of the hight of the minigame area.
      * @param coefficient   the height in points of the field that the view shall
      *                      display.
+     * @throws FileNotFoundException
      */
     public JavaFxDrawings(final Canvas canvas, final Point2D startingPoint, final double dimention,
-            final int coefficient) {
+            final int coefficient) throws FileNotFoundException {
         this.coefficient = coefficient;
         this.gc = canvas.getGraphicsContext2D();
         gc.setLineWidth(3.0);
         this.startingPoint = startingPoint;
         this.dimention = dimention;
+        initializeImages();
     }
 
     /**
@@ -152,16 +161,12 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawMole(final GameObject object, final Boolean beenHit) {
-        try {
-            final Image mole;
-            if (beenHit) {
-                mole = new Image(new FileInputStream("src/main/resources/hit_mole.png"));
-            } else {
-                mole = new Image(new FileInputStream("src/main/resources/mole.png"));
-            }
-            gc.drawImage(mole, object.getCoor().getX(), object.getCoor().getY());
-        } catch (FileNotFoundException e) {
-            return;
+        if (beenHit) {
+            gc.drawImage(hitMoleImage, object.getCoor().getX() * dimention / coefficient,
+                                       object.getCoor().getY() * dimention / coefficient);
+        } else {
+            gc.drawImage(moleImage, object.getCoor().getX() * dimention / coefficient,
+                                    object.getCoor().getY() * dimention / coefficient);       
         }
     }
 
@@ -170,16 +175,12 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawWamBomb(final GameObject object, final Boolean beenHit) {
-        try {
-            final Image bomb;
-            if (beenHit) {
-                bomb = new Image(new FileInputStream("src/main/resources/boom.png"));
-            } else {
-                bomb = new Image(new FileInputStream("src/main/resources/bomb.png"));
-            }
-            gc.drawImage(bomb, object.getCoor().getX(), object.getCoor().getY());
-        } catch (FileNotFoundException e) {
-            return;
+        if (beenHit) {
+            gc.drawImage(hitBombImage, object.getCoor().getX() * dimention / coefficient,
+                                       object.getCoor().getY() * dimention / coefficient);
+        } else {
+            gc.drawImage(bombImage, object.getCoor().getX() * dimention / coefficient, 
+                                    object.getCoor().getY() * dimention / coefficient);
         }
     }
 
@@ -188,12 +189,8 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleUpperPart(final GameObject object) {
-        try {
-            final Image holeUpperPart = new Image(new FileInputStream("src/main/resources/upper_part_hole.png"));
-            gc.drawImage(holeUpperPart, object.getCoor().getX(), object.getCoor().getY());
-        } catch (FileNotFoundException e) {
-            return;
-        }
+        gc.drawImage(holeUpperPartImage, object.getCoor().getX() * dimention / coefficient, 
+                                         object.getCoor().getY() * dimention / coefficient);
     }
 
     /**
@@ -201,12 +198,8 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleLowerPart(final GameObject object) {
-        try {
-            final Image holeLowerPart = new Image(new FileInputStream("src/main/resources/lower_part_hole.png"));
-            gc.drawImage(holeLowerPart, object.getCoor().getX(), object.getCoor().getY());
-        } catch (FileNotFoundException e) {
-            return;
-        }
+        gc.drawImage(holeLowerPartImage, object.getCoor().getX() * dimention / coefficient, 
+                                         object.getCoor().getY() * dimention / coefficient);
     }
 
     /**
@@ -219,5 +212,45 @@ public class JavaFxDrawings implements Drawings {
         return Color.color(color.getRed() / (double) ColorRGB.COLOR_RANGE_TOP,
                 color.getGreen() / (double) ColorRGB.COLOR_RANGE_TOP,
                 color.getBlue() / (double) ColorRGB.COLOR_RANGE_TOP);
+    }
+
+    /**
+     * Being that re-assigning images to Image type variables 
+     * each time would be too expensive in terms of performance, 
+     * I initialize them once and for all in this method.
+     * 
+     * @throws FileNotFoundException if one of the files is not found
+     */
+    private void initializeImages() throws FileNotFoundException {
+        this.moleImage = new Image(new FileInputStream("src/main/resources/mole.png"),
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                true,
+                                false);
+        this.bombImage = new Image(new FileInputStream("src/main/resources/bomb.png"),
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                true,
+                                false);
+        this.hitMoleImage = new Image(new FileInputStream("src/main/resources/hit_mole.png"),
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                true,
+                                false);
+        this.hitBombImage = new Image(new FileInputStream("src/main/resources/boom.png"),
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                true,
+                                false);
+        this.holeLowerPartImage = new Image(new FileInputStream("src/main/resources/hole_lower_part.png"),
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                true,
+                                false);
+        this.holeUpperPartImage = new Image(new FileInputStream("src/main/resources/hole_upper_part.png"),
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                CIRCUMSCRIBED_SQUARE_SIDE * dimention / coefficient,
+                                true,
+                                false);
     }
 }
