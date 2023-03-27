@@ -1,5 +1,6 @@
 package game.view.javafx.viewstate.gamestate;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
+import game.view.WamImagesCache;
 import game.view.javafx.JavaFxDrawings;
 import game.view.javafx.JavaFxViewCoordinator;
 import javafx.application.Platform;
@@ -50,14 +52,16 @@ public class GameStateImpl implements GameState {
 
     private final Input input;
     private final GridPane gp;
+    private final WamImagesCache wamCache;
 
     /**
      * Constructor to initialize the state.
      * 
      * @param jView the main {@link JavaFxViewCoordinator}.
      * @param scene the {@link Scene} where this state will be applied.
+     * @throws FileNotFoundException if the image files are not found.
      */
-    public GameStateImpl(final JavaFxViewCoordinator jView, final Scene scene) {
+    public GameStateImpl(final JavaFxViewCoordinator jView, final Scene scene) throws FileNotFoundException {
         this.input = new KeyboardInput();
         jView.setGameState(Optional.of(this));
         final Canvas canvas = new Canvas(START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
@@ -81,6 +85,7 @@ public class GameStateImpl implements GameState {
             minigameCanvases.forEach(c -> c.setHeight(boxHeight(scene)));
         });
         new InputButtonsImpl().attach(scene, input);
+        this.wamCache = new WamImagesCache();
     }
 
     /**
@@ -135,8 +140,9 @@ public class GameStateImpl implements GameState {
                             getStartingPoint(scene).getY(),
                             boxWidth(scene),
                             boxHeight(scene));
-                    final Drawings d = new JavaFxDrawings(c, this.getStartingPoint(scene), this.boxHeight(scene),
-                            heightCoefficent);
+                    Drawings d;
+                    d = new JavaFxDrawings(c, this.getStartingPoint(scene), this.boxHeight(scene),
+                                heightCoefficent, this.wamCache);
                     objectsList.get(minigameCanvases.indexOf(c)).forEach(o -> o.updateAspect(d));
                 });
             }
