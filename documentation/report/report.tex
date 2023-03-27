@@ -76,7 +76,8 @@ The \textbf{Controller} takes also care of intercepting the user's input from th
 Once the input has been received, the Engine is responsible for communicating it to each minigame: these in turn will update the state of all the GameObjects they contain, i.e. every single entity in the various playing fields.
 
 \section{Detailed design}
-Each minigame is composed of \textbf{GameObject}s: those items use a component pattern, thanks to which we get
+\textbf{Problem:} Each GameObject must have a specific aspect and behaviour\\
+\textbf{Solution:} Each minigame is composed of \textbf{GameObject}s: those items use a component pattern, thanks to which we get
 a full separation of concerns based on domains (allow a single entity to span multiple domains each other\footnote{From GPP, CH 14}).
 \pagebreak
 \begin{itemize}
@@ -92,8 +93,8 @@ a full separation of concerns based on domains (allow a single entity to span mu
 
 \begin{figure}[ht]
 	\centering{}
-	\includegraphics[width=\textwidth]{architecture.png}
-	\caption{UML diagram of the architecture TODO MUST BE UPDATED}
+	\includegraphics[width=\textwidth]{res/componentPattern.pdf}
+	\caption{UML diagram of the component pattern}
 \end{figure}
 \subsection*{Leonardo Tassinari}
 \textbf{Difficulty in CTS}\\
