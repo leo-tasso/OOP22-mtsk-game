@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
  * JavaFxDrawings the performance would drop drastically.
  */
 public class WamImagesCache {
-    private static final int CIRCUMSCRIBED_SQUARE_SIDE = 300;
+    private static final int CIRCUMSCRIBED_SQUARE_SIDE = 150;
 
     private final Image moleImage;
     private final Image bombImage;
