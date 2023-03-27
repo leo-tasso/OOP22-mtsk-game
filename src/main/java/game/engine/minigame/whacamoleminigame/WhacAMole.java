@@ -71,7 +71,7 @@ public class WhacAMole implements Minigame {
         this.drawIfNecessary();
 
         this.objs.stream()
-            .filter(o -> o.getStatus().equals(Status.IN_MOTION))
+            .filter(o -> !o.getStatus().equals(Status.WAITING))
             .forEach(o -> o.updatePhysics(elapsed, this));
 
         this.objs.stream()
@@ -85,8 +85,10 @@ public class WhacAMole implements Minigame {
         this.objs.stream()
             .filter(o -> o.getCoor().getY() > o.getStartCoor().getY())
             .forEach(o -> {
-                o.setStatus(Status.MISSED);
                 o.setVel(Vector2D.nullVector());
+                if (!o.getStatus().equals(Status.HIT)) {
+                    o.setStatus(Status.MISSED);
+                }
             });
 
         this.objs.stream()
