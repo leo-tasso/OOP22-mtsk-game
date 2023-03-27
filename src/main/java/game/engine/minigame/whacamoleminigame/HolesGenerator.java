@@ -17,9 +17,10 @@ import game.engine.gameobject.whacamoleobjects.WamObject;
  */
 public class HolesGenerator {
     private static final double RATIO = 16.0 / 9.0;
-    private static final int HALF_SIDE_LOWER_PART = 75;
-    private static final int HALF_WIDTH_UPPER_PART = 75;
+    private static final int HALF_SIDE_LOWER_PART = 150;
+    private static final int HALF_WIDTH_UPPER_PART = 150;
     private static final int HALF_HEIGHT_UPPER_PART = 10;
+    private static final int HALF_SIDE_LENGTH = 150;
     private final int fieldHeight;
     private final int fieldWidth;
 
@@ -53,23 +54,23 @@ public class HolesGenerator {
         for (int y = dy; holesCounter <= numHoles; y += dy * 2) {
             int holesInThisRow = 0;
             for (int x = dx;  holesInThisRow < holesPerRow; x += dx * 2) {
-                holes.add(holesCounter - 1, new HoleUpperPart(
-                        new Point2D(x - HALF_WIDTH_UPPER_PART, y - HALF_HEIGHT_UPPER_PART * 2),
-                        0, 
-                        new LevelNull(), 
-                        holesCounter,
-                        new SimplePhysics(), 
-                        new HoleLowerPartAspectModel(),
-                        new NullInput()));
-                holes.add(new HoleLowerPart(
-                        new Point2D(x - HALF_SIDE_LOWER_PART, y),
+                holes.add(new HoleUpperPart(
+                    new Point2D(x - HALF_SIDE_LENGTH, y - HALF_SIDE_LENGTH * 2),
+                    0, 
+                    new LevelNull(), 
+                    holesCounter,
+                    new SimplePhysics(), 
+                    new HoleLowerPartAspectModel(),
+                    new NullInput()));
+                holes.add(holesCounter - 1, new HoleLowerPart(
+                        new Point2D(x - HALF_SIDE_LENGTH, y),
                         0, 
                         new LevelNull(), 
                         holesCounter++, 
                         new SimplePhysics(), 
                         new HoleUpperPartAspectModel(), 
                         new NullInput()));
-                holesInThisRow += 1;
+                    holesInThisRow += 1;
             }
         }
         return holes;

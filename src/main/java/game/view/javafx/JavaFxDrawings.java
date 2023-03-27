@@ -166,7 +166,7 @@ public class JavaFxDrawings implements Drawings {
                                        object.getCoor().getY() * dimention / coefficient);
         } else {
             gc.drawImage(moleImage, object.getCoor().getX() * dimention / coefficient,
-                                    object.getCoor().getY() * dimention / coefficient);       
+                                    object.getCoor().getY() * dimention / coefficient);
         }
     }
 
