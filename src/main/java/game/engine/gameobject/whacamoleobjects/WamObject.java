@@ -20,7 +20,7 @@ public abstract class WamObject extends GameObject {
      * of the object and the most distant point from the hole
      * it reaches (i.e. the one where it will stop for a while)
      */
-    public static final int DELTA_Y = 75; 
+    public static final int DELTA_Y = 110; 
 
     private Status status;
     private final Level level;
