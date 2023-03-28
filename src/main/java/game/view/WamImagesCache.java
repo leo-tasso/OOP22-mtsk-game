@@ -5,13 +5,20 @@ import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 
 /**
- * Class that acts as an external memory that contains 
- * the images of the Whac-a-Mole game, being that if 
- * they had to be re-instantiated every time inside 
+ * Class that acts as an external memory that contains
+ * the images of the Whac-a-Mole game, being that if
+ * they had to be re-instantiated every time inside
  * JavaFxDrawings the performance would drop drastically.
  */
 public class WamImagesCache {
-    private static final int CIRCUMSCRIBED_SQUARE_SIDE = 150;
+    /** Side of the square surrounding each image. */
+    public static final int HOLE_WIDTH = 250;
+    public static final int HEIGHT_LOWER_PART = 150;
+    public static final int HEIGHT_UPPER_PART = 80;
+    public static final int MOLE_HEIGHT = 150;
+    public static final int BOMB_HEIGHT = 150;
+    public static final int MOLE_WIDTH = 190;
+    public static final int BOMB_WIDTH = 190;
 
     private final Image moleImage;
     private final Image bombImage;
@@ -25,49 +32,15 @@ public class WamImagesCache {
      */
     public WamImagesCache() {
         try {
-            this.moleImage = new Image(new FileInputStream("src/main/resources/mole.png"),
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    true,
-                                    false);
-            this.bombImage = new Image(new FileInputStream("src/main/resources/bomb.png"),
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    true,
-                                    false);
-            this.hitMoleImage = new Image(new FileInputStream("src/main/resources/hit_mole.png"),
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    true,
-                                    false);
-            this.hitBombImage = new Image(new FileInputStream("src/main/resources/boom.png"),
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    true,
-                                    false);
-            this.holeLowerPartImage = new Image(new FileInputStream("src/main/resources/hole_lower_part.png"),
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    true,
-                                    false);
-            this.holeUpperPartImage = new Image(new FileInputStream("src/main/resources/hole_upper_part.png"),
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    CIRCUMSCRIBED_SQUARE_SIDE,
-                                    true,
-                                    false);
+            this.moleImage          = new Image(new FileInputStream("src/main/resources/mole.png"));
+            this.bombImage          = new Image(new FileInputStream("src/main/resources/bomb.png"));
+            this.hitBombImage       = new Image(new FileInputStream("src/main/resources/boom.png"));
+            this.hitMoleImage       = new Image(new FileInputStream("src/main/resources/hit_mole.png"));
+            this.holeLowerPartImage = new Image(new FileInputStream("src/main/resources/hole_lower_part.png"));
+            this.holeUpperPartImage = new Image(new FileInputStream("src/main/resources/hole_upper_part.png"));
         } catch (FileNotFoundException e) {
             throw new IllegalStateException("Unable to load images", e);
         }
-    }
-
-    /**
-     * Getter method for the side of 
-     * the square surrounding each image.
-     * 
-     * @return the constant containing that value
-     */
-    public static int getCircumscribedSquareSide() {
-        return CIRCUMSCRIBED_SQUARE_SIDE;
     }
 
     /**
@@ -89,7 +62,7 @@ public class WamImagesCache {
     }
 
     /**
-     * Getter method for the image of the 
+     * Getter method for the image of the
      * mole after it has been squashed.
      * 
      * @return the image already loaded
@@ -99,7 +72,7 @@ public class WamImagesCache {
     }
 
     /**
-     * Getter method for the image of 
+     * Getter method for the image of
      * the bomb after it has been hit.
      * 
      * @return the image already loaded
@@ -109,7 +82,7 @@ public class WamImagesCache {
     }
 
     /**
-     * Getter method for the image of the "tube" 
+     * Getter method for the image of the "tube"
      * through which moles and bombs pass.
      * 
      * @return the image already loaded
@@ -119,7 +92,7 @@ public class WamImagesCache {
     }
 
     /**
-     * Getter method for the image of the semicircle 
+     * Getter method for the image of the semicircle
      * placed above the "tube" (part of the hole entity).
      * 
      * @return the image already loaded
