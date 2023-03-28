@@ -61,7 +61,7 @@ public class GameStateImpl implements GameState {
      * @param scene the {@link Scene} where this state will be applied.
      * @throws FileNotFoundException if the image files are not found.
      */
-    public GameStateImpl(final JavaFxViewCoordinator jView, final Scene scene) throws FileNotFoundException {
+    public GameStateImpl(final JavaFxViewCoordinator jView, final Scene scene) {
         this.input = new KeyboardInput();
         jView.setGameState(Optional.of(this));
         final Canvas canvas = new Canvas(START_WINDOW_WIDTH, START_WINDOW_HEIGHT);
