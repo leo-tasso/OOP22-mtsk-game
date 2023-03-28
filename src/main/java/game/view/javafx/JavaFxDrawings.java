@@ -7,6 +7,7 @@ import api.Point2D;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 import game.view.WamImagesCache;
+import static game.view.WamImagesCache.*;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -40,7 +41,7 @@ public class JavaFxDrawings implements Drawings {
      * @param wamCache      the Whac-a-Mole game images already loaded
      */
     public JavaFxDrawings(final Canvas canvas, final Point2D startingPoint, final double dimention,
-            final int coefficient, WamImagesCache wamCache) {
+            final int coefficient, final WamImagesCache wamCache) {
         this.coefficient = coefficient;
         this.gc = canvas.getGraphicsContext2D();
         gc.setLineWidth(3.0);
@@ -153,11 +154,17 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawMole(final GameObject object, final Boolean beenHit) {
         if (beenHit) {
-            gc.drawImage(wamCache.getHitMoleImage(), object.getCoor().getX() * dimention / coefficient,
-                                                     object.getCoor().getY() * dimention / coefficient);
+            gc.drawImage(wamCache.getHitMoleImage(), 
+                        (object.getCoor().getX() - MOLE_WIDTH / 2) * dimention / coefficient,
+                        object.getCoor().getY() * dimention / coefficient,
+                        MOLE_WIDTH *  dimention / coefficient,
+                        MOLE_HEIGHT *  dimention / coefficient);
         } else {
-            gc.drawImage(wamCache.getMoleImage(), object.getCoor().getX() * dimention / coefficient,
-                                                  object.getCoor().getY() * dimention / coefficient);
+            gc.drawImage(wamCache.getMoleImage(), 
+                        (object.getCoor().getX() - MOLE_WIDTH / 2) * dimention / coefficient,
+                        object.getCoor().getY() * dimention / coefficient,
+                        MOLE_WIDTH *  dimention / coefficient,
+                        MOLE_HEIGHT *  dimention / coefficient);
         }
     }
 
@@ -167,11 +174,17 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawWamBomb(final GameObject object, final Boolean beenHit) {
         if (beenHit) {
-            gc.drawImage(wamCache.getHitBombImage(), object.getCoor().getX() * dimention / coefficient,
-                                                     object.getCoor().getY() * dimention / coefficient);
+            gc.drawImage(wamCache.getHitBombImage(), 
+                        (object.getCoor().getX() - BOMB_WIDTH / 2) * dimention / coefficient,
+                        object.getCoor().getY() * dimention / coefficient,
+                        BOMB_WIDTH *  dimention / coefficient,
+                        BOMB_HEIGHT *  dimention / coefficient);
         } else {
-            gc.drawImage(wamCache.getBombImage(), object.getCoor().getX() * dimention / coefficient, 
-                                                  object.getCoor().getY() * dimention / coefficient);
+            gc.drawImage(wamCache.getBombImage(), 
+                        (object.getCoor().getX() - BOMB_WIDTH / 2) * dimention / coefficient, 
+                        object.getCoor().getY() * dimention / coefficient,
+                        BOMB_WIDTH *  dimention / coefficient,
+                        BOMB_HEIGHT *  dimention / coefficient);
         }
     }
 
@@ -180,8 +193,11 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleUpperPart(final GameObject object) {
-        gc.drawImage(wamCache.getHoleUpperPartImage(), object.getCoor().getX() * dimention / coefficient, 
-                                                       object.getCoor().getY() * dimention / coefficient);
+        gc.drawImage(wamCache.getHoleUpperPartImage(), 
+                    (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient, 
+                    (object.getCoor().getY() - HEIGHT_UPPER_PART / 2.2) * dimention / coefficient,
+                    HOLE_WIDTH *  dimention / coefficient,
+                    HEIGHT_UPPER_PART *  dimention / coefficient);
     }
 
     /**
@@ -189,8 +205,11 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleLowerPart(final GameObject object) {
-        gc.drawImage(wamCache.getHoleLowerPartImage(), object.getCoor().getX() * dimention / coefficient, 
-                                                       object.getCoor().getY() * dimention / coefficient);
+        gc.drawImage(wamCache.getHoleLowerPartImage(), 
+                    (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient, 
+                    object.getCoor().getY() * dimention / coefficient,
+                    HOLE_WIDTH *  dimention / coefficient,
+                    HEIGHT_LOWER_PART *  dimention / coefficient);
     }
 
     /**
