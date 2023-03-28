@@ -1,9 +1,7 @@
 package game.view.javafx.viewstate;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
 import game.view.javafx.JavaFxViewCoordinator;
 import game.view.javafx.viewstate.gamestate.GameStateImpl;
 import javafx.application.Platform;
@@ -43,11 +41,8 @@ public final class ViewStateMenu implements ViewState {
         buttons.add(
                 bf.create(stage, "Play", e -> Platform
                         .runLater(() -> {
-                            try {
-                                new GameStateImpl(jview, stage.getScene()).display(jview, stage);
-                            } catch (FileNotFoundException e1) {
-                                return;
-                            }
+                            new GameStateImpl(jview, stage.getScene()).display(jview, stage);
+
                         })));
         buttons.add(bf.create(stage, "Stats", e -> Platform.runLater(null))); // TODO to be implemented, goes to stats
                                                                               // screen

@@ -1,6 +1,5 @@
 package game.view.javafx.viewstate;
 
-import java.io.FileNotFoundException;
 import java.util.Optional;
 import game.view.javafx.JavaFxViewCoordinator;
 import game.view.javafx.viewstate.gamestate.GameStateImpl;
@@ -53,11 +52,7 @@ public class GameOverState implements ViewState {
             final Button exitButton = bf.create(stage, "Exit", e -> stage.close());
             final Button playAgainButton = bf.create(stage, "Play Again", e -> {
                 Platform.runLater(() -> {
-                    try {
                         new GameStateImpl(view, stage.getScene()).display(view, stage);
-                    } catch (FileNotFoundException e1) {
-                        return;
-                    }
                 });
             });
             final Button statsButton = bf.create(stage, "Stats", null); // TODO to implement

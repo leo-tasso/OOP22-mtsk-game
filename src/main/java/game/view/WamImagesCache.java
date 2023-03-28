@@ -22,40 +22,42 @@ public class WamImagesCache {
 
     /**
      * Constructor that creates Image objects once and for all.
-     * 
-     * @throws FileNotFoundException if one of the files is not found
      */
-    public WamImagesCache() throws FileNotFoundException {
-        this.moleImage = new Image(new FileInputStream("src/main/resources/mole.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                true,
-                                false);
-        this.bombImage = new Image(new FileInputStream("src/main/resources/bomb.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                true,
-                                false);
-        this.hitMoleImage = new Image(new FileInputStream("src/main/resources/hit_mole.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                true,
-                                false);
-        this.hitBombImage = new Image(new FileInputStream("src/main/resources/boom.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                true,
-                                false);
-        this.holeLowerPartImage = new Image(new FileInputStream("src/main/resources/hole_lower_part.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                true,
-                                false);
-        this.holeUpperPartImage = new Image(new FileInputStream("src/main/resources/hole_upper_part.png"),
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                CIRCUMSCRIBED_SQUARE_SIDE,
-                                true,
-                                false);
+    public WamImagesCache() {
+        try {
+            this.moleImage = new Image(new FileInputStream("src/main/resources/mole.png"),
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    true,
+                                    false);
+            this.bombImage = new Image(new FileInputStream("src/main/resources/bomb.png"),
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    true,
+                                    false);
+            this.hitMoleImage = new Image(new FileInputStream("src/main/resources/hit_mole.png"),
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    true,
+                                    false);
+            this.hitBombImage = new Image(new FileInputStream("src/main/resources/boom.png"),
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    true,
+                                    false);
+            this.holeLowerPartImage = new Image(new FileInputStream("src/main/resources/hole_lower_part.png"),
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    true,
+                                    false);
+            this.holeUpperPartImage = new Image(new FileInputStream("src/main/resources/hole_upper_part.png"),
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    CIRCUMSCRIBED_SQUARE_SIDE,
+                                    true,
+                                    false);
+        } catch (FileNotFoundException e) {
+            throw new IllegalStateException("Unable to load images", e);
+        }
     }
 
     /**
