@@ -7,7 +7,6 @@ import api.Point2D;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
 import game.view.WamImagesCache;
-import static game.view.WamImagesCache.*;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,11 +14,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import static game.view.WamImagesCache.MOLE_HEIGHT;
+import static game.view.WamImagesCache.MOLE_WIDTH;
+import static game.view.WamImagesCache.BOMB_HEIGHT;
+import static game.view.WamImagesCache.BOMB_WIDTH;
+import static game.view.WamImagesCache.HOLE_WIDTH;
+import static game.view.WamImagesCache.HEIGHT_LOWER_PART;
+import static game.view.WamImagesCache.HEIGHT_UPPER_PART;
 
 /**
  * Implementation of Drawings for JavaFX.
  */
 public class JavaFxDrawings implements Drawings {
+    private static final double HOLE_POS_DIVIDER = 2.2;
     private final int coefficient;
     /* coordinates (related to the Jframe) of  */
     /* the upper left corner of the play field */
@@ -195,7 +202,7 @@ public class JavaFxDrawings implements Drawings {
     public void drawHoleUpperPart(final GameObject object) {
         gc.drawImage(wamCache.getHoleUpperPartImage(), 
                     (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient, 
-                    (object.getCoor().getY() - HEIGHT_UPPER_PART / 2.2) * dimention / coefficient,
+                    (object.getCoor().getY() - HEIGHT_UPPER_PART / HOLE_POS_DIVIDER) * dimention / coefficient,
                     HOLE_WIDTH *  dimention / coefficient,
                     HEIGHT_UPPER_PART *  dimention / coefficient);
     }

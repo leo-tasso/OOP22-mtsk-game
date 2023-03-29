@@ -11,13 +11,20 @@ import javafx.scene.image.Image;
  * JavaFxDrawings the performance would drop drastically.
  */
 public class WamImagesCache {
-    /** Side of the square surrounding each image. */
+    /** Width of the rectangle circumscribing 
+     * each of the two parts of the hole. */
     public static final int HOLE_WIDTH = 250;
+    /** Height of the rectangle circumscribing the "tube". */
     public static final int HEIGHT_LOWER_PART = 150;
+    /** Height of the rectangle circumscribing the "semicircle". */
     public static final int HEIGHT_UPPER_PART = 80;
+    /** Height of the rectangle circumscribing the mole. */
     public static final int MOLE_HEIGHT = 150;
+    /** Height of the rectangle surrounding the bomb. */
     public static final int BOMB_HEIGHT = 150;
+    /** Width of the rectangle circumscribing the mole. */
     public static final int MOLE_WIDTH = 190;
+    /** Width of the rectangle circumscribing the bomb. */
     public static final int BOMB_WIDTH = 190;
 
     private final Image moleImage;
