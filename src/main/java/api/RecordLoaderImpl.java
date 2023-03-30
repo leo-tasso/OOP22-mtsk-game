@@ -1,11 +1,15 @@
 package api;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RecordLoaderImpl implements RecordLoader {
@@ -23,8 +27,24 @@ public class RecordLoaderImpl implements RecordLoader {
 
     @Override
     public Map<Timestamp, Long> getRecords() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecords'");
+        String curLine;
+        final List<byte[]> data = new ArrayList<>();
+        
+        try (BufferedReader bf = Files.newBufferedReader(file.toPath())) {
+            while ((curLine = bf.readLine()) != null) {
+                data.add(curLine.getBytes(StandardCharsets.UTF_8));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final Map<Timestamp, Long> result = new HashMap<>();
+        data.stream()
+            //.map(x -> ENCRYPTER.decrypt(x))
+            .map(x -> new String(x))
+            .map(x -> x.split(","))
+            .forEach(x -> result.put(Timestamp.valueOf(x[0]), Long.parseLong(x[1])));
+        return result;
     }
 
     @Override
