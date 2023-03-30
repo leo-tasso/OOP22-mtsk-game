@@ -15,14 +15,25 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * State to display the statistics screen.
+ */
 public class StatsState implements ViewState {
     private static final int BUTTON_SPACING = 20;
     private VBox root;
 
+    /**
+     * Constructor to initialize the State.
+     * 
+     * @param view   the {@link JavaFxViewCoordinator} coordinator.
+     * @param stage  the Stage that will be used to display.
+     */
     public StatsState(final JavaFxViewCoordinator view, final Stage stage) {
         view.setGameState(Optional.empty());
         final Button exit = new ButtonFactory(BUTTON_SPACING)
-                .create(stage, "Back to Main Menu", e -> Platform.runLater(() -> new ViewStateMenu(view, stage).display(view, stage)));
+                .create(stage,
+                "Back to Main Menu",
+                e -> Platform.runLater(() -> new ViewStateMenu(view, stage).display(view, stage)));
         final Map<Timestamp, Long> scores = new RecordLoaderImpl().getRecords();
         final LineChart<Number, Number> plot = new LineChart<>(
                 new NumberAxis(0, scores.entrySet().size() + 1, 1),
@@ -32,18 +43,24 @@ public class StatsState implements ViewState {
         final MiniCounter counter = new MiniCounter();
         scores.entrySet()
                 .stream()
-                .sorted((a,b) -> a.getKey().getTime() > b.getKey().getTime() ? 1 : -1)
+                .sorted((a, b) -> a.getKey().getTime() > b.getKey().getTime() ? 1 : -1)
                 .forEach(x -> series.getData().add(new XYChart.Data<>(counter.getCount(), x.getValue())));
         plot.getData().add(series);
         root = new VBox(BUTTON_SPACING, plot, exit);
         root.setAlignment(Pos.CENTER);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void display(JavaFxViewCoordinator jView, Stage stage) {
+    public void display(final JavaFxViewCoordinator jView, final Stage stage) {
         stage.getScene().setRoot(root);
     }
 
+    /**
+     * A support class to count how many matches were played.
+     */
     private class MiniCounter {
         private int count = 1;
 

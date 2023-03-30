@@ -12,12 +12,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that saves matches results in a file and retrieves them if needed.
+ */
 public class RecordLoaderImpl implements RecordLoader {
 
     private static final AesEncrypterImpl ENCRYPTER = new AesEncrypterImpl("myPassword123456");
     private static final String FILENAME = "Scores.txt";
     private final File file;
-    
+
+    /**
+     * Constructor that sets the filepath for save data.
+     */
     public RecordLoaderImpl() {
         this.file = new File(System.getProperty("user.home")
                 + System.getProperty("file.separator")
@@ -25,11 +31,14 @@ public class RecordLoaderImpl implements RecordLoader {
         createNewFile();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Timestamp, Long> getRecords() {
         String curLine;
         final List<byte[]> data = new ArrayList<>();
-        
+ 
         try (BufferedReader bf = Files.newBufferedReader(file.toPath())) {
             while ((curLine = bf.readLine()) != null) {
                 data.add(curLine.getBytes(StandardCharsets.UTF_8));
@@ -47,8 +56,11 @@ public class RecordLoaderImpl implements RecordLoader {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setRecord(Timestamp timestamp, Long score) {
+    public void setRecord(final Timestamp timestamp, final Long score) {
         final String line = timestamp.toString() + "," + score + "\n";
         try {
             Files.write(file.toPath(),
@@ -59,6 +71,9 @@ public class RecordLoaderImpl implements RecordLoader {
         }
     }
 
+    /**
+     * Method that creates a new file if it doesn't exist already.
+     */
     private void createNewFile() {
         if (!file.exists()) {
             try {
