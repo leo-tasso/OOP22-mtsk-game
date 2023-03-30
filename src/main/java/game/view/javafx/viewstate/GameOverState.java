@@ -1,7 +1,9 @@
 package game.view.javafx.viewstate;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
+import api.RecordLoaderImpl;
 import game.view.javafx.JavaFxViewCoordinator;
 import game.view.javafx.viewstate.gamestate.GameStateImpl;
 import javafx.application.Platform;
@@ -41,6 +43,7 @@ public class GameOverState implements ViewState {
     public GameOverState(final JavaFxViewCoordinator view, final Stage stage, final Long points) {
         Platform.runLater(() -> {
             view.setGameState(Optional.empty());
+            new RecordLoaderImpl().setRecord(new Timestamp(System.currentTimeMillis()), points);
             final ButtonFactory bf = new ButtonFactory(BUTTON_SPACING);
             final Text scoreLabel = new Text("Score: " + points);
             scoreLabel.setFont(Font.font("Arial", LABEL_SIZE));
@@ -56,7 +59,7 @@ public class GameOverState implements ViewState {
                     new GameStateImpl(view, stage.getScene()).display(view, stage);
                 });
             });
-            final Button statsButton = bf.create(stage, "Stats", null); // TODO to implement
+            final Button statsButton = bf.create(stage, "Stats", e -> new StatsState(view, stage).display(view, stage));
             final HBox buttonBox = new HBox(BUTTON_SPACING, exitButton, statsButton, playAgainButton);
             buttonBox.setAlignment(Pos.CENTER);
             root = new VBox(BUTTON_SPACING, scoreLabel, buttonBox);
