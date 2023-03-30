@@ -2,6 +2,9 @@ package api;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.Map;
 
@@ -26,8 +29,14 @@ public class RecordLoaderImpl implements RecordLoader {
 
     @Override
     public void setRecord(Timestamp timestamp, Long score) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRecord'");
+        final String line = timestamp.toString() + "," + score + "\n";
+        try {
+            Files.write(file.toPath(),
+                    line.getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createNewFile() {
