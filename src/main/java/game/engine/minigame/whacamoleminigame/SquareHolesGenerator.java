@@ -13,9 +13,10 @@ import game.engine.gameobject.whacamoleobjects.WamObject;
 
 /**
  * Class that manages the creation and location of dens from 
- * which moles and bombs come and go in the game Whac-a-Mole.
+ * which moles and bombs come and go in the game Whac-a-Mole,
+ * ideal for a number of burrows whose root is an integer.
  */
-public class HolesGenerator {
+public class SquareHolesGenerator implements HolesGeneratorStrategy {
     private static final double RATIO = 16.0 / 9.0;
     private final int fieldHeight;
     private final int fieldWidth;
@@ -26,7 +27,7 @@ public class HolesGenerator {
      * 
      * @param fieldHeight the height of the playing fields
      */
-    public HolesGenerator(final int fieldHeight) {
+    public SquareHolesGenerator(final int fieldHeight) {
         this.fieldHeight = fieldHeight;
         this.fieldWidth = (int) (fieldHeight * RATIO);
     }
@@ -39,6 +40,7 @@ public class HolesGenerator {
      * @param numHoles the number of dens to creates
      * @return a list containing the holes created
      */
+    @Override
     public List<WamObject> generate(final int numHoles) {
         final List<WamObject> holes = new ArrayList<>();
         final int dx = (int) (this.fieldWidth / (Math.sqrt(numHoles) * 2));

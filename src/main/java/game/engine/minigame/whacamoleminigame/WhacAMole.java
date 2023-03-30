@@ -36,7 +36,8 @@ public class WhacAMole implements Minigame {
     public WhacAMole(final int fieldHeight) {
         this.currentTime = 0L;
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
-        this.objs = new ArrayList<>(new HolesGenerator(fieldHeight).generate(NUM_HOLES));
+        final HolesGeneratorStrategy holesGen = new SquareHolesGenerator(fieldHeight);
+        this.objs = new ArrayList<>(holesGen.generate(NUM_HOLES));
         this.draw = new DrawStrategyImpl(new ArrayList<>(this.objs.subList(NUM_HOLES, this.objs.size())));
         this.currentLevel = this.levels.get(0);
         this.numDraws = 0;
