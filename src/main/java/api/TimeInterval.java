@@ -1,5 +1,7 @@
 package api;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * Class that models a time interval.
  */
@@ -19,15 +21,6 @@ public class TimeInterval {
     }
 
     /**
-     * Randomly extract a value within the range.
-     * 
-     * @return the drawn value
-     */
-    public long drawInBetween() {
-        return (long) Math.random() * (this.end - this.start) + this.start;
-    }
-
-    /**
      * Getter for start of the range.
      * 
      * @return start time
@@ -43,6 +36,15 @@ public class TimeInterval {
      */
     public long getEnd() {
         return this.end;
+    }
+
+    /**
+     * Randomly extract a value within the range.
+     * 
+     * @return the drawn value
+     */
+    public long drawInBetween() {
+        return ThreadLocalRandom.current().nextLong(this.start, this.end);
     }
 
     /**

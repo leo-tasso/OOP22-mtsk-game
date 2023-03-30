@@ -2,7 +2,6 @@ package game.view.javafx.viewstate;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import game.view.javafx.JavaFxViewCoordinator;
 import game.view.javafx.viewstate.gamestate.GameStateImpl;
 import javafx.application.Platform;
@@ -41,7 +40,10 @@ public final class ViewStateMenu implements ViewState {
         final ButtonFactory bf = new ButtonFactory(FONT_SIZE);
         buttons.add(
                 bf.create(stage, "Play", e -> Platform
-                        .runLater(() -> new GameStateImpl(jview, stage.getScene()).display(jview, stage))));
+                        .runLater(() -> {
+                            new GameStateImpl(jview, stage.getScene()).display(jview, stage);
+
+                        })));
         buttons.add(bf.create(stage, "Stats", e -> Platform.runLater(null))); // TODO to be implemented, goes to stats
                                                                               // screen
         buttons.add(bf.create(stage, "Exit", e -> Platform.runLater(() -> Platform.exit())));

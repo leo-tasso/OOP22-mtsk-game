@@ -33,10 +33,11 @@ public class WhacAMole implements Minigame {
      * 
      * @param fieldHeight the height of the playing field
      */
-    public WhacAMole(final double fieldHeight) {
+    public WhacAMole(final int fieldHeight) {
         this.currentTime = 0L;
         this.levels = List.of(new LevelOne(), new LevelTwo(), new LevelThree());
-        this.objs = new ArrayList<>(new HolesGenerator(fieldHeight).generate(NUM_HOLES));
+        final HolesGeneratorStrategy holesGen = new SquareHolesGenerator(fieldHeight);
+        this.objs = new ArrayList<>(holesGen.generate(NUM_HOLES));
         this.draw = new DrawStrategyImpl(new ArrayList<>(this.objs.subList(NUM_HOLES, this.objs.size())));
         this.currentLevel = this.levels.get(0);
         this.numDraws = 0;
@@ -71,7 +72,7 @@ public class WhacAMole implements Minigame {
         this.drawIfNecessary();
 
         this.objs.stream()
-            .filter(o -> o.getStatus().equals(Status.IN_MOTION))
+            .filter(o -> !o.getStatus().equals(Status.WAITING))
             .forEach(o -> o.updatePhysics(elapsed, this));
 
         this.objs.stream()
@@ -85,8 +86,10 @@ public class WhacAMole implements Minigame {
         this.objs.stream()
             .filter(o -> o.getCoor().getY() > o.getStartCoor().getY())
             .forEach(o -> {
-                o.setStatus(Status.MISSED);
                 o.setVel(Vector2D.nullVector());
+                if (!o.getStatus().equals(Status.HIT)) {
+                    o.setStatus(Status.MISSED);
+                }
             });
 
         this.objs.stream()

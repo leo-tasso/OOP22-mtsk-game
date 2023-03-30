@@ -13,6 +13,10 @@ public class InputButtonsImpl implements InputButtons {
     private static final int ONE_BUTTON = 49;
     private static final int NINE_BUTTON = 57;
     private static final int KEYCODE_NUM_DIFF = 48;
+    private static final int NUMPAD_ONE = 97;
+    private static final int NUMPAD_NINE = 105;
+    private static final int KEYCODE_NUMPAD_DIFF = 96;
+
 
     /**
      * {@inheritDoc}
@@ -30,6 +34,8 @@ public class InputButtonsImpl implements InputButtons {
                 input.setMoveRight(true);
             } else if (e.getCode().getCode() >= ONE_BUTTON && e.getCode().getCode() <= NINE_BUTTON) {
                 input.setNumberPressed(Optional.of(e.getCode().getCode() - KEYCODE_NUM_DIFF));
+            } else if (e.getCode().getCode() >= NUMPAD_ONE && e.getCode().getCode() <= NUMPAD_NINE) {
+                input.setNumberPressed(Optional.of(e.getCode().getCode() - KEYCODE_NUMPAD_DIFF));
             } else if (e.getCode().equals(KeyCode.SPACE)) {
                 input.setJump(true);
             } else if (e.getCode().equals(KeyCode.UP)) {
@@ -47,7 +53,8 @@ public class InputButtonsImpl implements InputButtons {
                 input.setMoveDown(false);
             } else if (e.getCode().equals(KeyCode.D)) {
                 input.setMoveRight(false);
-            } else if (e.getCode().getCode() >= ONE_BUTTON && e.getCode().getCode() <= NINE_BUTTON) {
+            } else if (e.getCode().getCode() >= ONE_BUTTON && e.getCode().getCode() <= NINE_BUTTON
+                    || e.getCode().getCode() >= NUMPAD_ONE && e.getCode().getCode() <= NUMPAD_NINE) {
                 input.setNumberPressed(Optional.empty());
             } else if (e.getCode().equals(KeyCode.SPACE)) {
                 input.setJump(false);

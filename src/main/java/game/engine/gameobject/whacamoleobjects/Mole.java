@@ -48,6 +48,7 @@ public class Mole extends WamObject {
      */
     @Override
     public boolean isStillInUse() {
-        return !this.getStatus().equals(Status.HIT);
+        return !(this.getStatus().equals(Status.HIT) 
+              && this.getCoor().getY() > this.getStartCoor().getY());
     }
 }

@@ -13,14 +13,13 @@ import game.engine.gameobject.whacamoleobjects.WamObject;
 
 /**
  * Class that manages the creation and location of dens from 
- * which moles and bombs come and go in the game Whac-a-Mole.
+ * which moles and bombs come and go in the game Whac-a-Mole,
+ * ideal for a number of burrows whose root is an integer.
  */
-public class HolesGenerator {
+public class SquareHolesGenerator implements HolesGeneratorStrategy {
     private static final double RATIO = 16.0 / 9.0;
-    private static final int HALF_HEIGHT_LOWER_PART = 73;
-    private static final int HALF_HEIGHT_UPPER_PART = 12;
-    private final double fieldHeight;
-    private final double fieldWidth;
+    private final int fieldHeight;
+    private final int fieldWidth;
 
     /**
      * Constructor that sets the value of the height 
@@ -28,9 +27,9 @@ public class HolesGenerator {
      * 
      * @param fieldHeight the height of the playing fields
      */
-    public HolesGenerator(final double fieldHeight) {
+    public SquareHolesGenerator(final int fieldHeight) {
         this.fieldHeight = fieldHeight;
-        this.fieldWidth = fieldHeight * RATIO;
+        this.fieldWidth = (int) (fieldHeight * RATIO);
     }
 
     /**
@@ -41,6 +40,7 @@ public class HolesGenerator {
      * @param numHoles the number of dens to creates
      * @return a list containing the holes created
      */
+    @Override
     public List<WamObject> generate(final int numHoles) {
         final List<WamObject> holes = new ArrayList<>();
         final int dx = (int) (this.fieldWidth / (Math.sqrt(numHoles) * 2));
@@ -52,22 +52,22 @@ public class HolesGenerator {
         for (int y = dy; holesCounter <= numHoles; y += dy * 2) {
             int holesInThisRow = 0;
             for (int x = dx;  holesInThisRow < holesPerRow; x += dx * 2) {
-                holes.add(holesCounter - 1, new HoleUpperPart(
-                        new Point2D(x, y - HALF_HEIGHT_UPPER_PART),
-                        0, 
-                        new LevelNull(), 
-                        holesCounter,
-                        new SimplePhysics(), 
-                        new HoleLowerPartAspectModel(), 
-                        new NullInput()));
-                holes.add(new HoleLowerPart(
-                        new Point2D(x, y + HALF_HEIGHT_LOWER_PART),
-                        0, 
-                        new LevelNull(), 
-                        holesCounter++, 
-                        new SimplePhysics(), 
-                        new HoleUpperPartAspectModel(), 
-                        new NullInput()));
+                holes.add(new HoleUpperPart(
+                    new Point2D(x, y),
+                    0, 
+                    new LevelNull(), 
+                    holesCounter,
+                    new SimplePhysics(), 
+                    new HoleLowerPartAspectModel(),
+                    new NullInput()));
+                holes.add(holesCounter - 1, new HoleLowerPart(
+                    new Point2D(x, y),
+                    0, 
+                    new LevelNull(), 
+                    holesCounter++, 
+                    new SimplePhysics(), 
+                    new HoleUpperPartAspectModel(), 
+                    new NullInput()));
                 holesInThisRow += 1;
             }
         }

@@ -1,7 +1,6 @@
 package game.view.javafx.viewstate;
 
 import java.util.Optional;
-
 import game.view.javafx.JavaFxViewCoordinator;
 import game.view.javafx.viewstate.gamestate.GameStateImpl;
 import javafx.application.Platform;
@@ -53,7 +52,7 @@ public class GameOverState implements ViewState {
             final Button exitButton = bf.create(stage, "Exit", e -> stage.close());
             final Button playAgainButton = bf.create(stage, "Play Again", e -> {
                 Platform.runLater(() -> {
-                    new GameStateImpl(view, stage.getScene()).display(view, stage);
+                        new GameStateImpl(view, stage.getScene()).display(view, stage);
                 });
             });
             final Button statsButton = bf.create(stage, "Stats", null); // TODO to implement

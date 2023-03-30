@@ -28,7 +28,7 @@ public interface Level {
 
     /**
      * Being that I extract GameObjects only when the list of them 
-     * becomes empty, the longer GameObjects wait to be spawned
+     * becomes "empty", the longer GameObjects wait to be spawned
      * ==> the slower the list will empty
      * ==> moles will come out less frequently
      * ==> the easier the level will be.
