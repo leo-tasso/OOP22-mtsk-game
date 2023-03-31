@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  */
 public class StatsState implements ViewState {
     private static final int BUTTON_SPACING = 20;
-    private VBox root;
+    private final VBox root;
 
     /**
      * Constructor to initialize the State.
@@ -38,8 +38,8 @@ public class StatsState implements ViewState {
         final LineChart<Number, Number> plot = new LineChart<>(
                 new NumberAxis(0, scores.entrySet().size() + 1, 1),
                 new NumberAxis(0, 50_000, 1_000));
-        plot.setTitle(scores.size() == 0 ? "No Records Found..." : "Records");
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        plot.setTitle(scores.isEmpty() ? "No Records Found..." : "Records");
+        final XYChart.Series<Number, Number> series = new XYChart.Series<>();
         final MiniCounter counter = new MiniCounter();
         scores.entrySet()
                 .stream()
@@ -61,7 +61,7 @@ public class StatsState implements ViewState {
     /**
      * A support class to count how many matches were played.
      */
-    private class MiniCounter {
+    private static class MiniCounter {
         private int count = 1;
 
         public int getCount() {

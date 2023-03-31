@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class RecordLoaderImpl implements RecordLoader {
 
-    private static final AesEncrypterImpl ENCRYPTER = new AesEncrypterImpl("myPassword123456");
+    // private static final AesEncrypterImpl ENCRYPTER = new AesEncrypterImpl("myPassword123456");
     private static final String FILENAME = "Scores.txt";
     private final File file;
 
@@ -40,17 +40,18 @@ public class RecordLoaderImpl implements RecordLoader {
         final List<byte[]> data = new ArrayList<>();
  
         try (BufferedReader bf = Files.newBufferedReader(file.toPath())) {
-            while ((curLine = bf.readLine()) != null) {
+            curLine = bf.readLine();
+            while (curLine != null) {
                 data.add(curLine.getBytes(StandardCharsets.UTF_8));
+                curLine = bf.readLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e.getMessage(), e);
         }
 
         final Map<Timestamp, Long> result = new HashMap<>();
         data.stream()
-            //.map(x -> ENCRYPTER.decrypt(x))
-            .map(x -> new String(x))
+            .map(x -> new String(x, StandardCharsets.UTF_8))
             .map(x -> x.split(","))
             .forEach(x -> result.put(Timestamp.valueOf(x[0]), Long.parseLong(x[1])));
         return result;
@@ -67,20 +68,20 @@ public class RecordLoaderImpl implements RecordLoader {
                     line.getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e.getMessage(), e);
         }
     }
 
     /**
      * Method that creates a new file if it doesn't exist already.
+     * 
+     * @return whether the file was created or not
      */
-    private void createNewFile() {
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private boolean createNewFile() {
+        try {
+            return file.createNewFile();
+        } catch (IOException e) {
+            throw new IllegalStateException(e.getMessage(), e);
         }
     }
 }
