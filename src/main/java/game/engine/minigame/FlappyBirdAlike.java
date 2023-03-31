@@ -60,7 +60,7 @@ public class FlappyBirdAlike implements Minigame {
                 Vector2D.nullVector(),
                 cursorSize,
                 -enemySpeed,
-                new FlappyInput()));
+                new FlappyInput(height)));
     }
 
     /**
