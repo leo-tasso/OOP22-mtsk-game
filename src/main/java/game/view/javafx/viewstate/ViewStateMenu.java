@@ -2,7 +2,6 @@ package game.view.javafx.viewstate;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import game.view.javafx.JavaFxViewCoordinator;
 import game.view.javafx.viewstate.gamestate.GameStateImpl;
 import javafx.application.Platform;

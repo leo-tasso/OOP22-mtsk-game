@@ -23,7 +23,7 @@ public interface Drawings {
      * @param object the gameObject of the square to draw.
      * @param color  the color of the square to draw.
      * @param side   the lenght of the side of the square.
-     * @param filled
+     * @param filled whether the figure should be filled with color or not
      */
     void drawSquare(GameObject object, ColorRGB color, double side, boolean filled);
 
@@ -34,7 +34,7 @@ public interface Drawings {
      * @param color  the color of the rectangle to draw.
      * @param width  the width of the rectangle to draw.
      * @param height the height of the rectangle to draw.
-     * @param filled 
+     * @param filled whether the figure should be filled with color or not
      */
     void drawRectangle(GameObject object, ColorRGB color, double width, double height, boolean filled);
 

@@ -56,7 +56,7 @@ public class GameOverState implements ViewState {
             final Button exitButton = bf.create(stage, "Exit", e -> stage.close());
             final Button playAgainButton = bf.create(stage, "Play Again", e -> {
                 Platform.runLater(() -> {
-                    new GameStateImpl(view, stage.getScene()).display(view, stage);
+                        new GameStateImpl(view, stage.getScene()).display(view, stage);
                 });
             });
             final Button statsButton = bf.create(stage, "Stats", e -> new StatsState(view, stage).display(view, stage));

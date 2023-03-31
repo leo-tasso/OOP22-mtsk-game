@@ -10,6 +10,7 @@ import api.Vector2D;
 public class LevelOne implements Level {
     private static final int MAX_OBJS_OUT_AT_ONCE = 1;
     private static final double VECTOR_ORDINATE = -20;
+    private static final long MIN_WAIT_TO_SPAWN = 5_000L;
     private static final long MAX_WAIT_TO_SPAWN = 15_000L;
     private static final long STATIONARY_TIME = 5000L;
 
@@ -34,7 +35,7 @@ public class LevelOne implements Level {
      */
     @Override
     public TimeInterval getSpawnWaitingTime() {
-        return new TimeInterval(0, LevelOne.MAX_WAIT_TO_SPAWN);
+        return new TimeInterval(LevelOne.MIN_WAIT_TO_SPAWN, LevelOne.MAX_WAIT_TO_SPAWN);
     }
 
     /**
