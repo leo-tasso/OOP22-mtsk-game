@@ -38,12 +38,7 @@ public class StatsState implements ViewState {
         final Map<Timestamp, Long> scores = new RecordLoaderImpl().getRecords();
         final LineChart<Number, Number> plot = new LineChart<>(
                 new NumberAxis(0, scores.entrySet().size() + 1, 1),
-                new NumberAxis(0,
-                        scores.entrySet().stream()
-                        .map(x -> x.getValue())
-                        .max((a, b) -> a > b ? 1 : -1)
-                        .get() + Y_OFFSET,
-                        Y_OFFSET));
+                new NumberAxis(0, getUpperBound(scores), Y_OFFSET));
         plot.setTitle(scores.isEmpty() ? "No Records Found..." : "Records");
         plot.setLegendVisible(false);
         final XYChart.Series<Number, Number> series = new XYChart.Series<>();
@@ -63,6 +58,13 @@ public class StatsState implements ViewState {
     @Override
     public void display(final JavaFxViewCoordinator jView, final Stage stage) {
         stage.getScene().setRoot(root);
+    }
+
+    private double getUpperBound(final Map<Timestamp, Long> scores) {
+        return scores.isEmpty() ? Y_OFFSET : scores.entrySet().stream()
+                .map(x -> x.getValue())
+                .max((a, b) -> a > b ? 1 : -1)
+                .get() + Y_OFFSET;
     }
 
     /**
