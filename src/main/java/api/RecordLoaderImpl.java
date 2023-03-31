@@ -52,6 +52,7 @@ public class RecordLoaderImpl implements RecordLoader {
         final Map<Timestamp, Long> result = new HashMap<>();
         data.stream()
             .map(x -> new String(x, StandardCharsets.UTF_8))
+            .flatMap(x -> List.of(x.split(";")).stream())
             .map(x -> x.split(","))
             .forEach(x -> result.put(Timestamp.valueOf(x[0]), Long.parseLong(x[1])));
         return result;
@@ -62,7 +63,7 @@ public class RecordLoaderImpl implements RecordLoader {
      */
     @Override
     public void setRecord(final Timestamp timestamp, final Long score) {
-        final String line = timestamp.toString() + "," + score + "\n";
+        final String line = timestamp.toString() + "," + score + ";";
         try {
             Files.write(file.toPath(),
                     line.getBytes(StandardCharsets.UTF_8),
