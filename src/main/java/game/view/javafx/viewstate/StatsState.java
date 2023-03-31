@@ -20,6 +20,7 @@ import javafx.stage.Stage;
  */
 public class StatsState implements ViewState {
     private static final int BUTTON_SPACING = 20;
+    private static final double Y_OFFSET = 1_000d;
     private final VBox root;
 
     /**
@@ -37,8 +38,14 @@ public class StatsState implements ViewState {
         final Map<Timestamp, Long> scores = new RecordLoaderImpl().getRecords();
         final LineChart<Number, Number> plot = new LineChart<>(
                 new NumberAxis(0, scores.entrySet().size() + 1, 1),
-                new NumberAxis(0, 50_000, 1_000));
+                new NumberAxis(0,
+                        scores.entrySet().stream()
+                        .map(x -> x.getValue())
+                        .max((a, b) -> a > b ? 1 : -1)
+                        .get() + Y_OFFSET,
+                        Y_OFFSET));
         plot.setTitle(scores.isEmpty() ? "No Records Found..." : "Records");
+        plot.setLegendVisible(false);
         final XYChart.Series<Number, Number> series = new XYChart.Series<>();
         final MiniCounter counter = new MiniCounter();
         scores.entrySet()
