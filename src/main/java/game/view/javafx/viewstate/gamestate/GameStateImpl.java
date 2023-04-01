@@ -8,7 +8,6 @@ import game.controlling.Input;
 import game.controlling.KeyboardInput;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
-import game.view.ImagesCache;
 import game.view.javafx.JavaFxDrawings;
 import game.view.javafx.JavaFxViewCoordinator;
 import javafx.application.Platform;
@@ -50,7 +49,6 @@ public class GameStateImpl implements GameState {
 
     private final Input input;
     private final GridPane gp;
-    private final ImagesCache imagesCache;
 
     /**
      * Constructor to initialize the state.
@@ -82,7 +80,6 @@ public class GameStateImpl implements GameState {
             minigameCanvases.forEach(c -> c.setHeight(boxHeight(scene)));
         });
         new InputButtonsImpl().attach(scene, input);
-        this.imagesCache = new ImagesCache();
     }
 
     /**
@@ -139,7 +136,7 @@ public class GameStateImpl implements GameState {
                             boxHeight(scene));
                     Drawings d;
                     d = new JavaFxDrawings(c, this.getStartingPoint(scene), this.boxHeight(scene),
-                                heightCoefficent, this.imagesCache);
+                            heightCoefficent);
                     objectsList.get(minigameCanvases.indexOf(c)).forEach(o -> o.updateAspect(d));
                 });
             }

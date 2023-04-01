@@ -28,14 +28,13 @@ import static game.view.ImagesCache.HEIGHT_UPPER_PART;
 public class JavaFxDrawings implements Drawings {
     private static final double HOLE_POS_DIVIDER = 2.2;
     private final int coefficient;
-    /* coordinates (related to the Jframe) of  */
+    /* coordinates (related to the Jframe) of */
     /* the upper left corner of the play field */
     private final Point2D startingPoint;
-    /* heigh of the play field (to scale     */
+    /* heigh of the play field (to scale */
     /* the size of the objects inside of it) */
     private final double dimention;
     private final GraphicsContext gc;
-    private final ImagesCache imagesCache;
 
     /**
      * Constructor for the class.
@@ -45,16 +44,14 @@ public class JavaFxDrawings implements Drawings {
      * @param dimention     dimention of the hight of the minigame area.
      * @param coefficient   the height in points of the field that the view shall
      *                      display.
-     * @param imagesCache   the games' images already loaded
      */
     public JavaFxDrawings(final Canvas canvas, final Point2D startingPoint, final double dimention,
-            final int coefficient, final ImagesCache imagesCache) {
+            final int coefficient) {
         this.coefficient = coefficient;
         this.gc = canvas.getGraphicsContext2D();
         gc.setLineWidth(3.0);
         this.startingPoint = startingPoint;
         this.dimention = dimention;
-        this.imagesCache = imagesCache;
     }
 
     /**
@@ -161,17 +158,17 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawMole(final GameObject object, final Boolean beenHit) {
         if (beenHit) {
-            gc.drawImage(imagesCache.getHitMoleImage(), 
-                        (object.getCoor().getX() - MOLE_WIDTH / 2) * dimention / coefficient,
-                        object.getCoor().getY() * dimention / coefficient,
-                        MOLE_WIDTH *  dimention / coefficient,
-                        MOLE_HEIGHT *  dimention / coefficient);
+            gc.drawImage(ImagesCache.HIT_MOLE_IMAGE,
+                    (object.getCoor().getX() - MOLE_WIDTH / 2) * dimention / coefficient,
+                    object.getCoor().getY() * dimention / coefficient,
+                    MOLE_WIDTH * dimention / coefficient,
+                    MOLE_HEIGHT * dimention / coefficient);
         } else {
-            gc.drawImage(imagesCache.getMoleImage(), 
-                        (object.getCoor().getX() - MOLE_WIDTH / 2) * dimention / coefficient,
-                        object.getCoor().getY() * dimention / coefficient,
-                        MOLE_WIDTH *  dimention / coefficient,
-                        MOLE_HEIGHT *  dimention / coefficient);
+            gc.drawImage(ImagesCache.MOLE_IMAGE,
+                    (object.getCoor().getX() - MOLE_WIDTH / 2) * dimention / coefficient,
+                    object.getCoor().getY() * dimention / coefficient,
+                    MOLE_WIDTH * dimention / coefficient,
+                    MOLE_HEIGHT * dimention / coefficient);
         }
     }
 
@@ -181,17 +178,17 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawWamBomb(final GameObject object, final Boolean beenHit) {
         if (beenHit) {
-            gc.drawImage(imagesCache.getHitBombImage(), 
-                        (object.getCoor().getX() - BOMB_WIDTH / 2) * dimention / coefficient,
-                        object.getCoor().getY() * dimention / coefficient,
-                        BOMB_WIDTH *  dimention / coefficient,
-                        BOMB_HEIGHT *  dimention / coefficient);
+            gc.drawImage(ImagesCache.HIT_BOMB_IMAGE,
+                    (object.getCoor().getX() - BOMB_WIDTH / 2) * dimention / coefficient,
+                    object.getCoor().getY() * dimention / coefficient,
+                    BOMB_WIDTH * dimention / coefficient,
+                    BOMB_HEIGHT * dimention / coefficient);
         } else {
-            gc.drawImage(imagesCache.getBombImage(), 
-                        (object.getCoor().getX() - BOMB_WIDTH / 2) * dimention / coefficient, 
-                        object.getCoor().getY() * dimention / coefficient,
-                        BOMB_WIDTH *  dimention / coefficient,
-                        BOMB_HEIGHT *  dimention / coefficient);
+            gc.drawImage(ImagesCache.BOMB_IMAGE,
+                    (object.getCoor().getX() - BOMB_WIDTH / 2) * dimention / coefficient,
+                    object.getCoor().getY() * dimention / coefficient,
+                    BOMB_WIDTH * dimention / coefficient,
+                    BOMB_HEIGHT * dimention / coefficient);
         }
     }
 
@@ -200,11 +197,11 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleUpperPart(final GameObject object) {
-        gc.drawImage(imagesCache.getHoleUpperPartImage(), 
-                    (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient, 
-                    (object.getCoor().getY() - HEIGHT_UPPER_PART / HOLE_POS_DIVIDER) * dimention / coefficient,
-                    HOLE_WIDTH *  dimention / coefficient,
-                    HEIGHT_UPPER_PART *  dimention / coefficient);
+        gc.drawImage(ImagesCache.HOLE_UPPER_PART_IMAGE,
+                (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient,
+                (object.getCoor().getY() - HEIGHT_UPPER_PART / HOLE_POS_DIVIDER) * dimention / coefficient,
+                HOLE_WIDTH * dimention / coefficient,
+                HEIGHT_UPPER_PART * dimention / coefficient);
     }
 
     /**
@@ -212,11 +209,11 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleLowerPart(final GameObject object) {
-        gc.drawImage(imagesCache.getHoleLowerPartImage(), 
-                    (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient, 
-                    object.getCoor().getY() * dimention / coefficient,
-                    HOLE_WIDTH *  dimention / coefficient,
-                    HEIGHT_LOWER_PART *  dimention / coefficient);
+        gc.drawImage(ImagesCache.HOLE_LOWER_PART_IMAGE,
+                (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient,
+                object.getCoor().getY() * dimention / coefficient,
+                HOLE_WIDTH * dimention / coefficient,
+                HEIGHT_LOWER_PART * dimention / coefficient);
     }
 
     /**
