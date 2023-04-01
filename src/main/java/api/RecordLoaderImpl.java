@@ -1,13 +1,15 @@
 package api;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,7 @@ import java.util.Map;
  */
 public class RecordLoaderImpl implements RecordLoader {
 
-    // private static final AesEncrypterImpl ENCRYPTER = new AesEncrypterImpl("myPassword123456");
+    private static final AesEncrypterImpl ENCRYPTER = new AesEncrypterImpl("myPassword123456");
     private static final String FILENAME = "Scores.txt";
     private final File file;
 
@@ -36,15 +38,20 @@ public class RecordLoaderImpl implements RecordLoader {
      */
     @Override
     public Map<Timestamp, Long> getRecords() {
-        String curLine;
+        //  Corner-case: empty file
+        try {
+            if (Files.size(file.toPath()) == 0) {
+                return Collections.emptyMap();
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        }
+
         final List<byte[]> data = new ArrayList<>();
  
-        try (BufferedReader bf = Files.newBufferedReader(file.toPath())) {
-            curLine = bf.readLine();
-            while (curLine != null) {
-                data.add(curLine.getBytes(StandardCharsets.UTF_8));
-                curLine = bf.readLine();
-            }
+        try (FileInputStream fis = new FileInputStream(file)) {
+            final ByteArrayInputStream bis = new ByteArrayInputStream(ENCRYPTER.decrypt(fis.readAllBytes()));
+            data.add(bis.readAllBytes());
         } catch (IOException e) {
             throw new IllegalStateException(e.getMessage(), e);
         }
@@ -66,7 +73,7 @@ public class RecordLoaderImpl implements RecordLoader {
         final String line = timestamp.toString() + "," + score + ";";
         try {
             Files.write(file.toPath(),
-                    line.getBytes(StandardCharsets.UTF_8),
+                    ENCRYPTER.encrypt(line.getBytes(StandardCharsets.UTF_8)),
                     StandardOpenOption.APPEND);
         } catch (IOException e) {
             throw new IllegalStateException(e.getMessage(), e);
