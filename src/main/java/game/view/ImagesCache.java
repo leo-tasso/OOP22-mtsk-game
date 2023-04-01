@@ -2,15 +2,17 @@ package game.view;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.image.Image;
 
 /**
  * Class that acts as an external memory that contains
- * the images of the Whac-a-Mole game, being that if
+ * the images used in the minigames, being that if 
  * they had to be re-instantiated every time inside
  * JavaFxDrawings the performance would drop drastically.
  */
-public class WamImagesCache {
+@SuppressFBWarnings 
+public class ImagesCache {
     /** Width of the rectangle circumscribing 
      * each of the two parts of the hole. */
     public static final int HOLE_WIDTH = 250;
@@ -37,7 +39,7 @@ public class WamImagesCache {
     /**
      * Constructor that creates Image objects once and for all.
      */
-    public WamImagesCache() {
+    public ImagesCache() {
         try {
             this.moleImage          = new Image(new FileInputStream("src/main/resources/mole.png"));
             this.bombImage          = new Image(new FileInputStream("src/main/resources/bomb.png"));
