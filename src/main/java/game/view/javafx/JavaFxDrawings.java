@@ -6,7 +6,7 @@ import api.ColorRGB;
 import api.Point2D;
 import game.engine.gameobject.GameObject;
 import game.view.Drawings;
-import game.view.WamImagesCache;
+import game.view.ImagesCache;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,13 +14,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import static game.view.WamImagesCache.MOLE_HEIGHT;
-import static game.view.WamImagesCache.MOLE_WIDTH;
-import static game.view.WamImagesCache.BOMB_HEIGHT;
-import static game.view.WamImagesCache.BOMB_WIDTH;
-import static game.view.WamImagesCache.HOLE_WIDTH;
-import static game.view.WamImagesCache.HEIGHT_LOWER_PART;
-import static game.view.WamImagesCache.HEIGHT_UPPER_PART;
+import static game.view.ImagesCache.MOLE_HEIGHT;
+import static game.view.ImagesCache.MOLE_WIDTH;
+import static game.view.ImagesCache.BOMB_HEIGHT;
+import static game.view.ImagesCache.BOMB_WIDTH;
+import static game.view.ImagesCache.HOLE_WIDTH;
+import static game.view.ImagesCache.HEIGHT_LOWER_PART;
+import static game.view.ImagesCache.HEIGHT_UPPER_PART;
 
 /**
  * Implementation of Drawings for JavaFX.
@@ -35,7 +35,7 @@ public class JavaFxDrawings implements Drawings {
     /* the size of the objects inside of it) */
     private final double dimention;
     private final GraphicsContext gc;
-    private final WamImagesCache wamCache;
+    private final ImagesCache imagesCache;
 
     /**
      * Constructor for the class.
@@ -45,16 +45,16 @@ public class JavaFxDrawings implements Drawings {
      * @param dimention     dimention of the hight of the minigame area.
      * @param coefficient   the height in points of the field that the view shall
      *                      display.
-     * @param wamCache      the Whac-a-Mole game images already loaded
+     * @param imagesCache   the games' images already loaded
      */
     public JavaFxDrawings(final Canvas canvas, final Point2D startingPoint, final double dimention,
-            final int coefficient, final WamImagesCache wamCache) {
+            final int coefficient, final ImagesCache imagesCache) {
         this.coefficient = coefficient;
         this.gc = canvas.getGraphicsContext2D();
         gc.setLineWidth(3.0);
         this.startingPoint = startingPoint;
         this.dimention = dimention;
-        this.wamCache = wamCache;
+        this.imagesCache = imagesCache;
     }
 
     /**
@@ -161,13 +161,13 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawMole(final GameObject object, final Boolean beenHit) {
         if (beenHit) {
-            gc.drawImage(wamCache.getHitMoleImage(), 
+            gc.drawImage(imagesCache.getHitMoleImage(), 
                         (object.getCoor().getX() - MOLE_WIDTH / 2) * dimention / coefficient,
                         object.getCoor().getY() * dimention / coefficient,
                         MOLE_WIDTH *  dimention / coefficient,
                         MOLE_HEIGHT *  dimention / coefficient);
         } else {
-            gc.drawImage(wamCache.getMoleImage(), 
+            gc.drawImage(imagesCache.getMoleImage(), 
                         (object.getCoor().getX() - MOLE_WIDTH / 2) * dimention / coefficient,
                         object.getCoor().getY() * dimention / coefficient,
                         MOLE_WIDTH *  dimention / coefficient,
@@ -181,13 +181,13 @@ public class JavaFxDrawings implements Drawings {
     @Override
     public void drawWamBomb(final GameObject object, final Boolean beenHit) {
         if (beenHit) {
-            gc.drawImage(wamCache.getHitBombImage(), 
+            gc.drawImage(imagesCache.getHitBombImage(), 
                         (object.getCoor().getX() - BOMB_WIDTH / 2) * dimention / coefficient,
                         object.getCoor().getY() * dimention / coefficient,
                         BOMB_WIDTH *  dimention / coefficient,
                         BOMB_HEIGHT *  dimention / coefficient);
         } else {
-            gc.drawImage(wamCache.getBombImage(), 
+            gc.drawImage(imagesCache.getBombImage(), 
                         (object.getCoor().getX() - BOMB_WIDTH / 2) * dimention / coefficient, 
                         object.getCoor().getY() * dimention / coefficient,
                         BOMB_WIDTH *  dimention / coefficient,
@@ -200,7 +200,7 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleUpperPart(final GameObject object) {
-        gc.drawImage(wamCache.getHoleUpperPartImage(), 
+        gc.drawImage(imagesCache.getHoleUpperPartImage(), 
                     (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient, 
                     (object.getCoor().getY() - HEIGHT_UPPER_PART / HOLE_POS_DIVIDER) * dimention / coefficient,
                     HOLE_WIDTH *  dimention / coefficient,
@@ -212,7 +212,7 @@ public class JavaFxDrawings implements Drawings {
      */
     @Override
     public void drawHoleLowerPart(final GameObject object) {
-        gc.drawImage(wamCache.getHoleLowerPartImage(), 
+        gc.drawImage(imagesCache.getHoleLowerPartImage(), 
                     (object.getCoor().getX() - HOLE_WIDTH / 2) * dimention / coefficient, 
                     object.getCoor().getY() * dimention / coefficient,
                     HOLE_WIDTH *  dimention / coefficient,
