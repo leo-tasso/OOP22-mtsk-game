@@ -8,10 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.swing.JButton;
@@ -308,14 +306,5 @@ public class SwingView implements View {
     @Override
     public Input getInput() {
         return input.clone();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<Timestamp, Long> getStats() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getController'");
     }
 }

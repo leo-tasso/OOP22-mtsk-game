@@ -1,5 +1,7 @@
 package game.view.javafx;
 
+import java.sql.Timestamp;
+import java.util.Map;
 import java.util.Optional;
 
 import game.view.View;
@@ -32,4 +34,11 @@ public interface JavaFxViewCoordinator extends View {
      * @return if game is set to fullscreen.
      */
     boolean isFullScreen();
+
+    /**
+     * Method to get the save data.
+     * 
+     * @return the save data.
+     */
+    Map<Timestamp, Long> getStats();
 }
