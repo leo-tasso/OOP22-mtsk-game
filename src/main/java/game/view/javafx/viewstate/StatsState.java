@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.Map;
 import java.util.Optional;
 
-import api.RecordLoaderImpl;
 import game.view.javafx.JavaFxViewCoordinator;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -35,7 +34,7 @@ public class StatsState implements ViewState {
                 .create(stage,
                 "Back to Main Menu",
                 e -> Platform.runLater(() -> new ViewStateMenu(view, stage).display(view, stage)));
-        final Map<Timestamp, Long> scores = new RecordLoaderImpl().getRecords();
+        final Map<Timestamp, Long> scores = view.getStats();
         final LineChart<Number, Number> plot = new LineChart<>(
                 new NumberAxis(0, scores.entrySet().size() + 1, 1),
                 new NumberAxis(0, getUpperBound(scores), Y_OFFSET));

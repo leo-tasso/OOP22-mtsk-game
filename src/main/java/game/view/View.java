@@ -1,6 +1,8 @@
 package game.view;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import game.controlling.Input;
 import game.engine.gameobject.GameObject;
@@ -43,4 +45,11 @@ public interface View {
      * @return the input obtained.
      */
     Input getInput();
+
+    /**
+     * Method to get the save data.
+     * 
+     * @return the save data.
+     */
+    Map<Timestamp, Long> getStats();
 }

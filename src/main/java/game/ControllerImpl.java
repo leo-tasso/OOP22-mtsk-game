@@ -3,6 +3,7 @@ package game;
 import java.sql.Timestamp;
 import java.util.Map;
 
+import api.RecordLoaderImpl;
 import game.engine.Engine;
 import game.engine.EngineImpl;
 import game.view.View;
@@ -124,8 +125,7 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public void saveStats(final Timestamp timestamp, final long score) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveStats'");
+        new RecordLoaderImpl().setRecord(timestamp, score);
     }
 
     /**
@@ -133,7 +133,6 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public Map<Timestamp, Long> getStats() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getStats'");
+        return new RecordLoaderImpl().getRecords();
     }
 }

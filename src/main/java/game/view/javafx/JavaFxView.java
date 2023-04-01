@@ -1,6 +1,8 @@
 package game.view.javafx;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import game.Controller;
@@ -82,6 +84,7 @@ public final class JavaFxView extends Application implements JavaFxViewCoordinat
      */
     @Override
     public void renderGameOver(final Long points) {
+        controller.saveStats(new Timestamp(System.currentTimeMillis()), points);
         new GameOverState(this, stage, points).display(this, stage);
     }
 
@@ -152,5 +155,13 @@ public final class JavaFxView extends Application implements JavaFxViewCoordinat
     @Override
     public void toggleFullScreen() {
         stage.setFullScreen(!isFullScreen());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<Timestamp, Long> getStats() {
+        return controller.getStats();
     }
 }
