@@ -45,7 +45,7 @@ public class GameStateImpl implements GameState {
 
     private static final int START_WINDOW_WIDTH = 800;
     private static final int START_WINDOW_HEIGHT = 480;
-    private static final List<Color> BACKGROUND_COLORS = List.of(Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.WHITE);
+    private static final List<Color> BACKGROUND_COLORS = List.of(Color.YELLOW, Color.WHITE, Color.CYAN, Color.MAGENTA);
     private final List<Canvas> minigameCanvases = new ArrayList<>();
 
     private final Input input;
