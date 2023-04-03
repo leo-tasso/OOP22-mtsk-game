@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.FontMetrics;
 
 import api.ColorRGB;
@@ -74,25 +76,25 @@ public class SwingDrawings implements Drawings {
      * @param object the object to draw
      */
     @Override
-    public void drawTriangle(final GameObject object, final ColorRGB color, final double side, final double rotAngle) {
-        /*final double radius = side / Math.sqrt(3);
-        final double rotAngle1 = rotAngle + Math.PI * 2 / 3;
-        final double rotAngle2 = rotAngle + Math.PI * 4 / 3;
+    public void drawTriangle(final GameObject object, final ColorRGB color, final double side, final double angle) {
+        final double radius = side / Math.sqrt(3);
+        final double angle1 = angle + Math.PI * 2 / 3;
+        final double angle2 = angle + Math.PI * 4 / 3;
 
         final List<Double> xs = new ArrayList<>();
-        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle1));
-        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle2));
-        xs.add(object.getCoor().getX() + radius * Math.cos(rotAngle));
+        xs.add(object.getCoor().getX() + radius * Math.cos(angle1));
+        xs.add(object.getCoor().getX() + radius * Math.cos(angle2));
+        xs.add(object.getCoor().getX() + radius * Math.cos(angle));
 
         final List<Double> ys = new ArrayList<>();
-        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle1));
-        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle2));
-        ys.add(object.getCoor().getY() + radius * Math.sin(rotAngle));
+        ys.add(object.getCoor().getY() + radius * Math.sin(angle1));
+        ys.add(object.getCoor().getY() + radius * Math.sin(angle2));
+        ys.add(object.getCoor().getY() + radius * Math.sin(angle));
 
         g2.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
         g2.setStroke(new BasicStroke(2f));
-        g2.drawPolygon(xs.stream().mapToInt(x -> (int) Math.round(x * dimention / COEFFICIENT + startingPoint.getX())).toArray(),
-                ys.stream().mapToInt(y -> (int) Math.round(y * dimention / COEFFICIENT + startingPoint.getY())).toArray(), 3);*/
+        g2.drawPolygon(xs.stream().mapToInt(x -> (int) Math.round(x * dimention / coefficient + startingPoint.getX())).toArray(),
+                ys.stream().mapToInt(y -> (int) Math.round(y * dimention / coefficient + startingPoint.getY())).toArray(), 3);
     }
 
     /**
