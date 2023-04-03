@@ -59,8 +59,6 @@ public class TestMinigame implements Minigame {
     @Override
     public void compute(final long elapsed) {
         l.forEach(b -> b.updatePhysics(elapsed, this));
-        // TODO dubug only System.out.println("Coordinates: " + l.get(0).getCoor() + ""
-        // + l.get(0).getVel());
     }
 
     /**

@@ -102,8 +102,8 @@ public class CatchTheSquare implements Minigame {
         }
         if (totalBombsSpawned < spawnFreqStrat.apply(totalElapsed) && gObjects.size() < MAX_OBJECT) {
             gObjects.add(new CtsBomb(randSpawnPoint(), BOMB_SIDE, ColorRGB.black())); // if changing bomb shape, also
-                                                                                   // change
-                                                                                   // checkCollision method
+                                                                                      // change
+                                                                                      // checkCollision method
             totalBombsSpawned++;
         }
         gObjects.forEach(b -> b.updatePhysics(elapsed, this));
@@ -160,7 +160,7 @@ public class CatchTheSquare implements Minigame {
     @Override
     public String getTutorial() {
         return "Use \"WASD\" to control the the circle and "
-                + "defuse all the squares by touching them before the time runs out"; // TODO Implement key fetching and
-                                                                                      // multilanguage
+                + "defuse all the squares by touching them before the time runs out"; // In the future the keys might be
+                                                                                      // fetched dinamically
     }
 }

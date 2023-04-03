@@ -60,7 +60,6 @@ public class ControllerImpl implements Controller {
             view.render(e.getMinigameObjects());
             waitForNextFrame(currentFrame);
             previousFrame = currentFrame;
-            // TODO FPS for debug-> System.out.println(1/(double)elapsed*1000);
         }
         try {
             Thread.sleep(TIME_TO_REALIZE_LOSS);

@@ -24,6 +24,5 @@ public class SimplePhysics implements PhysicsModel {
         final Point2D pos = obj.getCoor();
         final Vector2D vel = obj.getVel();
         obj.setCoor(pos.sum(vel.mul(SimplePhysics.SPEED_COEFF * dt)));
-        // TODO remove, debug only System.out.println(obj.getCoor());
     }
 }

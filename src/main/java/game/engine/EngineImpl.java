@@ -15,8 +15,7 @@ import game.engine.minigame.whacamoleminigame.WhacAMole;
 public class EngineImpl implements Engine {
     private final int bottomLimit;
     private static final List<Class<? extends Minigame>> MINIGAME_SEQUENCE = List.of(
-        WhacAMole.class
-    );
+            WhacAMole.class);
     private final List<Minigame> minigameList = new LinkedList<>();
     private int addedMinigame;
 
@@ -39,23 +38,10 @@ public class EngineImpl implements Engine {
             newMinigame = MINIGAME_SEQUENCE.get(addedMinigame)
                     .getDeclaredConstructor(int.class)
                     .newInstance(bottomLimit);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            newMinigame = null;
-        }
-        try {
-            if (newMinigame == null) {
-                newMinigame = MINIGAME_SEQUENCE.get(addedMinigame)
-                        .getDeclaredConstructor()
-                        .newInstance();
-            }
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             throw new IllegalArgumentException("Unable to add minigame", e);
         }
-        // ^^ TODO deprecated legacy code to support no arguments minigame constructors,
-        // delete once all minigames implemented it
-
         minigameList.add(newMinigame);
         addedMinigame++;
         return newMinigame.getTutorial();
