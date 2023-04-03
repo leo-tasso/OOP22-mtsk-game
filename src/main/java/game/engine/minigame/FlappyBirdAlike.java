@@ -5,13 +5,13 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.ArrayList;
 
-import game.controlling.FlappyInput;
-import game.controlling.NullInput;
 import game.engine.difficultystrats.StepRateStrat;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.NullInput;
 import game.engine.gameobject.RectangleAspect;
 import game.engine.gameobject.SimplePhysics;
 import game.engine.gameobject.flappybirdalikeobjects.Cursor;
+import game.engine.gameobject.flappybirdalikeobjects.FlappyInput;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;
 import game.engine.gameobject.hitboxmodel.RectangleHitBoxModel;
 import api.ColorRGB;

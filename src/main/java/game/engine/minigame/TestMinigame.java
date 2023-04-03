@@ -6,9 +6,9 @@ import java.util.List;
 import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
-import game.controlling.NullInput;
 import game.engine.gameobject.Circle;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.NullInput;
 import game.engine.gameobject.RectangleAspect;
 import game.engine.gameobject.SimplePhysics;
 

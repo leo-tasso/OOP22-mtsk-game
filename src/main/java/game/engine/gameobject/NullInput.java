@@ -1,6 +1,6 @@
-package game.controlling;
+package game.engine.gameobject;
 
-import game.engine.gameobject.GameObject;
+import game.controlling.Input;
 
 /**
  * Class for GameObjects that reqires no inputs.

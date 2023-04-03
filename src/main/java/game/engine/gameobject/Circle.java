@@ -3,7 +3,7 @@ package game.engine.gameobject;
 import api.ColorRGB;
 import api.Point2D;
 import api.Vector2D;
-import game.controlling.DirectionalInput;
+import game.engine.gameobject.catchthesqareobjects.DirectionalInput;
 
 /**
  * Game Object rapresenting a circle.

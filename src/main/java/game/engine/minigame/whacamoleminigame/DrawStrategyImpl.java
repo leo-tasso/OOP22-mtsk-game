@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import game.controlling.WamInputModel;
+
 import game.engine.gameobject.GameObject;
 import game.engine.gameobject.whacamoleobjects.WamBomb;
 import game.engine.gameobject.whacamoleobjects.WamBombAspectModel;
+import game.engine.gameobject.whacamoleobjects.WamInputModel;
 import game.engine.gameobject.whacamoleobjects.Mole;
 import game.engine.gameobject.whacamoleobjects.MoleAspectModel;
 import game.engine.gameobject.whacamoleobjects.WamPhysicsModel;

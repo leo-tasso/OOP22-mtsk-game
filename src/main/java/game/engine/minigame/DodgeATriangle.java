@@ -9,13 +9,13 @@ import java.util.stream.Stream;
 
 import api.Point2D;
 import api.Vector2D;
-import game.controlling.DodgerInputModel;
-import game.controlling.NullInput;
 import game.engine.difficultystrats.StepRateStrat;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.NullInput;
 import game.engine.gameobject.SimplePhysics;
 import game.engine.gameobject.dodgeatriangleobjects.DatTriangle;
 import game.engine.gameobject.dodgeatriangleobjects.Dodger;
+import game.engine.gameobject.dodgeatriangleobjects.DodgerInputModel;
 import game.engine.gameobject.dodgeatriangleobjects.SlotAspect;
 import game.engine.gameobject.hitboxmodel.Collider;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;

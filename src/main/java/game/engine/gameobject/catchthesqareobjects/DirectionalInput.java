@@ -1,7 +1,9 @@
-package game.controlling;
+package game.engine.gameobject.catchthesqareobjects;
 
 import api.Vector2D;
+import game.controlling.Input;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.InputModel;
 
 /**
  * Updates the direction of a GameObject.

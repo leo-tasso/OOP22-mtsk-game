@@ -2,8 +2,8 @@ package game.engine.gameobject.flappybirdalikeobjects;
 
 import api.Point2D;
 import api.Vector2D;
-import game.controlling.InputModel;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.InputModel;
 import game.engine.gameobject.hitboxmodel.CircleHitBoxModel;
 
 /**

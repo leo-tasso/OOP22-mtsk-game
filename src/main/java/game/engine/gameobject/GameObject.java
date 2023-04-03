@@ -1,7 +1,6 @@
 package game.engine.gameobject;
 
 import game.controlling.Input;
-import game.controlling.InputModel;
 import game.engine.gameobject.hitboxmodel.HitBoxModel;
 import game.engine.gameobject.hitboxmodel.NullHitBoxModel;
 import game.engine.minigame.Minigame;

@@ -1,8 +1,8 @@
 package game.engine.gameobject.whacamoleobjects;
 
 import api.Point2D;
-import game.controlling.InputModel;
 import game.engine.gameobject.AspectModel;
+import game.engine.gameobject.InputModel;
 import game.engine.gameobject.PhysicsModel;
 import game.engine.minigame.whacamoleminigame.Level;
 

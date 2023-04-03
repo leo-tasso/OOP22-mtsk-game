@@ -2,8 +2,8 @@ package game.engine.gameobject.dodgeatriangleobjects;
 
 import api.Point2D;
 import api.Vector2D;
-import game.controlling.NullInput;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.NullInput;
 import game.engine.gameobject.SimplePhysics;
 import game.engine.gameobject.hitboxmodel.RectangleHitBoxModel;
 

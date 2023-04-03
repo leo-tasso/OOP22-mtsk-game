@@ -3,7 +3,7 @@ package game.engine.minigame.whacamoleminigame;
 import java.util.ArrayList;
 import java.util.List;
 import api.Point2D;
-import game.controlling.NullInput;
+import game.engine.gameobject.NullInput;
 import game.engine.gameobject.SimplePhysics;
 import game.engine.gameobject.whacamoleobjects.HoleLowerPart;
 import game.engine.gameobject.whacamoleobjects.HoleLowerPartAspectModel;

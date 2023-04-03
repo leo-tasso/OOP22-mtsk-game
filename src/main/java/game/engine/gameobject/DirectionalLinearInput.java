@@ -1,7 +1,7 @@
-package game.controlling;
+package game.engine.gameobject;
 
 import api.Vector2D;
-import game.engine.gameobject.GameObject;
+import game.controlling.Input;
 /**
  * Class to model a directional input with constant speed.
  */

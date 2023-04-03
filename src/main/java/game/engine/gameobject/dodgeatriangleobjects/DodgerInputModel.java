@@ -1,8 +1,10 @@
-package game.controlling;
+package game.engine.gameobject.dodgeatriangleobjects;
 
 import api.Point2D;
 import api.Vector2D;
+import game.controlling.Input;
 import game.engine.gameobject.GameObject;
+import game.engine.gameobject.InputModel;
 
 /**
  * Class that takes care of changing the position of 

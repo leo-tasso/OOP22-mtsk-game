@@ -1,8 +1,8 @@
-package game.controlling;
+package game.engine.gameobject.whacamoleobjects;
 
+import game.controlling.Input;
 import game.engine.gameobject.GameObject;
-import game.engine.gameobject.whacamoleobjects.Status;
-import game.engine.gameobject.whacamoleobjects.WamObject;
+import game.engine.gameobject.InputModel;
 
 /**
  * Class responsible for updating the object (that contains an 
