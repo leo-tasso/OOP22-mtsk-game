@@ -3,6 +3,10 @@
 \usepackage{graphicx}
 \usepackage{pgfplots}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{alltt, fancyvrb, url}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
 
 \pgfplotsset{compat=1.18}
 
@@ -22,7 +26,7 @@ Lorenzo Dalmonte}
 \tableofcontents
 
 \chapter{Analysis}
-The software commissioned by the professors of the Object-Oriented Pro\-gramming course aims to create an application designed to enhance psycho-motor skills through a gaming experience based on multitasking.\\
+The software aims to create an application designed to enhance psycho-motor skills through a gaming experience based on multitasking.\\
 The term \textit{Multitasking} refers to the ability of a person or a product to do more than one thing at a time.
 
 \section{Requirements}
@@ -31,15 +35,15 @@ The term \textit{Multitasking} refers to the ability of a person or a product to
 	\item Upon starting, the software will display a simple minigame.\footnote{A minigame is a potentially-never-ending challenge that requires simple actions from the player in order to keep the game going.}
 	\item After a short amount of time a new minigame will appear and so on until all four minigames are shown.
 	\item Generally, the difficulty of each minigame shall increase over time.
-	\item The player's goal is to survive as long as possible. After failing a minigame the application will display the final result,
-	      therefore the software has to keep track of how long the player has lasted in the match in order to calculate the score.
+	\item The player's goal is to survive as long as possible. After failing any minigame the application will display the final result,
+	      therefore the software has to keep track of how long the player has lasted in the current run in order to calculate the score.
 	\item It will be possible to appreciate the improvement on a \textit{Statistics} page that will show the record of all the past runs.
 \end{itemize}
 
 \subsection*{Non functional}
 \begin{itemize}
-	\item The application shall sustain acceptable frame rate (around 60 fps) in all the sections of the gameplay, even on older hardware\footnote{e.g. Intel Core i3 (fourth generation), 4Gb of RAM.}.
-	\item It shall be possible to easily develop and swap the minigames among the ones that best fit the training purposes of the user on top of those already provided.
+	\item The application shall sustain acceptable frame rate (around 60 fps) in all the sections of the gameplay, even on older hardware\footnote{e.g. Intel Core i5 (fourth generation), 8Gb of RAM.}.
+	\item For Developers shall be possible to easily develop and swap the\\ minigames among the ones that best fit the training purposes of the user on top of those already provided.
 	\item It shall be possible to play in full screen mode.
 	\item The window shall be resizable to fit in any kind of screen\footnote{Provided a minimum resolution.}.
 \end{itemize}
@@ -50,8 +54,8 @@ The term \textit{Multitasking} refers to the ability of a person or a product to
 
 MTSK-Game must exhibit some \textit{minigames}, the ones supplied by us are:
 \begin{itemize}
-	\item \textit{WhacAMole}: where the goal is to crush all the moles that emerge from the dug holes, before they re-enter them, avoiding detonating bombs that will also pop up from the pipes.
-	\item \textit{DodgeATriangle}: in which the player has to slide a \textit{rectangle} up and down in a column switching lanes, aiming to avoid hitting moving \textit{triangles}.
+	\item \textit{WhacAMole}: where the goal is to crush all the moles that emerge from the dens, before they re-enter them, avoiding to detonate bombs that will also pop up from the burrows.
+	\item \textit{DodgeATriangle}: in which the player has to slide a \textit{rectangle} up and down in a column switching lanes, aiming to avoid moving \textit{triangles}.
 	\item \textit{CatchTheSquare}: where the user should destroy \textit{squares} running over them with a \textit{circle} before their timers runs out. With time, multiple squares will spawn at the same time with an increasing rate.
 	\item \textit{FlappyBirdAlike}: where the user needs to control a \textit{cursor} leading it to avoid \textit{obstacles} that will come towards it.
 \end{itemize}
@@ -84,11 +88,10 @@ a full separation of concerns based on domains (allow a single entity to span mu
 	\item \textit{PhysicsModel}: Interface that deals with the physical state of a Game Object,
 	      moving it according to its speed, considering the environment in which it is located (edges of the field)
 	      and the other objects it interacts with (collision with obstacles).
-	\item \textit{AspectModel}: It is the interface that orders the updating of the graphics of the single
-	      object to the View, specifying which of the instructions already contained in SwingView need to be used.
+	\item \textit{AspectModel}: It is the interface that sets the look of the single\\ \textbf{GameObject}, specifying which of the Drawing instructions need to be used.
 	\item \textit{InputModel}: Interface related to a single GameObject that reads the input stored in the
 	      engine and applies it, if the object recognizes it as its own command, changing its specifications (e.g. coordinates, speed).
-	\item \textit{HitBoxModel}: Defines the shape and sizes of the hit box that the object shall interpret when colliding with other hit boxes.
+	\item \textit{HitBoxModel}: Defines the shape and sizes of the hitbox that the object shall interpret when colliding with other hitboxes.
 \end{itemize}
 
 \begin{figure}[ht]
@@ -161,11 +164,100 @@ The limit rate is represented by the inclination of the line tangent to the expo
 \end{figure}
 \pagebreak\\
 \textbf{Problem:} The \textit{View} shall display different items over time.\\
-\textbf{Solution:} The \textit{JavaFxView} adopts a state pattern, each state has a method to display its item overwriting the ones present at the moment.\\ 
+\textbf{Solution:} The \textit{JavaFxView} adopts a state pattern, each state has a method to display its item overwriting the ones present at the moment.\\
 A special state, the \textit{GameState} is a subclass of state able to show the gameplay.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{res/ViewState.pdf}
 	\caption{The corresponding UML diagram}
 \end{figure}
+
+
+\pagebreak
+
+\subsection*{Pietro Olivi}
+\textbf{Difficulty in WhacAMole}\\
+\textbf{Problem:} Problem n.1\\
+\textbf{Solution:} Solution n.1
+\pagebreak\\
+\textbf{Problem:} Problem n.2 \\
+\textbf{Solution:} Solution n.2
+
+\pagebreak
+
+\subsection*{Lorenzo Dalmonte}
+\textbf{Difficulty in FlappyBirdAlike}\\
+\textbf{Problem:} Problem n.1\\
+\textbf{Solution:} Solution n.1
+
+\chapter{Development}
+\section{Automated Tests}
+
+\appendix
+\chapter{User Guide}
+\section*{Catch-The-Square}
+You will control a circle with the "WASD" keys, moving it on the pane, your objective is to hit the spawing squares to remove them, each square has a timer, don't let it run out!\\
+When you bounce on the walls yours speed will be dumped, therefore you cannot gain high speed and forget this minigame.
+With time the spawn rate of the squares will increase, good luck!
+
+\section*{Flappy-Bird-Alike}
+The player controls a triangle shaped cursor on the left side of the screen.\\
+Press the SPACEBAR to jump and evade obstacles incoming from the other side. You can jump in midair too!
+
+\pagebreak
+\section*{Whac-A-Mole}
+Moles and Bombs will randomly appear on the playing field: sufficient conditions for losing the game are to let a mole return to its
+burrow without being crushed, or to hit a bomb. If you are using a keyboard with horizontal arrangement of numbers, to hit an object that
+is outside the hole, just press the number corresponding to the latter. In particular, the dens will be numbered in ascending order starting
+from the first in the upper left, continuing towards the right, and then moving on to the first in the next row (once the previous one is
+finished). If you have a numpad available then, in the case of the standard 9-hole version of the game, you will have to press, more intuitively,
+the key in the position corresponding to that of the lair.
+\begin{figure}[ht]
+	\centering{}
+	\includegraphics[width=\textwidth]{res/InstructionsWam.pdf}
+	\caption{Keys to use to play Whac-a-mole}
+\end{figure}
+
+\section*{Dodge-A-Triangle}
+The player controls a square that moves up and down lanes by pressing the UP and DOWN arrows respectively on the keyboard.\\
+Avoid triangle enemies coming from the sides of the screen.
+
+
+
+\chapter{Lab Practices}
+\section*{pietro.olivi2@studio.unibo.it}
+\begin{itemize}
+	\item Lab 05: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=114647#p169720}
+	\item Lab 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=115548#p171327}
+	\item Lab 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=117044#p173090}
+	\item Lab 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=118995#p175807}
+	\item
+\end{itemize}
+
+\section*{lorenzo.dalmonte4@studio.unibo.it}
+
+\begin{itemize}
+	\item Lab 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=115548#p170779}
+	\item Lab 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=117044#p172448}
+	\item Lab 08: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=117852#p173898}
+	\item Lab 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=118995#p175820}
+	\item Lab 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=119938#p176290}
+\end{itemize}
+\section*{leonardo.tassinari6@studio.unibo.it}
+
+\begin{itemize}
+	\item Lab 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=113869#p169260}
+	\item Lab 05: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=114647#p169543}
+	\item Lab 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=115548#p171093}
+	\item Lab 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=117044#p172618}
+	\item Lab 08: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=117852#p173682}
+	\item Lab 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=118995#p174740}
+	\item Lab 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=119938#p176083}
+	\item Lab 11: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=121130#p177362}
+	\item Lab 12: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=121885#p178213}
+
+
+\end{itemize}
+
+
 \end{document}

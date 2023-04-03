@@ -20,3 +20,4 @@ deleteme/
 *.fls
 *.aux
 *.fdb_latexmk
+*.out
