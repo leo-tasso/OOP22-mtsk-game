@@ -222,6 +222,20 @@ the key in the position corresponding to that of the lair.
 The player controls a square that moves up and down lanes by pressing the UP and DOWN arrows respectively on the keyboard.\\
 Avoid triangle enemies coming from the sides of the screen.
 
+\chapter{Developer Guide}
+\section*{Creation of a new minigame}
+To create a new \textit{Minigame} you can implement its interface.
+Each minigame will keep an internal list of \textit{GameObjects}, that will be updated each frame in 3 main phases:
+\begin{itemize}
+	\item input process
+	\item update
+	\item render
+\end{itemize}
+Each GameObject is composed of Modules regarding different aspects of the object.
+You can create your own modules or use the ones already present, take a look at the javaDoc for a more comprehensive list.
+\section*{Input Process}
+\section*{Update}
+\section*{Render}
 
 
 \chapter{Lab Practices}
