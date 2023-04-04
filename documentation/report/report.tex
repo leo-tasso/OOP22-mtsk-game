@@ -178,11 +178,22 @@ A special state, the \textit{GameState} is a subclass of state able to show the 
 \subsection*{Pietro Olivi}
 \textbf{Difficulty in WhacAMole}\\
 \textbf{Problem:} Problem n.1\\
-\textbf{Solution:} Solution n.1
+\textbf{Solution:} When it came time to deal with the Moles and Bombs spawn problem, as well as providing my own version of the algorithm 
+I thought it was vital to come up with a solution that would leave room for future changes, i.e. ideas on how to handle the GameObjects’ 
+random extraction. I therefore recognized a natural correspondence with the strategy pattern. Initially I was thinking in terms of time 
+intervals: At the beginning of each set period I would extract a variable number of objects (also assigning the lair from which to spawn) 
+so that they would appear by the end of that interval, however so many checks had to be done that the entire lifecycle of Moles and Bombs 
+did not exceed the right limit of the current interval that the code became unclear.  I therefore decided to extract a variable number of 
+objects, at most equal to the maximum number of GameObjects simultaneously in action, and do it again when all of them had finished their 
+work (each entity will also have a waiting time before appearing, otherwise it would become impossible).
 \pagebreak\\
-\textbf{Problem:} Problem n.2 \\
-\textbf{Solution:} Solution n.2
-
+\textbf{Problem:} Each Mole and Bomb will have to appear in a specific spot on the
+pitch, but where?  \\
+\textbf{Solution:} The problem of the positioning of the dens is certainly not going to have a single solution, since this strongly depends 
+on the number of dens with which you intend to play. Taking the classic arcade version of Whac-a-Mole as a reference, I provided an 
+implementation that distributes the holes equidistantly (into a table), suitable for numbers whose root is an integer. However, wanting to 
+allow the insertion of other possible positioning strategies, I again leaned on the strategy pattern (although the interface does not appear 
+as a Whac-a-Mole field but as a variable inside the constructor, being used only there).
 \pagebreak
 
 \subsection*{Lorenzo Dalmonte}
@@ -245,7 +256,6 @@ You can create your own modules or use the ones already present, take a look at 
 	\item Lab 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=115548#p171327}
 	\item Lab 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=117044#p173090}
 	\item Lab 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=118995#p175807}
-	\item
 \end{itemize}
 
 \section*{lorenzo.dalmonte4@studio.unibo.it}
