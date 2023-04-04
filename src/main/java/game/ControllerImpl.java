@@ -15,7 +15,7 @@ import javafx.application.Application;
  */
 public class ControllerImpl implements Controller {
     private static final int FIELD_HEIGHT = 900; // hight in coordinate points that the view should display
-    private static final long TIME_TO_NEXT_MINIGAME = 5_000L;
+    private static final long TIME_TO_NEXT_MINIGAME = 10_000L;
     private static final long TIME_TO_REALIZE_LOSS = 2_000L;
     private static final long PERIOD = 5;
     private final View view;

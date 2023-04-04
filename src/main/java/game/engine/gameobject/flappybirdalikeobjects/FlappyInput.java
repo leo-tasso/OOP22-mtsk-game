@@ -10,7 +10,7 @@ import game.engine.gameobject.InputModel;
  */
 public class FlappyInput implements InputModel {
 
-    private static final double SPEED_RATIO = -75d;
+    private static final double SPEED_RATIO = -90d;
     private final double upwardSpeed;
     private boolean hold;
 

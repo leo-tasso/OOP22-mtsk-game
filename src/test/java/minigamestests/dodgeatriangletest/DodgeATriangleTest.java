@@ -35,8 +35,8 @@ class DodgeATriangleTest {
         final Minigame m = new DodgeATriangle();
         final Point2D center = m.getObjects().get(0).getCoor();
 
-        while (m.getObjects().size() == 2 // The last elem is an istance of Slots
-            || center.getY() != m.getObjects().get(1).getCoor().getY()) {
+        while (m.getObjects().size() == 2 // The first elem is an istance of Slots
+            || center.getY() != m.getObjects().get(2).getCoor().getY()) {
             m.compute(ELAPSED_TIME);
         }
         for (int i = 0; i < CYCLES; i++) {

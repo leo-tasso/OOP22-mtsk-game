@@ -21,8 +21,8 @@ import game.engine.gameobject.hitboxmodel.Collider;
 import game.engine.gameobject.hitboxmodel.ColliderImpl;
 
 /**
- * Class that models the dodge a triangle minigame, where 
- * the player must move a small square on a vertical 
+ * Class that models the dodge a triangle minigame, where
+ * the player must move a small square on a vertical
  * axis, avoiding triangles that come from left to right.
  */
 public class DodgeATriangle implements Minigame {
@@ -51,7 +51,7 @@ public class DodgeATriangle implements Minigame {
     private boolean gameOver;
 
     /**
-     * Constructor that initializes the 
+     * Constructor that initializes the
      * list with the main character.
      * 
      * @param height the height of the game's world
@@ -88,9 +88,9 @@ public class DodgeATriangle implements Minigame {
     public boolean isGameOver() {
         if (!gameOver) {
             final GameObject pl = l.get(0);
-            gameOver =  l.stream()
-                .skip(1)
-                .anyMatch(o -> c.isColliding(pl, o));
+            gameOver = l.stream()
+                    .skip(1)
+                    .anyMatch(o -> c.isColliding(pl, o));
         }
         return gameOver;
     }
@@ -118,7 +118,7 @@ public class DodgeATriangle implements Minigame {
     }
 
     /**
-     * Method that calculates whether a new enemy can appear based on 
+     * Method that calculates whether a new enemy can appear based on
      * the last enemy's current position and the difficulty settings.
      * 
      * @return whether a new enemy can appear or not
@@ -127,16 +127,16 @@ public class DodgeATriangle implements Minigame {
         return l.get(l.size() - 1).getVel().getX() < 0
                 && l.get(l.size() - 1).getCoor().getX() < diff.apply(totalElapsed)
                 || l.get(l.size() - 1).getVel().getX() > 0
-                && l.get(l.size() - 1).getCoor().getX() > width - diff.apply(totalElapsed);
+                        && l.get(l.size() - 1).getCoor().getX() > width - diff.apply(totalElapsed);
     }
 
     /**
-     * The slots object is only used to add visual cells to the 
+     * The slots object is only used to add visual cells to the
      * game, therefore it's not in the main gameobject list.
      */
     @Override
     public List<GameObject> getObjects() {
-        return Stream.concat(l.stream(), Stream.of(slots)).toList();
+        return Stream.concat(Stream.of(slots), l.stream()).toList();
     }
 
     /**
