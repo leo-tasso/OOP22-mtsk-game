@@ -40,7 +40,7 @@ The term \textit{Multitasking} refers to the ability of a person or a product to
 	\item It will be possible to appreciate the improvement on a \textit{Statistics} page that will show the record of all the past runs.
 \end{itemize}
 
-\subsection*{Non functional}
+\subsection*{Non-functional}
 \begin{itemize}
 	\item The application shall sustain acceptable frame rate (around 60 fps) in all the sections of the gameplay, even on older hardware\footnote{e.g. Intel Core i5 (fourth generation), 8Gb of RAM.}.
 	\item For Developers shall be possible to easily develop and swap the\\ minigames among the ones that best fit the training purposes of the user on top of those already provided.
@@ -178,21 +178,21 @@ A special state, the \textit{GameState} is a subclass of state able to show the 
 \subsection*{Pietro Olivi}
 \textbf{Difficulty in WhacAMole}\\
 \textbf{Problem:} Problem n.1\\
-\textbf{Solution:} When it came time to deal with the Moles and Bombs spawn problem, as well as providing my own version of the algorithm 
-I thought it was vital to come up with a solution that would leave room for future changes, i.e. ideas on how to handle the GameObjects’ 
-random extraction. I therefore recognized a natural correspondence with the strategy pattern. Initially I was thinking in terms of time 
-intervals: At the beginning of each set period I would extract a variable number of objects (also assigning the lair from which to spawn) 
-so that they would appear by the end of that interval, however so many checks had to be done that the entire lifecycle of Moles and Bombs 
-did not exceed the right limit of the current interval that the code became unclear.  I therefore decided to extract a variable number of 
-objects, at most equal to the maximum number of GameObjects simultaneously in action, and do it again when all of them had finished their 
+\textbf{Solution:} When it came time to deal with the Moles and Bombs spawn problem, as well as providing my own version of the algorithm
+I thought it was vital to come up with a solution that would leave room for future changes, i.e. ideas on how to handle the GameObjects’
+random extraction. I therefore recognized a natural correspondence with the strategy pattern. Initially I was thinking in terms of time
+intervals: At the beginning of each set period I would extract a variable number of objects (also assigning the lair from which to spawn)
+so that they would appear by the end of that interval, however so many checks had to be done that the entire lifecycle of Moles and Bombs
+did not exceed the right limit of the current interval that the code became unclear.  I therefore decided to extract a variable number of
+objects, at most equal to the maximum number of GameObjects simultaneously in action, and do it again when all of them had finished their
 work (each entity will also have a waiting time before appearing, otherwise it would become impossible).
 \pagebreak\\
 \textbf{Problem:} Each Mole and Bomb will have to appear in a specific spot on the
 pitch, but where?  \\
-\textbf{Solution:} The problem of the positioning of the dens is certainly not going to have a single solution, since this strongly depends 
-on the number of dens with which you intend to play. Taking the classic arcade version of Whac-a-Mole as a reference, I provided an 
-implementation that distributes the holes equidistantly (into a table), suitable for numbers whose root is an integer. However, wanting to 
-allow the insertion of other possible positioning strategies, I again leaned on the strategy pattern (although the interface does not appear 
+\textbf{Solution:} The problem of the positioning of the dens is certainly not going to have a single solution, since this strongly depends
+on the number of dens with which you intend to play. Taking the classic arcade version of Whac-a-Mole as a reference, I provided an
+implementation that distributes the holes equidistantly (into a table), suitable for numbers whose root is an integer. However, wanting to
+allow the insertion of other possible positioning strategies, I again leaned on the strategy pattern (although the interface does not appear
 as a Whac-a-Mole field but as a variable inside the constructor, being used only there).
 \pagebreak
 
@@ -203,19 +203,34 @@ as a Whac-a-Mole field but as a variable inside the constructor, being used only
 
 \chapter{Development}
 \section{Automated Tests}
-
+We created with Junit 5 the following automated tests:
+\begin{itemize}
+	\item AesEncryptionImplTest:\\
+	      Checks if a test string is correctly encrypted and if it's correctly decrypted.
+	\item AesEncryptionImplTestSerializable:\\
+	      Checks if a test object serialization is correctly encrypted and if it's correctly decrypted.
+	\item BombTest:\\
+	      Checks if the bomb's timer decreases.
+	\item CatchTheSquareTest:\\
+	      Checks if the bomb actually runs out of time.\\If, when run over by the circle, it disappears.\\ If the Input class moves the circle. \\ If the Circle stays inside the boudaries.
+	\item IncrRateStratTest:\\
+	      Checks if the function steepness is increasing in the first part.\\ If the function is flattenting on the second part.
+\end{itemize}
 \appendix
 \chapter{User Guide}
+At the start of the program a window will appear, you can move and resize it to fit best your situation, you can also {\color{red}switch to full screen mode by pressing the "F" key}.
 \section*{Catch-The-Square}
 You will control a circle with the "WASD" keys, moving it on the pane, your objective is to hit the spawing squares to remove them, each square has a timer, don't let it run out!\\
 When you bounce on the walls yours speed will be dumped, therefore you cannot gain high speed and forget this minigame.
 With time the spawn rate of the squares will increase, good luck!
-
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=330pt]{res/Cts.PNG}
+	\caption{Representation of Catch-The-Square}
+\end{figure}
 \section*{Flappy-Bird-Alike}
 The player controls a triangle shaped cursor on the left side of the screen.\\
 Press the SPACEBAR to jump and evade obstacles incoming from the other side. You can jump in midair too!
-
-\pagebreak
 \section*{Whac-A-Mole}
 Moles and Bombs will randomly appear on the playing field: sufficient conditions for losing the game are to let a mole return to its
 burrow without being crushed, or to hit a bomb. If you are using a keyboard with horizontal arrangement of numbers, to hit an object that
@@ -245,10 +260,21 @@ Each minigame will keep an internal list of \textit{GameObjects}, that will be u
 Each GameObject is composed of Modules regarding different aspects of the object.
 You can create your own modules or use the ones already present, take a look at the javaDoc for a more comprehensive list.
 \section*{Input Process}
+At each frame An Input class is given to each GameObject, it can fetch from it with the getters all the relevant inputs.
+You can edit the \textit{Input} Interface and the corresponding implementation to add your specific needs.\\
+To implement a key pressing if you are using the JavaFxView implementation you have to add instructions to \textit{InputButtonsImpl} in order to edit the Input class that will be forwarded to each GameObject.
+
 \section*{Update}
+At every frame this instruction tells the minigame to "move forward in time" the model of the time elapsed from the last frame. It is also supposed \footnote{depending on the implementation} to activate the PhysicsModel of every GameObject in the minigame.
+This phase will make the minigame evolve.
 \section*{Render}
-
-
+To allow the rendering you'll be\\ required to implement the "getObjects"\\ method in this way you'll send the list of GameObjects you want to render, in a specific composition order.\\
+The View will call the \textit{AspectModel} of each GameObject in order to display them.\\
+So you can apply a specific look to an object by calling the relative instructions of the \textit{Drawings} interface from the AspectModel.
+The \textit{Drawings} interface contains all the possible aspects types that you can display, so after adding a new method you'll have to create the relative implementation.
+An \textit{AspectModel} can call multiple methods of the \textit{Drawings} to create a specific appearance.
+\\\\
+\textbf{You can find further information and details on the auto generated JavaDoc.}
 \chapter{Lab Practices}
 \section*{pietro.olivi2@studio.unibo.it}
 \begin{itemize}
