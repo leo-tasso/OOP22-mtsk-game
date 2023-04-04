@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{report}
+	\documentclass[a4paper,12pt]{report}
 
 \usepackage{graphicx}
 \usepackage{pgfplots}
@@ -215,7 +215,79 @@ We created with Junit 5 the following automated tests:
 	      Checks if the bomb actually runs out of time.\\If, when run over by the circle, it disappears.\\ If the Input class moves the circle. \\ If the Circle stays inside the boudaries.
 	\item IncrRateStratTest:\\
 	      Checks if the function steepness is increasing in the first part.\\ If the function is flattenting on the second part.
+	\item StepRateStratTest:\\
+		  Checks if the output gap between two values is a multiple of the step height.\\ Makes sure the function doesn't go over the maximum value.
+	\item FlappyBirdAlikeTest:\\
+		  Makes sure the cursor never goes out of bounds.\\ Checks whether the first obstacle in the list is also the closest to the player.\\ Makes sure hitboxes work properly.\\ Makes sure the cursor doesn't move on its own.
+	\item DodgeATriangleTest:\\
+		  Makes sure hitboxes work properly.\\ Makes sure the player never goes out of bounds.
+	\item WhacAMoleTest: \\
+	      Checks that a mole, if not hit, causes Game Over. Controls whether hitting it instead will cause the game to continue. The same is done for the bomb, however, checking that if it is hit the game ends and that nothing happens if ignored
+
 \end{itemize}
+ \section{WorkFlow}
+ We began discussing the needs of the application and planning the architecture, after that we created the backbone of the program making the main interfaces.\\
+ During the Development the adopted strategy for the DVCS was to create a branch for each feature on Development, doing so we limited the merging conflict.
+ In that phase the roles were:
+\subsection*{Leonardo Tassinari}
+\begin{itemize}
+	\item Creation of the Catch-The-Square minigame
+	\item Creation of the Encrypter tool
+	\item Creation of the Collider checker
+	\item Implementation of the JavaFxView
+\end{itemize}
+
+\subsection*{Pietro Olivi}
+\begin{itemize}
+	\item Creation of the Whac-A-Mole minigame
+	\item Co-Creation of the Dodge-A-Triangle minigame
+\end{itemize}
+
+\subsection*{Lorenzo Dalmonte}
+\begin{itemize}
+	\item Creation of the Flappy-Bird-Alike minigame
+	\item Co-creation of the Dodge-A-Triangle minigame
+	\item Creation of Record-Loader and stats display
+\end{itemize}
+
+\section{Development Notes}
+Following, for each member, are listed the advanced aspects of the language that had been used.
+\subsection*{Leonardo Tassinari}
+\begin{itemize}
+	\item Widely used lambda expressions
+	\item Reflection
+	\item Optional
+	\item Stream
+	\item JavaFx
+	\item javax.crypto.Cipher
+	\item Thread
+\end{itemize}
+
+\subsection*{Pietro Olivi}
+\begin{itemize}
+	\item Lambda expressions used extensively (also method references)
+	\item Stream (21 in WhacAMole.java and WhacAMoleTest.java combined)
+	\item Optional
+\end{itemize}
+
+\subsection*{Lorenzo Dalmonte}
+\begin{itemize}
+	\item Widely used lambda expressions
+	\item Stream
+	\item JavaFx
+\end{itemize}
+\chapter{Final Considerations}
+\section{Self-Evaluation and future projects}
+\subsection*{Leonardo Tassinari}
+\subsection*{Pietro Olivi}
+\subsection*{Lorenzo Dalmonte}
+
+\section{Difficulties faced and comments for the teachers}
+\subsection*{Leonardo Tassinari}
+\subsection*{Pietro Olivi}
+\subsection*{Lorenzo Dalmonte}
+
+
 \appendix
 \chapter{User Guide}
 At the start of the program a window will appear, you can move and resize it to fit best your situation, you can also {\color{red}switch to full screen mode by pressing the "F" key}.
@@ -225,12 +297,17 @@ When you bounce on the walls yours speed will be dumped, therefore you cannot ga
 With time the spawn rate of the squares will increase, good luck!
 \begin{figure}[H]
 	\centering{}
-	\includegraphics[width=330pt]{res/Cts.PNG}
+	\includegraphics[width=330pt]{res/Cts.png}
 	\caption{Representation of Catch-The-Square}
 \end{figure}
 \section*{Flappy-Bird-Alike}
 The player controls a triangle shaped cursor on the left side of the screen.\\
 Press the SPACEBAR to jump and evade obstacles incoming from the other side. You can jump in midair too!
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=330pt]{res/Fba.png}
+	\caption{Representation of Flappy-Bird-Alike}
+\end{figure}
 \section*{Whac-A-Mole}
 Moles and Bombs will randomly appear on the playing field: sufficient conditions for losing the game are to let a mole return to its
 burrow without being crushed, or to hit a bomb. If you are using a keyboard with horizontal arrangement of numbers, to hit an object that
