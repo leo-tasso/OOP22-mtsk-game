@@ -1,7 +1,5 @@
 package game.view;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.image.Image;
 
@@ -11,8 +9,13 @@ import javafx.scene.image.Image;
  * they had to be re-instantiated every time inside
  * JavaFxDrawings the performance would drop drastically.
  */
-@SuppressFBWarnings 
-public class ImagesCache {
+@SuppressFBWarnings(
+    value = "EI_EXPOSE_REP",
+    justification = "The goal is just to show the internal representation of "
+                  + "the class, acting as a buffer for the View (In addition, "
+                  + "the method to clone was not available for the Image class)."
+)
+public final class ImagesCache {
     /** Width of the rectangle circumscribing 
      * each of the two parts of the hole. */
     public static final int HOLE_WIDTH = 250;
@@ -40,16 +43,12 @@ public class ImagesCache {
      * Constructor that creates Image objects once and for all.
      */
     public ImagesCache() {
-        try {
-            this.moleImage          = new Image(new FileInputStream("src/main/resources/mole.png"));
-            this.bombImage          = new Image(new FileInputStream("src/main/resources/bomb.png"));
-            this.hitBombImage       = new Image(new FileInputStream("src/main/resources/boom.png"));
-            this.hitMoleImage       = new Image(new FileInputStream("src/main/resources/hit_mole.png"));
-            this.holeLowerPartImage = new Image(new FileInputStream("src/main/resources/hole_lower_part.png"));
-            this.holeUpperPartImage = new Image(new FileInputStream("src/main/resources/hole_upper_part.png"));
-        } catch (FileNotFoundException e) {
-            throw new IllegalStateException("Unable to load images", e);
-        }
+        this.moleImage          = new Image(this.getClass().getResourceAsStream("/mole.png"));
+        this.bombImage          = new Image(this.getClass().getResourceAsStream("/bomb.png"));
+        this.hitBombImage       = new Image(this.getClass().getResourceAsStream("/boom.png"));
+        this.hitMoleImage       = new Image(this.getClass().getResourceAsStream("/hit_mole.png"));
+        this.holeLowerPartImage = new Image(this.getClass().getResourceAsStream("/hole_lower_part.png"));
+        this.holeUpperPartImage = new Image(this.getClass().getResourceAsStream("/hole_upper_part.png"));
     }
 
     /**
