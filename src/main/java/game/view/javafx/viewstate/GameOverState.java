@@ -41,7 +41,7 @@ public class GameOverState implements ViewState {
     public GameOverState(final JavaFxViewCoordinator view, final Stage stage, final Long points) {
         Platform.runLater(() -> {
             view.setGameState(Optional.empty());
-            final ButtonFactory bf = new ButtonFactory(BUTTON_SPACING);
+            final ButtonFactory bf = new ButtonFactoryImpl(BUTTON_SPACING);
             final Text scoreLabel = new Text("Score: " + points);
             scoreLabel.setFont(Font.font("Arial", LABEL_SIZE));
             scoreLabel.setFill(Color.WHITE);

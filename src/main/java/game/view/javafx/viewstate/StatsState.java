@@ -30,7 +30,7 @@ public class StatsState implements ViewState {
      */
     public StatsState(final JavaFxViewCoordinator view, final Stage stage) {
         view.setGameState(Optional.empty());
-        final Button exit = new ButtonFactory(BUTTON_SPACING)
+        final Button exit = new ButtonFactoryImpl(BUTTON_SPACING)
                 .create(stage,
                 "Back to Main Menu",
                 e -> Platform.runLater(() -> new ViewStateMenu(view, stage).display(view, stage)));

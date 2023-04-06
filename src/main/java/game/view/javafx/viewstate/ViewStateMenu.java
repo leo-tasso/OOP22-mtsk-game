@@ -37,7 +37,7 @@ public final class ViewStateMenu implements ViewState {
         logo.fitWidthProperty().bind(stage.widthProperty().divide(2));
         logo.fitHeightProperty().bind(stage.heightProperty().divide(2));
         final List<Button> buttons = new ArrayList<>();
-        final ButtonFactory bf = new ButtonFactory(FONT_SIZE);
+        final ButtonFactory bf = new ButtonFactoryImpl(FONT_SIZE);
         buttons.add(
                 bf.create(stage, "Play", e -> Platform
                         .runLater(() -> new GameStateImpl(jview, stage.getScene()).display(jview, stage))));
