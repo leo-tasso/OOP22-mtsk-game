@@ -229,7 +229,7 @@ however that wouldn't work since on the following cycle the Input would be turne
 Therefore the InputModel itself had to recognize whether the player is holding down the key. I achieved that by adding a boolean field that's set to true
 if the player pressed the key and set to false once the player stopped holding it down.
 
-\pagebreak\\
+\pagebreak
 \textbf{Difficulty in FlappyBirdAlike}\\
 \textbf{Problem:} The obstable spawn rate must increase over time.\\
 \textbf{Solution:} I wanted to make a steady difficulty increase while making sure the player recognizes the moment the minigame gets tougher.
@@ -407,7 +407,11 @@ composition order. The View will call the \textit{AspectModel} of each GameObjec
 the relative instructions of the \textit{Drawings} interface from the AspectModel. The \textit{Drawings} interface contains all the possible aspects types that you 
 can display, so after adding a new method you'll have to create the relative implementation. An \textit{AspectModel} can call multiple methods of the \textit{Drawings} 
 to create a specific appearance.
-\\\\
+\section*{Known bugs}
+\begin{itemize}
+	\item On a virtual machine, performace are higly affected, expetially in full screen mode.
+	\item On macOS the window manager throws some low level errors when switching to full screen or immediatly closing the app \footnote{\url{https://bugs.openjdk.org/browse/JDK-8231558}} 
+\end{itemize}
 \textbf{You can find further information and details on the auto generated JavaDoc.}
 \chapter{Lab Practices}
 \section*{pietro.olivi2@studio.unibo.it}
