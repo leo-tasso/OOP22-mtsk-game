@@ -163,6 +163,23 @@ The limit rate is represented by the inclination of the line tangent to the expo
 	\caption{An example of the trend of the implemented function}
 \end{figure}
 \pagebreak\\
+%\textbf{Collider}\\
+%\textbf{Problem:} In more minigames is required to check collisions between two objects.\\
+%\textbf{Solution:} A public utility class to check collisions between object's hitboxes.
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=\textwidth]{res/Collider.pdf}
+%	\caption{The UML diagram of the Collider}
+%\end{figure}\\
+\textbf{Button Factory}\\
+\textbf{Problem:} In the whole user interface is required a consistent look and feel of the buttons.\\
+\textbf{Solution:} By encapsulating the creation of buttons in the \textit{ButtonFactory} class, it is ensured that all buttons created through this class have the same visual style, and can be easily modified in one place if needed while also taking care of some of the underlying complexities of button creation such as sizing and styling.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{res/ButtonFactory.pdf}
+	\caption{The UML diagram of the ButtonFactory}
+\end{figure}\\
+\textbf{View States}\\
 \textbf{Problem:} The \textit{View} shall display different items over time.\\
 \textbf{Solution:} The \textit{JavaFxView} adopts a state pattern, each state has a method to display its item overwriting the ones present at the moment.\\
 A special state, the \textit{GameState} is a subclass of state able to show the gameplay.
@@ -171,15 +188,6 @@ A special state, the \textit{GameState} is a subclass of state able to show the 
 	\includegraphics[width=\textwidth]{res/ViewState.pdf}
 	\caption{The corresponding UML diagram}
 \end{figure}
-
-\textbf{Problem:} In more minigame is required to check collisions between two objects.\\
-\textbf{Solution:} A public utility class to check collisions between object's hitboxes.
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=\textwidth]{res/Collider.pdf}
-	\caption{The UML diagram of the Collider}
-\end{figure}\\
-
 \pagebreak
 
 \subsection*{Pietro Olivi}
@@ -223,19 +231,19 @@ We created with Junit 5 the following automated tests:
 	\item IncrRateStratTest:\\
 	      Checks if the function steepness is increasing in the first part.\\ If the function is flattenting on the second part.
 	\item StepRateStratTest:\\
-		  Checks if the output gap between two values is a multiple of the step height.\\ Makes sure the function doesn't go over the maximum value.
+	      Checks if the output gap between two values is a multiple of the step height.\\ Makes sure the function doesn't go over the maximum value.
 	\item FlappyBirdAlikeTest:\\
-		  Makes sure the cursor never goes out of bounds.\\ Checks whether the first obstacle in the list is also the closest to the player.\\ Makes sure hitboxes work properly.\\ Makes sure the cursor doesn't move on its own.
+	      Makes sure the cursor never goes out of bounds.\\ Checks whether the first obstacle in the list is also the closest to the player.\\ Makes sure hitboxes work properly.\\ Makes sure the cursor doesn't move on its own.
 	\item DodgeATriangleTest:\\
-		  Makes sure hitboxes work properly.\\ Makes sure the player never goes out of bounds.
+	      Makes sure hitboxes work properly.\\ Makes sure the player never goes out of bounds.
 	\item WhacAMoleTest: \\
 	      Checks that a mole, if not hit, causes Game Over. Controls whether hitting it instead will cause the game to continue. The same is done for the bomb, however, checking that if it is hit the game ends and that nothing happens if ignored
 
 \end{itemize}
- \section{WorkFlow}
- We began discussing the needs of the application and planning the architecture, after that we created the backbone of the program making the main interfaces.\\
- During the Development the adopted strategy for the DVCS was to create a branch for each feature on Development, doing so we limited the merging conflict.
- In that phase the roles were:
+\section{WorkFlow}
+We began discussing the needs of the application and planning the architecture, after that we created the backbone of the program making the main interfaces.\\
+During the Development the adopted strategy for the DVCS was to create a branch for each feature on Development, doing so we limited the merging conflict.
+In that phase the roles were:
 \subsection*{Leonardo Tassinari}
 \begin{itemize}
 	\item Creation of the Catch-The-Square minigame
@@ -287,13 +295,13 @@ Following, for each member, are listed the advanced aspects of the language that
 \section{Self-Evaluation and future projects}
 \subsection*{Leonardo Tassinari}
 Even thought it was our first time coping with such a big project,
- I have to say that overall we managed to collaborate in a satisfactory way, we were able to share tasks wisely, spread ideas and help each other when needed.
+I have to say that overall we managed to collaborate in a satisfactory way, we were able to share tasks wisely, spread ideas and help each other when needed.
 Personally I've enjoyed the most working on the implementation of the model, while on the other hand the most frustrating part has been the planning of the architecture since it led me to some overthinking.
 I don't think that the project will receive further support in the future, nevertheless it passed on us very valuable experiences and knowledge.
 \subsection*{Pietro Olivi}
-As this was my first medium(-large) sized project, it did not go very smoothly. As an auticritic I would blame myself for taking a bottom-up approach to my minigame 
-feature design. In particular, I found myself "adding pieces" to the core part of the minigame without much forethought, which resulted in me changing the same part 
-of code several times, and thus stressing as well as wasting a great deal of time. On the other hand, I think (/hope) I was a clean and careful programmer, always 
+As this was my first medium(-large) sized project, it did not go very smoothly. As an auticritic I would blame myself for taking a bottom-up approach to my minigame
+feature design. In particular, I found myself "adding pieces" to the core part of the minigame without much forethought, which resulted in me changing the same part
+of code several times, and thus stressing as well as wasting a great deal of time. On the other hand, I think (/hope) I was a clean and careful programmer, always
 straight to the point, able to work in a group effectively.
 \subsection*{Lorenzo Dalmonte}
 
@@ -362,7 +370,7 @@ To implement a key pressing if you are using the JavaFxView implementation you h
 At every frame this instruction tells the minigame to "move forward in time" the model of the time elapsed from the last frame. It is also supposed \footnote{depending on the implementation} to activate the PhysicsModel of every GameObject in the minigame.
 This phase will make the minigame evolve.
 \section*{Render}
-To allow the rendering you'll be\\ required to implement the "getObjects"\\ method in this way you'll send the list of GameObjects you want to render, in a specific composition order.\\
+To allow the rendering you'll be required to implement the "getObjects" method in this way you'll send the list of GameObjects you want to render, in a specific composition order.\\
 The View will call the \textit{AspectModel} of each GameObject in order to display them.\\
 So you can apply a specific look to an object by calling the relative instructions of the \textit{Drawings} interface from the AspectModel.
 The \textit{Drawings} interface contains all the possible aspects types that you can display, so after adding a new method you'll have to create the relative implementation.
