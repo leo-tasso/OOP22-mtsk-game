@@ -184,15 +184,20 @@ A special state, the \textit{GameState} is a subclass of state able to show the 
 
 \subsection*{Pietro Olivi}
 \textbf{Difficulty in WhacAMole}\\
-\textbf{Problem:} Problem n.1\\
+\textbf{Problem:} What is the logic behind the appearance of a Mole or Bomb?\\
 \textbf{Solution:} When it came time to deal with the Moles and Bombs spawn problem, as well as providing my own version of the algorithm
 I thought it was vital to come up with a solution that would leave room for future changes, i.e. ideas on how to handle the GameObjects’
 random extraction. I therefore recognized a natural correspondence with the strategy pattern. Initially I was thinking in terms of time
 intervals: At the beginning of each set period I would extract a variable number of objects (also assigning the lair from which to spawn)
 so that they would appear by the end of that interval, however so many checks had to be done that the entire lifecycle of Moles and Bombs
-did not exceed the right limit of the current interval that the code became unclear.  I therefore decided to extract a variable number of
+did not exceed the right limit of the current interval that the code became unclear. I therefore decided to extract a variable number of
 objects, at most equal to the maximum number of GameObjects simultaneously in action, and do it again when all of them had finished their
 work (each entity will also have a waiting time before appearing, otherwise it would become impossible).
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{res/DrawStrategy.pdf}
+	\caption{The corresponding UML diagram}
+\end{figure}
 \pagebreak\\
 \textbf{Problem:} Each Mole and Bomb will have to appear in a specific spot on the
 pitch, but where?  \\
@@ -201,6 +206,11 @@ on the number of dens with which you intend to play. Taking the classic arcade v
 implementation that distributes the holes equidistantly (into a table), suitable for numbers whose root is an integer. However, wanting to
 allow the insertion of other possible positioning strategies, I again leaned on the strategy pattern (although the interface does not appear
 as a Whac-a-Mole field but as a variable inside the constructor, being used only there).
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{res/HolesGenerator.pdf}
+	\caption{The corresponding UML diagram}
+\end{figure}
 \pagebreak
 
 \subsection*{Lorenzo Dalmonte}
@@ -233,7 +243,7 @@ We created with Junit 5 the following automated tests:
 
 \end{itemize}
  \section{WorkFlow}
- We began discussing the needs of the application and planning the architecture, after that we created the backbone of the program making the main interfaces.\\
+ We began discussing the needs of the application and planning the architecture, after that we created the backbone of the program making the main interfaces.
  During the Development the adopted strategy for the DVCS was to create a branch for each feature on Development, doing so we limited the merging conflict.
  In that phase the roles were:
 \subsection*{Leonardo Tassinari}
@@ -291,10 +301,10 @@ Even thought it was our first time coping with such a big project,
 Personally I've enjoyed the most working on the implementation of the model, while on the other hand the most frustrating part has been the planning of the architecture since it led me to some overthinking.
 I don't think that the project will receive further support in the future, nevertheless it passed on us very valuable experiences and knowledge.
 \subsection*{Pietro Olivi}
-As this was my first medium(-large) sized project, it did not go very smoothly. As an auticritic I would blame myself for taking a bottom-up approach to my minigame 
+As this was my first medium(-large) sized project, it didn't always go very smoothly. As an auticritic I would blame myself for taking a bottom-up approach to my minigame 
 feature design. In particular, I found myself "adding pieces" to the core part of the minigame without much forethought, which resulted in me changing the same part 
 of code several times, and thus stressing as well as wasting a great deal of time. On the other hand, I think (/hope) I was a clean and careful programmer, always 
-straight to the point, able to work in a group effectively.
+straight to the point, able to work in a group effectively. All in all, I am very proud of the final product.
 \subsection*{Lorenzo Dalmonte}
 
 \section{Difficulties faced and comments for the teachers}
@@ -302,12 +312,29 @@ straight to the point, able to work in a group effectively.
 The only point I'd like to raise here is regarding how the correction of the lab practices is managed in class: each time you complete an exercise you have to raise your hand and wait for an undefined amount of time.
 So my suggestion is to have more tutors and implement a structured queue (with an app maybe) in order to avoid people skipping the line.
 \subsection*{Pietro Olivi}
+Nothing to say about teaching, but I would have some doubts about the amount of work that this course requires to be "only" 12 credits. The project turned out to be fundamental for learning the subject and a first 
+contact with the world of software engineering, but I don't find it fair that this happens to the detriment of other equally important subjects in the semester following that of the lessons (on which the project falls), 
+from which a lot of time is taken away, finding us having to follow 4 subjects, with their respective possible projects, plus OOP. As a consequence, during the lessons of the second semester of the second year you can 
+see the vast majority of the class writing code in java rather than listening. For comparison, at the end of the lessons, the amount of material and the hours of lessons were more or less the same as for Operating Systems 
+(12 credits), but for OOP there were 80 hours of actual individual work left to do.
 \subsection*{Lorenzo Dalmonte}
 
 
 \appendix
 \chapter{User Guide}
 At the start of the program a window will appear, you can move and resize it to fit best your situation, you can also {\color{red}switch to full screen mode by pressing the "F" key}.
+\section*{Whac-A-Mole}
+Moles and Bombs will randomly appear on the playing field: sufficient conditions for losing the game are to let a mole return to its
+burrow without being crushed, or to hit a bomb. If you are using a keyboard with horizontal arrangement of numbers, to hit an object that
+is outside the hole, just press the number corresponding to the latter. In particular, the dens will be numbered in ascending order starting
+from the first in the upper left, continuing towards the right, and then moving on to the first in the next row (once the previous one is
+finished). If you have a numpad available then, in the case of the standard 9-hole version of the game, you will have to press, more intuitively,
+the key in the position corresponding to that of the lair.
+\begin{figure}[!htbp]
+	\centering{}
+	\includegraphics[width=\textwidth]{res/InstructionsWam.pdf}
+	\caption{Keys to use to play Whac-a-mole}
+\end{figure}
 \section*{Catch-The-Square}
 You will control a circle with the "WASD" keys, moving it on the pane, your objective is to hit the spawing squares to remove them, each square has a timer, don't let it run out!\\
 When you bounce on the walls yours speed will be dumped, therefore you cannot gain high speed and forget this minigame.
@@ -324,18 +351,6 @@ Press the SPACEBAR to jump and evade obstacles incoming from the other side. You
 	\centering{}
 	\includegraphics[width=330pt]{res/Fba.png}
 	\caption{Representation of Flappy-Bird-Alike}
-\end{figure}
-\section*{Whac-A-Mole}
-Moles and Bombs will randomly appear on the playing field: sufficient conditions for losing the game are to let a mole return to its
-burrow without being crushed, or to hit a bomb. If you are using a keyboard with horizontal arrangement of numbers, to hit an object that
-is outside the hole, just press the number corresponding to the latter. In particular, the dens will be numbered in ascending order starting
-from the first in the upper left, continuing towards the right, and then moving on to the first in the next row (once the previous one is
-finished). If you have a numpad available then, in the case of the standard 9-hole version of the game, you will have to press, more intuitively,
-the key in the position corresponding to that of the lair.
-\begin{figure}[ht]
-	\centering{}
-	\includegraphics[width=\textwidth]{res/InstructionsWam.pdf}
-	\caption{Keys to use to play Whac-a-mole}
 \end{figure}
 
 \section*{Dodge-A-Triangle}
@@ -362,11 +377,11 @@ To implement a key pressing if you are using the JavaFxView implementation you h
 At every frame this instruction tells the minigame to "move forward in time" the model of the time elapsed from the last frame. It is also supposed \footnote{depending on the implementation} to activate the PhysicsModel of every GameObject in the minigame.
 This phase will make the minigame evolve.
 \section*{Render}
-To allow the rendering you'll be\\ required to implement the "getObjects"\\ method in this way you'll send the list of GameObjects you want to render, in a specific composition order.\\
-The View will call the \textit{AspectModel} of each GameObject in order to display them.\\
-So you can apply a specific look to an object by calling the relative instructions of the \textit{Drawings} interface from the AspectModel.
-The \textit{Drawings} interface contains all the possible aspects types that you can display, so after adding a new method you'll have to create the relative implementation.
-An \textit{AspectModel} can call multiple methods of the \textit{Drawings} to create a specific appearance.
+To allow the rendering you'll be required to implement the "getObjects" method in this way you'll send the list of GameObjects you want to render, in a specific 
+composition order. The View will call the \textit{AspectModel} of each GameObject in order to display them. So you can apply a specific look to an object by calling 
+the relative instructions of the \textit{Drawings} interface from the AspectModel. The \textit{Drawings} interface contains all the possible aspects types that you 
+can display, so after adding a new method you'll have to create the relative implementation. An \textit{AspectModel} can call multiple methods of the \textit{Drawings} 
+to create a specific appearance.
 \\\\
 \textbf{You can find further information and details on the auto generated JavaDoc.}
 \chapter{Lab Practices}
