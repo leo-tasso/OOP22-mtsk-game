@@ -21,3 +21,5 @@ deleteme/
 *.aux
 *.fdb_latexmk
 *.out
+*.bbl
+*.blg

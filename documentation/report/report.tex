@@ -81,7 +81,7 @@ Once the input has been received, the Engine is responsible for communicating it
 
 \section{Detailed design}
 \textbf{Problem:} Each GameObject must have a specific aspect and behaviour\\
-\textbf{Solution:} Each minigame is composed of \textbf{GameObject}s: those items use a component pattern, thanks to which we get
+\textbf{Solution:} Each minigame is composed of \textbf{GameObject}s: those items use a component pattern\cite{oop-game-prog-patterns-2022}, thanks to which we get
 a full separation of concerns based on domains (allow a single entity to span multiple domains each other\footnote{From GPP, CH 14}).
 \pagebreak
 \begin{itemize}
@@ -91,7 +91,7 @@ a full separation of concerns based on domains (allow a single entity to span mu
 	\item \textit{AspectModel}: It is the interface that sets the look of the single\\ \textbf{GameObject}, specifying which of the Drawing instructions need to be used.
 	\item \textit{InputModel}: Interface related to a single GameObject that reads the input stored in the
 	      engine and applies it, if the object recognizes it as its own command, changing its specifications (e.g. coordinates, speed).
-	\item \textit{HitBoxModel}: Defines the shape and sizes of the hitbox that the object shall interpret when colliding with other hitboxes.
+	\item \textit{HitBoxModel}: Defines the shape and sizes of the hitbox that the object shall interpret when colliding with other hitboxes. \cite{Circle-Rectangle-collision-detection}
 \end{itemize}
 
 \begin{figure}[ht]
@@ -226,16 +226,26 @@ as a Whac-a-Mole field but as a variable inside the constructor, being used only
 \textbf{Problem:} The player action must be performed only when the button is pressed.\\
 \textbf{Solution:} The solution I came up with initially was to turn off the specific input if it was on in order to get a result only on the first cycle,
 however that wouldn't work since on the following cycle the Input would be turned back on if the player was still holding the key down.
-Therefore the InputModel itself had to recognize whether the player is holding down the key. I achieved that by adding a boolean field that's set to true
+Therefore, the InputModel itself had to recognize whether the player is holding down the key. I achieved that by adding a boolean field that's set to true
 if the player pressed the key and set to false once the player stopped holding it down.
-
-\pagebreak
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=100pt]{res/FlappyInput.pdf}
+	\caption{The corresponding UML diagram}
+\end{figure}
+\pagebreak\\
 \textbf{Difficulty in FlappyBirdAlike}\\
 \textbf{Problem:} The obstable spawn rate must increase over time.\\
 \textbf{Solution:} I wanted to make a steady difficulty increase while making sure the player recognizes the moment the minigame gets tougher.
 I needed to simulate a non-continous function that increased linearly, therefore I implemented a step-like function similar to a floor function.
 It recieves the total number of elapsed frames since the minigame began and returns an integer, in this case the coordinate the closest obstacle
 has to reach before the next one spawns. This increases the spawn frequency of the obstacles until the function returns a max value.
+The same difficulty increase strat was applied in Dodge-A-Triangle.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=300pt]{res/StepRateStrat.pdf}
+	\caption{The corresponding UML diagram}
+\end{figure}
 
 \chapter{Development}
 \section{Automated Tests}
@@ -381,6 +391,11 @@ Press the SPACEBAR to jump and evade obstacles incoming from the other side. You
 \section*{Dodge-A-Triangle}
 The player controls a square that moves up and down lanes by pressing the UP and DOWN arrows respectively on the keyboard.\\
 Avoid triangle enemies coming from the sides of the screen.
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=330pt]{res/Dat.png}
+	\caption{Representation of Dodge-A-Triangle}
+\end{figure}
 
 \chapter{Developer Guide}
 \section*{Creation of a new minigame}
@@ -447,5 +462,6 @@ to create a specific appearance.
 
 \end{itemize}
 
-
+\bibliographystyle{alpha}
+\bibliography{sources}
 \end{document}
