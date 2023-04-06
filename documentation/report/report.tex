@@ -222,9 +222,20 @@ as a Whac-a-Mole field but as a variable inside the constructor, being used only
 \pagebreak
 
 \subsection*{Lorenzo Dalmonte}
+\textbf{Input in FlappyBirdAlike}\\
+\textbf{Problem:} The player action must be performed only when the button is pressed.\\
+\textbf{Solution:} The solution I came up with initially was to turn off the specific input if it was on in order to get a result only on the first cycle,
+however that wouldn't work since on the following cycle the Input would be turned back on if the player was still holding the key down.
+Therefore the InputModel itself had to recognize whether the player is holding down the key. I achieved that by adding a boolean field that's set to true
+if the player pressed the key and set to false once the player stopped holding it down.
+
+\pagebreak\\
 \textbf{Difficulty in FlappyBirdAlike}\\
-\textbf{Problem:} Problem n.1\\
-\textbf{Solution:} Solution n.1
+\textbf{Problem:} The obstable spawn rate must increase over time.\\
+\textbf{Solution:} I wanted to make a steady difficulty increase while making sure the player recognizes the moment the minigame gets tougher.
+I needed to simulate a non-continous function that increased linearly, therefore I implemented a step-like function similar to a floor function.
+It recieves the total number of elapsed frames since the minigame began and returns an integer, in this case the coordinate the closest obstacle
+has to reach before the next one spawns. This increases the spawn frequency of the obstacles until the function returns a max value.
 
 \chapter{Development}
 \section{Automated Tests}
@@ -314,6 +325,9 @@ feature design. In particular, I found myself "adding pieces" to the core part o
 of code several times, and thus stressing as well as wasting a great deal of time. On the other hand, I think (/hope) I was a clean and careful programmer, always 
 straight to the point, able to work in a group effectively. All in all, I am very proud of the final product.
 \subsection*{Lorenzo Dalmonte}
+This was the first time I've worked on a big project, and it shows a little bit. I didn't always face this project as I should have. Instead of following a smooth schedule
+until the final deadline, I mostly worked a lot in short amounts of time leaving big gaps in between. Even though I didn't approach the project in the best way, I still think
+it turned out great and I've enjoyed working on it together with the team. This definitely helped me understand how to work efficiently in groups.
 
 \section{Difficulties faced and comments for the teachers}
 \subsection*{Leonardo Tassinari}
@@ -326,6 +340,9 @@ from which a lot of time is taken away, finding us having to follow 4 subjects, 
 see the vast majority of the class writing code in java rather than listening. For comparison, at the end of the lessons, the amount of material and the hours of lessons were more or less the same as for Operating Systems 
 (12 credits), but for OOP there were 80 hours of actual individual work left to do.
 \subsection*{Lorenzo Dalmonte}
+I don't have any complains regarding the lessons however, as my teammates already discussed, this course requires a substantial amount of work that, for many students,
+hinders the learning of other subjects which are just as important. Even though this may sound like a problem due to poor time management on our end (which might be the case for a few students),
+I personally think that even with close to perfect planning the OOP project will still take away some time from other subjects.
 
 
 \appendix
