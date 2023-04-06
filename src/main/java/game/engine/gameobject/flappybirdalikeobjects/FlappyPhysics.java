@@ -16,7 +16,6 @@ public class FlappyPhysics extends SimplePhysics {
     private static final double Y_MAX = 900;
     private static final double ACCEL = 0.1;
     private final double cursorOffset;
-    private boolean onGround = true;
 
     /**
      * Constructor for FlappyPhysics.
@@ -38,7 +37,7 @@ public class FlappyPhysics extends SimplePhysics {
     @Override
     public void update(final long dt, final GameObject obj, final Minigame miniGame) {
         super.update(dt, obj, miniGame);
-        this.onGround = obj.getCoor().getY() >= Y_MAX - cursorOffset;
+        final boolean onGround = obj.getCoor().getY() >= Y_MAX - cursorOffset;
         obj.setVel(new Vector2D(0, obj.getVel().getY() + (onGround ? 0 : ACCEL * dt)));
         if (obj.getCoor().getY() < Y_MIN + cursorOffset) {
             obj.setCoor(new Point2D(obj.getCoor().getX(), Y_MIN + cursorOffset));
