@@ -99,6 +99,7 @@ a full separation of concerns based on domains (allow a single entity to span mu
 	\includegraphics[width=\textwidth]{res/componentPattern.pdf}
 	\caption{UML diagram of the component pattern}
 \end{figure}
+\pagebreak
 \subsection*{Leonardo Tassinari}
 \textbf{Difficulty in CTS}\\
 \textbf{Problem:} The spawn rate of the squares shall increase over time.\\
@@ -272,10 +273,12 @@ We created with Junit 5 the following automated tests:
 	      Checks that a mole, if not hit, causes Game Over. Controls whether hitting it instead will cause the game to continue. The same is done for the bomb, however, checking that if it is hit the game ends and that nothing happens if ignored
 
 \end{itemize}
- \section{WorkFlow}
- We began discussing the needs of the application and planning the architecture, after that we created the backbone of the program making the main interfaces.
- During the Development the adopted strategy for the DVCS was to create a branch for each feature on Development, doing so we limited the merging conflict.
- In that phase the roles were:
+\section{WorkFlow}
+One of the main difficulties that affected the whole group was the unexpected and late abandonment of the
+fourth member, and the consequent splitting of the part intended for him among the rest of us, with the little time left and considering that no lines of code had been written on his side until then.\\\\
+We began discussing the needs of the application and planning the architecture, after that we created the backbone of the program making the main interfaces.
+During the Development the adopted strategy for the DVCS was to create a branch for each feature on Development, doing so we limited the merging conflict.
+In that phase the roles were:
 \subsection*{Leonardo Tassinari}
 \begin{itemize}
 	\item Creation of the Catch-The-Square minigame
@@ -331,9 +334,9 @@ I have to say that overall we managed to collaborate in a satisfactory way, we w
 Personally I've enjoyed the most working on the implementation of the model, while on the other hand the most frustrating part has been the planning of the architecture since it led me to some overthinking.
 I don't think that the project will receive further support in the future, nevertheless it passed on us very valuable experiences and knowledge.
 \subsection*{Pietro Olivi}
-As this was my first medium(-large) sized project, it didn't always go very smoothly. As a self-criticism I would blame myself for taking a bottom-up approach to my minigame 
-feature design. In particular, I found myself "adding pieces" to the core part of the minigame without much forethought, which resulted in me changing the same part 
-of code several times, and thus stressing as well as wasting a great deal of time. On the other hand, I think (/hope) I was a clean and careful programmer, always 
+As this was my first medium(-large) sized project, it didn't always go very smoothly. As a self-criticism I would blame myself for taking a bottom-up approach to my minigame
+feature design. In particular, I found myself "adding pieces" to the core part of the minigame without much forethought, which resulted in me changing the same part
+of code several times, and thus stressing as well as wasting a great deal of time. On the other hand, I think (/hope) I was a clean and careful programmer, always
 straight to the point, able to work in a group effectively. All in all, I am very proud of the final product
 \pagebreak
 \subsection*{Lorenzo Dalmonte}
@@ -346,10 +349,10 @@ it turned out great and I've enjoyed working on it together with the team. This 
 The only point I'd like to raise here is regarding how the correction of the lab practices is managed in class: each time you complete an exercise you have to raise your hand and wait for an undefined amount of time.
 So my suggestion is to have more tutors and implement a structured queue (with an app maybe) in order to avoid people skipping the line.
 \subsection*{Pietro Olivi}
-Nothing to say about teaching, but I would have some doubts about the amount of work that this course requires to be "only" 12 credits. The project turned out to be fundamental for learning the subject and a first 
-contact with the world of software engineering, but I don't find it fair that this happens to the detriment of other equally important subjects in the semester following that of the lessons (on which the project falls), 
-from which a lot of time is taken away, finding us having to follow 4 subjects, with their respective possible projects, plus OOP. As a consequence, during the lessons of the second semester of the second year you can 
-see the vast majority of the class writing code in java rather than listening. For comparison, at the end of the lessons, the amount of material and the hours of lessons were more or less the same as for Operating Systems 
+Nothing to say about teaching, but I would have some doubts about the amount of work that this course requires to be "only" 12 credits. The project turned out to be fundamental for learning the subject and a first
+contact with the world of software engineering, but I don't find it fair that this happens to the detriment of other equally important subjects in the semester following that of the lessons (on which the project falls),
+from which a lot of time is taken away, finding us having to follow 4 subjects, with their respective possible projects, plus OOP. As a consequence, during the lessons of the second semester of the second year you can
+see the vast majority of the class writing code in java rather than listening. For comparison, at the end of the lessons, the amount of material and the hours of lessons were more or less the same as for Operating Systems
 (12 credits), but for OOP there were 80 hours of actual individual work left to do.
 \subsection*{Lorenzo Dalmonte}
 I don't have any complains regarding the lessons however, as my teammates already discussed, this course requires a substantial amount of work that, for many students,
@@ -400,6 +403,16 @@ Avoid triangle enemies coming from the sides of the screen.
 	\includegraphics[width=330pt]{res/Dat.png}
 	\caption{Representation of Dodge-A-Triangle}
 \end{figure}
+\pagebreak
+
+\section*{Statistics}
+The user will be able to track his scores between different runs by clicking on the "Stats" button.
+It will appear the graph that, given the number of the game in chronological order (x axis), associates the obtained score (y axis)
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=\textwidth]{res/Stats.PNG}
+	\caption{An example of the graph}
+\end{figure}
 
 \chapter{Developer Guide}
 \section*{Creation of a new minigame}
@@ -421,15 +434,16 @@ To implement a key pressing if you are using the JavaFxView implementation you h
 At every frame this instruction tells the minigame to "move forward in time" the model of the time elapsed from the last frame. It is also supposed \footnote{depending on the implementation} to activate the PhysicsModel of every GameObject in the minigame.
 This phase will make the minigame evolve.
 \section*{Render}
-To allow the rendering you'll be required to implement the "getObjects" method in this way you'll send the list of GameObjects you want to render, in a specific 
-composition order. The View will call the \textit{AspectModel} of each GameObject in order to display them. So you can apply a specific look to an object by calling 
-the relative instructions of the \textit{Drawings} interface from the AspectModel. The \textit{Drawings} interface contains all the possible aspects types that you 
-can display, so after adding a new method you'll have to create the relative implementation. An \textit{AspectModel} can call multiple methods of the \textit{Drawings} 
+To allow the rendering you'll be required to implement the "getObjects" method in this way you'll send the list of GameObjects you want to render, in a specific
+composition order. The View will call the \textit{AspectModel} of each GameObject in order to display them. So you can apply a specific look to an object by calling
+the relative instructions of the \textit{Drawings} interface from the AspectModel. The \textit{Drawings} interface contains all the possible aspects types that you
+can display, so after adding a new method you'll have to create the relative implementation. An \textit{AspectModel} can call multiple methods of the \textit{Drawings}
 to create a specific appearance.
 \section*{Known bugs}
 \begin{itemize}
 	\item On a virtual machine, performace are higly affected, expetially in full screen mode.
-	\item On macOS the window manager throws some low level errors when switching to full screen or immediatly closing the app \footnote{\url{https://bugs.openjdk.org/browse/JDK-8231558}} 
+	      Reducing the window size should help the frame rate and the gaming experience.
+	\item On macOS the window manager throws some low level errors when switching to full screen or immediatly closing the app \footnote{\url{https://bugs.openjdk.org/browse/JDK-8231558}}
 \end{itemize}
 \textbf{You can find further information and details on the auto generated JavaDoc.}
 \chapter{Lab Practices}
