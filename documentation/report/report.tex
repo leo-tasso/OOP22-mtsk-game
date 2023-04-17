@@ -78,7 +78,11 @@ The Model part is represented by the implementation of \textbf{Minigame}s these 
 The \textbf{Controller} directs the run with the game loop pattern, updating each frame the view with the \textbf{GameObject}s fetched from the \textbf{Engine}.
 The \textbf{Controller} takes also care of intercepting the user's input from the \textbf{View}, then it forwards it to the Engine.
 Once the input has been received, the Engine is responsible for communicating it to each minigame: these in turn will update the state of all the GameObjects they contain, i.e. every single entity in the various playing fields.
-
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=\textwidth]{res/GeneralArchitecture.pdf}
+	\caption{UML diagram of genaral architecture, it clearly resembles the MVC diagram.}
+\end{figure}
 \section{Detailed design}
 \textbf{Problem:} Each GameObject must have a specific aspect and behaviour\\
 \textbf{Solution:} Each minigame is composed of \textbf{GameObject}s: those items use a component pattern\cite{oop-game-prog-patterns-2022}, thanks to which we get
